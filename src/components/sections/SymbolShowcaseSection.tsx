@@ -75,10 +75,13 @@ const ExtrudedSymbol = ({
           setHovered(true);
           if (!isDragging) document.body.style.cursor = 'grab';
         }}
-        onPointerOut={(e) => {
-          setHovered(false);
-          if (!isDragging) document.body.style.cursor = 'auto';
-        }}
+        onPointerOut={() => {
+        setHovered(false);
+        if (controlsRef.current) controlsRef.current.enabled = true; // Re-enable background rotation
+      }}
+      onPointerMissed={() => {
+        if (controlsRef.current) controlsRef.current.enabled = false; // Disable background rotation
+      }}
         onPointerDown={(e) => {
           e.stopPropagation(); // Stop OrbitControls from getting the event
           setIsDragging(true);
@@ -87,7 +90,7 @@ const ExtrudedSymbol = ({
         }}
       >
         {/* Mr-Eagle Hover Label (Hidden on mobile for cleaner UI) */}
-        {!isMobile && (
+        {typeof window !== 'undefined' && window.innerWidth >= 768 && (
           <Html position={[0, 2.6, 0]} center zIndexRange={[100, 0]} className="pointer-events-none">
             <AnimatePresence>
               {hovered && (
