@@ -55,7 +55,7 @@ export const CustomCursor = () => {
           y: mousePosition.y - 4,
           scale: isHovering ? 0 : 1,
         }}
-        transition={{ type: 'spring', stiffness: 300, damping: 20, mass: 0.1 }}
+        transition={{ type: 'spring', stiffness: 100, damping: 20, mass: 0.1 }}
       />
     </>
   );

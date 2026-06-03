@@ -98,7 +98,7 @@ const ExtrudedSymbol = ({
                   initial={{ opacity: 0, y: 30, scale: 0.5, rotateX: 45 }}
                   animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
                   exit={{ opacity: 0, y: 15, scale: 0.8, rotateX: -30 }}
-                  transition={{ type: "spring" as any, stiffness: 400, damping: 15 }}
+                  transition={{ type: "spring" as any, stiffness: 100, damping: 15 }}
                 >
                   <motion.div 
                     animate={{ 

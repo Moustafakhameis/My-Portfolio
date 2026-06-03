@@ -28,7 +28,7 @@ export const Footer = () => {
       opacity: 1, 
       y: 0,
       scale: 1,
-      transition: { type: "spring" as any, bounce: 0.5, duration: 0.8 }
+      transition: { type: "spring" as any, bounce: 0.1, duration: 0.8 }
     }
   };
 

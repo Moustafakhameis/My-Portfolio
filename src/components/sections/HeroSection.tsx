@@ -21,7 +21,7 @@ const itemVariants = {
     opacity: 1, 
     y: 0, 
     scale: 1,
-    transition: { type: "spring" as any, bounce: 0.5, duration: 1.2 } 
+    transition: { type: "spring" as any, bounce: 0.1, duration: 1.2 } 
   }
 };
 
@@ -158,8 +158,8 @@ export const HeroSection = () => {
               animate={{ y: [0, -15, 0] }}
               transition={{ 
                 y: { repeat: Infinity, duration: 6, ease: "easeInOut" },
-                scale: { type: "spring" as any, stiffness: 400 },
-                rotate: { type: "spring" as any, stiffness: 400 }
+                scale: { type: "spring" as any, stiffness: 100 },
+                rotate: { type: "spring" as any, stiffness: 100 }
               }}
               className="relative w-40 h-40 md:w-52 md:h-52 lg:w-56 lg:h-56 rounded-full overflow-hidden border-4 border-primary/20 shadow-2xl shadow-primary/20 bg-background/50 backdrop-blur-sm z-10 transition-colors duration-500 group-hover:border-primary/60 group-hover:shadow-primary/40"
             >
@@ -178,7 +178,7 @@ export const HeroSection = () => {
               }}
               className="absolute inset-[-15%] rounded-full bg-gradient-to-tr from-primary/30 to-transparent -z-10 blur-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-500 blob-blur"
             />
-            <div className="absolute inset-0 rounded-full bg-primary/20 -z-20 blur-3xl scale-150 animate-pulse group-hover:bg-primary/30 transition-colors duration-500 blob-blur"></div>
+            <div className="absolute inset-0 rounded-full bg-primary/20 -z-20 blur-3xl scale-150 duration-1000 group-hover:bg-primary/30 transition-colors duration-500 blob-blur"></div>
           </motion.div>
 
           <motion.div variants={itemVariants} whileHover={{ scale: 1.1, y: -5 }} className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary/5 text-primary mb-6 border border-primary/20 backdrop-blur-md shadow-sm cursor-default">
@@ -196,7 +196,7 @@ export const HeroSection = () => {
               animate={{ opacity: 1, scale: 1, backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}
               transition={{ 
                 opacity: { duration: 0.8, delay: 1.5 },
-                scale: { type: "spring" as any, bounce: 0.6, delay: 1.5 },
+                scale: { type: "spring" as any, bounce: 0.1, delay: 1.5 },
                 filter: { duration: 0.8, delay: 1.5 },
                 backgroundPosition: { repeat: Infinity, duration: 4, ease: "easeInOut" } 
               }}

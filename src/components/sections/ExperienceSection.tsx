@@ -97,7 +97,7 @@ export const ExperienceSection = () => {
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ type: "spring" as any, bounce: 0.4, duration: 1 }}
+        transition={{ type: "spring" as any, bounce: 0.1, duration: 1 }}
         className="max-w-4xl mx-auto mb-20 relative"
       >
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-primary/10 blur-[60px] -z-10 rounded-full blob-blur" />
@@ -132,7 +132,7 @@ export const ExperienceSection = () => {
             <motion.div 
               variants={{
                 hidden: { opacity: 0, scale: 0 },
-                visible: { opacity: 1, scale: 1, transition: { type: "spring" as any, bounce: 0.5, duration: 0.8 } }
+                visible: { opacity: 1, scale: 1, transition: { type: "spring" as any, bounce: 0.1, duration: 0.8 } }
               }}
               whileHover={{ scale: 1.2, rotate: 360, transition: { type: "spring" as any, duration: 0.8 } }}
               className="absolute left-0 -translate-x-1/2 top-6 p-2.5 bg-background border-2 border-border group-hover:border-primary rounded-full text-muted-foreground group-hover:text-primary shadow-sm group-hover:shadow-[0_0_20px_rgba(168,85,247,0.6)] transition-colors z-10 ring-4 ring-background"
@@ -147,7 +147,7 @@ export const ExperienceSection = () => {
                 visible: { opacity: 1, x: 0, transition: { type: "tween", ease: "easeOut", duration: 1 } }
               }}
             >
-              <motion.div whileHover={{ scale: 1.01, x: 5 }} transition={{ type: "spring" as any, bounce: 0.4 }}>
+              <motion.div whileHover={{ scale: 1.01, x: 5 }} transition={{ type: "spring" as any, bounce: 0.1 }}>
                 <SpotlightCard className="p-8 md:p-10 backdrop-blur-md">
                   <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-6">
                     <div>
