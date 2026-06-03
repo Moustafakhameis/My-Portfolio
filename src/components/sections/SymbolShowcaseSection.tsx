@@ -86,35 +86,37 @@ const ExtrudedSymbol = ({
           if (controlsRef.current) controlsRef.current.enabled = false; // Disable background rotation
         }}
       >
-        {/* Mr-Eagle Hover Label */}
-        <Html position={[0, 2.6, 0]} center zIndexRange={[100, 0]} className="pointer-events-none">
-          <AnimatePresence>
-            {hovered && (
-              <motion.div 
-                initial={{ opacity: 0, y: 30, scale: 0.5, rotateX: 45 }}
-                animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
-                exit={{ opacity: 0, y: 15, scale: 0.8, rotateX: -30 }}
-                transition={{ type: "spring" as any, stiffness: 400, damping: 15 }}
-              >
+        {/* Mr-Eagle Hover Label (Hidden on mobile for cleaner UI) */}
+        {!isMobile && (
+          <Html position={[0, 2.6, 0]} center zIndexRange={[100, 0]} className="pointer-events-none">
+            <AnimatePresence>
+              {hovered && (
                 <motion.div 
-                  animate={{ 
-                    boxShadow: [
-                      "0px 0px 15px rgba(168,85,247,0.4)", 
-                      "0px 0px 35px rgba(168,85,247,0.9)", 
-                      "0px 0px 15px rgba(168,85,247,0.4)"
-                    ] 
-                  }}
-                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                  className="bg-background/90 backdrop-blur-xl text-foreground font-black tracking-[0.2em] px-8 py-3 rounded-full border border-primary/50 whitespace-nowrap uppercase"
+                  initial={{ opacity: 0, y: 30, scale: 0.5, rotateX: 45 }}
+                  animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
+                  exit={{ opacity: 0, y: 15, scale: 0.8, rotateX: -30 }}
+                  transition={{ type: "spring" as any, stiffness: 400, damping: 15 }}
                 >
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-pink-500">
-                    Mr-Eagle
-                  </span>
+                  <motion.div 
+                    animate={{ 
+                      boxShadow: [
+                        "0px 0px 15px rgba(168,85,247,0.4)", 
+                        "0px 0px 35px rgba(168,85,247,0.9)", 
+                        "0px 0px 15px rgba(168,85,247,0.4)"
+                      ] 
+                    }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                    className="bg-background/90 backdrop-blur-xl text-foreground font-black tracking-[0.2em] px-8 py-3 rounded-full border border-primary/50 whitespace-nowrap uppercase"
+                  >
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-pink-500">
+                      Mr-Eagle
+                    </span>
+                  </motion.div>
                 </motion.div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </Html>
+              )}
+            </AnimatePresence>
+          </Html>
+        )}
 
         {/* Front Face */}
         <Text
@@ -165,7 +167,7 @@ const SceneLayout = ({ targetRotation, isDragging, setIsDragging, controlsRef }:
   const isMobile = window.innerWidth < 768;
   
   return (
-    <group position={[isMobile ? 0 : viewport.width / 4, isMobile ? -3.5 : 0, 0]}>
+    <group position={[isMobile ? 0 : viewport.width / 4, isMobile ? -5.5 : 0, 0]}>
       <ExtrudedSymbol 
         targetRotation={targetRotation} 
         isDragging={isDragging} 
@@ -207,7 +209,7 @@ export const SymbolShowcaseSection = () => {
       <div className={`absolute inset-0 z-0 pointer-events-auto ${isDragging ? 'cursor-grabbing' : 'cursor-move'}`}>
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent pointer-events-none" />
         
-        <Canvas camera={{ position: [0, 0, 10], fov: 45 }}>
+        <Canvas dpr={[1, 1.5]} performance={{ min: 0.5 }} camera={{ position: [0, 0, 10], fov: 45 }}>
           <ambientLight intensity={0.5} />
           <directionalLight position={[10, 10, 10]} intensity={2} color="#c084fc" />
           <spotLight position={[-10, 10, 10]} angle={0.15} penumbra={1} intensity={3} color="#ec4899" />
@@ -220,8 +222,8 @@ export const SymbolShowcaseSection = () => {
             controlsRef={controlsRef}
           />
           
-          {theme === 'dark' && <Stars radius={50} depth={50} count={3000} factor={3} saturation={1} fade speed={1.5} />}
-          <Sparkles count={300} scale={20} size={6} speed={0.5} opacity={theme === 'dark' ? 0.5 : 0.8} color={theme === 'dark' ? "#e9d5ff" : "#9333ea"} />
+          {theme === 'dark' && <Stars radius={50} depth={50} count={window.innerWidth < 768 ? 800 : 3000} factor={3} saturation={1} fade speed={1.5} />}
+          <Sparkles count={window.innerWidth < 768 ? 100 : 300} scale={20} size={6} speed={0.5} opacity={theme === 'dark' ? 0.5 : 0.8} color={theme === 'dark' ? "#e9d5ff" : "#9333ea"} />
           
           <Environment preset="city" />
           <OrbitControls 
