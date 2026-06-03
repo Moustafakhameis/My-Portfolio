@@ -26,11 +26,10 @@ export const ContactSection = () => {
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30, filter: 'blur(10px)', scale: 0.95 },
+    hidden: { opacity: 0, y: 30, scale: 0.95 },
     visible: { 
       opacity: 1, 
       y: 0, 
-      filter: 'blur(0px)', 
       scale: 1,
       transition: { type: "spring" as any, bounce: 0.5, duration: 1 } 
     }

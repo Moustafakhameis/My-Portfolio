@@ -16,12 +16,11 @@ const containerVariants = {
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 50, scale: 0.9, filter: 'blur(15px)' },
+  hidden: { opacity: 0, y: 50, scale: 0.9 },
   show: { 
     opacity: 1, 
     y: 0, 
     scale: 1,
-    filter: 'blur(0px)',
     transition: { type: "spring" as any, bounce: 0.5, duration: 1.2 } 
   }
 };
@@ -102,8 +101,8 @@ const AnimatedText = ({ text }: { text: string }) => {
       {words.map((word, i) => (
         <span key={i} className="inline-block overflow-visible mr-4 pb-2">
           <motion.span
-            initial={{ y: "50%", opacity: 0, filter: 'blur(20px)' }}
-            animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
+            initial={{ y: "50%", opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, ease: [] as const, delay: 0.8 + i * 0.15 }}
             className={`text-transparent bg-clip-text bg-gradient-to-r ${colors[i % colors.length]} inline-block drop-shadow-sm`}
           >
@@ -193,8 +192,8 @@ export const HeroSection = () => {
           <motion.h1 variants={itemVariants} className="text-5xl md:text-7xl lg:text-[7rem] font-black tracking-tighter mb-4 text-center leading-[1.1]">
             <AnimatedText text={String(t('hero', 'greeting'))} />{' '}
             <motion.span 
-              initial={{ opacity: 0, scale: 0.5, filter: 'blur(30px)' }}
-              animate={{ opacity: 1, scale: 1, filter: 'blur(0px)', backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1, backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}
               transition={{ 
                 opacity: { duration: 0.8, delay: 1.5 },
                 scale: { type: "spring" as any, bounce: 0.6, delay: 1.5 },

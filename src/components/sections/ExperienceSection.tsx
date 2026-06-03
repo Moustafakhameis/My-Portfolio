@@ -94,8 +94,8 @@ export const ExperienceSection = () => {
   return (
     <section id="experience" ref={containerRef} className="py-24 px-6 md:px-12 max-w-5xl mx-auto overflow-hidden">
       <motion.div
-        initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
-        whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false }}
         transition={{ type: "spring" as any, bounce: 0.4, duration: 1 }}
         className="max-w-4xl mx-auto mb-20 relative"
@@ -143,8 +143,8 @@ export const ExperienceSection = () => {
             {/* Experience Card */}
             <motion.div 
               variants={{
-                hidden: { opacity: 0, x: 50, filter: 'blur(10px)' },
-                visible: { opacity: 1, x: 0, filter: 'blur(0px)', transition: { type: "spring" as any, bounce: 0.3, duration: 1 } }
+                hidden: { opacity: 0, x: 50 },
+                visible: { opacity: 1, x: 0, transition: { type: "tween", ease: "easeOut", duration: 1 } }
               }}
             >
               <motion.div whileHover={{ scale: 1.01, x: 5 }} transition={{ type: "spring" as any, bounce: 0.4 }}>

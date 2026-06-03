@@ -357,8 +357,7 @@ export const SkillsSection = () => {
           <>
             {/* Deep Space Milky Way Dust */}
             <div className="absolute inset-0 z-0 pointer-events-none opacity-40 mix-blend-screen" style={{
-              background: 'radial-gradient(ellipse at 40% 50%, rgba(30, 27, 75, 0.6) 0%, transparent 60%), radial-gradient(ellipse at 80% 30%, rgba(88, 28, 135, 0.3) 0%, transparent 50%), radial-gradient(ellipse at 20% 80%, rgba(14, 165, 233, 0.2) 0%, transparent 50%)',
-              filter: 'blur(60px)'
+              background: 'radial-gradient(ellipse at 40% 50%, rgba(30, 27, 75, 0.6) 0%, transparent 60%), radial-gradient(ellipse at 80% 30%, rgba(88, 28, 135, 0.3) 0%, transparent 50%), radial-gradient(ellipse at 20% 80%, rgba(14, 165, 233, 0.2) 0%, transparent 50%)'
             }} />
             
             <Aurora />
@@ -454,7 +453,6 @@ export const SkillsSection = () => {
                 className="absolute w-[150px] h-[150px] rounded-full"
                 style={{
                   background: 'repeating-conic-gradient(from 0deg, rgba(253, 224, 71, 0.4) 0deg 15deg, transparent 15deg 30deg)',
-                  filter: 'blur(8px)',
                 }}
                 animate={{ rotate: 360 }}
                 transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
@@ -482,8 +480,7 @@ export const SkillsSection = () => {
                 <motion.div 
                   className="absolute w-40 h-40 -top-6 -left-6 rounded-full opacity-20"
                   style={{
-                    background: 'radial-gradient(circle at 50% 50%, transparent 0%, #ea580c 50%, transparent 100%)',
-                    filter: 'blur(4px)'
+                    background: 'radial-gradient(circle at 50% 50%, transparent 0%, #ea580c 50%, transparent 100%)'
                   }}
                   animate={{ rotate: -360, scale: [1, 1.1, 1] }}
                   transition={{ rotate: { duration: 20, repeat: Infinity, ease: 'linear' }, scale: { duration: 5, repeat: Infinity, ease: 'easeInOut' } }}

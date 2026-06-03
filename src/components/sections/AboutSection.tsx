@@ -18,32 +18,29 @@ export const AboutSection = () => {
   };
 
   const textReveal = {
-    hidden: { opacity: 0, x: -40, filter: 'blur(10px)' },
+    hidden: { opacity: 0, x: -40 },
     visible: { 
       opacity: 1, 
       x: 0, 
-      filter: 'blur(0px)', 
       transition: { type: "spring" as any, bounce: 0.3, duration: 1.2 } 
     },
   };
 
   const cardReveal = {
-    hidden: { opacity: 0, y: 40, scale: 0.9, filter: 'blur(10px)' },
+    hidden: { opacity: 0, y: 40, scale: 0.9 },
     visible: { 
       opacity: 1, 
       y: 0, 
       scale: 1, 
-      filter: 'blur(0px)', 
       transition: { type: "spring" as any, bounce: 0.4, duration: 1 } 
     },
   };
 
   const eduReveal = {
-    hidden: { opacity: 0, x: 40, filter: 'blur(10px)' },
+    hidden: { opacity: 0, x: 40 },
     visible: { 
       opacity: 1, 
       x: 0, 
-      filter: 'blur(0px)', 
       transition: { type: "spring" as any, bounce: 0.3, duration: 1.2 } 
     },
   };
@@ -119,8 +116,8 @@ export const AboutSection = () => {
           
           <div className="relative pl-8 border-l-2 border-primary/20 space-y-10 group-hover:border-primary/40 transition-colors duration-500">
             <motion.div 
-              initial={{ opacity: 0, x: -20, filter: 'blur(5px)' }}
-              whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: false }}
               transition={{ delay: 0.4, duration: 0.8 }}
               className="relative"

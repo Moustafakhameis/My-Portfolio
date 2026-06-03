@@ -23,11 +23,10 @@ export const Footer = () => {
   };
 
   const itemVariants: any = {
-    hidden: { opacity: 0, y: 20, filter: 'blur(10px)', scale: 0.9 },
+    hidden: { opacity: 0, y: 20, scale: 0.9 },
     visible: { 
       opacity: 1, 
-      y: 0, 
-      filter: 'blur(0px)',
+      y: 0,
       scale: 1,
       transition: { type: "spring" as any, bounce: 0.5, duration: 0.8 }
     }

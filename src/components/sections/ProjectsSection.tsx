@@ -120,12 +120,11 @@ export const ProjectsSection = () => {
   };
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 50, scale: 0.9, filter: 'blur(10px)' },
+    hidden: { opacity: 0, y: 50, scale: 0.9 },
     visible: (i: number) => ({ 
       opacity: 1, 
       y: 0, 
       scale: 1, 
-      filter: 'blur(0px)', 
       transition: { type: "spring" as any, bounce: 0.4, duration: 1, delay: (i % 2) * 0.15 } 
     }),
   };
@@ -133,8 +132,8 @@ export const ProjectsSection = () => {
   return (
     <section id="work" className="py-24 px-6 md:px-12 max-w-7xl mx-auto overflow-hidden">
       <motion.div
-        initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
-        whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false }}
         transition={{ type: "spring" as any, bounce: 0.4, duration: 1 }}
         className="mb-16 relative"

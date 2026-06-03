@@ -29,7 +29,7 @@ export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
         <motion.div
           className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background text-foreground"
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, y: -50, filter: 'blur(10px)' }}
+          exit={{ opacity: 0, y: -50 }}
           transition={{ duration: 0.8, ease: [] as const }}
         >
           <div className="flex flex-col items-center gap-4">
