@@ -100,7 +100,7 @@ export const ExperienceSection = () => {
         transition={{ type: "spring" as any, bounce: 0.4, duration: 1 }}
         className="max-w-4xl mx-auto mb-20 relative"
       >
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-primary/10 blur-[60px] -z-10 rounded-full" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-primary/10 blur-[60px] -z-10 rounded-full blob-blur" />
         <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-center">
           {t('experience', 'title')}
         </h2>

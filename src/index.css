@@ -100,3 +100,12 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+/* Hardware Acceleration for Heavy Filters (Improves Mobile Performance) */
+.blob-blur {
+  will-change: transform, filter;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}

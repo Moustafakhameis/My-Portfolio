@@ -104,8 +104,8 @@ export const AboutSection = () => {
           variants={eduReveal} 
           className="glass p-10 rounded-3xl border border-border/50 relative overflow-hidden group hover:border-primary/30 transition-colors duration-500 hover:shadow-2xl hover:shadow-primary/5"
         >
-          <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-primary/10 transition-colors duration-500" />
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 group-hover:bg-purple-500/10 transition-colors duration-500" />
+          <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-primary/10 transition-colors duration-500 blob-blur" />
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 group-hover:bg-purple-500/10 transition-colors duration-500 blob-blur" />
           
           <h3 className="text-3xl font-bold mb-10 flex items-center gap-4">
             <div className="p-3 rounded-2xl bg-primary/10 text-primary">

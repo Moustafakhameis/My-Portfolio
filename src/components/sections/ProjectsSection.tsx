@@ -138,7 +138,7 @@ export const ProjectsSection = () => {
         transition={{ type: "spring" as any, bounce: 0.4, duration: 1 }}
         className="mb-16 relative"
       >
-        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-48 h-48 bg-primary/10 blur-[60px] -z-10 rounded-full" />
+        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-48 h-48 bg-primary/10 blur-[60px] -z-10 rounded-full blob-blur" />
         <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-6">
           {t('projects', 'title')}
         </h2>

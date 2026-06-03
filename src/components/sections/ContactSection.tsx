@@ -37,7 +37,7 @@ export const ContactSection = () => {
 
   return (
     <section id="contact" className="py-24 px-6 md:px-12 max-w-5xl mx-auto text-center relative">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 blur-[100px] -z-10 rounded-full" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 blur-[100px] -z-10 rounded-full blob-blur" />
       
       <motion.div
         variants={containerVariants}
@@ -103,7 +103,7 @@ export const ContactSection = () => {
 
         <motion.div variants={itemVariants} className="flex justify-center items-center gap-12 border-t border-border/30 pt-16 mt-8 relative">
           {/* Subtle glow on the separator line */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent blur-[1px]" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent blur-[1px] blob-blur" />
           
           <a
             href="https://www.linkedin.com/in/moustafaly"

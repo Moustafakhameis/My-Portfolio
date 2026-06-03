@@ -129,12 +129,12 @@ export const HeroSection = () => {
       {/* Floating background elements */}
       <motion.div 
         custom={1} variants={floatingBubbleVariants} animate="animate"
-        className="absolute top-1/4 left-1/4 w-72 h-72 bg-primary/5 rounded-full blur-3xl -z-10"
+        className="absolute top-1/4 left-1/4 w-72 h-72 bg-primary/5 rounded-full blur-3xl -z-10 blob-blur"
         style={{ willChange: "transform" }}
       />
       <motion.div 
         custom={2} variants={floatingBubbleVariants} animate="animate"
-        className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl -z-10"
+        className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl -z-10 blob-blur"
         style={{ willChange: "transform" }}
       />
 
@@ -176,9 +176,9 @@ export const HeroSection = () => {
                 rotate: { repeat: Infinity, duration: 25, ease: "linear" },
                 scale: { repeat: Infinity, duration: 10, ease: "easeInOut" }
               }}
-              className="absolute inset-[-15%] rounded-full bg-gradient-to-tr from-primary/30 to-transparent -z-10 blur-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-500"
+              className="absolute inset-[-15%] rounded-full bg-gradient-to-tr from-primary/30 to-transparent -z-10 blur-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-500 blob-blur"
             />
-            <div className="absolute inset-0 rounded-full bg-primary/20 -z-20 blur-3xl scale-150 animate-pulse group-hover:bg-primary/30 transition-colors duration-500"></div>
+            <div className="absolute inset-0 rounded-full bg-primary/20 -z-20 blur-3xl scale-150 animate-pulse group-hover:bg-primary/30 transition-colors duration-500 blob-blur"></div>
           </motion.div>
 
           <motion.div variants={itemVariants} whileHover={{ scale: 1.1, y: -5 }} className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary/5 text-primary mb-6 border border-primary/20 backdrop-blur-md shadow-sm cursor-default">

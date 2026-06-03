@@ -31,10 +31,10 @@ const RealisticCloud = ({ x, y, scale, delay, duration }: any) => (
       className="relative w-32 h-16 drop-shadow-lg" 
       style={{ transform: `scale(${scale})` }}
     >
-      <div className="absolute top-2 left-2 w-10 h-10 bg-white rounded-full blur-[1px]" />
-      <div className="absolute -top-2 left-8 w-16 h-16 bg-slate-50 rounded-full blur-[1px]" />
-      <div className="absolute top-1 left-16 w-14 h-14 bg-white rounded-full blur-[1px]" />
-      <div className="absolute top-6 left-0 w-32 h-8 bg-slate-50 rounded-full blur-[1px]" />
+      <div className="absolute top-2 left-2 w-10 h-10 bg-white rounded-full blur-[1px] blob-blur" />
+      <div className="absolute -top-2 left-8 w-16 h-16 bg-slate-50 rounded-full blur-[1px] blob-blur" />
+      <div className="absolute top-1 left-16 w-14 h-14 bg-white rounded-full blur-[1px] blob-blur" />
+      <div className="absolute top-6 left-0 w-32 h-8 bg-slate-50 rounded-full blur-[1px] blob-blur" />
     </div>
   </motion.div>
 );
@@ -460,7 +460,7 @@ export const SkillsSection = () => {
               
               {/* Pulsing Heat Aura */}
               <motion.div 
-                className="absolute w-[120px] h-[120px] rounded-full bg-yellow-400/40 blur-[15px]"
+                className="absolute w-[120px] h-[120px] rounded-full bg-yellow-400/40 blur-[15px] blob-blur"
                 animate={{ scale: [1, 1.15, 1], opacity: [0.6, 1, 0.6] }}
                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
               />
