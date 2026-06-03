@@ -35,11 +35,22 @@ export const Navbar = () => {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
+
   useMotionValueEvent(scrollY, 'change', (latest) => {
+    if (isMobileMenuOpen) return; // Don't hide navbar if mobile menu is open
     const previous = scrollY.getPrevious() ?? 0;
     if (latest > previous && latest > 150) {
       setIsHidden(true);
-      setIsMobileMenuOpen(false);
     } else {
       setIsHidden(false);
     }
@@ -57,8 +68,8 @@ export const Navbar = () => {
 
   // Animation variants
   const navContainer = {
-    visible: { y: 0, transition: { duration: 0.4, ease: [] as const } },
-    hidden: { y: '-100%', transition: { duration: 0.4, ease: [] as const } },
+    visible: { y: 0, transition: { duration: 0.4, ease: 'easeInOut' } },
+    hidden: { y: '-100%', transition: { duration: 0.4, ease: 'easeInOut' } },
   };
 
   const staggerContainer = {
