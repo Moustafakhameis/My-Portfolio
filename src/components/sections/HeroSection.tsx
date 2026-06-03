@@ -22,7 +22,7 @@ const itemVariants = {
     y: 0, 
     scale: 1,
     filter: 'blur(0px)',
-    transition: { type: "spring", bounce: 0.5, duration: 1.2 } 
+    transition: { type: "spring" as any, bounce: 0.5, duration: 1.2 } 
   }
 };
 
@@ -104,7 +104,7 @@ const AnimatedText = ({ text }: { text: string }) => {
           <motion.span
             initial={{ y: "50%", opacity: 0, filter: 'blur(20px)' }}
             animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
-            transition={{ duration: 0.8, ease: [0.2, 0.65, 0.3, 0.9], delay: 0.8 + i * 0.15 }}
+            transition={{ duration: 0.8, ease: [] as const, delay: 0.8 + i * 0.15 }}
             className={`text-transparent bg-clip-text bg-gradient-to-r ${colors[i % colors.length]} inline-block drop-shadow-sm`}
           >
             {word}
@@ -131,10 +131,12 @@ export const HeroSection = () => {
       <motion.div 
         custom={1} variants={floatingBubbleVariants} animate="animate"
         className="absolute top-1/4 left-1/4 w-72 h-72 bg-primary/5 rounded-full blur-3xl -z-10"
+        style={{ willChange: "transform" }}
       />
       <motion.div 
         custom={2} variants={floatingBubbleVariants} animate="animate"
         className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl -z-10"
+        style={{ willChange: "transform" }}
       />
 
       <motion.div 
@@ -157,8 +159,8 @@ export const HeroSection = () => {
               animate={{ y: [0, -15, 0] }}
               transition={{ 
                 y: { repeat: Infinity, duration: 6, ease: "easeInOut" },
-                scale: { type: "spring", stiffness: 400 },
-                rotate: { type: "spring", stiffness: 400 }
+                scale: { type: "spring" as any, stiffness: 400 },
+                rotate: { type: "spring" as any, stiffness: 400 }
               }}
               className="relative w-40 h-40 md:w-52 md:h-52 lg:w-56 lg:h-56 rounded-full overflow-hidden border-4 border-primary/20 shadow-2xl shadow-primary/20 bg-background/50 backdrop-blur-sm z-10 transition-colors duration-500 group-hover:border-primary/60 group-hover:shadow-primary/40"
             >
@@ -195,7 +197,7 @@ export const HeroSection = () => {
               animate={{ opacity: 1, scale: 1, filter: 'blur(0px)', backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}
               transition={{ 
                 opacity: { duration: 0.8, delay: 1.5 },
-                scale: { type: "spring", bounce: 0.6, delay: 1.5 },
+                scale: { type: "spring" as any, bounce: 0.6, delay: 1.5 },
                 filter: { duration: 0.8, delay: 1.5 },
                 backgroundPosition: { repeat: Infinity, duration: 4, ease: "easeInOut" } 
               }}

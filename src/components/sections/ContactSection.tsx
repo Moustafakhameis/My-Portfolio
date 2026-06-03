@@ -32,7 +32,7 @@ export const ContactSection = () => {
       y: 0, 
       filter: 'blur(0px)', 
       scale: 1,
-      transition: { type: "spring", bounce: 0.5, duration: 1 } 
+      transition: { type: "spring" as any, bounce: 0.5, duration: 1 } 
     }
   };
 

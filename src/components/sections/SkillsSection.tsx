@@ -40,15 +40,15 @@ const RealisticCloud = ({ x, y, scale, delay, duration }: any) => (
 );
 
 const Aurora = () => (
-  <div className="absolute inset-0 overflow-visible pointer-events-none z-0 mix-blend-screen opacity-100">
-    <svg className="absolute w-[140%] h-[120%] top-[-10%] left-[-20%] overflow-visible" viewBox="0 0 1000 500" preserveAspectRatio="none">
+  <div className="absolute inset-0 overflow-visible pointer-events-none z-0 mix-blend-screen opacity-100" style={{ willChange: "transform, opacity" }}>
+    <svg className="absolute w-[140%] h-[120%] top-[-10%] left-[-20%] overflow-visible" viewBox="0 0 1000 500" preserveAspectRatio="none" style={{ willChange: "transform" }}>
       <defs>
         {/* filterUnits="userSpaceOnUse" completely prevents the hard clipping edge caused by object bounding boxes */}
         <filter id="aurora-blur-massive" filterUnits="userSpaceOnUse" x="-500" y="-500" width="2000" height="1500">
-          <feGaussianBlur stdDeviation="80" />
+          <feGaussianBlur stdDeviation="45" />
         </filter>
         <filter id="aurora-blur-medium" filterUnits="userSpaceOnUse" x="-500" y="-500" width="2000" height="1500">
-          <feGaussianBlur stdDeviation="35" />
+          <feGaussianBlur stdDeviation="25" />
         </filter>
         <filter id="aurora-blur-sharp" filterUnits="userSpaceOnUse" x="-500" y="-500" width="2000" height="1500">
           <feGaussianBlur stdDeviation="10" />

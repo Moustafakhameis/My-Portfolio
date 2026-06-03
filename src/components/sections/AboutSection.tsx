@@ -23,7 +23,7 @@ export const AboutSection = () => {
       opacity: 1, 
       x: 0, 
       filter: 'blur(0px)', 
-      transition: { type: "spring", bounce: 0.3, duration: 1.2 } 
+      transition: { type: "spring" as any, bounce: 0.3, duration: 1.2 } 
     },
   };
 
@@ -34,7 +34,7 @@ export const AboutSection = () => {
       y: 0, 
       scale: 1, 
       filter: 'blur(0px)', 
-      transition: { type: "spring", bounce: 0.4, duration: 1 } 
+      transition: { type: "spring" as any, bounce: 0.4, duration: 1 } 
     },
   };
 
@@ -44,7 +44,7 @@ export const AboutSection = () => {
       opacity: 1, 
       x: 0, 
       filter: 'blur(0px)', 
-      transition: { type: "spring", bounce: 0.3, duration: 1.2 } 
+      transition: { type: "spring" as any, bounce: 0.3, duration: 1.2 } 
     },
   };
 

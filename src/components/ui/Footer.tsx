@@ -11,7 +11,7 @@ export const Footer = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const containerVariants = {
+  const containerVariants: any = {
     hidden: { opacity: 0 },
     visible: { 
       opacity: 1,
@@ -22,14 +22,14 @@ export const Footer = () => {
     }
   };
 
-  const itemVariants = {
+  const itemVariants: any = {
     hidden: { opacity: 0, y: 20, filter: 'blur(10px)', scale: 0.9 },
     visible: { 
       opacity: 1, 
       y: 0, 
       filter: 'blur(0px)',
       scale: 1,
-      transition: { type: "spring", bounce: 0.5, duration: 0.8 }
+      transition: { type: "spring" as any, bounce: 0.5, duration: 0.8 }
     }
   };
 
@@ -88,7 +88,7 @@ export const Footer = () => {
                 <motion.div 
                   initial={{ y: "100%" }}
                   animate={{ y: isHovered ? "0%" : "100%" }}
-                  transition={{ type: "spring", bounce: 0.2, duration: 0.4 }}
+                  transition={{ type: "spring" as any, bounce: 0.2, duration: 0.4 }}
                   className="absolute inset-0 bg-gradient-to-r from-primary to-purple-500 z-0 rounded-lg"
                 />
               </motion.a>
