@@ -96,7 +96,7 @@ export const ExperienceSection = () => {
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        viewport={{ once: false }}
         transition={{ type: "spring" as any, bounce: 0.1, duration: 1 }}
         className="max-w-4xl mx-auto mb-20 relative"
       >
@@ -121,7 +121,7 @@ export const ExperienceSection = () => {
             key={index}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
+            viewport={{ once: false, margin: "-100px" }}
             variants={{
               hidden: { opacity: 0 },
               visible: { opacity: 1, transition: { staggerChildren: 0.2, delayChildren: index * 0.1 } }

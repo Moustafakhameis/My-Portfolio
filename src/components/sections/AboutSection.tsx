@@ -51,7 +51,7 @@ export const AboutSection = () => {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: "-50px" }}
+        viewport={{ once: false, margin: "-100px" }}
         className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
       >
         <div className="space-y-10">
@@ -118,7 +118,7 @@ export const AboutSection = () => {
             <motion.div 
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false }}
               transition={{ delay: 0.4, duration: 0.8 }}
               className="relative"
             >

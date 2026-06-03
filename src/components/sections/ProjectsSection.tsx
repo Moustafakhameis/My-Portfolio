@@ -134,7 +134,7 @@ export const ProjectsSection = () => {
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        viewport={{ once: false }}
         transition={{ type: "spring" as any, bounce: 0.1, duration: 1 }}
         className="mb-16 relative"
       >
@@ -153,7 +153,7 @@ export const ProjectsSection = () => {
             variants={cardVariants} 
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={{ once: false, amount: 0.2 }}
             custom={index}
             key={index} 
             className="h-full"
