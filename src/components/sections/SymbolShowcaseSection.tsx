@@ -162,10 +162,10 @@ const ExtrudedSymbol = ({
 
 const SceneLayout = ({ targetRotation, isDragging, setIsDragging, controlsRef }: any) => {
   const { viewport } = useThree();
-  const isMobile = viewport.width < 12;
+  const isMobile = window.innerWidth < 768;
   
   return (
-    <group position={[isMobile ? 0 : viewport.width / 4, isMobile ? 0 : 0, 0]}>
+    <group position={[isMobile ? 0 : viewport.width / 4, isMobile ? -1.5 : 0, 0]}>
       <ExtrudedSymbol 
         targetRotation={targetRotation} 
         isDragging={isDragging} 
@@ -239,8 +239,8 @@ export const SymbolShowcaseSection = () => {
       </div>
 
       {/* Foreground Text Overlay */}
-      <div className="relative w-full md:w-1/2 z-10 flex flex-col justify-center text-center md:text-left pointer-events-none">
-        <h2 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-foreground drop-shadow-sm">
+      <div className="relative w-full md:w-1/2 z-10 flex flex-col justify-start pt-4 md:pt-0 md:justify-center text-center md:text-left pointer-events-none mt-10 md:mt-0">
+        <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-foreground drop-shadow-sm">
           The Mark of <br className="hidden md:block" />
           <span className="text-primary text-gradient drop-shadow-[0_0_40px_rgba(168,85,247,0.3)]">Excellence</span>
         </h2>
