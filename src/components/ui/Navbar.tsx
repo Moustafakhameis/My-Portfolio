@@ -206,51 +206,94 @@ export const Navbar = () => {
         </motion.div>
       </motion.div>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu Overlay (Full Screen) */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ type: 'tween', ease: 'easeOut', duration: 0.3 }}
-            className="absolute top-full left-0 right-0 bg-background/95 backdrop-blur-xl border-b border-white/5 shadow-2xl flex flex-col items-center py-6 gap-6 md:hidden z-40"
+            initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+            animate={{ opacity: 1, backdropFilter: "blur(20px)" }}
+            exit={{ opacity: 0, backdropFilter: "blur(0px)", transition: { delay: 0.3 } }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className="fixed inset-0 h-screen w-screen bg-background/98 flex flex-col justify-center items-center md:hidden z-40 overflow-hidden"
           >
-            {navLinks.map((link) => {
-              const isActive = activeSection === link.href.substring(1);
-              return (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className={cn(
-                    "text-xl font-bold tracking-wide transition-colors capitalize",
-                    isActive ? "text-primary drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]" : "text-foreground/80 hover:text-foreground"
-                  )}
-                >
-                  {link.name}
-                </a>
-              );
-            })}
-            
-            <div className="flex items-center gap-6 mt-4 pt-6 border-t border-border/50 w-2/3 justify-center">
-              <button
-                onClick={toggleLanguage}
-                className="flex items-center gap-2 p-2"
-                aria-label="Toggle language"
-              >
-                <Languages size={24} className="text-foreground" />
-                <span className="text-sm font-bold uppercase text-foreground">{language}</span>
-              </button>
+            {/* Background Decorative Blob */}
+            <motion.div 
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ duration: 0.6 }}
+              className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent -z-10"
+            />
+
+            <motion.div
+              initial="hidden"
+              animate="show"
+              exit="hidden"
+              variants={{
+                hidden: { opacity: 0 },
+                show: {
+                  opacity: 1,
+                  transition: { staggerChildren: 0.1, delayChildren: 0.2 }
+                }
+              }}
+              className="flex flex-col items-center gap-10 w-full"
+            >
+              {navLinks.map((link) => {
+                const isActive = activeSection === link.href.substring(1);
+                return (
+                  <motion.a
+                    key={link.name}
+                    href={link.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    variants={{
+                      hidden: { opacity: 0, y: 50 },
+                      show: { opacity: 1, y: 0, transition: { type: "spring" as any, stiffness: 300, damping: 24 } }
+                    }}
+                    className="relative group"
+                  >
+                    <span className={cn(
+                      "text-4xl font-black tracking-widest uppercase transition-colors duration-300",
+                      isActive ? "text-transparent bg-clip-text bg-gradient-to-r from-primary to-pink-500 drop-shadow-[0_0_15px_rgba(168,85,247,0.5)]" : "text-foreground/70 hover:text-foreground"
+                    )}>
+                      {link.name}
+                    </span>
+                    {isActive && (
+                      <motion.div
+                        layoutId="mobile-active"
+                        className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-primary shadow-[0_0_10px_rgba(168,85,247,0.8)]"
+                      />
+                    )}
+                  </motion.a>
+                );
+              })}
               
-              <button
-                onClick={toggleTheme}
-                className="p-2"
-                aria-label="Toggle theme"
+              <motion.div 
+                variants={{
+                  hidden: { opacity: 0, scale: 0.8 },
+                  show: { opacity: 1, scale: 1, transition: { type: "spring" as any, stiffness: 300, damping: 24, delay: 0.4 } }
+                }}
+                className="flex items-center gap-8 mt-8 pt-8 border-t border-border/30 w-3/4 justify-center"
               >
-                {theme === 'dark' ? <Sun size={24} className="text-yellow-400" /> : <Moon size={24} className="text-primary" />}
-              </button>
-            </div>
+                <button
+                  onClick={toggleLanguage}
+                  className="flex items-center gap-3 p-3 rounded-full hover:bg-primary/10 transition-colors"
+                  aria-label="Toggle language"
+                >
+                  <Languages size={28} className="text-foreground" />
+                  <span className="text-lg font-bold uppercase text-foreground">{language}</span>
+                </button>
+                
+                <div className="w-px h-8 bg-border/50" />
+                
+                <button
+                  onClick={toggleTheme}
+                  className="p-3 rounded-full hover:bg-primary/10 transition-colors"
+                  aria-label="Toggle theme"
+                >
+                  {theme === 'dark' ? <Sun size={28} className="text-yellow-400 drop-shadow-[0_0_10px_rgba(250,204,21,0.5)]" /> : <Moon size={28} className="text-primary drop-shadow-[0_0_10px_rgba(168,85,247,0.5)]" />}
+                </button>
+              </motion.div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
