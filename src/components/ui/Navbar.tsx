@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion';
-import { Moon, Sun, Languages } from 'lucide-react';
+import { Moon, Sun, Languages, Menu, X } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { cn } from '../../utils/cn';
@@ -11,6 +11,7 @@ export const Navbar = () => {
   const [isHidden, setIsHidden] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [activeSection, setActiveSection] = useState<string>('');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { scrollY } = useScroll();
 
   useEffect(() => {
@@ -38,6 +39,7 @@ export const Navbar = () => {
     const previous = scrollY.getPrevious() ?? 0;
     if (latest > previous && latest > 150) {
       setIsHidden(true);
+      setIsMobileMenuOpen(false);
     } else {
       setIsHidden(false);
     }
@@ -101,7 +103,19 @@ export const Navbar = () => {
         </motion.span>
       </motion.a>
 
-      {/* Navigation Links & Controls */}
+      {/* Mobile Menu Toggle Button */}
+      <div className="md:hidden flex items-center gap-4">
+        <motion.button
+          whileTap={{ scale: 0.9 }}
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="p-2 text-foreground hover:text-primary transition-colors z-50 relative"
+          aria-label="Toggle mobile menu"
+        >
+          {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+        </motion.button>
+      </div>
+
+      {/* Desktop Navigation Links & Controls */}
       <motion.div 
         variants={staggerContainer}
         initial="hidden"
@@ -180,6 +194,55 @@ export const Navbar = () => {
           </motion.button>
         </motion.div>
       </motion.div>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ type: 'tween', ease: 'easeOut', duration: 0.3 }}
+            className="absolute top-full left-0 right-0 bg-background/95 backdrop-blur-xl border-b border-white/5 shadow-2xl flex flex-col items-center py-6 gap-6 md:hidden z-40"
+          >
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.href.substring(1);
+              return (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={cn(
+                    "text-xl font-bold tracking-wide transition-colors capitalize",
+                    isActive ? "text-primary drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]" : "text-foreground/80 hover:text-foreground"
+                  )}
+                >
+                  {link.name}
+                </a>
+              );
+            })}
+            
+            <div className="flex items-center gap-6 mt-4 pt-6 border-t border-border/50 w-2/3 justify-center">
+              <button
+                onClick={toggleLanguage}
+                className="flex items-center gap-2 p-2"
+                aria-label="Toggle language"
+              >
+                <Languages size={24} className="text-foreground" />
+                <span className="text-sm font-bold uppercase text-foreground">{language}</span>
+              </button>
+              
+              <button
+                onClick={toggleTheme}
+                className="p-2"
+                aria-label="Toggle theme"
+              >
+                {theme === 'dark' ? <Sun size={24} className="text-yellow-400" /> : <Moon size={24} className="text-primary" />}
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.nav>
   );
 };
