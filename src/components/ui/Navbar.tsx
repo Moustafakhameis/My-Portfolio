@@ -85,7 +85,7 @@ export const Navbar = () => {
 
   const itemAnim = {
     hidden: { opacity: 0, y: -20 },
-    show: { opacity: 1, y: 0, transition: { type: "spring" as any, stiffness: 100, damping: 24 } }
+    show: { opacity: 1, y: 0, transition: { type: "tween", ease: "easeOut", damping: 24 } }
   };
 
   return (
@@ -155,7 +155,7 @@ export const Navbar = () => {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.8 }}
-                    transition={{ type: "spring" as any, bounce: 0.2, duration: 0.6 }}
+                    transition={{ type: "tween", ease: "easeOut", duration: 0.6 }}
                     className="absolute inset-0 bg-primary/20 border border-primary/30 rounded-full z-0"
                   />
                 )}
@@ -167,7 +167,7 @@ export const Navbar = () => {
                     className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_8px_rgba(168,85,247,0.8)] z-0"
                     initial={{ opacity: 0, scale: 0 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ type: "spring" as any, stiffness: 100, damping: 20 }}
+                    transition={{ type: "tween", ease: "easeOut", damping: 20 }}
                   />
                 )}
               </motion.a>
@@ -198,7 +198,7 @@ export const Navbar = () => {
             <motion.div
               initial={false}
               animate={{ rotate: theme === 'dark' ? 0 : 180 }}
-              transition={{ type: "spring" as any, stiffness: 100, damping: 20 }}
+              transition={{ type: "tween", ease: "easeOut", damping: 20 }}
             >
               {theme === 'dark' ? <Sun size={20} className="text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.5)]" /> : <Moon size={20} className="text-primary drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]" />}
             </motion.div>
@@ -247,7 +247,7 @@ export const Navbar = () => {
                     onClick={() => setIsMobileMenuOpen(false)}
                     variants={{
                       hidden: { opacity: 0, y: 50 },
-                      show: { opacity: 1, y: 0, transition: { type: "spring" as any, stiffness: 100, damping: 24 } }
+                      show: { opacity: 1, y: 0, transition: { type: "tween", ease: "easeOut", damping: 24 } }
                     }}
                     className="relative group"
                   >
@@ -270,7 +270,7 @@ export const Navbar = () => {
               <motion.div 
                 variants={{
                   hidden: { opacity: 0, scale: 0.8 },
-                  show: { opacity: 1, scale: 1, transition: { type: "spring" as any, stiffness: 100, damping: 24, delay: 0.4 } }
+                  show: { opacity: 1, scale: 1, transition: { type: "tween", ease: "easeOut", damping: 24, delay: 0.4 } }
                 }}
                 className="flex items-center gap-8 mt-8 pt-8 border-t border-border/30 w-3/4 justify-center"
               >

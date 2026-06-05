@@ -61,8 +61,8 @@ const ExtrudedSymbol = ({
     }
   });
 
-  const layers = 80;
-  const depth = 0.008;
+  const layers = 20;
+  const depth = 0.032;
   const middleColor = new THREE.Color("#a855f7");
   const backColor = new THREE.Color("#4c1d95");
 
@@ -98,7 +98,7 @@ const ExtrudedSymbol = ({
                   initial={{ opacity: 0, y: 30, scale: 0.5, rotateX: 45 }}
                   animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
                   exit={{ opacity: 0, y: 15, scale: 0.8, rotateX: -30 }}
-                  transition={{ type: "spring" as any, stiffness: 100, damping: 15 }}
+                  transition={{ type: "tween", ease: "easeOut", damping: 15 }}
                 >
                   <motion.div 
                     animate={{ 

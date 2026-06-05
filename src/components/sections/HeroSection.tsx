@@ -21,7 +21,7 @@ const itemVariants = {
     opacity: 1, 
     y: 0, 
     scale: 1,
-    transition: { type: "spring" as any, bounce: 0.1, duration: 1.2 } 
+    transition: { type: "tween", ease: "easeOut", duration: 1.2 } 
   }
 };
 
@@ -158,8 +158,8 @@ export const HeroSection = () => {
               animate={{ y: [0, -15, 0] }}
               transition={{ 
                 y: { repeat: Infinity, duration: 6, ease: "easeInOut" },
-                scale: { type: "spring" as any, stiffness: 100 },
-                rotate: { type: "spring" as any, stiffness: 100 }
+                scale: { type: "tween", ease: "easeOut" },
+                rotate: { type: "tween", ease: "easeOut" }
               }}
               className="relative w-40 h-40 md:w-52 md:h-52 lg:w-56 lg:h-56 rounded-full overflow-hidden border-4 border-primary/20 shadow-2xl shadow-primary/20 bg-background/50 backdrop-blur-sm z-10 transition-colors duration-500 group-hover:border-primary/60 group-hover:shadow-primary/40"
             >
@@ -196,7 +196,7 @@ export const HeroSection = () => {
               animate={{ opacity: 1, scale: 1, backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}
               transition={{ 
                 opacity: { duration: 0.8, delay: 1.5 },
-                scale: { type: "spring" as any, bounce: 0.1, delay: 1.5 },
+                scale: { type: "tween", ease: "easeOut", delay: 1.5 },
                 filter: { duration: 0.8, delay: 1.5 },
                 backgroundPosition: { repeat: Infinity, duration: 4, ease: "easeInOut" } 
               }}

@@ -31,7 +31,7 @@ export const ContactSection = () => {
       opacity: 1, 
       y: 0, 
       scale: 1,
-      transition: { type: "spring" as any, bounce: 0.1, duration: 1 } 
+      transition: { type: "tween", ease: "easeOut", duration: 1 } 
     }
   };
 

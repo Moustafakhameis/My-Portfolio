@@ -28,7 +28,7 @@ export const Footer = () => {
       opacity: 1, 
       y: 0,
       scale: 1,
-      transition: { type: "spring" as any, bounce: 0.1, duration: 0.8 }
+      transition: { type: "tween", ease: "easeOut", duration: 0.8 }
     }
   };
 
@@ -87,7 +87,7 @@ export const Footer = () => {
                 <motion.div 
                   initial={{ y: "100%" }}
                   animate={{ y: isHovered ? "0%" : "100%" }}
-                  transition={{ type: "spring" as any, bounce: 0.2, duration: 0.4 }}
+                  transition={{ type: "tween", ease: "easeOut", duration: 0.4 }}
                   className="absolute inset-0 bg-gradient-to-r from-primary to-purple-500 z-0 rounded-lg"
                 />
               </motion.a>

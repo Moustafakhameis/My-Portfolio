@@ -125,7 +125,7 @@ export const ProjectsSection = () => {
       opacity: 1, 
       y: 0, 
       scale: 1, 
-      transition: { type: "spring" as any, bounce: 0.1, duration: 1, delay: (i % 2) * 0.15 } 
+      transition: { type: "tween", ease: "easeOut", duration: 1, delay: (i % 2) * 0.15 } 
     }),
   };
 
@@ -135,7 +135,7 @@ export const ProjectsSection = () => {
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false }}
-        transition={{ type: "spring" as any, bounce: 0.1, duration: 1 }}
+        transition={{ type: "tween", ease: "easeOut", duration: 1 }}
         className="mb-16 relative"
       >
         <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-48 h-48 bg-primary/10 blur-[60px] -z-10 rounded-full blob-blur" />
@@ -160,7 +160,7 @@ export const ProjectsSection = () => {
           >
             <motion.div 
               whileHover={{ scale: 1.03, y: -10, rotateZ: 0.5 }} 
-              transition={{ type: "spring" as any, stiffness: 100, damping: 20 }}
+              transition={{ type: "tween", ease: "easeOut", damping: 20 }}
               className="h-full"
             >
               <SpotlightCard className="h-full p-8 flex flex-col justify-between glass shadow-lg hover:shadow-[0_20px_40px_-15px_rgba(168,85,247,0.3)] group">
@@ -200,7 +200,7 @@ export const ProjectsSection = () => {
                         key={t} 
                         initial={{ opacity: 0, scale: 0.8 }}
                         whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: i * 0.1, type: "spring" as any }}
+                        transition={{ delay: i * 0.1, type: "tween", ease: "easeOut" }}
                         whileHover={{ scale: 1.1, rotate: [-2, 2, -2, 0], backgroundColor: "rgba(168,85,247,1)", color: "#fff" }}
                         className="px-3 py-1.5 bg-primary/10 border border-primary/20 text-primary text-xs font-bold rounded-full transition-colors duration-300 cursor-default"
                       >
