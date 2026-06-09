@@ -168,7 +168,7 @@ export const ProjectsSection = () => {
             className="h-full"
           >
             <motion.div 
-              whileHover={{ scale: 1.03, y: -10, rotateZ: 0.5 }} 
+              whileHover={{ scale: 1.02, y: -10 }} 
               transition={{ type: "tween", ease: "easeOut", damping: 20 }}
               className="h-full"
             >
