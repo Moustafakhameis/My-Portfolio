@@ -124,7 +124,7 @@ export const AboutSection = () => {
             >
               <div className="absolute -left-[41px] top-1.5 w-5 h-5 rounded-full bg-background border-4 border-primary shadow-[0_0_10px_rgba(var(--primary),0.5)]" />
               <div className="flex flex-col gap-2">
-                <span className="text-sm font-bold text-primary tracking-wider uppercase">Expected 2026</span>
+                <span className="text-sm font-bold text-primary tracking-wider uppercase">Graduated 2026</span>
                 <h4 className="text-2xl font-bold">Business Information Systems (BIS)</h4>
                 <p className="text-lg text-muted-foreground">Helwan University</p>
                 <div className="mt-3 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-bold w-fit border border-primary/20">

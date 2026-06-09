@@ -16,7 +16,7 @@ export const translations = {
     },
     about: {
       title: 'About Me',
-      description: 'Highly motivated and detail-oriented BIS student with a strong interest in Front-End Development. Seeking a Front-End Internship where I can apply my skills in HTML, CSS, JavaScript, React, and Next.js to build responsive and user-friendly web applications, while gaining real-world experience and improving my technical abilities in a professional environment.',
+      description: 'Highly motivated and detail-oriented Business Information Systems (BIS) graduate with a strong passion for Front-End Development. Seeking a Front-End Developer role where I can apply my skills in HTML, CSS, JavaScript, React, and Next.js to build responsive and user-friendly web applications, while contributing to innovative projects and continuously improving my technical abilities in a professional environment.',
       yearsOfExperience: 'Years of Experience',
       projectsCompleted: 'Projects Completed',
       happyClients: 'Happy Clients',
@@ -37,7 +37,7 @@ export const translations = {
     },
     contact: {
       title: 'Get In Touch',
-      description: 'Currently looking for new opportunities and internships.',
+      description: 'Currently looking for new full-time opportunities.',
       sayHello: 'Say Hello',
       copyEmail: 'Copy Email',
       copyPhone: 'Copy Phone',
@@ -64,7 +64,7 @@ export const translations = {
     },
     about: {
       title: 'نبذة عني',
-      description: 'طالب في نظم معلومات الأعمال (BIS) ذو حافز عالي واهتمام قوي بتطوير الواجهات الأمامية. أبحث عن تدريب في تطوير الواجهات الأمامية لتطبيق مهاراتي في HTML, CSS, JavaScript, React, و Next.js لبناء تطبيقات ويب متجاوبة وسهلة الاستخدام، مع اكتساب خبرة عملية وتطوير قدراتي التقنية في بيئة مهنية.',
+      description: 'خريج نظم معلومات الأعمال (BIS) ذو حافز عالي واهتمام قوي بتطوير الواجهات الأمامية. أبحث عن وظيفة كمطور واجهات أمامية لتطبيق مهاراتي في HTML, CSS, JavaScript, React, و Next.js لبناء تطبيقات ويب متجاوبة وسهلة الاستخدام، والمساهمة في مشاريع مبتكرة مع الاستمرار في تطوير قدراتي التقنية في بيئة مهنية.',
       yearsOfExperience: 'سنوات خبرة',
       projectsCompleted: 'مشروع منجز',
       happyClients: 'عملاء سعداء',
@@ -85,7 +85,7 @@ export const translations = {
     },
     contact: {
       title: 'تواصل معي',
-      description: 'أبحث حالياً عن فرص وتدريبات جديدة.',
+      description: 'أبحث حالياً عن فرص وظيفية جديدة.',
       sayHello: 'قل مرحباً',
       copyEmail: 'نسخ البريد الإلكتروني',
       copyPhone: 'نسخ رقم الهاتف',
