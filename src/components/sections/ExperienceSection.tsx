@@ -89,7 +89,7 @@ export const ExperienceSection = () => {
   });
   
   const scaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   return (
     <section id="experience" ref={containerRef} className="py-24 px-6 md:px-12 max-w-5xl mx-auto overflow-hidden">
@@ -106,14 +106,14 @@ export const ExperienceSection = () => {
         </h2>
       </motion.div>
 
-      <div className="relative ml-8 md:ml-12 space-y-12 pb-8">
+      <div className={`relative space-y-12 pb-8 ${language === 'ar' ? 'mr-8 md:mr-12' : 'ml-8 md:ml-12'}`}>
         {/* Background faded line */}
-        <div className="absolute left-0 -translate-x-1/2 top-6 bottom-0 w-[2px] bg-border/20 rounded-full" />
+        <div className={`absolute top-6 bottom-0 w-[2px] bg-border/20 rounded-full ${language === 'ar' ? 'right-0 translate-x-1/2' : 'left-0 -translate-x-1/2'}`} />
         
         {/* Animated glowing progress line */}
         <motion.div 
           style={{ scaleY, transformOrigin: "top" }}
-          className="absolute left-0 -translate-x-1/2 top-6 bottom-0 w-[3px] bg-gradient-to-b from-primary via-purple-500 to-pink-500 shadow-[0_0_20px_rgba(168,85,247,0.8)] z-0 rounded-full" 
+          className={`absolute top-6 bottom-0 w-[3px] bg-gradient-to-b from-primary via-purple-500 to-pink-500 shadow-[0_0_20px_rgba(168,85,247,0.8)] z-0 rounded-full ${language === 'ar' ? 'right-0 translate-x-1/2' : 'left-0 -translate-x-1/2'}`} 
         />
 
         {experiences.map((exp, index) => (
@@ -126,7 +126,7 @@ export const ExperienceSection = () => {
               hidden: { opacity: 0 },
               visible: { opacity: 1, transition: { staggerChildren: 0.2, delayChildren: index * 0.1 } }
             }}
-            className="relative pl-8 md:pl-16 group"
+            className={`relative group ${language === 'ar' ? 'pr-8 md:pr-16' : 'pl-8 md:pl-16'}`}
           >
             {/* Timeline icon */}
             <motion.div 
@@ -135,7 +135,7 @@ export const ExperienceSection = () => {
                 visible: { opacity: 1, scale: 1, transition: { type: "tween", ease: "easeOut", duration: 0.8 } }
               }}
               whileHover={{ scale: 1.2, rotate: 360, transition: { type: "tween", ease: "easeOut", duration: 0.8 } }}
-              className="absolute left-0 -translate-x-1/2 top-6 p-2.5 bg-background border-2 border-border group-hover:border-primary rounded-full text-muted-foreground group-hover:text-primary shadow-sm group-hover:shadow-[0_0_20px_rgba(168,85,247,0.6)] transition-colors z-10 ring-4 ring-background"
+              className={`absolute top-6 p-2.5 bg-background border-2 border-border group-hover:border-primary rounded-full text-muted-foreground group-hover:text-primary shadow-sm group-hover:shadow-[0_0_20px_rgba(168,85,247,0.6)] transition-colors z-10 ring-4 ring-background ${language === 'ar' ? 'right-0 translate-x-1/2' : 'left-0 -translate-x-1/2'}`}
             >
               <Briefcase size={18} />
             </motion.div>
@@ -143,11 +143,11 @@ export const ExperienceSection = () => {
             {/* Experience Card */}
             <motion.div 
               variants={{
-                hidden: { opacity: 0, x: 50 },
+                hidden: { opacity: 0, x: language === 'ar' ? -50 : 50 },
                 visible: { opacity: 1, x: 0, transition: { type: "tween", ease: "easeOut", duration: 1 } }
               }}
             >
-              <motion.div whileHover={{ scale: 1.01, x: 5 }} transition={{ type: "tween", ease: "easeOut" }}>
+              <motion.div whileHover={{ scale: 1.01, x: language === 'ar' ? -5 : 5 }} transition={{ type: "tween", ease: "easeOut" }}>
                 <SpotlightCard className="p-8 md:p-10 backdrop-blur-md">
                   <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-6">
                     <div>

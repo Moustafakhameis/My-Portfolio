@@ -4,7 +4,7 @@ import { ArrowUp, Heart } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 
 export const Footer = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [isHovered, setIsHovered] = useState(false);
 
   const scrollToTop = () => {
@@ -57,9 +57,9 @@ export const Footer = () => {
           {/* Main Footer Title */}
           <motion.div variants={itemVariants} className="space-y-6">
             <h2 className="text-4xl md:text-7xl font-black tracking-tighter leading-tight">
-              Let's create something <br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-500 to-pink-500">
-                extraordinary.
+              {t('footer', 'letCreate1')} <br/>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-500 to-pink-500 inline-block pt-2 pb-3">
+                {t('footer', 'letCreate2')}
               </span>
             </h2>
           </motion.div>
@@ -69,21 +69,23 @@ export const Footer = () => {
           {/* Bottom Area */}
           <div className="w-full flex flex-col md:flex-row justify-between items-center gap-10">
             <motion.div variants={itemVariants} className="flex items-center flex-wrap justify-center gap-2 text-sm md:text-base text-muted-foreground font-medium">
-              <span>Designed & Built with</span>
+              <span>{t('footer', 'designedAndBuilt')}</span>
               <motion.div
                 animate={{ scale: [1, 1.4, 1] }}
                 transition={{ duration: 1.2, repeat: Infinity }}
               >
                 <Heart size={18} className="text-red-500 fill-red-500 drop-shadow-[0_0_10px_rgba(239,68,68,0.8)]" />
               </motion.div>
-              <span>by</span>
+              <span>{t('footer', 'by')}</span>
               <motion.a 
                 href="#"
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
                 className="relative font-bold text-foreground overflow-hidden px-3 py-1.5 group rounded-lg"
               >
-                <span className="relative z-10 transition-colors duration-300 group-hover:text-primary-foreground tracking-widest">𝐌𝐎𝐒𝐓𝐀𝐅𝐀 𖤍</span>
+                <span className="relative z-10 transition-colors duration-300 group-hover:text-primary-foreground tracking-widest">
+                  {language === 'ar' ? 'مُصْطَفَى 𖤍' : '𝐌𝐎𝐒𝐓𝐀𝐅𝐀 𖤍'}
+                </span>
                 <motion.div 
                   initial={{ y: "100%" }}
                   animate={{ y: isHovered ? "0%" : "100%" }}

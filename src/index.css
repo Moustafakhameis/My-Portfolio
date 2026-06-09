@@ -109,3 +109,10 @@
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
+
+/* Fix letter-spacing for RTL/Arabic text to prevent cursive connections from breaking or overlapping */
+[dir="rtl"] *,
+[dir="rtl"] {
+  letter-spacing: normal !important;
+}
+

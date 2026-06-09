@@ -215,7 +215,7 @@ export const SymbolShowcaseSection = () => {
     <section className="relative min-h-[700px] w-full bg-background border-t border-border/10 flex flex-col md:flex-row items-center justify-between px-6 md:px-24 py-20 overflow-hidden">
       
       {/* Full-width 3D Canvas Background */}
-      <div className={`absolute inset-0 z-0 pointer-events-auto ${isDragging ? 'cursor-grabbing' : 'cursor-move'}`}>
+      <div dir="ltr" className={`absolute inset-0 z-0 pointer-events-auto ${isDragging ? 'cursor-grabbing' : 'cursor-move'}`}>
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent pointer-events-none" />
         
         <Canvas dpr={[1, 1.5]} performance={{ min: 0.5 }} camera={{ position: [0, 0, 10], fov: 45 }}>
@@ -250,7 +250,7 @@ export const SymbolShowcaseSection = () => {
       </div>
 
       {/* Foreground Text Overlay */}
-      <div className="relative w-full md:w-1/2 z-10 flex flex-col justify-start pt-4 md:pt-0 md:justify-center text-center md:text-left pointer-events-none mt-10 md:mt-0">
+      <div className="relative w-full md:w-1/2 z-10 flex flex-col justify-start pt-4 md:pt-0 md:justify-center text-center md:text-start pointer-events-none mt-10 md:mt-0">
         <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-foreground drop-shadow-sm">
           {t('symbolShowcase', 'title1')} <br className="hidden md:block" />
           <span className="text-primary text-gradient drop-shadow-[0_0_40px_rgba(168,85,247,0.3)]">{t('symbolShowcase', 'title2')}</span>

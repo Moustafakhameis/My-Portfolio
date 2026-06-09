@@ -99,12 +99,12 @@ const AnimatedText = ({ text }: { text: string }) => {
   return (
     <span className="inline-block">
       {words.map((word, i) => (
-        <span key={i} className="inline-block overflow-visible mr-4 pb-2">
+        <span key={i} className="inline-block overflow-visible me-4 pb-2">
           <motion.span
             initial={{ y: "50%", opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, ease: [] as const, delay: 0.8 + i * 0.15 }}
-            className={`text-transparent bg-clip-text bg-gradient-to-r ${colors[i % colors.length]} inline-block drop-shadow-sm`}
+            className={`text-transparent bg-clip-text bg-gradient-to-r ${colors[i % colors.length]} inline-block drop-shadow-sm pt-4 pb-3`}
           >
             {word}
           </motion.span>
@@ -119,7 +119,7 @@ export const HeroSection = () => {
   const y1 = useTransform(scrollY, [0, 1000], [0, 200]);
   const opacity = useTransform(scrollY, [300, 700], [1, 0]);
 
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   return (
     <section className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden px-6 pt-24 md:pt-28 pb-12 w-full">
@@ -189,7 +189,7 @@ export const HeroSection = () => {
             <span className="text-sm md:text-base font-bold tracking-widest uppercase">{t('hero', 'basedIn')}</span>
           </motion.div>
 
-          <motion.h1 variants={itemVariants} className="text-5xl md:text-7xl lg:text-[7rem] font-black tracking-tighter mb-4 text-center leading-[1.1]">
+          <motion.h1 variants={itemVariants} className={`text-5xl md:text-7xl lg:text-[7rem] mb-4 text-center leading-[1.1] ${language === 'ar' ? 'font-bold' : 'font-black tracking-tighter'}`}>
             <AnimatedText text={String(t('hero', 'greeting'))} />{' '}
             <motion.span 
               initial={{ opacity: 0, scale: 0.5 }}
@@ -200,9 +200,9 @@ export const HeroSection = () => {
                 filter: { duration: 0.8, delay: 1.5 },
                 backgroundPosition: { repeat: Infinity, duration: 4, ease: "easeInOut" } 
               }}
-              className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-[length:200%_auto] inline-block drop-shadow-lg"
+              className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-[length:200%_auto] inline-block drop-shadow-lg pt-4 pb-3"
             >
-              Mostafa
+              {language === 'ar' ? 'مُصْطَفَى' : 'Mostafa'}
             </motion.span>
           </motion.h1>
           

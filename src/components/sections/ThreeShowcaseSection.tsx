@@ -37,7 +37,7 @@ export const ThreeShowcaseSection = () => {
   return (
     <section className="relative min-h-[600px] w-full bg-background flex flex-col md:flex-row items-center justify-between px-6 md:px-24 py-20 overflow-hidden border-t border-border/10">
       {/* Left side: Text Container */}
-      <div className="w-full md:w-1/2 z-10 flex flex-col justify-center text-center md:text-left mb-12 md:mb-0">
+      <div className="w-full md:w-1/2 z-10 flex flex-col justify-center text-center md:text-start mb-12 md:mb-0">
         <h2 className="text-5xl md:text-7xl font-bold tracking-tighter text-foreground drop-shadow-md">
           {t('threeShowcase', 'title1')} <br />
           <span className="text-primary text-gradient">{t('threeShowcase', 'title2')}</span>
@@ -46,7 +46,7 @@ export const ThreeShowcaseSection = () => {
       </div>
       
       {/* Right side: 3D Canvas Container */}
-      <div className="w-full md:w-1/2 h-[400px] md:h-[600px] z-0">
+      <div dir="ltr" className="w-full md:w-1/2 h-[400px] md:h-[600px] z-0">
         <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
           <ambientLight intensity={0.5} />
           <directionalLight position={[10, 10, 10]} intensity={1} />

@@ -20,6 +20,11 @@ export const translations = {
       yearsOfExperience: 'Years of Experience',
       projectsCompleted: 'Projects Completed',
       happyClients: 'Happy Clients',
+      education: 'Education',
+      graduated: 'Graduated 2026',
+      degree: 'Business Information Systems (BIS)',
+      university: 'Helwan University',
+      gpa: 'GPA: 3.86',
     },
     experience: {
       title: 'Professional Experience',
@@ -38,13 +43,18 @@ export const translations = {
     contact: {
       title: 'Get In Touch',
       description: 'Currently looking for new full-time opportunities.',
-      sayHello: 'Say Hello',
+      sayHello: 'Open in Outlook',
       copyEmail: 'Copy Email',
       copyPhone: 'Copy Phone',
+      openGmail: 'Open in Gmail',
     },
     footer: {
       copyright: '© 2026 Mostafa Ali Emam. All rights reserved.',
       builtWith: 'Built with React, Tailwind & Framer Motion.',
+      letCreate1: "Let's create something",
+      letCreate2: 'extraordinary.',
+      designedAndBuilt: 'Designed & Built with',
+      by: 'by',
     },
     symbolShowcase: {
       title1: 'The Mark of',
@@ -81,6 +91,11 @@ export const translations = {
       yearsOfExperience: 'سنوات خبرة',
       projectsCompleted: 'مشروع منجز',
       happyClients: 'عملاء سعداء',
+      education: 'التعليم',
+      graduated: 'خريج عام 2026',
+      degree: 'نظم معلومات الأعمال (BIS)',
+      university: 'جامعة حلوان',
+      gpa: 'المعدل التراكمي: 3.86',
     },
     experience: {
       title: 'الخبرات المهنية',
@@ -99,13 +114,18 @@ export const translations = {
     contact: {
       title: 'تواصل معي',
       description: 'أبحث حالياً عن فرص وظيفية جديدة.',
-      sayHello: 'قل مرحباً',
+      sayHello: 'فتح في أوتلوك',
       copyEmail: 'نسخ البريد الإلكتروني',
       copyPhone: 'نسخ رقم الهاتف',
+      openGmail: 'فتح في جيميل',
     },
     footer: {
       copyright: '© 2026 مصطفى علي إمام. جميع الحقوق محفوظة.',
       builtWith: 'تم البناء باستخدام React, Tailwind & Framer Motion.',
+      letCreate1: 'لنصنع شيئاً',
+      letCreate2: 'استثنائياً.',
+      designedAndBuilt: 'تم التصميم والبناء بـ',
+      by: 'بواسطة',
     },
     symbolShowcase: {
       title1: 'علامة',

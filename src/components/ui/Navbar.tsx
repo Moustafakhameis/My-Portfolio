@@ -103,7 +103,7 @@ export const Navbar = () => {
         whileTap={{ scale: 0.95 }}
       >
         <span className="bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground group-hover:from-primary group-hover:to-pink-500 transition-all duration-300">
-          𝐌𝐎𝐒𝐓𝐀𝐅𝐀
+          {language === 'ar' ? 'مُصْطَفَى' : '𝐌𝐎𝐒𝐓𝐀𝐅𝐀'}
         </span>
         <motion.span 
           animate={{ rotate: 360 }}

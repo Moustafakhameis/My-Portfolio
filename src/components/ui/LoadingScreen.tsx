@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from '../../context/LanguageContext';
 
 export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
   const [progress, setProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const { language } = useLanguage();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -39,7 +41,7 @@ export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              MOUSTAFA.
+              {language === 'ar' ? 'مُصْطَفَى.' : 'MOUSTAFA.'}
             </motion.div>
             <div className="w-48 h-1 bg-muted rounded-full overflow-hidden">
               <motion.div
