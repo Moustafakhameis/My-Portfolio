@@ -79,14 +79,14 @@ const Aurora = () => (
 
       {/* Layer 1 - Deepest Background Arc (Massive blur) */}
       <motion.path
-        d="M -100,0 L 1100,0 L 1100,200 Q 800,100 500,250 T -100,150 Z"
+        initial={{ d: "M-100,0 L1100,0 L1100,200 Q800,100 500,250 T-100,150 Z" }}
         fill="url(#aurora-fill-1)"
         filter="url(#aurora-blur-massive)"
         animate={{
           d: [
-            "M -100,0 L 1100,0 L 1100,200 Q 800,100 500,250 T -100,150 Z",
-            "M -100,0 L 1100,0 L 1100,150 Q 600,350 400,200 T -100,250 Z",
-            "M -100,0 L 1100,0 L 1100,200 Q 800,100 500,250 T -100,150 Z"
+            "M-100,0 L1100,0 L1100,200 Q800,100 500,250 T-100,150 Z",
+            "M-100,0 L1100,0 L1100,150 Q600,350 400,200 T-100,250 Z",
+            "M-100,0 L1100,0 L1100,200 Q800,100 500,250 T-100,150 Z"
           ]
         }}
         transition={{ duration: 30, repeat: Infinity, ease: "easeInOut" }}
@@ -94,30 +94,30 @@ const Aurora = () => (
       
       {/* Layer 2 - Middle Ground Wavy Curtain */}
       <motion.path
-        d="M -100,0 L 1100,0 L 1100,150 Q 700,350 400,150 T -100,300 Z"
+        initial={{ d: "M-100,0 L1100,0 L1100,150 Q700,350 400,150 T-100,300 Z" }}
         fill="url(#aurora-fill-2)"
         filter="url(#aurora-blur-medium)"
         animate={{
           d: [
-            "M -100,0 L 1100,0 L 1100,150 Q 700,350 400,150 T -100,300 Z",
-            "M -100,0 L 1100,0 L 1100,300 Q 800,100 500,250 T -100,150 Z",
-            "M -100,0 L 1100,0 L 1100,150 Q 700,350 400,150 T -100,300 Z"
+            "M-100,0 L1100,0 L1100,150 Q700,350 400,150 T-100,300 Z",
+            "M-100,0 L1100,0 L1100,300 Q800,100 500,250 T-100,150 Z",
+            "M-100,0 L1100,0 L1100,150 Q700,350 400,150 T-100,300 Z"
           ]
         }}
         transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
       />
       {/* Intensely glowing sharp bottom edge for Layer 2 */}
       <motion.path
-        d="M -100,150 Q 700,350 400,150 T -100,300"
+        initial={{ d: "M-100,150 Q700,350 400,150 T-100,300" }}
         fill="none"
         stroke="rgba(132, 204, 22, 0.7)"
         strokeWidth="6"
         filter="url(#aurora-blur-sharp)"
         animate={{
           d: [
-            "M -100,150 Q 700,350 400,150 T -100,300",
-            "M -100,300 Q 800,100 500,250 T -100,150",
-            "M -100,150 Q 700,350 400,150 T -100,300"
+            "M-100,150 Q700,350 400,150 T-100,300",
+            "M-100,300 Q800,100 500,250 T-100,150",
+            "M-100,150 Q700,350 400,150 T-100,300"
           ]
         }}
         transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
@@ -125,30 +125,30 @@ const Aurora = () => (
 
       {/* Layer 3 - Foreground Dynamic Ribbon */}
       <motion.path
-        d="M -100,0 L 1100,0 L 1100,250 Q 500,150 300,350 T -100,200 Z"
+        initial={{ d: "M-100,0 L1100,0 L1100,250 Q500,150 300,350 T-100,200 Z" }}
         fill="url(#aurora-fill-3)"
         filter="url(#aurora-blur-medium)"
         animate={{
           d: [
-            "M -100,0 L 1100,0 L 1100,250 Q 500,150 300,350 T -100,200 Z",
-            "M -100,0 L 1100,0 L 1100,150 Q 600,400 400,250 T -100,100 Z",
-            "M -100,0 L 1100,0 L 1100,250 Q 500,150 300,350 T -100,200 Z"
+            "M-100,0 L1100,0 L1100,250 Q500,150 300,350 T-100,200 Z",
+            "M-100,0 L1100,0 L1100,150 Q600,400 400,250 T-100,100 Z",
+            "M-100,0 L1100,0 L1100,250 Q500,150 300,350 T-100,200 Z"
           ]
         }}
         transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
       />
       {/* Intensely glowing sharp bottom edge for Layer 3 */}
       <motion.path
-        d="M -100,250 Q 500,150 300,350 T -100,200"
+        initial={{ d: "M-100,250 Q500,150 300,350 T-100,200" }}
         fill="none"
         stroke="rgba(16, 185, 129, 1)"
         strokeWidth="10"
         filter="url(#aurora-blur-sharp)"
         animate={{
           d: [
-            "M -100,250 Q 500,150 300,350 T -100,200",
-            "M -100,150 Q 600,400 400,250 T -100,100",
-            "M -100,250 Q 500,150 300,350 T -100,200"
+            "M-100,250 Q500,150 300,350 T-100,200",
+            "M-100,150 Q600,400 400,250 T-100,100",
+            "M-100,250 Q500,150 300,350 T-100,200"
           ]
         }}
         transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
