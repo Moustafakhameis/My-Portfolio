@@ -168,10 +168,14 @@ const ExtrudedSymbol = ({
 
 const SceneLayout = ({ targetRotation, isDragging, setIsDragging, controlsRef }: any) => {
   const { viewport } = useThree();
+  const { language } = useLanguage();
   const isMobile = window.innerWidth < 768;
+  const isRtl = language === 'ar';
+  
+  const xPos = isMobile ? 0 : (isRtl ? -viewport.width / 4 : viewport.width / 4);
   
   return (
-    <group position={[isMobile ? 0 : viewport.width / 4, isMobile ? -1.5 : 0, 0]}>
+    <group position={[xPos, isMobile ? -1.5 : 0, 0]}>
       <ExtrudedSymbol 
         targetRotation={targetRotation} 
         isDragging={isDragging} 

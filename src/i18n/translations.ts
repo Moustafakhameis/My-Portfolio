@@ -53,6 +53,11 @@ export const translations = {
       exploreWork: 'Explore Work',
       reset: 'Reset',
       resetting: 'Resetting...'
+    },
+    threeShowcase: {
+      title1: 'Crafting in',
+      title2: 'Dimensions',
+      description: 'Performant WebGL experiences'
     }
   },
   ar: {
@@ -109,6 +114,11 @@ export const translations = {
       exploreWork: 'استكشف الأعمال',
       reset: 'إعادة ضبط',
       resetting: 'جاري الإعادة...'
+    },
+    threeShowcase: {
+      title1: 'صياغة في',
+      title2: 'الأبعاد',
+      description: 'تجارب WebGL عالية الأداء'
     }
   }
 };

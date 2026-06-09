@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Environment, Float, MeshDistortMaterial, RoundedBox } from '@react-three/drei';
 import * as THREE from 'three';
+import { useLanguage } from '../../context/LanguageContext';
 
 const GlassCube = () => {
   const meshRef = useRef<THREE.Mesh>(null);
@@ -31,15 +32,17 @@ const GlassCube = () => {
 };
 
 export const ThreeShowcaseSection = () => {
+  const { t } = useLanguage();
+
   return (
     <section className="relative min-h-[600px] w-full bg-background flex flex-col md:flex-row items-center justify-between px-6 md:px-24 py-20 overflow-hidden border-t border-border/10">
       {/* Left side: Text Container */}
       <div className="w-full md:w-1/2 z-10 flex flex-col justify-center text-center md:text-left mb-12 md:mb-0">
         <h2 className="text-5xl md:text-7xl font-bold tracking-tighter text-foreground drop-shadow-md">
-          Crafting in <br />
-          <span className="text-primary text-gradient">Dimensions</span>
+          {t('threeShowcase', 'title1')} <br />
+          <span className="text-primary text-gradient">{t('threeShowcase', 'title2')}</span>
         </h2>
-        <p className="mt-4 text-xl text-muted-foreground font-medium drop-shadow-sm">Performant WebGL experiences</p>
+        <p className="mt-4 text-xl text-muted-foreground font-medium drop-shadow-sm">{t('threeShowcase', 'description')}</p>
       </div>
       
       {/* Right side: 3D Canvas Container */}
