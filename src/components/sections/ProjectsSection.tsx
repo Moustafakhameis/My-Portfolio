@@ -9,10 +9,10 @@ import { useMotionTemplate, useMotionValue } from 'framer-motion';
 const projects = [
   {
     title: 'Zar3a - UseCase',
-    tech: ['HTML', 'CSS', 'JavaScript'],
-    description: 'A modern web application and use case implementation with a responsive user interface.',
-    challenges: 'Designing an intuitive layout and managing dynamic interactions.',
-    results: 'A clean, interactive, and user-friendly experience.',
+    tech: ['React', 'Tailwind CSS', 'Framer Motion', 'Recharts'],
+    description: 'A modern, data-driven web application built with React, featuring animated UI elements and interactive charts.',
+    challenges: 'Integrating complex data visualization with smooth animations and robust state management.',
+    results: 'A highly interactive, performant, and user-friendly experience.',
     link: 'https://moustafakhameis.github.io/Zar3a---UseCase/',
     github: 'https://github.com/Moustafakhameis/Zar3a---UseCase'
   },
