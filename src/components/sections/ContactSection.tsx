@@ -86,7 +86,7 @@ export const ContactSection = () => {
                 className="!py-4 !px-8 !text-lg border-primary/30 hover:border-primary/80 hover:bg-primary/5 transition-colors duration-300"
               >
                 <Phone size={20} className="mr-3 text-primary" />
-                <span className="font-bold tracking-wider">{phone}</span>
+                <span className="font-bold tracking-wider" dir="ltr">{phone}</span>
               </AnimatedButton>
             </motion.div>
             <motion.button

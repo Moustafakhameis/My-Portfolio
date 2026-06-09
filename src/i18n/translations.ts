@@ -45,6 +45,14 @@ export const translations = {
     footer: {
       copyright: '© 2026 Mostafa Ali Emam. All rights reserved.',
       builtWith: 'Built with React, Tailwind & Framer Motion.',
+    },
+    symbolShowcase: {
+      title1: 'The Mark of',
+      title2: 'Excellence',
+      description: 'Interactive 3D typography',
+      exploreWork: 'Explore Work',
+      reset: 'Reset',
+      resetting: 'Resetting...'
     }
   },
   ar: {
@@ -93,6 +101,14 @@ export const translations = {
     footer: {
       copyright: '© 2026 مصطفى علي إمام. جميع الحقوق محفوظة.',
       builtWith: 'تم البناء باستخدام React, Tailwind & Framer Motion.',
+    },
+    symbolShowcase: {
+      title1: 'علامة',
+      title2: 'التميز',
+      description: 'تصميم تفاعلي ثلاثي الأبعاد',
+      exploreWork: 'استكشف الأعمال',
+      reset: 'إعادة ضبط',
+      resetting: 'جاري الإعادة...'
     }
   }
 };

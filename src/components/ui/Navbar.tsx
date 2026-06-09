@@ -59,7 +59,7 @@ export const Navbar = () => {
   const navLinks = [
     { name: t('navbar', 'about'), href: '#about' },
     { name: t('navbar', 'experience'), href: '#experience' },
-    { name: t('navbar', 'work'), href: '#work' },
+    { name: t('navbar', 'projects'), href: '#work' },
     { name: t('navbar', 'contact'), href: '#contact' },
   ];
 

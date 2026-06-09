@@ -3,6 +3,7 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls, Environment, Float, Text, Sparkles, Stars, ContactShadows, Html } from '@react-three/drei';
 import * as THREE from 'three';
 import { useTheme } from '../../context/ThemeContext';
+import { useLanguage } from '../../context/LanguageContext';
 import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib';
 import { motion, AnimatePresence } from 'framer-motion';
 import { RotateCcw, Compass } from 'lucide-react';
@@ -184,6 +185,7 @@ const SceneLayout = ({ targetRotation, isDragging, setIsDragging, controlsRef }:
 
 export const SymbolShowcaseSection = () => {
   const { theme } = useTheme();
+  const { t } = useLanguage();
   const controlsRef = useRef<OrbitControlsImpl>(null);
   
   // Independent rotation state for the figure
@@ -246,10 +248,10 @@ export const SymbolShowcaseSection = () => {
       {/* Foreground Text Overlay */}
       <div className="relative w-full md:w-1/2 z-10 flex flex-col justify-start pt-4 md:pt-0 md:justify-center text-center md:text-left pointer-events-none mt-10 md:mt-0">
         <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-foreground drop-shadow-sm">
-          The Mark of <br className="hidden md:block" />
-          <span className="text-primary text-gradient drop-shadow-[0_0_40px_rgba(168,85,247,0.3)]">Excellence</span>
+          {t('symbolShowcase', 'title1')} <br className="hidden md:block" />
+          <span className="text-primary text-gradient drop-shadow-[0_0_40px_rgba(168,85,247,0.3)]">{t('symbolShowcase', 'title2')}</span>
         </h2>
-        <p className="mt-4 md:mt-6 text-xl md:text-2xl text-muted-foreground font-medium tracking-wide drop-shadow-sm">Interactive 3D typography</p>
+        <p className="mt-4 md:mt-6 text-xl md:text-2xl text-muted-foreground font-medium tracking-wide drop-shadow-sm">{t('symbolShowcase', 'description')}</p>
         
         {/* Action & Control Buttons */}
         <div className="mt-8 md:mt-12 flex flex-col items-center md:items-start gap-6 pointer-events-auto">
@@ -262,7 +264,7 @@ export const SymbolShowcaseSection = () => {
               whileTap={{ scale: 0.95 }}
               className="px-8 py-3 bg-primary text-primary-foreground font-bold rounded-full shadow-[0_0_20px_rgba(168,85,247,0.4)] flex items-center gap-2"
             >
-              <Compass size={18} /> Explore Work
+              <Compass size={18} /> {t('symbolShowcase', 'exploreWork')}
             </motion.button>
             <motion.button 
               whileHover={{ scale: 1.05, y: -2, backgroundColor: "rgba(168,85,247,0.15)" }} 
@@ -278,7 +280,7 @@ export const SymbolShowcaseSection = () => {
                 <RotateCcw size={18} className="text-primary group-hover:text-pink-400 transition-colors" />
               </motion.div>
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground group-hover:from-primary group-hover:to-pink-500 transition-colors duration-300">
-                {isResetting ? "Resetting..." : "Reset"}
+                {isResetting ? t('symbolShowcase', 'resetting') : t('symbolShowcase', 'reset')}
               </span>
             </motion.button>
           </div>
