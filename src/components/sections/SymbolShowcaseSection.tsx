@@ -170,14 +170,14 @@ const SceneLayout = ({ targetRotation, isDragging, setIsDragging, controlsRef }:
   const isMobile = window.innerWidth < 768;
   
   return (
-    <group position={[isMobile ? 0 : viewport.width / 4, isMobile ? -5.5 : 0, 0]}>
+    <group position={[isMobile ? 0 : viewport.width / 4, isMobile ? -1.5 : 0, 0]}>
       <ExtrudedSymbol 
         targetRotation={targetRotation} 
         isDragging={isDragging} 
         setIsDragging={setIsDragging} 
         controlsRef={controlsRef} 
       />
-      <ContactShadows position={[0, -4.5, 0]} opacity={0.6} scale={25} blur={2.5} far={10} color="#7e22ce" />
+      <ContactShadows position={[0, -3.5, 0]} opacity={0.6} scale={25} blur={2.5} far={10} color="#7e22ce" />
     </group>
   );
 };
