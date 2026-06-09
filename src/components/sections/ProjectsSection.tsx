@@ -110,7 +110,7 @@ const SpotlightCard = ({ children, className = '' }: { children: React.ReactNode
       />
       {/* Intense glow on hover */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/0 via-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-0" />
-      <div className="relative z-10">{children}</div>
+      <div className="relative z-10 h-full flex flex-col justify-between">{children}</div>
     </div>
   );
 };
@@ -172,7 +172,7 @@ export const ProjectsSection = () => {
               transition={{ type: "tween", ease: "easeOut", damping: 20 }}
               className="h-full"
             >
-              <SpotlightCard className="h-full p-8 flex flex-col justify-between glass shadow-lg hover:shadow-[0_20px_40px_-15px_rgba(168,85,247,0.3)] group">
+              <SpotlightCard className="h-full p-8 glass shadow-lg hover:shadow-[0_20px_40px_-15px_rgba(168,85,247,0.3)] group">
                 <div>
                   <div className="flex justify-between items-start mb-6">
                     <h3 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-foreground to-foreground/80 group-hover:from-primary group-hover:to-pink-500 transition-all duration-500">
