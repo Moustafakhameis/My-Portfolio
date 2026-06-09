@@ -247,9 +247,9 @@ const SkillPill = ({ skill, orbitRadius, initialAngle, containerRef, resetKey }:
   });
 
   const sizeClasses = {
-    lg: 'text-xl px-8 py-4 font-bold glass',
-    md: 'text-lg px-6 py-3 font-medium glass',
-    sm: 'text-sm px-4 py-2 opacity-90 glass',
+    lg: 'text-base md:text-xl px-5 py-2.5 md:px-8 md:py-4 font-bold glass',
+    md: 'text-sm md:text-lg px-4 py-2 md:px-6 md:py-3 font-medium glass',
+    sm: 'text-xs md:text-sm px-3 py-1.5 md:px-4 md:py-2 opacity-90 glass',
   };
 
   return (
@@ -287,6 +287,14 @@ export const SkillsSection = () => {
   const { t } = useLanguage();
   const { theme } = useTheme();
   const [isDark, setIsDark] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     // Robust check for dark mode
@@ -420,12 +428,12 @@ export const SkillsSection = () => {
         </button>
       </div>
 
-      <div className="relative h-[800px] max-w-5xl mx-auto flex items-center justify-center">
+      <div className="relative h-[500px] md:h-[800px] max-w-5xl mx-auto flex items-center justify-center">
         
         {/* The Core (Sun or Moon) */}
         <div className="absolute flex items-center justify-center z-0">
           <motion.div 
-            className={cn("absolute w-48 h-48 rounded-full blur-[50px]", isDark ? "bg-primary/5" : "bg-yellow-400/20")}
+            className={cn("absolute w-32 h-32 md:w-48 md:h-48 rounded-full blur-[50px]", isDark ? "bg-primary/5" : "bg-yellow-400/20")}
             animate={{ scale: [1, 1.5, 1], opacity: [0.3, 0.6, 0.3] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
           />
@@ -433,7 +441,7 @@ export const SkillsSection = () => {
           {isDark ? (
             /* Moon Surface */
             <div 
-              className="relative w-28 h-28 rounded-full overflow-hidden shadow-[0_0_50px_rgba(255,255,255,0.1)]"
+              className="relative w-20 h-20 md:w-28 md:h-28 rounded-full overflow-hidden shadow-[0_0_50px_rgba(255,255,255,0.1)]"
               style={{
                 background: 'radial-gradient(circle at 30% 30%, #9ca3af, #1f2937)',
                 boxShadow: 'inset -15px -15px 30px rgba(0,0,0,0.4), inset 10px 10px 20px rgba(255,255,255,0.6)'
@@ -467,7 +475,7 @@ export const SkillsSection = () => {
               
               {/* The Sun Core */}
               <div 
-                className="relative w-28 h-28 rounded-full overflow-hidden z-10"
+                className="relative w-20 h-20 md:w-28 md:h-28 rounded-full overflow-hidden z-10"
                 style={{
                   background: 'radial-gradient(circle at 35% 35%, #ffffff 0%, #fef08a 25%, #f59e0b 65%, #ea580c 100%)',
                   boxShadow: '0 0 30px rgba(250, 204, 21, 0.6), inset -12px -12px 20px rgba(234, 88, 12, 0.5), inset 10px 10px 20px rgba(255, 255, 255, 0.9)'
@@ -492,9 +500,9 @@ export const SkillsSection = () => {
 
         {/* Orbital Rings */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
-          <div className="absolute w-[280px] h-[280px] md:w-[320px] md:h-[320px] rounded-full border border-primary/20 shadow-none dark:shadow-[0_0_15px_rgba(255,255,255,0.1)] opacity-40" />
-          <div className="absolute w-[500px] h-[500px] md:w-[540px] md:h-[540px] rounded-full border border-primary/10 opacity-60" />
-          <div className="absolute w-[720px] h-[720px] md:w-[760px] md:h-[760px] rounded-full border border-primary/10 border-dashed opacity-60" />
+          <div className="absolute w-[180px] h-[180px] md:w-[320px] md:h-[320px] rounded-full border border-primary/20 shadow-none dark:shadow-[0_0_15px_rgba(255,255,255,0.1)] opacity-40" />
+          <div className="absolute w-[280px] h-[280px] md:w-[540px] md:h-[540px] rounded-full border border-primary/10 opacity-60" />
+          <div className="absolute w-[380px] h-[380px] md:w-[760px] md:h-[760px] rounded-full border border-primary/10 border-dashed opacity-60" />
         </div>
 
         {/* Skills wrapper (non-rotating) */}
@@ -509,22 +517,21 @@ export const SkillsSection = () => {
             let indexInGroup = 0;
 
             if (skill.size === 'lg') {
-              baseRadius = 140; // Inner
+              baseRadius = isMobile ? 90 : 160; // Inner
               groupSize = lgSkills.length;
               indexInGroup = lgSkills.indexOf(skill);
             } else if (skill.size === 'md') {
-              baseRadius = 250; // Middle
+              baseRadius = isMobile ? 140 : 270; // Middle
               groupSize = mdSkills.length;
               indexInGroup = mdSkills.indexOf(skill);
             } else {
-              baseRadius = 360; // Outer
+              baseRadius = isMobile ? 190 : 380; // Outer
               groupSize = smSkills.length;
               indexInGroup = smSkills.indexOf(skill);
             }
 
             const initialAngle = (indexInGroup / groupSize) * Math.PI * 2;
-            const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-            const orbitRadius = baseRadius + (isMobile ? -20 : 20);
+            const orbitRadius = baseRadius;
 
             return (
               <SkillPill
