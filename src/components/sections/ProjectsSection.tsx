@@ -8,6 +8,15 @@ import { useMotionTemplate, useMotionValue } from 'framer-motion';
 
 const projects = [
   {
+    title: 'SocialApp - Social Media Platform',
+    tech: ['React', 'Tailwind CSS v4', 'Framer Motion', 'Zustand', 'React Router'],
+    description: 'A modern, highly interactive social network interface built with React and Tailwind CSS v4, featuring a simulated REST API backend for seamless user engagement.',
+    challenges: 'Engineering complex routing with protected layouts, managing global application state for authentication, and integrating dynamic data fetching with a mock backend.',
+    results: 'A lightning-fast, visually stunning glassmorphism experience with smooth page transitions, interactive notification systems, and full dark-mode support.',
+    link: 'https://Moustafakhameis.github.io/Social-App',
+    github: 'https://github.com/Moustafakhameis/Social-App'
+  },
+  {
     title: 'Zar3a - UseCase',
     tech: ['React', 'Tailwind CSS', 'Framer Motion', 'Recharts'],
     description: 'A modern, data-driven web application built with React, featuring animated UI elements and interactive charts.',
