@@ -8,6 +8,15 @@ import { useMotionTemplate, useMotionValue } from 'framer-motion';
 
 const projects = [
   {
+    title: 'Zar3a - UseCase',
+    tech: ['HTML', 'CSS', 'JavaScript'],
+    description: 'A modern web application and use case implementation with a responsive user interface.',
+    challenges: 'Designing an intuitive layout and managing dynamic interactions.',
+    results: 'A clean, interactive, and user-friendly experience.',
+    link: 'https://moustafakhameis.github.io/Zar3a---UseCase/',
+    github: 'https://github.com/Moustafakhameis/Zar3a---UseCase'
+  },
+  {
     title: 'Eagle Mart',
     tech: ['Next.js', 'Tailwind CSS', 'TypeScript'],
     description: 'Modern e-commerce platform with reusable components, responsive design, and seamless shopping experience.',
