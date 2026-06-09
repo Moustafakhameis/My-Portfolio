@@ -222,6 +222,8 @@ export const ProjectsSection = () => {
                     {project.link !== '#' && (
                       <AnimatedButton 
                         href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         variant="primary"
                         className="!px-5 !py-2.5 !text-sm flex-1 justify-center"
                       >
@@ -232,6 +234,8 @@ export const ProjectsSection = () => {
                     {project.github !== '#' && (
                       <AnimatedButton 
                         href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         variant="outline"
                         className="!px-5 !py-2.5 !text-sm flex-1 justify-center"
                       >
