@@ -212,7 +212,7 @@ export const HeroSection = () => {
 
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-6 mt-4 w-full sm:w-auto items-center justify-center z-20 pb-4">
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <AnimatedButton href="#projects" variant="primary">
+              <AnimatedButton href="#work" variant="primary">
                 {t('hero', 'viewWork')}
               </AnimatedButton>
             </motion.div>
