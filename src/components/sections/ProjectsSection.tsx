@@ -8,6 +8,15 @@ import { useMotionTemplate, useMotionValue } from 'framer-motion';
 
 const projects = [
   {
+    title: 'EagleVerse - Social Media Platform',
+    tech: ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Zustand', 'React Query'],
+    description: 'A premium, full-stack social media application built with React and TypeScript, featuring a glassmorphic UI, dynamic theme switching, and real-time interactive animations.',
+    challenges: 'Architecting a highly engaging user experience with complex WebGL animations and fluid layout transitions while maintaining robust state management and optimal rendering performance.',
+    results: 'A visually stunning, seamless, and highly responsive platform that delivers an ultra-premium, interactive experience across all devices.',
+    link: 'https://eagle-verse-g157tznle-moustafakhameis-projects.vercel.app/',
+    github: 'https://github.com/Moustafakhameis/EagleVerse'
+  },
+  {
     title: 'SocialApp - Social Media Platform',
     tech: ['React', 'Tailwind CSS v4', 'Framer Motion', 'Zustand', 'React Router'],
     description: 'A modern, highly interactive social network interface built with React and Tailwind CSS v4, featuring a simulated REST API backend for seamless user engagement.',
