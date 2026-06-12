@@ -24,7 +24,7 @@ export const translations = {
       graduated: 'Graduated 2026',
       degree: 'Business Information Systems (BIS)',
       university: 'Helwan University',
-      gpa: 'GPA: 3.86',
+      gpa: 'GPA: 3.87',
     },
     experience: {
       title: 'Professional Experience',
@@ -95,7 +95,7 @@ export const translations = {
       graduated: 'خريج عام 2026',
       degree: 'نظم معلومات الأعمال (BIS)',
       university: 'جامعة حلوان',
-      gpa: 'المعدل التراكمي: 3.86',
+      gpa: 'المعدل التراكمي: 3.87',
     },
     experience: {
       title: 'الخبرات المهنية',
