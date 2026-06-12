@@ -13,7 +13,7 @@ const projects = [
     description: 'A premium, full-stack social media application built with React and TypeScript, featuring a glassmorphic UI, dynamic theme switching, and real-time interactive animations.',
     challenges: 'Architecting a highly engaging user experience with complex WebGL animations and fluid layout transitions while maintaining robust state management and optimal rendering performance.',
     results: 'A visually stunning, seamless, and highly responsive platform that delivers an ultra-premium, interactive experience across all devices.',
-    link: 'https://eagle-verse-g157tznle-moustafakhameis-projects.vercel.app/',
+    link: 'https://eagle-verse-mkv27x66c-moustafakhameis-projects.vercel.app/',
     github: 'https://github.com/Moustafakhameis/EagleVerse'
   },
   {
