@@ -71,7 +71,7 @@ export const AboutSection = () => {
               className="p-8 rounded-3xl glass text-center border border-border/50 transition-colors duration-300 hover:border-primary/40 hover:bg-primary/5 group"
             >
               <h3 className="text-5xl font-black mb-2 text-transparent bg-clip-text bg-gradient-to-br from-foreground to-foreground/70 group-hover:from-primary group-hover:to-primary/60 transition-all duration-300">
-                3+
+                0+
               </h3>
               <p className="text-sm font-medium text-muted-foreground uppercase tracking-widest">{t('about', 'yearsOfExperience')}</p>
             </motion.div>
@@ -93,7 +93,7 @@ export const AboutSection = () => {
               className="p-8 rounded-3xl glass text-center sm:col-span-2 border border-border/50 transition-colors duration-300 hover:border-primary/40 hover:bg-primary/5 group"
             >
               <h3 className="text-5xl font-black mb-2 text-transparent bg-clip-text bg-gradient-to-br from-foreground to-foreground/70 group-hover:from-cyan-400 group-hover:to-blue-500 transition-all duration-300">
-                15+
+                0+
               </h3>
               <p className="text-sm font-medium text-muted-foreground uppercase tracking-widest">{t('about', 'happyClients')}</p>
             </motion.div>
