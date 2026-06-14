@@ -1,13 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 
 export const CustomCursor = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  
+  // Use framer-motion springs instead of transition prop for direct value mapping
+  const smoothX = useSpring(mouseX, { stiffness: 150, damping: 15, mass: 0.1 });
+  const smoothY = useSpring(mouseY, { stiffness: 150, damping: 15, mass: 0.1 });
+  
+  const innerSmoothX = useSpring(mouseX, { stiffness: 100, damping: 20, mass: 0.1 });
+  const innerSmoothY = useSpring(mouseY, { stiffness: 100, damping: 20, mass: 0.1 });
+
   const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
     const updateMousePosition = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
     };
 
     const handleMouseOver = (e: MouseEvent) => {
@@ -32,30 +42,36 @@ export const CustomCursor = () => {
       window.removeEventListener('mousemove', updateMousePosition);
       window.removeEventListener('mouseover', handleMouseOver);
     };
-  }, []);
+  }, [mouseX, mouseY]);
 
   return (
     <>
       {/* Outer Ring */}
       <motion.div
         className="fixed top-0 left-0 w-8 h-8 rounded-full border border-primary pointer-events-none z-50 mix-blend-difference hidden md:block"
+        style={{ 
+          x: smoothX, 
+          y: smoothY,
+          translateX: "-50%",
+          translateY: "-50%"
+        }}
         animate={{
-          x: mousePosition.x - 16,
-          y: mousePosition.y - 16,
           scale: isHovering ? 1.5 : 1,
           opacity: 1,
         }}
-        transition={{ type: 'spring', stiffness: 150, damping: 15, mass: 0.1 }}
       />
       {/* Inner Dot */}
       <motion.div
         className="fixed top-0 left-0 w-2 h-2 rounded-full bg-primary pointer-events-none z-50 mix-blend-difference hidden md:block"
+        style={{ 
+          x: innerSmoothX, 
+          y: innerSmoothY,
+          translateX: "-50%",
+          translateY: "-50%"
+        }}
         animate={{
-          x: mousePosition.x - 4,
-          y: mousePosition.y - 4,
           scale: isHovering ? 0 : 1,
         }}
-        transition={{ type: 'spring', stiffness: 100, damping: 20, mass: 0.1 }}
       />
     </>
   );

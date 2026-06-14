@@ -51,7 +51,7 @@ export const Footer = () => {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, margin: "-100px" }}
+          viewport={{ once: true, margin: "-100px" }}
           className="flex flex-col items-center justify-center text-center gap-16"
         >
           {/* Main Footer Title */}

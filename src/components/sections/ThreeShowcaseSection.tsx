@@ -47,7 +47,7 @@ export const ThreeShowcaseSection = () => {
       
       {/* Right side: 3D Canvas Container */}
       <div dir="ltr" className="w-full md:w-1/2 h-[400px] md:h-[600px] z-0">
-        <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
+        <Canvas dpr={[1, 1]} performance={{ min: 0.5 }} camera={{ position: [0, 0, 5], fov: 45 }}>
           <ambientLight intensity={0.5} />
           <directionalLight position={[10, 10, 10]} intensity={1} />
           <GlassCube />

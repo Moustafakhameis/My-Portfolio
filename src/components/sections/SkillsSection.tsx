@@ -311,7 +311,7 @@ export const SkillsSection = () => {
 
   useEffect(() => {
     // Generate random stars for dark mode with realistic colors
-    const newStars = Array.from({ length: 200 }).map((_, i) => ({
+    const newStars = Array.from({ length: 60 }).map((_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
@@ -333,7 +333,7 @@ export const SkillsSection = () => {
     setMeteors(newMeteors);
 
     // Generate MORE realistic clouds for light mode
-    const newClouds = Array.from({ length: 25 }).map((_, i) => ({
+    const newClouds = Array.from({ length: 12 }).map((_, i) => ({
       id: i,
       x: Math.random() * 100 - 10,
       y: Math.random() * 100 - 10,

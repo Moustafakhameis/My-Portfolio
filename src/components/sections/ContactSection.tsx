@@ -43,7 +43,7 @@ export const ContactSection = () => {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: false }}
+        viewport={{ once: true }}
         className="relative z-10"
       >
         <motion.div variants={itemVariants}>
@@ -55,13 +55,15 @@ export const ContactSection = () => {
           </p>
         </motion.div>
 
-        <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 mb-20 flex-wrap">
-          <motion.div variants={itemVariants} className="relative group flex items-center">
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+        <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 mb-20 flex-wrap w-full">
+          
+          {/* Email Group */}
+          <motion.div variants={itemVariants} className="relative group flex items-center gap-3 md:gap-0 w-full max-w-[320px] md:max-w-none md:w-auto mx-auto md:mx-0">
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex-1 md:flex-none">
               <AnimatedButton
                 href={`mailto:${email}`}
                 variant="primary"
-                className="!py-3.5 !px-6 !text-base md:!px-7 md:!text-lg shadow-[0_0_20px_rgba(var(--primary),0.3)] hover:shadow-[0_0_30px_rgba(var(--primary),0.6)] transition-shadow duration-300"
+                className="w-full justify-center !py-3.5 !px-6 !text-base md:!px-7 md:!text-lg shadow-[0_0_20px_rgba(var(--primary),0.3)] hover:shadow-[0_0_30px_rgba(var(--primary),0.6)] transition-shadow duration-300"
               >
                 <Mail size={20} className="me-2" />
                 {t('contact', 'sayHello')}
@@ -71,34 +73,38 @@ export const ContactSection = () => {
               whileHover={{ scale: 1.1, rotate: 5 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => handleCopy(email, setCopiedEmail)}
-              className="ms-4 md:ms-6 p-3.5 rounded-full bg-muted/80 text-muted-foreground hover:text-primary hover:bg-primary/10 border border-border/50 hover:border-primary/50 transition-all duration-300 shadow-sm"
+              className="flex-shrink-0 md:ms-6 w-[50px] h-[50px] flex items-center justify-center rounded-full bg-muted/80 text-muted-foreground hover:text-primary hover:bg-primary/10 border border-border/50 hover:border-primary/50 transition-all duration-300 shadow-sm"
               title={t('contact', 'copyEmail')}
             >
               {copiedEmail ? <Check size={20} className="text-green-500" /> : <Copy size={20} />}
             </motion.button>
           </motion.div>
 
-          <motion.div variants={itemVariants} className="relative group flex items-center">
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+          {/* Gmail Group */}
+          <motion.div variants={itemVariants} className="relative group flex items-center gap-3 md:gap-0 w-full max-w-[320px] md:max-w-none md:w-auto mx-auto md:mx-0">
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex-1 md:flex-none">
               <AnimatedButton
                 href={`https://mail.google.com/mail/?view=cm&fs=1&to=${email}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 variant="outline"
-                className="!py-3.5 !px-6 !text-base md:!px-7 md:!text-lg border-primary/30 hover:border-primary/80 hover:bg-primary/5 transition-colors duration-300"
+                className="w-full justify-center !py-3.5 !px-6 !text-base md:!px-7 md:!text-lg border-primary/30 hover:border-primary/80 hover:bg-primary/5 transition-colors duration-300"
               >
                 <Mail size={20} className="me-2 text-primary" />
                 {t('contact', 'openGmail')}
               </AnimatedButton>
             </motion.div>
+            {/* Invisible spacer on mobile to perfectly align the Gmail button with the others */}
+            <div className="w-[50px] flex-shrink-0 md:hidden pointer-events-none opacity-0" />
           </motion.div>
 
-          <motion.div variants={itemVariants} className="relative group flex items-center">
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+          {/* Phone Group */}
+          <motion.div variants={itemVariants} className="relative group flex items-center gap-3 md:gap-0 w-full max-w-[320px] md:max-w-none md:w-auto mx-auto md:mx-0">
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex-1 md:flex-none">
               <AnimatedButton
                 href={`tel:${phone.replace('+', '')}`}
                 variant="outline"
-                className="!py-3.5 !px-6 !text-base md:!px-7 md:!text-lg border-primary/30 hover:border-primary/80 hover:bg-primary/5 transition-colors duration-300"
+                className="w-full justify-center !py-3.5 !px-6 !text-base md:!px-7 md:!text-lg border-primary/30 hover:border-primary/80 hover:bg-primary/5 transition-colors duration-300"
               >
                 <Phone size={18} className="me-3 text-primary" />
                 <span className="font-bold tracking-wider" dir="ltr">{phone}</span>
@@ -108,12 +114,13 @@ export const ContactSection = () => {
               whileHover={{ scale: 1.1, rotate: -5 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => handleCopy(phone, setCopiedPhone)}
-              className="ms-4 md:ms-6 p-3.5 rounded-full bg-muted/80 text-muted-foreground hover:text-primary hover:bg-primary/10 border border-border/50 hover:border-primary/50 transition-all duration-300 shadow-sm"
+              className="flex-shrink-0 md:ms-6 w-[50px] h-[50px] flex items-center justify-center rounded-full bg-muted/80 text-muted-foreground hover:text-primary hover:bg-primary/10 border border-border/50 hover:border-primary/50 transition-all duration-300 shadow-sm"
               title={t('contact', 'copyPhone')}
             >
               {copiedPhone ? <Check size={20} className="text-green-500" /> : <Copy size={20} />}
             </motion.button>
           </motion.div>
+          
         </div>
 
         <motion.div variants={itemVariants} className="flex justify-center items-center gap-12 border-t border-border/30 pt-16 mt-8 relative">

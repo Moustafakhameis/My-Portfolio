@@ -218,7 +218,7 @@ export const SymbolShowcaseSection = () => {
       <div dir="ltr" className={`absolute inset-0 z-0 pointer-events-auto ${isDragging ? 'cursor-grabbing' : 'cursor-move'}`}>
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent pointer-events-none" />
         
-        <Canvas dpr={[1, 1.5]} performance={{ min: 0.5 }} camera={{ position: [0, 0, 10], fov: 45 }}>
+        <Canvas dpr={[1, 1]} performance={{ min: 0.5 }} camera={{ position: [0, 0, 10], fov: 45 }}>
           <ambientLight intensity={0.5} />
           <directionalLight position={[10, 10, 10]} intensity={2} color="#c084fc" />
           <spotLight position={[-10, 10, 10]} angle={0.15} penumbra={1} intensity={3} color="#ec4899" />
@@ -231,8 +231,8 @@ export const SymbolShowcaseSection = () => {
             controlsRef={controlsRef}
           />
           
-          {theme === 'dark' && <Stars radius={50} depth={50} count={window.innerWidth < 768 ? 800 : 3000} factor={3} saturation={1} fade speed={1.5} />}
-          <Sparkles count={window.innerWidth < 768 ? 100 : 300} scale={20} size={6} speed={0.5} opacity={theme === 'dark' ? 0.5 : 0.8} color={theme === 'dark' ? "#e9d5ff" : "#9333ea"} />
+          {theme === 'dark' && <Stars radius={50} depth={50} count={window.innerWidth < 768 ? 200 : 800} factor={3} saturation={1} fade speed={1.5} />}
+          <Sparkles count={window.innerWidth < 768 ? 30 : 100} scale={20} size={6} speed={0.5} opacity={theme === 'dark' ? 0.5 : 0.8} color={theme === 'dark' ? "#e9d5ff" : "#9333ea"} />
           
           <Environment preset="city" />
           <OrbitControls 
