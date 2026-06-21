@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { motion, useAnimationFrame, useMotionValue } from 'framer-motion';
+import { motion, useAnimationFrame, useMotionValue, useInView } from 'framer-motion';
 import { RotateCcw, Pause, Play } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 import { useTheme } from '../../context/ThemeContext';
@@ -41,47 +41,35 @@ const RealisticCloud = ({ x, y, scale, delay, duration }: any) => (
 
 const Aurora = () => (
   <div className="absolute inset-0 overflow-visible pointer-events-none z-0 mix-blend-screen opacity-100" style={{ willChange: "transform, opacity" }}>
-    <svg className="absolute w-[140%] h-[120%] top-[-10%] left-[-20%] overflow-visible" viewBox="0 0 1000 500" preserveAspectRatio="none" style={{ willChange: "transform" }}>
-      <defs>
-        {/* filterUnits="userSpaceOnUse" completely prevents the hard clipping edge caused by object bounding boxes */}
-        <filter id="aurora-blur-massive" filterUnits="userSpaceOnUse" x="-500" y="-500" width="2000" height="1500">
-          <feGaussianBlur stdDeviation="45" />
-        </filter>
-        <filter id="aurora-blur-medium" filterUnits="userSpaceOnUse" x="-500" y="-500" width="2000" height="1500">
-          <feGaussianBlur stdDeviation="25" />
-        </filter>
-        <filter id="aurora-blur-sharp" filterUnits="userSpaceOnUse" x="-500" y="-500" width="2000" height="1500">
-          <feGaussianBlur stdDeviation="10" />
-        </filter>
-        
-        {/* Photorealistic Colors: High altitude faint purple blending into dense, intensely bright lime/emerald green at the bottom */}
-        <linearGradient id="aurora-fill-1" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="transparent" />
-          <stop offset="40%" stopColor="rgba(217, 70, 239, 0.15)" /> {/* Faint high-altitude purple */}
-          <stop offset="70%" stopColor="rgba(20, 184, 166, 0.3)" />  {/* Mid-altitude teal */}
-          <stop offset="100%" stopColor="rgba(16, 185, 129, 0.6)" /> {/* Low-altitude green */}
-        </linearGradient>
-        
-        <linearGradient id="aurora-fill-2" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="transparent" />
-          <stop offset="50%" stopColor="rgba(16, 185, 129, 0.1)" />  {/* Fade to transparent sky */}
-          <stop offset="85%" stopColor="rgba(20, 184, 166, 0.5)" />  {/* Dense teal */}
-          <stop offset="100%" stopColor="rgba(132, 204, 22, 0.7)" /> {/* Intense lime/yellow edge */}
-        </linearGradient>
-        
-        <linearGradient id="aurora-fill-3" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="transparent" />
-          <stop offset="60%" stopColor="rgba(16, 185, 129, 0.1)" />  {/* Fade */}
-          <stop offset="90%" stopColor="rgba(16, 185, 129, 0.6)" />  {/* Vibrant green */}
-          <stop offset="100%" stopColor="rgba(132, 204, 22, 0.9)" /> {/* Burning lime base */}
-        </linearGradient>
-      </defs>
+    <svg className="absolute w-0 h-0"><defs>
+      {/* Photorealistic Colors: High altitude faint purple blending into dense, intensely bright lime/emerald green at the bottom */}
+      <linearGradient id="aurora-fill-1" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stopColor="transparent" />
+        <stop offset="40%" stopColor="rgba(217, 70, 239, 0.15)" /> {/* Faint high-altitude purple */}
+        <stop offset="70%" stopColor="rgba(20, 184, 166, 0.3)" />  {/* Mid-altitude teal */}
+        <stop offset="100%" stopColor="rgba(16, 185, 129, 0.6)" /> {/* Low-altitude green */}
+      </linearGradient>
+      
+      <linearGradient id="aurora-fill-2" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stopColor="transparent" />
+        <stop offset="50%" stopColor="rgba(16, 185, 129, 0.1)" />  {/* Fade to transparent sky */}
+        <stop offset="85%" stopColor="rgba(20, 184, 166, 0.5)" />  {/* Dense teal */}
+        <stop offset="100%" stopColor="rgba(132, 204, 22, 0.7)" /> {/* Intense lime/yellow edge */}
+      </linearGradient>
+      
+      <linearGradient id="aurora-fill-3" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stopColor="transparent" />
+        <stop offset="60%" stopColor="rgba(16, 185, 129, 0.1)" />  {/* Fade */}
+        <stop offset="90%" stopColor="rgba(16, 185, 129, 0.6)" />  {/* Vibrant green */}
+        <stop offset="100%" stopColor="rgba(132, 204, 22, 0.9)" /> {/* Burning lime base */}
+      </linearGradient>
+    </defs></svg>
 
-      {/* Layer 1 - Deepest Background Arc (Massive blur) */}
+    {/* Layer 1 - Deepest Background Arc (Massive blur) using CSS blur */}
+    <svg className="absolute w-[140%] h-[120%] top-[-10%] left-[-20%] overflow-visible" viewBox="0 0 1000 500" preserveAspectRatio="none" style={{ willChange: "transform", filter: "blur(45px)" }}>
       <motion.path
         initial={{ d: "M-100,0 L1100,0 L1100,200 Q800,100 500,250 T-100,150 Z" }}
         fill="url(#aurora-fill-1)"
-        filter="url(#aurora-blur-massive)"
         animate={{
           d: [
             "M-100,0 L1100,0 L1100,200 Q800,100 500,250 T-100,150 Z",
@@ -91,12 +79,13 @@ const Aurora = () => (
         }}
         transition={{ duration: 30, repeat: Infinity, ease: "easeInOut" }}
       />
-      
-      {/* Layer 2 - Middle Ground Wavy Curtain */}
+    </svg>
+
+    {/* Layer 2 and 3 Filled Paths (Medium blur) */}
+    <svg className="absolute w-[140%] h-[120%] top-[-10%] left-[-20%] overflow-visible" viewBox="0 0 1000 500" preserveAspectRatio="none" style={{ willChange: "transform", filter: "blur(25px)" }}>
       <motion.path
         initial={{ d: "M-100,0 L1100,0 L1100,150 Q700,350 400,150 T-100,300 Z" }}
         fill="url(#aurora-fill-2)"
-        filter="url(#aurora-blur-medium)"
         animate={{
           d: [
             "M-100,0 L1100,0 L1100,150 Q700,350 400,150 T-100,300 Z",
@@ -106,28 +95,9 @@ const Aurora = () => (
         }}
         transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
       />
-      {/* Intensely glowing sharp bottom edge for Layer 2 */}
-      <motion.path
-        initial={{ d: "M-100,150 Q700,350 400,150 T-100,300" }}
-        fill="none"
-        stroke="rgba(132, 204, 22, 0.7)"
-        strokeWidth="6"
-        filter="url(#aurora-blur-sharp)"
-        animate={{
-          d: [
-            "M-100,150 Q700,350 400,150 T-100,300",
-            "M-100,300 Q800,100 500,250 T-100,150",
-            "M-100,150 Q700,350 400,150 T-100,300"
-          ]
-        }}
-        transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
-      />
-
-      {/* Layer 3 - Foreground Dynamic Ribbon */}
       <motion.path
         initial={{ d: "M-100,0 L1100,0 L1100,250 Q500,150 300,350 T-100,200 Z" }}
         fill="url(#aurora-fill-3)"
-        filter="url(#aurora-blur-medium)"
         animate={{
           d: [
             "M-100,0 L1100,0 L1100,250 Q500,150 300,350 T-100,200 Z",
@@ -137,13 +107,29 @@ const Aurora = () => (
         }}
         transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
       />
-      {/* Intensely glowing sharp bottom edge for Layer 3 */}
+    </svg>
+
+    {/* Sharp glowing bottom edges (Sharp blur) */}
+    <svg className="absolute w-[140%] h-[120%] top-[-10%] left-[-20%] overflow-visible" viewBox="0 0 1000 500" preserveAspectRatio="none" style={{ willChange: "transform", filter: "blur(10px)" }}>
+      <motion.path
+        initial={{ d: "M-100,150 Q700,350 400,150 T-100,300" }}
+        fill="none"
+        stroke="rgba(132, 204, 22, 0.7)"
+        strokeWidth="6"
+        animate={{
+          d: [
+            "M-100,150 Q700,350 400,150 T-100,300",
+            "M-100,300 Q800,100 500,250 T-100,150",
+            "M-100,150 Q700,350 400,150 T-100,300"
+          ]
+        }}
+        transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
+      />
       <motion.path
         initial={{ d: "M-100,250 Q500,150 300,350 T-100,200" }}
         fill="none"
         stroke="rgba(16, 185, 129, 1)"
         strokeWidth="10"
-        filter="url(#aurora-blur-sharp)"
         animate={{
           d: [
             "M-100,250 Q500,150 300,350 T-100,200",
@@ -283,7 +269,7 @@ const SkillPill = ({ skill, orbitRadius, initialAngle, containerRef, resetKey, i
 export const SkillsSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [resetKey, setResetKey] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
+  const [isPaused, setIsPaused] = useState(true);
   const [stars, setStars] = useState<{ id: number; x: number; y: number; size: number; duration: number; delay: number; color: string }[]>([]);
   const [clouds, setClouds] = useState<{ id: number; x: number; y: number; scale: number; duration: number; delay: number }[]>([]);
   const [meteors, setMeteors] = useState<{ id: number; top: number; left: number; delay: number; duration: number }[]>([]);
@@ -291,6 +277,7 @@ export const SkillsSection = () => {
   const { theme } = useTheme();
   const [isDark, setIsDark] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
+  const isInView = useInView(containerRef, { margin: "200px" });
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -314,7 +301,7 @@ export const SkillsSection = () => {
 
   useEffect(() => {
     // Generate random stars for dark mode with realistic colors
-    const newStars = Array.from({ length: 60 }).map((_, i) => ({
+    const newStars = Array.from({ length: 25 }).map((_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
@@ -336,7 +323,7 @@ export const SkillsSection = () => {
     setMeteors(newMeteors);
 
     // Generate MORE realistic clouds for light mode
-    const newClouds = Array.from({ length: 12 }).map((_, i) => ({
+    const newClouds = Array.from({ length: 10 }).map((_, i) => ({
       id: i,
       x: Math.random() * 100 - 10,
       y: Math.random() * 100 - 10,
@@ -562,7 +549,7 @@ export const SkillsSection = () => {
                 initialAngle={initialAngle}
                 containerRef={containerRef}
                 resetKey={resetKey}
-                isPaused={isPaused}
+                isPaused={isPaused || !isInView}
               />
             );
           })}

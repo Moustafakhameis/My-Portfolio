@@ -27,12 +27,11 @@ const itemVariants = {
 
 const floatingBubbleVariants = {
   animate: (i: number) => ({
-    y: [0, -40, 0],
-    x: [0, i % 2 === 0 ? 30 : -30, 0],
-    scale: [1, 1.2, 1],
-    rotate: [0, 90, 0],
+    y: [0, -60, 0],
+    x: [0, i % 2 === 0 ? 40 : -40, 0],
+    opacity: [0.6, 1, 0.6],
     transition: {
-      duration: 7 + i,
+      duration: 10 + i * 2,
       repeat: Infinity,
       ease: "easeInOut",
       delay: i * 0.5
@@ -162,6 +161,7 @@ export const HeroSection = () => {
                 rotate: { type: "tween", ease: "easeOut" }
               }}
               className="relative w-40 h-40 md:w-52 md:h-52 lg:w-56 lg:h-56 rounded-full overflow-hidden border-4 border-primary/20 shadow-2xl shadow-primary/20 bg-background/50 backdrop-blur-sm z-10 transition-colors duration-500 group-hover:border-primary/60 group-hover:shadow-primary/40"
+              style={{ willChange: "transform" }}
             >
               <img 
                 src={profilePic} 
@@ -171,14 +171,14 @@ export const HeroSection = () => {
             </motion.div>
             {/* Decorative elements behind photo */}
             <motion.div 
-              animate={{ rotate: 360, scale: [1, 1.1, 1] }}
+              animate={{ rotate: 360 }}
               transition={{ 
-                rotate: { repeat: Infinity, duration: 25, ease: "linear" },
-                scale: { repeat: Infinity, duration: 10, ease: "easeInOut" }
+                rotate: { repeat: Infinity, duration: 30, ease: "linear" }
               }}
-              className="absolute inset-[-15%] rounded-full bg-gradient-to-tr from-primary/30 to-transparent -z-10 blur-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-500 blob-blur"
+              className="absolute inset-[-15%] rounded-full bg-gradient-to-tr from-primary/30 to-transparent -z-10 blur-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-500"
+              style={{ willChange: "transform" }}
             />
-            <div className="absolute inset-0 rounded-full bg-primary/20 -z-20 blur-3xl scale-150 duration-1000 group-hover:bg-primary/30 transition-colors duration-500 blob-blur"></div>
+            <div className="absolute inset-0 rounded-full bg-primary/20 -z-20 blur-3xl scale-150 group-hover:bg-primary/30 transition-colors duration-500"></div>
           </motion.div>
 
           <motion.div variants={itemVariants} whileHover={{ scale: 1.1, y: -5 }} className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary/5 text-primary mb-6 border border-primary/20 backdrop-blur-md shadow-sm cursor-default">
