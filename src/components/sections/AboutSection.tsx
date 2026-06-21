@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { GraduationCap, MapPin, User, Target } from 'lucide-react';
+import { GraduationCap, MapPin, User, Target, Download } from 'lucide-react';
+import { AnimatedButton } from '../ui/AnimatedButton';
 import { useLanguage } from '../../context/LanguageContext';
 
 export const AboutSection = () => {
@@ -59,9 +60,27 @@ export const AboutSection = () => {
             <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-6">
               {t('about', 'title')}
             </h2>
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
+            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8">
               {t('about', 'description')}
             </p>
+            <div className="flex flex-wrap gap-4 mt-8">
+              <AnimatedButton
+                href="https://drive.google.com/file/d/19Ny6-7ZgrcbdwP98RSb9D_moc9PJOkVW/view?usp=drive_link"
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="primary"
+                className="!py-3.5 !px-8 shadow-[0_0_20px_rgba(var(--primary),0.4)] hover:shadow-[0_0_40px_rgba(var(--primary),0.8)] transition-all duration-500 group"
+              >
+                <motion.div
+                  animate={{ y: [0, -3, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                  className="me-2"
+                >
+                  <Download size={20} className="group-hover:scale-110 transition-transform duration-300" />
+                </motion.div>
+                {t('about', 'downloadResume')}
+              </AnimatedButton>
+            </div>
           </motion.div>
 
           <motion.div variants={containerVariants} className="grid grid-cols-1 sm:grid-cols-2 gap-5">

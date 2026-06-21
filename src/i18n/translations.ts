@@ -25,6 +25,7 @@ export const translations = {
       degree: 'Business Information Systems (BIS)',
       university: 'Helwan University',
       gpa: 'GPA: 3.87',
+      downloadResume: 'View Resume',
     },
     experience: {
       title: 'Professional Experience',
@@ -39,6 +40,8 @@ export const translations = {
       title: 'Interactive Skills Galaxy',
       description: 'Hover, drag, and explore the elements. A comprehensive toolkit for building modern web experiences.',
       snapBack: 'Snap Back to Orbit',
+      pause: 'Pause Animation',
+      play: 'Play Animation',
     },
     contact: {
       title: 'Get In Touch',
@@ -96,6 +99,7 @@ export const translations = {
       degree: 'نظم معلومات الأعمال (BIS)',
       university: 'جامعة حلوان',
       gpa: 'المعدل التراكمي: 3.87',
+      downloadResume: 'عرض السيرة الذاتية',
     },
     experience: {
       title: 'الخبرات المهنية',
@@ -110,6 +114,8 @@ export const translations = {
       title: 'مجرة المهارات التفاعلية',
       description: 'قم بالتمرير والسحب واستكشاف العناصر. مجموعة أدوات متكاملة لبناء تجارب ويب حديثة.',
       snapBack: 'إعادة إلى المدار',
+      pause: 'إيقاف الحركة',
+      play: 'تشغيل الحركة',
     },
     contact: {
       title: 'تواصل معي',

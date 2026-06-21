@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useAnimationFrame, useMotionValue } from 'framer-motion';
-import { RotateCcw } from 'lucide-react';
+import { RotateCcw, Pause, Play } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 import { useTheme } from '../../context/ThemeContext';
 import { cn } from '../../utils/cn';
@@ -202,7 +202,7 @@ const HelixNebula = () => (
   </motion.div>
 );
 
-const SkillPill = ({ skill, orbitRadius, initialAngle, containerRef, resetKey }: any) => {
+const SkillPill = ({ skill, orbitRadius, initialAngle, containerRef, resetKey, isPaused }: any) => {
   const x = useMotionValue(Math.cos(initialAngle) * orbitRadius);
   const y = useMotionValue(Math.sin(initialAngle) * orbitRadius);
   const isInteracting = useRef(false);
@@ -217,7 +217,9 @@ const SkillPill = ({ skill, orbitRadius, initialAngle, containerRef, resetKey }:
   }, [resetKey]);
 
   useAnimationFrame((time, delta) => {
-    angleRef.current += delta * 0.00015;
+    if (!isPaused) {
+      angleRef.current += delta * 0.00015;
+    }
     const idealX = Math.cos(angleRef.current) * orbitRadius;
     const idealY = Math.sin(angleRef.current) * orbitRadius;
 
@@ -281,6 +283,7 @@ const SkillPill = ({ skill, orbitRadius, initialAngle, containerRef, resetKey }:
 export const SkillsSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [resetKey, setResetKey] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
   const [stars, setStars] = useState<{ id: number; x: number; y: number; size: number; duration: number; delay: number; color: string }[]>([]);
   const [clouds, setClouds] = useState<{ id: number; x: number; y: number; scale: number; duration: number; delay: number }[]>([]);
   const [meteors, setMeteors] = useState<{ id: number; top: number; left: number; delay: number; duration: number }[]>([]);
@@ -419,13 +422,31 @@ export const SkillsSection = () => {
           {t('skills', 'description')}
         </p>
         
-        <button
-          onClick={handleReset}
-          className="inline-flex items-center gap-2 px-4 py-2 bg-muted hover:bg-primary/20 text-foreground font-medium rounded-full transition-colors border border-border"
-        >
-          <RotateCcw size={16} />
-          {t('skills', 'snapBack')}
-        </button>
+        <div className="flex flex-wrap items-center justify-center gap-4">
+          <motion.button
+            whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(168, 85, 247, 0.4)" }}
+            whileTap={{ scale: 0.95 }}
+            onClick={handleReset}
+            className="inline-flex items-center gap-2 px-6 py-3 bg-card/40 backdrop-blur-md border border-border/50 hover:border-primary/50 hover:bg-primary/10 text-foreground font-semibold rounded-full transition-all duration-300 relative overflow-hidden group"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
+            <RotateCcw size={18} className="group-hover:-rotate-180 transition-transform duration-500 ease-out text-primary" />
+            <span className="relative z-10">{t('skills', 'snapBack')}</span>
+          </motion.button>
+          
+          <motion.button
+            whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(168, 85, 247, 0.4)" }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setIsPaused(!isPaused)}
+            className="inline-flex items-center gap-2 px-6 py-3 bg-card/40 backdrop-blur-md border border-border/50 hover:border-primary/50 hover:bg-primary/10 text-foreground font-semibold rounded-full transition-all duration-300 relative overflow-hidden group"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
+            <motion.div animate={{ scale: isPaused ? [1, 1.2, 1] : 1 }} transition={{ duration: 1.5, repeat: isPaused ? Infinity : 0, ease: "easeInOut" }}>
+              {isPaused ? <Play size={18} className="text-primary drop-shadow-[0_0_8px_rgba(168,85,247,0.8)]" fill="currentColor" /> : <Pause size={18} className="text-primary" />}
+            </motion.div>
+            <span className="relative z-10">{isPaused ? t('skills', 'play') : t('skills', 'pause')}</span>
+          </motion.button>
+        </div>
       </div>
 
       <div className="relative h-[500px] md:h-[800px] max-w-5xl mx-auto flex items-center justify-center">
@@ -541,6 +562,7 @@ export const SkillsSection = () => {
                 initialAngle={initialAngle}
                 containerRef={containerRef}
                 resetKey={resetKey}
+                isPaused={isPaused}
               />
             );
           })}

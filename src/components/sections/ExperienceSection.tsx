@@ -5,6 +5,12 @@ import { useLanguage } from '../../context/LanguageContext';
 
 const experiences = [
   {
+    title: 'Web Design Trainee',
+    company: 'NTI',
+    date: 'Sept. 2025 - Oct. 2025',
+    description: 'Specialized training program focused on Web Design principles and modern web development technologies.',
+  },
+  {
     title: 'Front-End Development Trainee',
     company: 'ITI (Information Technology Institute)',
     date: 'Aug. 2025 - Sept. 2025',

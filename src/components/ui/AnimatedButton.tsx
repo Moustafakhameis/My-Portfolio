@@ -77,16 +77,27 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
     >
       {/* Background ripple/glow effect for primary buttons */}
       {variant === 'primary' && (
-        <motion.div
-          className="absolute inset-0 bg-white/20 dark:bg-white/10 rounded-full"
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{
-            scale: isHovered ? 1.5 : 0,
-            opacity: isHovered ? 1 : 0,
-          }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          style={{ originX: 0.5, originY: 0.5 }}
-        />
+        <>
+          <motion.div
+            className="absolute inset-0 bg-white/20 dark:bg-white/10 rounded-full"
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{
+              scale: isHovered ? 1.5 : 0,
+              opacity: isHovered ? 1 : 0,
+            }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            style={{ originX: 0.5, originY: 0.5 }}
+          />
+          {/* Sweeping shine effect */}
+          <div className="absolute inset-0 overflow-hidden rounded-full pointer-events-none">
+            <motion.div
+              className="absolute top-0 bottom-0 w-[150%] bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-[-20deg]"
+              initial={{ x: "-100%" }}
+              animate={{ x: isHovered ? "100%" : "-100%" }}
+              transition={{ duration: 0.7, ease: "easeInOut" }}
+            />
+          </div>
+        </>
       )}
       
       {/* Text needs to be above the absolute backgrounds */}
