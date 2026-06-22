@@ -100,16 +100,35 @@ export const ExperienceSection = () => {
   return (
     <section id="experience" ref={containerRef} className="py-24 px-6 md:px-12 max-w-5xl mx-auto overflow-hidden">
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial="hidden"
+        whileInView="visible"
         viewport={{ once: true }}
-        transition={{ type: "tween", ease: "easeOut", duration: 1 }}
-        className="max-w-4xl mx-auto mb-20 relative"
+        variants={{
+          visible: {
+            transition: {
+              staggerChildren: 0.2
+            }
+          }
+        }}
+        className="mb-20 relative flex flex-col items-center"
       >
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-primary/10 blur-[60px] -z-10 rounded-full blob-blur" />
-        <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-center">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary/20 blur-[80px] -z-10 rounded-full blob-blur" />
+        <motion.h2 
+          variants={{
+            hidden: { opacity: 0, y: 30 },
+            visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 20 } }
+          }}
+          className="text-5xl md:text-7xl font-black tracking-tighter mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-foreground via-foreground to-foreground/50"
+        >
           {t('experience', 'title')}
-        </h2>
+        </motion.h2>
+        <motion.div
+          variants={{
+            hidden: { opacity: 0, scaleX: 0 },
+            visible: { opacity: 1, scaleX: 1, transition: { type: "spring", stiffness: 300, damping: 25 } }
+          }}
+          className="h-1.5 w-24 bg-gradient-to-r from-primary to-pink-500 rounded-full mb-6 origin-center"
+        />
       </motion.div>
 
       <div className={`relative space-y-12 pb-8 ${language === 'ar' ? 'mr-8 md:mr-12' : 'ml-8 md:ml-12'}`}>

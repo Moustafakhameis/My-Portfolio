@@ -32,6 +32,7 @@ export const translations = {
     },
     projects: {
       title: 'Featured Projects',
+      description: 'A curated selection of my most impactful and technically challenging work, demonstrating my expertise in modern web technologies.',
       viewProject: 'View Live Demo',
       viewGithub: 'View Source',
       techStack: 'Tech Stack',
@@ -106,6 +107,7 @@ export const translations = {
     },
     projects: {
       title: 'أبرز المشاريع',
+      description: 'مجموعة مختارة من أبرز مشاريعي وأكثرها تحدياً من الناحية التقنية، توضح خبرتي في تقنيات الويب الحديثة.',
       viewProject: 'عرض مباشر',
       viewGithub: 'الكود المصدري',
       techStack: 'التقنيات المستخدمة',

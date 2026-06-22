@@ -56,10 +56,17 @@ export const AboutSection = () => {
         className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
       >
         <div className="space-y-10">
-          <motion.div variants={textReveal}>
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-6">
+          <motion.div variants={textReveal} className="relative">
+            <h2 className="text-5xl md:text-7xl font-black tracking-tighter mb-6 text-transparent bg-clip-text bg-gradient-to-r from-foreground via-foreground to-foreground/50">
               {t('about', 'title')}
             </h2>
+            <motion.div
+              initial={{ opacity: 0, scaleX: 0 }}
+              whileInView={{ opacity: 1, scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ type: "spring", stiffness: 300, damping: 25, delay: 0.2 }}
+              className="h-1.5 w-24 bg-gradient-to-r from-primary to-pink-500 rounded-full mb-6 origin-left"
+            />
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8">
               {t('about', 'description')}
             </p>
