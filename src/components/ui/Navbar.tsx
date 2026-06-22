@@ -98,20 +98,83 @@ export const Navbar = () => {
       {/* Logo */}
       <motion.a 
         href="#" 
-        className="group flex items-center gap-2 text-2xl font-bold tracking-tighter"
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+        className="flex items-center gap-2 text-2xl font-bold tracking-tighter"
+        initial="idle"
+        animate="idle"
+        whileHover="hover"
+        whileTap="tap"
+        variants={{
+          idle: { scale: 1 },
+          hover: { scale: 1.02 },
+          tap: { scale: 0.95 }
+        }}
       >
-        <span className="bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground group-hover:from-primary group-hover:to-pink-500 transition-all duration-300">
-          {language === 'ar' ? 'مُصْطَفَى' : '𝐌𝐎𝐒𝐓𝐀𝐅𝐀'}
-        </span>
+        {/* 3D Extruded Text Effect with Sweeping Shine & Animated Colors */}
         <motion.span 
-          animate={{ rotate: 360 }}
-          transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-          className="text-primary inline-block origin-center"
+          className="inline-block"
+          variants={{
+            idle: {
+              y: 0,
+              filter: "drop-shadow(0px 2px 4px rgba(0,0,0,0.3))",
+              transition: { duration: 0.3 }
+            },
+            hover: {
+              y: -2,
+              filter: "drop-shadow(0px 8px 16px rgba(168,85,247,0.4))",
+              transition: { type: "spring", stiffness: 400, damping: 25 }
+            }
+          }}
         >
-          𖤍
+          <motion.span 
+            className="bg-clip-text text-transparent inline-block"
+            animate={{ backgroundPosition: ["200% center", "-200% center"] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+            variants={{
+              idle: {
+                backgroundImage: `linear-gradient(120deg, ${theme === 'dark' ? '#ffffff' : '#000000'} 40%, rgba(168,85,247,0.5) 50%, ${theme === 'dark' ? '#ffffff' : '#000000'} 60%)`,
+                backgroundSize: "200% auto",
+              },
+              hover: {
+                backgroundImage: "linear-gradient(90deg, #a855f7, #ec4899, #a855f7)",
+                backgroundSize: "200% auto",
+              }
+            }}
+          >
+            {language === 'ar' ? 'مُصْطَفَى' : '𝐌𝐎𝐒𝐓𝐀𝐅𝐀'}
+          </motion.span>
         </motion.span>
+        
+        {/* Continuous 3D Spin & Animated Colors */}
+        <div style={{ perspective: 1000 }} className="ml-2">
+          <motion.div
+            animate={{ y: [-2, 2], rotateY: [0, 360] }}
+            transition={{ 
+              y: { duration: 3, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" },
+              rotateY: { duration: 8, repeat: Infinity, ease: "linear" }
+            }}
+            className="inline-block origin-center"
+          >
+            <motion.span 
+              className="inline-block"
+              variants={{
+                idle: {
+                  scale: 1,
+                  color: theme === 'dark' ? '#ffffff' : '#000000',
+                  filter: "drop-shadow(0px 2px 4px rgba(0,0,0,0.3))",
+                  transition: { duration: 0.3 }
+                },
+                hover: {
+                  scale: 1.15,
+                  color: "#ec4899",
+                  filter: "drop-shadow(0px 0px 15px rgba(236,72,153,0.8))",
+                  transition: { type: "spring", stiffness: 400, damping: 25 }
+                }
+              }}
+            >
+              𖤍
+            </motion.span>
+          </motion.div>
+        </div>
       </motion.a>
 
       {/* Mobile Menu Toggle Button */}

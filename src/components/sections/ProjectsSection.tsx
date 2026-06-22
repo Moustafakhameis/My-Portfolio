@@ -26,6 +26,15 @@ const projects = [
     github: 'https://github.com/Moustafakhameis/Social-App'
   },
   {
+    title: 'Zar3a - Ui',
+    tech: ['React', 'Tailwind CSS', 'Vite', 'React Router', 'Recharts', 'Framer Motion', 'React Query'],
+    description: 'A comprehensive smart agriculture platform built with React and Vite, featuring real-time IoT sensor telemetry, expert consultation booking, an integrated marketplace, and dynamic dashboard analytics.',
+    challenges: 'Designing an intuitive user experience that consolidates diverse agricultural workflows—from live greenhouse monitoring to B2B e-commerce—into a single, unified interface, while ensuring complex role-based access control and seamless state management.',
+    results: 'A scalable, highly responsive ecosystem that empowers farmers with actionable data insights, automates farm management, and effortlessly bridges the gap between agricultural suppliers, experts, and buyers.',
+    link: 'https://moustafakhameis.github.io/Zar3a-UI/',
+    github: 'https://github.com/Moustafakhameis/Zar3a-UI'
+  },
+  {
     title: 'Zar3a - UseCase',
     tech: ['React', 'Tailwind CSS', 'Framer Motion', 'Recharts'],
     description: 'A modern, data-driven web application built with React, featuring animated UI elements and interactive charts.',
