@@ -17,6 +17,15 @@ const projects = [
     github: 'https://github.com/Moustafakhameis/EagleVerse'
   },
   {
+    title: 'Zar3a - Smart Agriculture Platform',
+    tech: ['React', 'Node.js / Express', 'MongoDB', 'Tailwind CSS', 'Framer Motion', 'Socket.io', 'Stripe', 'Full-Stack (MERN)'],
+    description: 'A comprehensive, full-stack marketplace and management ecosystem connecting suppliers, farmers, buyers, and agricultural experts. It features a modern glassmorphic UI, real-time chat, premium animations, and a seamless B2B/B2C e-commerce experience tailored for the agricultural sector.',
+    challenges: 'Architecting a robust multi-vendor e-commerce platform with complex role-based access (Admins, Suppliers, Farmers, Buyers, Experts). Required implementing multi-lingual support (i18n), integrating real-time Socket.io communication, and managing complex global state while ensuring a highly responsive, premium UI/UX across all devices.',
+    results: 'A highly scalable, secure, and visually stunning platform that streamlines the entire agricultural supply chain. It delivers an ultra-premium interactive experience with secure Stripe payment processing, real-time messaging, and powerful admin/vendor dashboards.',
+    link: 'https://zar3a-asybu99px-moustafakhameis-projects.vercel.app/',
+    github: 'https://github.com/Moustafakhameis/Zar3a'
+  },
+  {
     title: 'SocialApp - Social Media Platform',
     tech: ['React', 'Tailwind CSS v4', 'Framer Motion', 'Zustand', 'React Router'],
     description: 'A modern, highly interactive social network interface built with React and Tailwind CSS v4, featuring a simulated REST API backend for seamless user engagement.',
