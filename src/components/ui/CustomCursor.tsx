@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 
 export const CustomCursor = () => {
@@ -22,6 +22,10 @@ export const CustomCursor = () => {
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [isTextHovering, setIsTextHovering] = useState(false);
 
+  // Track previous state to prevent redundant re-renders
+  const prevHover = useRef(false);
+  const prevText = useRef(false);
+
   useEffect(() => {
     const updateMousePosition = (e: MouseEvent) => {
       mouseX.set(e.clientX);
@@ -31,17 +35,18 @@ export const CustomCursor = () => {
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       
+      let newHover = false;
+      let newText = false;
+
       // Interactive elements
       if (
         target.tagName.toLowerCase() === 'a' ||
         target.tagName.toLowerCase() === 'button' ||
         target.closest('a') ||
         target.closest('button') ||
-        target.classList.contains('magnetic') ||
-        getComputedStyle(target).cursor === 'pointer'
+        target.classList.contains('magnetic')
       ) {
-        setIsHovering(true);
-        setIsTextHovering(false);
+        newHover = true;
       } 
       // Text elements
       else if (
@@ -49,20 +54,25 @@ export const CustomCursor = () => {
         !target.closest('button') && 
         !target.closest('a')
       ) {
-        setIsTextHovering(true);
-        setIsHovering(false);
+        newText = true;
       }
-      else {
-        setIsHovering(false);
-        setIsTextHovering(false);
+
+      // Only trigger re-render if state actually changed
+      if (newHover !== prevHover.current) {
+        prevHover.current = newHover;
+        setIsHovering(newHover);
+      }
+      if (newText !== prevText.current) {
+        prevText.current = newText;
+        setIsTextHovering(newText);
       }
     };
 
     const handleMouseDown = () => setIsMouseDown(true);
     const handleMouseUp = () => setIsMouseDown(false);
 
-    window.addEventListener('mousemove', updateMousePosition);
-    window.addEventListener('mouseover', handleMouseOver);
+    window.addEventListener('mousemove', updateMousePosition, { passive: true });
+    window.addEventListener('mouseover', handleMouseOver, { passive: true });
     window.addEventListener('mousedown', handleMouseDown);
     window.addEventListener('mouseup', handleMouseUp);
 

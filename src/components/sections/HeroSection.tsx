@@ -129,12 +129,10 @@ export const HeroSection = () => {
       <motion.div 
         custom={1} variants={floatingBubbleVariants} animate="animate"
         className="absolute top-1/4 left-1/4 w-72 h-72 bg-primary/5 rounded-full blur-3xl -z-10 blob-blur"
-        style={{ willChange: "transform" }}
       />
       <motion.div 
         custom={2} variants={floatingBubbleVariants} animate="animate"
         className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl -z-10 blob-blur"
-        style={{ willChange: "transform" }}
       />
 
       <motion.div 
@@ -161,7 +159,6 @@ export const HeroSection = () => {
                 rotate: { type: "tween", ease: "easeOut" }
               }}
               className="relative w-40 h-40 md:w-52 md:h-52 lg:w-56 lg:h-56 rounded-full overflow-hidden border-4 border-primary/20 shadow-2xl shadow-primary/20 bg-background/50 backdrop-blur-sm z-10 transition-colors duration-500 group-hover:border-primary/60 group-hover:shadow-primary/40"
-              style={{ willChange: "transform" }}
             >
               <img 
                 src={profilePic} 
@@ -170,13 +167,8 @@ export const HeroSection = () => {
               />
             </motion.div>
             {/* Decorative elements behind photo */}
-            <motion.div 
-              animate={{ rotate: 360 }}
-              transition={{ 
-                rotate: { repeat: Infinity, duration: 30, ease: "linear" }
-              }}
-              className="absolute inset-[-15%] rounded-full bg-gradient-to-tr from-primary/30 to-transparent -z-10 blur-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-500"
-              style={{ willChange: "transform" }}
+            <div 
+              className="absolute inset-[-15%] rounded-full bg-gradient-to-tr from-primary/30 to-transparent -z-10 blur-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-500 blob-blur"
             />
             <div className="absolute inset-0 rounded-full bg-primary/20 -z-20 blur-3xl scale-150 group-hover:bg-primary/30 transition-colors duration-500"></div>
           </motion.div>

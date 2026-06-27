@@ -58,6 +58,11 @@
   body {
     @apply bg-background text-foreground font-sans antialiased;
     overflow-x: hidden;
+    transition: background-color 0.5s ease, color 0.5s ease;
+  }
+  /* Smooth theme transitions on key container elements only — NOT on every element */
+  section, nav, footer, header, main, .glass, [class*="bg-background"], [class*="bg-card"], [class*="text-foreground"], [class*="text-muted"] {
+    transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
   }
 }
 
@@ -86,6 +91,9 @@
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+  /* GPU promote glass elements to avoid repainting */
+  will-change: backdrop-filter;
+  transform: translateZ(0);
 }
 
 .dark .glass {
@@ -103,12 +111,15 @@
 
 /* Hardware Acceleration for Heavy Filters (Improves Mobile Performance) */
 .blob-blur {
-  will-change: transform, filter;
+  will-change: transform;
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  contain: layout style paint;
 }
+
+
 
 /* Fix letter-spacing for RTL/Arabic text to prevent cursive connections from breaking or overlapping */
 [dir="rtl"] *,

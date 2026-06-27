@@ -1,23 +1,26 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, Suspense } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls, Environment, Float, Text, Sparkles, Stars, ContactShadows, Html } from '@react-three/drei';
 import * as THREE from 'three';
 import { useTheme } from '../../context/ThemeContext';
 import { useLanguage } from '../../context/LanguageContext';
 import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { RotateCcw, Compass } from 'lucide-react';
+import { useMemo } from 'react';
 
 const ExtrudedSymbol = ({ 
   targetRotation, 
   isDragging, 
   setIsDragging, 
-  controlsRef 
+  controlsRef,
+  isMobile
 }: { 
   targetRotation: React.MutableRefObject<{ x: number, y: number }>,
   isDragging: boolean,
   setIsDragging: (v: boolean) => void,
-  controlsRef: React.RefObject<OrbitControlsImpl>
+  controlsRef: React.RefObject<OrbitControlsImpl>,
+  isMobile: boolean
 }) => {
   const groupRef = useRef<THREE.Group>(null);
   const [hovered, setHovered] = useState(false);
@@ -91,7 +94,7 @@ const ExtrudedSymbol = ({
         }}
       >
         {/* Mr-Eagle Hover Label (Hidden on mobile for cleaner UI) */}
-        {typeof window !== 'undefined' && window.innerWidth >= 768 && (
+        {!isMobile && (
           <Html position={[0, 2.6, 0]} center zIndexRange={[100, 0]} className="pointer-events-none">
             <AnimatePresence>
               {hovered && (
@@ -166,21 +169,21 @@ const ExtrudedSymbol = ({
   );
 };
 
-const SceneLayout = ({ targetRotation, isDragging, setIsDragging, controlsRef }: any) => {
+const SceneLayout = ({ targetRotation, isDragging, setIsDragging, controlsRef, isMobileCheck }: any) => {
   const { viewport } = useThree();
   const { language } = useLanguage();
-  const isMobile = window.innerWidth < 768;
   const isRtl = language === 'ar';
   
-  const xPos = isMobile ? 0 : (isRtl ? -viewport.width / 4 : viewport.width / 4);
+  const xPos = isMobileCheck ? 0 : (isRtl ? -viewport.width / 4 : viewport.width / 4);
   
   return (
-    <group position={[xPos, isMobile ? -1.5 : 0, 0]}>
+    <group position={[xPos, isMobileCheck ? -1.5 : 0, 0]}>
       <ExtrudedSymbol 
         targetRotation={targetRotation} 
         isDragging={isDragging} 
         setIsDragging={setIsDragging} 
-        controlsRef={controlsRef} 
+        controlsRef={controlsRef}
+        isMobile={isMobileCheck}
       />
       <ContactShadows position={[0, -3.5, 0]} opacity={0.6} scale={25} blur={2.5} far={10} color="#7e22ce" />
     </group>
@@ -197,6 +200,10 @@ export const SymbolShowcaseSection = () => {
   const [isDragging, setIsDragging] = useState(false);
 
   const [isResetting, setIsResetting] = useState(false);
+  const isMobile = useMemo(() => typeof window !== 'undefined' && window.innerWidth < 768, []);
+  
+  const containerRef = useRef<HTMLElement>(null);
+  const isInView = useInView(containerRef, { once: true, margin: "800px 0px 800px 0px" });
 
   const handleReset = () => {
     setIsResetting(true);
@@ -212,41 +219,52 @@ export const SymbolShowcaseSection = () => {
 
 
   return (
-    <section className="relative min-h-[700px] w-full bg-background border-t border-border/10 flex flex-col md:flex-row items-center justify-between px-6 md:px-24 py-20 overflow-hidden">
+    <section ref={containerRef} className="relative min-h-[700px] w-full bg-background border-t border-border/10 flex flex-col md:flex-row items-center justify-between px-6 md:px-24 py-20 overflow-hidden">
       
       {/* Full-width 3D Canvas Background */}
       <div dir="ltr" className={`absolute inset-0 z-0 pointer-events-auto ${isDragging ? 'cursor-grabbing' : 'cursor-move'}`}>
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent pointer-events-none" />
         
-        <Canvas dpr={[1, 1]} performance={{ min: 0.5 }} camera={{ position: [0, 0, 10], fov: 45 }}>
-          <ambientLight intensity={0.5} />
-          <directionalLight position={[10, 10, 10]} intensity={2} color="#c084fc" />
-          <spotLight position={[-10, 10, 10]} angle={0.15} penumbra={1} intensity={3} color="#ec4899" />
-          <pointLight position={[0, 0, 5]} intensity={1} color={theme === 'dark' ? "#f3e8ff" : "#9333ea"} />
-          
-          <SceneLayout 
-            targetRotation={targetRotation}
-            isDragging={isDragging}
-            setIsDragging={setIsDragging}
-            controlsRef={controlsRef}
-          />
-          
-          {theme === 'dark' && <Stars radius={50} depth={50} count={window.innerWidth < 768 ? 200 : 800} factor={3} saturation={1} fade speed={1.5} />}
-          <Sparkles count={window.innerWidth < 768 ? 30 : 100} scale={20} size={6} speed={0.5} opacity={theme === 'dark' ? 0.5 : 0.8} color={theme === 'dark' ? "#e9d5ff" : "#9333ea"} />
-          
-          <Environment preset="city" />
-          <OrbitControls 
-            ref={controlsRef}
-            makeDefault
-            enableZoom={false} 
-            enablePan={false} 
-            enableRotate={true}
-            maxDistance={20}
-            minDistance={3}
-            enableDamping={true}
-            dampingFactor={0.05}
-          />
-        </Canvas>
+        {isInView && (
+          <Canvas dpr={[1, 1.5]} performance={{ min: 0.5 }} camera={{ position: [0, 0, 10], fov: 45 }}>
+            <Suspense fallback={
+              <Html center>
+                <div className="flex flex-col items-center justify-center gap-4">
+                  <div className="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin"></div>
+                </div>
+              </Html>
+            }>
+              <ambientLight intensity={0.5} />
+              <directionalLight position={[10, 10, 10]} intensity={2} color="#c084fc" />
+              <spotLight position={[-10, 10, 10]} angle={0.15} penumbra={1} intensity={3} color="#ec4899" />
+              <pointLight position={[0, 0, 5]} intensity={1} color={theme === 'dark' ? "#f3e8ff" : "#9333ea"} />
+              
+              <SceneLayout 
+                targetRotation={targetRotation}
+                isDragging={isDragging}
+                setIsDragging={setIsDragging}
+                controlsRef={controlsRef}
+                isMobileCheck={isMobile}
+              />
+              
+              {theme === 'dark' && <Stars radius={50} depth={50} count={isMobile ? 150 : 500} factor={3} saturation={1} fade speed={1.5} />}
+              <Sparkles count={isMobile ? 20 : 60} scale={20} size={6} speed={0.5} opacity={theme === 'dark' ? 0.5 : 0.8} color={theme === 'dark' ? "#e9d5ff" : "#9333ea"} />
+              
+              <Environment preset="city" />
+              <OrbitControls 
+                ref={controlsRef}
+                makeDefault
+                enableZoom={false} 
+                enablePan={false} 
+                enableRotate={true}
+                maxDistance={20}
+                minDistance={3}
+                enableDamping={true}
+                dampingFactor={0.05}
+              />
+            </Suspense>
+          </Canvas>
+        )}
       </div>
 
       {/* Foreground Text Overlay */}

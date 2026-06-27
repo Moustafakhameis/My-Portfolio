@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, Copy, Check } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
+import { useToast } from '../../context/ToastContext';
 import { AnimatedButton } from '../ui/AnimatedButton';
 import { GithubIcon, LinkedinIcon } from '../ui/Icons';
 
@@ -13,10 +14,12 @@ export const ContactSection = () => {
   const phone = '+201129482206';
 
   const { t } = useLanguage();
+  const { toast } = useToast();
 
-  const handleCopy = (text: string, setCopied: React.Dispatch<React.SetStateAction<boolean>>) => {
+  const handleCopy = (text: string, setCopied: React.Dispatch<React.SetStateAction<boolean>>, message: string) => {
     navigator.clipboard.writeText(text);
     setCopied(true);
+    toast.success(message);
     setTimeout(() => setCopied(false), 2000);
   };
 
@@ -59,7 +62,7 @@ export const ContactSection = () => {
           
           {/* Email Group */}
           <motion.div variants={itemVariants} className="relative group flex items-center gap-3 md:gap-0 w-full max-w-[320px] md:max-w-none md:w-auto mx-auto md:mx-0">
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex-1 md:flex-none">
+            <div className="flex-1 md:flex-none hover:scale-[1.03] active:scale-[0.97] transition-transform duration-200 ease-out">
               <AnimatedButton
                 href={`mailto:${email}`}
                 variant="primary"
@@ -68,21 +71,19 @@ export const ContactSection = () => {
                 <Mail size={20} className="me-2" />
                 {t('contact', 'sayHello')}
               </AnimatedButton>
-            </motion.div>
-            <motion.button
-              whileHover={{ scale: 1.1, rotate: 5 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={() => handleCopy(email, setCopiedEmail)}
-              className="flex-shrink-0 md:ms-6 w-[50px] h-[50px] flex items-center justify-center rounded-full bg-muted/80 text-muted-foreground hover:text-primary hover:bg-primary/10 border border-border/50 hover:border-primary/50 transition-all duration-300 shadow-sm"
+            </div>
+            <button
+              onClick={() => handleCopy(email, setCopiedEmail, 'Email address copied to clipboard')}
+              className="flex-shrink-0 md:ms-6 w-[50px] h-[50px] flex items-center justify-center rounded-full bg-muted/80 text-muted-foreground hover:text-primary hover:bg-primary/10 border border-border/50 hover:border-primary/50 transition-all duration-200 ease-out hover:scale-110 hover:rotate-6 active:scale-90 shadow-sm"
               title={t('contact', 'copyEmail')}
             >
               {copiedEmail ? <Check size={20} className="text-green-500" /> : <Copy size={20} />}
-            </motion.button>
+            </button>
           </motion.div>
 
           {/* Gmail Group */}
           <motion.div variants={itemVariants} className="relative group flex items-center gap-3 md:gap-0 w-full max-w-[320px] md:max-w-none md:w-auto mx-auto md:mx-0">
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex-1 md:flex-none">
+            <div className="flex-1 md:flex-none hover:scale-[1.03] active:scale-[0.97] transition-transform duration-200 ease-out">
               <AnimatedButton
                 href={`https://mail.google.com/mail/?view=cm&fs=1&to=${email}`}
                 target="_blank"
@@ -93,32 +94,30 @@ export const ContactSection = () => {
                 <Mail size={20} className="me-2 text-primary" />
                 {t('contact', 'openGmail')}
               </AnimatedButton>
-            </motion.div>
+            </div>
             {/* Invisible spacer on mobile to perfectly align the Gmail button with the others */}
             <div className="w-[50px] flex-shrink-0 md:hidden pointer-events-none opacity-0" />
           </motion.div>
 
           {/* Phone Group */}
           <motion.div variants={itemVariants} className="relative group flex items-center gap-3 md:gap-0 w-full max-w-[320px] md:max-w-none md:w-auto mx-auto md:mx-0">
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex-1 md:flex-none">
+            <div className="flex-1 md:flex-none hover:scale-[1.03] active:scale-[0.97] transition-transform duration-200 ease-out">
               <AnimatedButton
-                href={`tel:${phone.replace('+', '')}`}
+                onClick={() => handleCopy(phone, setCopiedPhone, 'Phone number copied to clipboard')}
                 variant="outline"
-                className="w-full justify-center !py-3.5 !px-6 !text-base md:!px-7 md:!text-lg border-primary/30 hover:border-primary/80 hover:bg-primary/5 transition-colors duration-300"
+                className="w-full justify-center !py-3.5 !px-6 !text-base md:!px-7 md:!text-lg border-primary/30 hover:border-primary/80 hover:bg-primary/5 transition-colors duration-300 cursor-pointer"
               >
                 <Phone size={18} className="me-3 text-primary" />
                 <span className="font-bold tracking-wider" dir="ltr">{phone}</span>
               </AnimatedButton>
-            </motion.div>
-            <motion.button
-              whileHover={{ scale: 1.1, rotate: -5 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={() => handleCopy(phone, setCopiedPhone)}
-              className="flex-shrink-0 md:ms-6 w-[50px] h-[50px] flex items-center justify-center rounded-full bg-muted/80 text-muted-foreground hover:text-primary hover:bg-primary/10 border border-border/50 hover:border-primary/50 transition-all duration-300 shadow-sm"
+            </div>
+            <button
+              onClick={() => handleCopy(phone, setCopiedPhone, 'Phone number copied to clipboard')}
+              className="flex-shrink-0 md:ms-6 w-[50px] h-[50px] flex items-center justify-center rounded-full bg-muted/80 text-muted-foreground hover:text-primary hover:bg-primary/10 border border-border/50 hover:border-primary/50 transition-all duration-200 ease-out hover:scale-110 hover:-rotate-6 active:scale-90 shadow-sm"
               title={t('contact', 'copyPhone')}
             >
               {copiedPhone ? <Check size={20} className="text-green-500" /> : <Copy size={20} />}
-            </motion.button>
+            </button>
           </motion.div>
           
         </div>
@@ -131,31 +130,27 @@ export const ContactSection = () => {
             href="https://www.linkedin.com/in/moustafaly"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-muted-foreground hover:text-primary transition-all duration-300 flex flex-col items-center gap-3 group"
+            className="text-muted-foreground hover:text-primary transition-all duration-200 flex flex-col items-center gap-3 group"
           >
-            <motion.div 
-              whileHover={{ scale: 1.2, y: -5 }}
-              whileTap={{ scale: 0.9 }}
-              className="p-5 rounded-full bg-muted/30 group-hover:bg-primary/10 border border-transparent group-hover:border-primary/30 group-hover:shadow-[0_0_20px_rgba(var(--primary),0.3)] transition-all duration-300"
+            <div 
+              className="p-5 rounded-full bg-muted/30 group-hover:bg-primary/10 border border-transparent group-hover:border-primary/30 group-hover:shadow-[0_0_20px_rgba(var(--primary),0.3)] transition-all duration-200 ease-out group-hover:scale-110 group-hover:-translate-y-1 group-active:scale-95"
             >
               <LinkedinIcon size={32} />
-            </motion.div>
-            <span className="text-sm font-bold uppercase tracking-widest opacity-70 group-hover:opacity-100">LinkedIn</span>
+            </div>
+            <span className="text-sm font-bold uppercase tracking-widest opacity-70 group-hover:opacity-100 transition-opacity duration-200">LinkedIn</span>
           </a>
           <a
             href="https://github.com/Moustafakhameis"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-muted-foreground hover:text-primary transition-all duration-300 flex flex-col items-center gap-3 group"
+            className="text-muted-foreground hover:text-primary transition-all duration-200 flex flex-col items-center gap-3 group"
           >
-            <motion.div 
-              whileHover={{ scale: 1.2, y: -5 }}
-              whileTap={{ scale: 0.9 }}
-              className="p-5 rounded-full bg-muted/30 group-hover:bg-primary/10 border border-transparent group-hover:border-primary/30 group-hover:shadow-[0_0_20px_rgba(var(--primary),0.3)] transition-all duration-300"
+            <div 
+              className="p-5 rounded-full bg-muted/30 group-hover:bg-primary/10 border border-transparent group-hover:border-primary/30 group-hover:shadow-[0_0_20px_rgba(var(--primary),0.3)] transition-all duration-200 ease-out group-hover:scale-110 group-hover:-translate-y-1 group-active:scale-95"
             >
               <GithubIcon size={32} />
-            </motion.div>
-            <span className="text-sm font-bold uppercase tracking-widest opacity-70 group-hover:opacity-100">GitHub</span>
+            </div>
+            <span className="text-sm font-bold uppercase tracking-widest opacity-70 group-hover:opacity-100 transition-opacity duration-200">GitHub</span>
           </a>
         </motion.div>
       </motion.div>

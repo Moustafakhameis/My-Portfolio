@@ -36,15 +36,7 @@ export const Footer = () => {
     <footer className="relative mt-24 pt-20 pb-10 overflow-hidden border-t border-border/10">
       {/* Background animated glows */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[400px] bg-gradient-to-t from-primary/10 via-purple-500/5 to-transparent blur-[100px] -z-10 blob-blur" />
-      <motion.div 
-        animate={{ 
-          scale: [1, 1.2, 1],
-          opacity: [0.3, 0.6, 0.3],
-          rotate: [0, 90, 0]
-        }}
-        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -bottom-[250px] -left-[100px] w-[600px] h-[600px] bg-primary/20 blur-[150px] rounded-full -z-10 pointer-events-none blob-blur" 
-      />
+      <div className="absolute -bottom-[250px] -left-[100px] w-[600px] h-[600px] bg-primary/20 blur-[150px] rounded-full -z-10 pointer-events-none blob-blur opacity-40" />
       
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         <motion.div 
