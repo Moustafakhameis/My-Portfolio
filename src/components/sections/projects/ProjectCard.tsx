@@ -39,7 +39,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
         transition={{ type: "tween", ease: "easeOut", duration: 0.3 }}
         className="h-full"
       >
-        <div className="relative overflow-hidden rounded-[2rem] border border-border/40 bg-card/20 hover:bg-card/40 backdrop-blur-md shadow-xl hover:shadow-2xl transition-all duration-500 h-full flex flex-col group/card">
+        <div className="relative overflow-hidden rounded-[2rem] border border-border/40 bg-card/40 md:bg-card/20 md:backdrop-blur-md shadow-xl hover:shadow-2xl transition-all duration-500 h-full flex flex-col group/card">
           
           {/* Image */}
           <div className="h-48 sm:h-56 w-full relative overflow-hidden border-b border-border/20">

@@ -175,9 +175,11 @@ const SceneLayout = ({ targetRotation, isDragging, setIsDragging, controlsRef, i
   const isRtl = language === 'ar';
   
   const xPos = isMobileCheck ? 0 : (isRtl ? -viewport.width / 4 : viewport.width / 4);
+  const yPos = isMobileCheck ? -2.2 : 0;
+  const scale = isMobileCheck ? 0.65 : 1;
   
   return (
-    <group position={[xPos, isMobileCheck ? -1.5 : 0, 0]}>
+    <group position={[xPos, yPos, 0]} scale={scale}>
       <ExtrudedSymbol 
         targetRotation={targetRotation} 
         isDragging={isDragging} 
@@ -269,22 +271,22 @@ export const SymbolShowcaseSection = () => {
 
       {/* Foreground Text Overlay */}
       <div className="relative w-full md:w-1/2 z-10 flex flex-col justify-start pt-4 md:pt-0 md:justify-center text-center md:text-start pointer-events-none mt-10 md:mt-0">
-        <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-foreground drop-shadow-sm">
+        <h2 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-foreground drop-shadow-sm">
           {t('symbolShowcase', 'title1')} <br className="hidden md:block" />
           <span className="text-primary text-gradient drop-shadow-[0_0_40px_rgba(168,85,247,0.3)]">{t('symbolShowcase', 'title2')}</span>
         </h2>
-        <p className="mt-4 md:mt-6 text-xl md:text-2xl text-muted-foreground font-medium tracking-wide drop-shadow-sm">{t('symbolShowcase', 'description')}</p>
+        <p className="mt-4 md:mt-6 text-lg sm:text-xl md:text-2xl text-muted-foreground font-medium tracking-wide drop-shadow-sm">{t('symbolShowcase', 'description')}</p>
         
         {/* Action & Control Buttons */}
         <div className="mt-8 md:mt-12 flex flex-col items-center md:items-start gap-6 pointer-events-auto">
           
           {/* Primary Actions */}
-          <div className="flex flex-wrap gap-4 justify-center md:justify-start">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start w-full sm:w-auto px-6 sm:px-0">
             <motion.button 
               onClick={() => document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' })}
               whileHover={{ scale: 1.05, y: -2 }} 
               whileTap={{ scale: 0.95 }}
-              className="px-8 py-3 bg-primary text-primary-foreground font-bold rounded-full shadow-[0_0_20px_rgba(168,85,247,0.4)] flex items-center gap-2"
+              className="w-full sm:w-auto justify-center px-6 py-3 sm:px-8 bg-primary text-primary-foreground font-bold rounded-full shadow-[0_0_20px_rgba(168,85,247,0.4)] flex items-center gap-2"
             >
               <Compass size={18} /> {t('symbolShowcase', 'exploreWork')}
             </motion.button>
@@ -293,7 +295,7 @@ export const SymbolShowcaseSection = () => {
               whileTap={{ scale: 0.95 }}
               onClick={handleReset}
               disabled={isResetting}
-              className="px-8 py-3 bg-card/40 backdrop-blur-md border border-primary/30 text-foreground font-semibold rounded-full shadow-sm flex items-center gap-2 transition-all duration-300 hover:border-primary/60 hover:shadow-[0_0_15px_rgba(168,85,247,0.3)] group overflow-hidden"
+              className="w-full sm:w-auto justify-center px-6 py-3 sm:px-8 bg-card/40 backdrop-blur-md border border-primary/30 text-foreground font-semibold rounded-full shadow-sm flex items-center gap-2 transition-all duration-300 hover:border-primary/60 hover:shadow-[0_0_15px_rgba(168,85,247,0.3)] group overflow-hidden"
             >
               <motion.div
                 animate={{ rotate: isResetting ? -360 : 0 }}

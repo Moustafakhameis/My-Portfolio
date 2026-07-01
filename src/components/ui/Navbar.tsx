@@ -295,11 +295,11 @@ export const Navbar = () => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
-            animate={{ opacity: 1, backdropFilter: "blur(20px)" }}
-            exit={{ opacity: 0, backdropFilter: "blur(0px)", transition: { delay: 0.3 } }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { delay: 0.3 } }}
             transition={{ duration: 0.4, ease: "easeInOut" }}
-            className="fixed inset-0 h-screen w-screen bg-background/98 flex flex-col justify-center items-center md:hidden z-40 overflow-hidden"
+            className="fixed inset-0 h-screen w-screen bg-background flex flex-col justify-center items-center md:hidden z-40 overflow-hidden"
           >
             {/* Background Decorative Blob */}
             <motion.div 

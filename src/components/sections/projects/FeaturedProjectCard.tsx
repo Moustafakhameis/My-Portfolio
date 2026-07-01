@@ -14,8 +14,10 @@ interface FeaturedProjectCardProps {
 export const FeaturedProjectCard: React.FC<FeaturedProjectCardProps> = ({ project, index }) => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+  const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
 
   function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
+    if (isTouchDevice) return;
     const { left, top } = currentTarget.getBoundingClientRect();
     mouseX.set(clientX - left);
     mouseY.set(clientY - top);
@@ -43,7 +45,7 @@ export const FeaturedProjectCard: React.FC<FeaturedProjectCardProps> = ({ projec
         whileHover={{ y: -10 }} 
         transition={{ type: "tween", ease: "easeOut", duration: 0.4 }}
       >
-        <div className="relative overflow-hidden rounded-[2.5rem] border border-border/40 bg-card/10 hover:bg-card/30 backdrop-blur-md shadow-2xl hover:shadow-[0_30px_60px_-15px_rgba(168,85,247,0.4)] transition-all duration-700">
+        <div className="relative overflow-hidden rounded-[2.5rem] border border-border/40 bg-card/30 md:bg-card/10 md:backdrop-blur-md shadow-2xl hover:shadow-[0_30px_60px_-15px_rgba(168,85,247,0.4)] transition-all duration-700">
           
           {/* Intense glow on hover based on mouse position */}
           <motion.div
@@ -72,7 +74,7 @@ export const FeaturedProjectCard: React.FC<FeaturedProjectCardProps> = ({ projec
                 <span className="h-px flex-1 bg-gradient-to-r from-border/50 to-transparent" />
               </div>
 
-              <h3 className="text-4xl md:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-foreground via-foreground/90 to-foreground/60 mb-6 group-hover:from-primary group-hover:via-purple-400 group-hover:to-pink-500 transition-all duration-700">
+              <h3 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-foreground via-foreground/90 to-foreground/60 mb-6 group-hover:from-primary group-hover:via-purple-400 group-hover:to-pink-500 transition-all duration-700">
                 {project.title}
               </h3>
 

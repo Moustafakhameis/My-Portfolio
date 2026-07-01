@@ -114,9 +114,10 @@ const AnimatedText = ({ text }: { text: string }) => {
 };
 
 export const HeroSection = () => {
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
   const { scrollY } = useScroll();
-  const y1 = useTransform(scrollY, [0, 1000], [0, 200]);
-  const opacity = useTransform(scrollY, [300, 700], [1, 0]);
+  const y1 = useTransform(scrollY, [0, 1000], [0, isMobile ? 0 : 200]);
+  const opacity = useTransform(scrollY, [300, 700], [1, isMobile ? 1 : 0]);
 
   const { t, language } = useLanguage();
 
@@ -158,7 +159,7 @@ export const HeroSection = () => {
                 scale: { type: "tween", ease: "easeOut" },
                 rotate: { type: "tween", ease: "easeOut" }
               }}
-              className="relative w-40 h-40 md:w-52 md:h-52 lg:w-56 lg:h-56 rounded-full overflow-hidden border-4 border-primary/20 shadow-2xl shadow-primary/20 bg-background/50 backdrop-blur-sm z-10 transition-colors duration-500 group-hover:border-primary/60 group-hover:shadow-primary/40"
+              className="relative w-40 h-40 md:w-52 md:h-52 lg:w-56 lg:h-56 rounded-full overflow-hidden border-4 border-primary/20 shadow-2xl shadow-primary/20 bg-background/80 z-10 transition-colors duration-500 group-hover:border-primary/60 group-hover:shadow-primary/40"
             >
               <img 
                 src={profilePic} 
@@ -173,7 +174,7 @@ export const HeroSection = () => {
             <div className="absolute inset-0 rounded-full bg-primary/20 -z-20 blur-3xl scale-150 group-hover:bg-primary/30 transition-colors duration-500"></div>
           </motion.div>
 
-          <motion.div variants={itemVariants} whileHover={{ scale: 1.1, y: -5 }} className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary/5 text-primary mb-6 border border-primary/20 backdrop-blur-md shadow-sm cursor-default">
+          <motion.div variants={itemVariants} whileHover={{ scale: 1.1, y: -5 }} className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary/5 text-primary mb-6 border border-primary/20 shadow-sm cursor-default">
             <span className="relative flex h-3 w-3">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
               <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
@@ -181,7 +182,7 @@ export const HeroSection = () => {
             <span className="text-sm md:text-base font-bold tracking-widest uppercase">{t('hero', 'basedIn')}</span>
           </motion.div>
 
-          <motion.h1 variants={itemVariants} className={`text-5xl md:text-7xl lg:text-[7rem] mb-4 text-center leading-[1.1] ${language === 'ar' ? 'font-bold' : 'font-black tracking-tighter'}`}>
+          <motion.h1 variants={itemVariants} className={`text-4xl sm:text-5xl md:text-7xl lg:text-[7rem] mb-4 text-center leading-[1.1] ${language === 'ar' ? 'font-bold' : 'font-black tracking-tighter'}`}>
             <AnimatedText text={String(t('hero', 'greeting'))} />{' '}
             <motion.span 
               initial={{ opacity: 0, scale: 0.5 }}
@@ -198,7 +199,7 @@ export const HeroSection = () => {
             </motion.span>
           </motion.h1>
           
-          <motion.h2 variants={itemVariants} className="text-2xl md:text-4xl lg:text-5xl text-muted-foreground font-semibold mb-8 text-center max-w-4xl flex justify-center h-10 md:h-12 lg:h-16">
+          <motion.h2 variants={itemVariants} className="text-xl sm:text-2xl md:text-4xl lg:text-5xl text-muted-foreground font-semibold mb-8 text-center max-w-4xl flex justify-center h-8 sm:h-10 md:h-12 lg:h-16">
             <TypewriterText text={String(t('hero', 'role'))} delay={2200} />
           </motion.h2>
 

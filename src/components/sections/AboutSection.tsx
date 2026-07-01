@@ -94,7 +94,7 @@ export const AboutSection = () => {
             <motion.div 
               variants={cardReveal} 
               whileHover={{ scale: 1.05, y: -5 }} 
-              className="p-8 rounded-3xl glass text-center border border-border/50 transition-colors duration-300 hover:border-primary/40 hover:bg-primary/5 group"
+              className="p-5 md:p-8 rounded-3xl glass text-center border border-border/50 transition-colors duration-300 hover:border-primary/40 hover:bg-primary/5 group"
             >
               <h3 className="text-5xl font-black mb-2 text-transparent bg-clip-text bg-gradient-to-br from-foreground to-foreground/70 group-hover:from-primary group-hover:to-primary/60 transition-all duration-300">
                 0+
@@ -105,7 +105,7 @@ export const AboutSection = () => {
             <motion.div 
               variants={cardReveal} 
               whileHover={{ scale: 1.05, y: -5 }} 
-              className="p-8 rounded-3xl glass text-center border border-border/50 transition-colors duration-300 hover:border-primary/40 hover:bg-primary/5 group"
+              className="p-5 md:p-8 rounded-3xl glass text-center border border-border/50 transition-colors duration-300 hover:border-primary/40 hover:bg-primary/5 group"
             >
               <h3 className="text-5xl font-black mb-2 text-transparent bg-clip-text bg-gradient-to-br from-foreground to-foreground/70 group-hover:from-purple-500 group-hover:to-pink-500 transition-all duration-300">
                 20+
@@ -116,7 +116,7 @@ export const AboutSection = () => {
             <motion.div 
               variants={cardReveal} 
               whileHover={{ scale: 1.03, y: -5 }} 
-              className="p-8 rounded-3xl glass text-center sm:col-span-2 border border-border/50 transition-colors duration-300 hover:border-primary/40 hover:bg-primary/5 group"
+              className="p-5 md:p-8 rounded-3xl glass text-center sm:col-span-2 border border-border/50 transition-colors duration-300 hover:border-primary/40 hover:bg-primary/5 group"
             >
               <h3 className="text-5xl font-black mb-2 text-transparent bg-clip-text bg-gradient-to-br from-foreground to-foreground/70 group-hover:from-cyan-400 group-hover:to-blue-500 transition-all duration-300">
                 0+
@@ -128,7 +128,7 @@ export const AboutSection = () => {
 
         <motion.div 
           variants={eduReveal} 
-          className="glass p-10 rounded-3xl border border-border/50 relative overflow-hidden group hover:border-primary/30 transition-colors duration-500 hover:shadow-2xl hover:shadow-primary/5 isolate"
+          className="glass p-6 md:p-10 rounded-3xl border border-border/50 relative overflow-hidden group hover:border-primary/30 transition-colors duration-500 hover:shadow-2xl hover:shadow-primary/5 isolate"
         >
           <div className={`absolute top-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 group-hover:bg-primary/10 transition-colors duration-500 blob-blur ${language === 'ar' ? 'left-0 -translate-x-1/2' : 'right-0 translate-x-1/2'}`} />
           <div className={`absolute bottom-0 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl translate-y-1/2 group-hover:bg-purple-500/10 transition-colors duration-500 blob-blur ${language === 'ar' ? 'right-0 translate-x-1/2' : 'left-0 -translate-x-1/2'}`} />
