@@ -46,10 +46,12 @@ function App() {
                   <SkillsSection />
                   <ExperienceSection />
                   <ProjectsSection />
-                  <Suspense fallback={<div className="w-full h-[600px] flex items-center justify-center opacity-50">Loading 3D Engine...</div>}>
-                    <ThreeShowcaseSection />
-                    <SymbolShowcaseSection />
-                  </Suspense>
+                  <div className="hidden lg:block">
+                    <Suspense fallback={<div className="w-full h-[600px] flex items-center justify-center opacity-50">Loading 3D Engine...</div>}>
+                      <ThreeShowcaseSection />
+                      <SymbolShowcaseSection />
+                    </Suspense>
+                  </div>
                   <ContactSection />
                 </main>
                 <Footer />

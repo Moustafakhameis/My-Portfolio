@@ -92,7 +92,7 @@ export const ProjectsSection = () => {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1 }}
-          className="w-full h-[500px] md:h-[600px] relative mb-32 rounded-[2.5rem] overflow-hidden border border-primary/20 shadow-[0_0_50px_-12px_rgba(168,85,247,0.15)] bg-slate-950"
+          className="w-full h-[500px] md:h-[600px] relative mb-32 rounded-[2.5rem] overflow-hidden border border-primary/20 shadow-[0_0_50px_-12px_rgba(168,85,247,0.15)] bg-slate-950 hidden lg:block"
         >
           {/* Interactive LightRays Background */}
           <div className="absolute inset-0 z-0">
