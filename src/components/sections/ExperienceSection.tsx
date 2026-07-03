@@ -118,7 +118,7 @@ export const ExperienceSection = () => {
             hidden: { opacity: 0, y: 30 },
             visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 20 } }
           }}
-          className="text-5xl md:text-7xl font-black tracking-tighter mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-foreground via-foreground to-foreground/50 pr-2 pb-1"
+          className="text-5xl md:text-7xl font-black tracking-tighter mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-foreground via-foreground to-foreground/50 pr-2 pb-3"
         >
           {t('experience', 'title')}
         </motion.h2>
