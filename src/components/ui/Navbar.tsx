@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion';
-import { Moon, Sun, Languages, Menu, X } from 'lucide-react';
+import { Moon, Sun, Languages, Menu, X, User, Briefcase, Code2, Mail } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { cn } from '../../utils/cn';
+import Dock from './Dock';
 
 export const Navbar = () => {
   const { theme, setTheme } = useTheme();
   const { language, setLanguage, t } = useLanguage();
-  const [isHidden, setIsHidden] = useState(false);
+  const [showDock, setShowDock] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [activeSection, setActiveSection] = useState<string>('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -49,10 +50,10 @@ export const Navbar = () => {
   useMotionValueEvent(scrollY, 'change', (latest) => {
     if (isMobileMenuOpen) return; // Don't hide navbar if mobile menu is open
     const previous = scrollY.getPrevious() ?? 0;
-    if (latest > previous && latest > 150) {
-      setIsHidden(true);
+    if (latest > 150) {
+      setShowDock(true);
     } else {
-      setIsHidden(false);
+      setShowDock(false);
     }
   });
 
@@ -93,7 +94,7 @@ export const Navbar = () => {
       <motion.nav
         variants={navContainer}
         initial="visible"
-        animate={isHidden ? 'hidden' : 'visible'}
+        animate="visible"
         className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 md:px-12 md:py-6 bg-background/60 backdrop-blur-xl border-b border-white/5 shadow-[0_4px_30px_rgba(0,0,0,0.1)]"
       >
       {/* Logo */}
@@ -407,6 +408,33 @@ export const Navbar = () => {
                 </motion.button>
               </motion.div>
             </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Desktop Dock Component */}
+      <AnimatePresence>
+        {showDock && (
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+            transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+            className="fixed bottom-6 left-0 right-0 z-50 pointer-events-none flex justify-center hidden md:flex"
+          >
+            <div className="pointer-events-auto">
+              <Dock
+                items={[
+                  { icon: <User size={22} />, label: t('navbar', 'about'), onClick: () => window.location.hash = '#about' },
+                  { icon: <Briefcase size={22} />, label: t('navbar', 'experience'), onClick: () => window.location.hash = '#experience' },
+                  { icon: <Code2 size={22} />, label: t('navbar', 'projects'), onClick: () => window.location.hash = '#work' },
+                  { icon: <Mail size={22} />, label: t('navbar', 'contact'), onClick: () => window.location.hash = '#contact' },
+                ]}
+                panelHeight={68}
+                baseItemSize={50}
+                magnification={70}
+              />
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
