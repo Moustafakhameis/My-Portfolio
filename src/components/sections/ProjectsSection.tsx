@@ -63,9 +63,19 @@ export const ProjectsSection = () => {
             hidden: { opacity: 0, y: 30 },
             visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 20 } }
           }}
-          className="text-5xl md:text-7xl font-black tracking-tighter mb-6 text-transparent bg-clip-text bg-gradient-to-r from-foreground via-foreground to-foreground/50"
+          className="text-5xl md:text-7xl font-black tracking-tighter mb-6 flex flex-wrap gap-x-3 gap-y-2"
         >
-          {t('projects', 'title')}
+          {t('projects', 'title').split(' ').map((word, i, arr) => {
+            const isLast = i === arr.length - 1;
+            return (
+              <span 
+                key={i} 
+                className={isLast ? "text-transparent bg-clip-text bg-gradient-to-r from-primary via-fuchsia-500 to-pink-500 drop-shadow-[0_0_20px_rgba(217,70,239,0.3)]" : "text-foreground"}
+              >
+                {word}
+              </span>
+            );
+          })}
         </motion.h2>
         <motion.div
           variants={{
