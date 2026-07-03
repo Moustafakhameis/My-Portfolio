@@ -426,8 +426,22 @@ class App {
     this.onResize();
     this.createGeometry();
     this.createMedias(items, bend, textColor, borderRadius, font);
+    this.setupIntersectionObserver();
     this.update();
     this.addEventListeners();
+  }
+  setupIntersectionObserver() {
+    this.isVisible = true;
+    if (typeof IntersectionObserver !== 'undefined') {
+      this.observer = new IntersectionObserver((entries) => {
+        if (entries[0]) {
+          this.isVisible = entries[0].isIntersecting;
+        }
+      });
+      if (this.container) {
+        this.observer.observe(this.container);
+      }
+    }
   }
   createRenderer() {
     this.renderer = new Renderer({
@@ -550,6 +564,11 @@ class App {
     }
   }
   update() {
+    if (!this.isVisible) {
+      this.raf = window.requestAnimationFrame(this.update.bind(this));
+      return;
+    }
+
     if (this.autoPlay && !this.isDown && !this.isHovered) {
       if (Date.now() - this.lastInteractionTime > 3000) {
         if (this.medias && this.medias[0]) {
@@ -598,6 +617,9 @@ class App {
     this.container?.addEventListener('mouseleave', this.boundOnMouseLeave);
   }
   destroy() {
+    if (this.observer) {
+      this.observer.disconnect();
+    }
     window.cancelAnimationFrame(this.raf);
     window.removeEventListener('resize', this.boundOnResize);
     window.removeEventListener('mousemove', this.boundOnTouchMove);

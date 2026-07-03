@@ -71,7 +71,6 @@ export const ProjectsSection = () => {
         }}
         className="mb-20 relative"
       >
-        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-64 h-64 bg-primary/20 blur-[80px] -z-10 rounded-full blob-blur" />
         <motion.h2 
           variants={{
             hidden: { opacity: 0, y: 30 },

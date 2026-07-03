@@ -63,6 +63,7 @@ export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ image, images, t
               transition={{ duration: 1, ease: "easeInOut" }}
               className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-110"
               loading="lazy"
+              decoding="async"
             />
           </AnimatePresence>
           
