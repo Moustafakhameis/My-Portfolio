@@ -123,8 +123,9 @@ function createTextTexture(gl, text, font = 'bold 30px monospace', color = 'blac
   const metrics = context.measureText(text);
   const textWidth = Math.ceil(metrics.width);
   const textHeight = Math.ceil(getFontSize(font) * 1.2);
-  canvas.width = textWidth + 20;
-  canvas.height = textHeight + 20;
+  const padding = 60;
+  canvas.width = textWidth + padding;
+  canvas.height = textHeight + padding;
   context.font = font;
   context.fillStyle = color;
   context.textBaseline = 'middle';
@@ -132,8 +133,8 @@ function createTextTexture(gl, text, font = 'bold 30px monospace', color = 'blac
   context.clearRect(0, 0, canvas.width, canvas.height);
   
   // Add premium drop shadow
-  context.shadowColor = 'rgba(0, 0, 0, 0.8)';
-  context.shadowBlur = 15;
+  context.shadowColor = 'rgba(168, 85, 247, 0.8)'; // Purple glow
+  context.shadowBlur = 20;
   context.shadowOffsetX = 0;
   context.shadowOffsetY = 5;
   
@@ -184,7 +185,7 @@ class Title {
     });
     this.mesh = new Mesh(this.gl, { geometry, program });
     const aspect = width / height;
-    const textHeight = this.plane.scale.y * 0.15;
+    const textHeight = this.plane.scale.y * 0.22; // Scaled up to compensate for extra padding
     const textWidth = textHeight * aspect;
     this.mesh.scale.set(textWidth, textHeight, 1);
     this.mesh.position.y = -this.plane.scale.y * 0.5 - textHeight * 0.5 - 0.1;
@@ -279,10 +280,20 @@ class Media {
           
           float d = roundedBoxSDF(vUv - 0.5, vec2(0.5 - uBorderRadius), uBorderRadius);
           
-          float edgeSmooth = 0.002;
+          float edgeSmooth = 0.005;
           float alpha = 1.0 - smoothstep(-edgeSmooth, edgeSmooth, d);
           
-          gl_FragColor = vec4(color.rgb, alpha);
+          // Create a subtle inner glow/border for a premium 3D glass effect
+          float innerD = roundedBoxSDF(vUv - 0.5, vec2(0.5 - uBorderRadius + 0.005), uBorderRadius);
+          float borderGlow = smoothstep(0.015, 0.0, abs(innerD));
+          
+          // Subtle darkening at the bottom of the image for depth
+          float shadow = smoothstep(0.0, 1.0, 1.0 - vUv.y) * 0.2;
+          
+          vec3 finalColor = mix(color.rgb, vec3(0.0), shadow);
+          finalColor += vec3(0.8, 0.4, 1.0) * borderGlow * 0.5; // vibrant purple border
+          
+          gl_FragColor = vec4(finalColor, alpha);
         }
       `,
       uniforms: {
@@ -370,8 +381,8 @@ class Media {
       }
     }
     this.scale = this.screen.height / 1500;
-    this.plane.scale.y = (this.viewport.height * (700 * this.scale)) / this.screen.height;
-    this.plane.scale.x = (this.viewport.width * (1200 * this.scale)) / this.screen.width;
+    this.plane.scale.y = (this.viewport.height * (550 * this.scale)) / this.screen.height;
+    this.plane.scale.x = (this.viewport.width * (900 * this.scale)) / this.screen.width;
     this.plane.program.uniforms.uPlaneSizes.value = [this.plane.scale.x, this.plane.scale.y];
     this.padding = 3.5;
     this.width = this.plane.scale.x + this.padding;
