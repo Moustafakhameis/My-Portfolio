@@ -9,7 +9,7 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist -t -m \"Deploy ${npm_package_version} %date% %time%\""
+    "deploy": "gh-pages -d dist -m \"Deploy ${npm_package_version} %date% %time%\""
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",
