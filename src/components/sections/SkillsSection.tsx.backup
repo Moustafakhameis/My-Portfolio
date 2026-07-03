@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, memo } from 'react';
 import { motion, useAnimationFrame, useMotionValue, useInView } from 'framer-motion';
 import { RotateCcw, Pause, Play } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
@@ -20,6 +20,56 @@ const skills = [
   { name: 'Bootstrap', category: 'Styling', size: 'sm' },
 ];
 
+/* ─── CSS-only Stars (injected once) ─── */
+const STAR_COUNT = 16;
+const starData = Array.from({ length: STAR_COUNT }).map((_, i) => ({
+  id: i,
+  x: Math.random() * 100,
+  y: Math.random() * 100,
+  size: Math.random() * 2.5 + 0.5,
+  duration: Math.random() * 4 + 2,
+  delay: Math.random() * 5,
+  color: Math.random() > 0.85 ? '#93c5fd' : Math.random() > 0.85 ? '#fde047' : '#ffffff',
+}));
+
+const StarField = () => (
+  <>
+    <style>{`
+      @keyframes twinkle {
+        0%, 100% { opacity: 0.1; transform: scale(1); }
+        50% { opacity: 0.8; transform: scale(1.2); }
+      }
+    `}</style>
+    {starData.map((star) => (
+      <div
+        key={star.id}
+        className="absolute rounded-full"
+        style={{
+          backgroundColor: star.color,
+          left: `${star.x}%`,
+          top: `${star.y}%`,
+          width: star.size,
+          height: star.size,
+          boxShadow: `0 0 ${star.size * 2}px ${star.color}`,
+          animation: `twinkle ${star.duration}s ${star.delay}s ease-in-out infinite`,
+          willChange: 'opacity, transform',
+        }}
+      />
+    ))}
+  </>
+);
+
+/* ─── CSS-only Clouds (reduced 10 → 6) ─── */
+const CLOUD_COUNT = 6;
+const cloudData = Array.from({ length: CLOUD_COUNT }).map((_, i) => ({
+  id: i,
+  x: Math.random() * 100 - 10,
+  y: Math.random() * 100 - 10,
+  scale: Math.random() * 1.5 + 0.5,
+  duration: Math.random() * 50 + 50,
+  delay: -(Math.random() * 50),
+}));
+
 const RealisticCloud = ({ x, y, scale, delay, duration }: any) => (
   <motion.div
     className="absolute pointer-events-none z-0"
@@ -39,109 +89,51 @@ const RealisticCloud = ({ x, y, scale, delay, duration }: any) => (
   </motion.div>
 );
 
+/* ─── Transform-based Aurora (replaces expensive SVG path-d animation) ─── */
 const Aurora = () => (
-  <div className="absolute inset-0 overflow-visible pointer-events-none z-0 mix-blend-screen opacity-100" style={{ willChange: "transform, opacity" }}>
-    <svg className="absolute w-0 h-0"><defs>
-      {/* Photorealistic Colors: High altitude faint purple blending into dense, intensely bright lime/emerald green at the bottom */}
-      <linearGradient id="aurora-fill-1" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" stopColor="transparent" />
-        <stop offset="40%" stopColor="rgba(217, 70, 239, 0.15)" /> {/* Faint high-altitude purple */}
-        <stop offset="70%" stopColor="rgba(20, 184, 166, 0.3)" />  {/* Mid-altitude teal */}
-        <stop offset="100%" stopColor="rgba(16, 185, 129, 0.6)" /> {/* Low-altitude green */}
-      </linearGradient>
-      
-      <linearGradient id="aurora-fill-2" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" stopColor="transparent" />
-        <stop offset="50%" stopColor="rgba(16, 185, 129, 0.1)" />  {/* Fade to transparent sky */}
-        <stop offset="85%" stopColor="rgba(20, 184, 166, 0.5)" />  {/* Dense teal */}
-        <stop offset="100%" stopColor="rgba(132, 204, 22, 0.7)" /> {/* Intense lime/yellow edge */}
-      </linearGradient>
-      
-      <linearGradient id="aurora-fill-3" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" stopColor="transparent" />
-        <stop offset="60%" stopColor="rgba(16, 185, 129, 0.1)" />  {/* Fade */}
-        <stop offset="90%" stopColor="rgba(16, 185, 129, 0.6)" />  {/* Vibrant green */}
-        <stop offset="100%" stopColor="rgba(132, 204, 22, 0.9)" /> {/* Burning lime base */}
-      </linearGradient>
-    </defs></svg>
-
-    {/* Layer 1 - Deepest Background Arc (Massive blur) using CSS blur */}
-    <svg className="absolute w-[140%] h-[120%] top-[-10%] left-[-20%] overflow-visible" viewBox="0 0 1000 500" preserveAspectRatio="none" style={{ willChange: "transform", filter: "blur(45px)" }}>
-      <motion.path
-        initial={{ d: "M-100,0 L1100,0 L1100,200 Q800,100 500,250 T-100,150 Z" }}
-        fill="url(#aurora-fill-1)"
-        animate={{
-          d: [
-            "M-100,0 L1100,0 L1100,200 Q800,100 500,250 T-100,150 Z",
-            "M-100,0 L1100,0 L1100,150 Q600,350 400,200 T-100,250 Z",
-            "M-100,0 L1100,0 L1100,200 Q800,100 500,250 T-100,150 Z"
-          ]
-        }}
-        transition={{ duration: 30, repeat: Infinity, ease: "easeInOut" }}
-      />
-    </svg>
-
-    {/* Layer 2 and 3 Filled Paths (Medium blur) */}
-    <svg className="absolute w-[140%] h-[120%] top-[-10%] left-[-20%] overflow-visible" viewBox="0 0 1000 500" preserveAspectRatio="none" style={{ willChange: "transform", filter: "blur(25px)" }}>
-      <motion.path
-        initial={{ d: "M-100,0 L1100,0 L1100,150 Q700,350 400,150 T-100,300 Z" }}
-        fill="url(#aurora-fill-2)"
-        animate={{
-          d: [
-            "M-100,0 L1100,0 L1100,150 Q700,350 400,150 T-100,300 Z",
-            "M-100,0 L1100,0 L1100,300 Q800,100 500,250 T-100,150 Z",
-            "M-100,0 L1100,0 L1100,150 Q700,350 400,150 T-100,300 Z"
-          ]
-        }}
-        transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.path
-        initial={{ d: "M-100,0 L1100,0 L1100,250 Q500,150 300,350 T-100,200 Z" }}
-        fill="url(#aurora-fill-3)"
-        animate={{
-          d: [
-            "M-100,0 L1100,0 L1100,250 Q500,150 300,350 T-100,200 Z",
-            "M-100,0 L1100,0 L1100,150 Q600,400 400,250 T-100,100 Z",
-            "M-100,0 L1100,0 L1100,250 Q500,150 300,350 T-100,200 Z"
-          ]
-        }}
-        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-      />
-    </svg>
-
-    {/* Sharp glowing bottom edges (Sharp blur) */}
-    <svg className="absolute w-[140%] h-[120%] top-[-10%] left-[-20%] overflow-visible" viewBox="0 0 1000 500" preserveAspectRatio="none" style={{ willChange: "transform", filter: "blur(10px)" }}>
-      <motion.path
-        initial={{ d: "M-100,150 Q700,350 400,150 T-100,300" }}
-        fill="none"
-        stroke="rgba(132, 204, 22, 0.7)"
-        strokeWidth="6"
-        animate={{
-          d: [
-            "M-100,150 Q700,350 400,150 T-100,300",
-            "M-100,300 Q800,100 500,250 T-100,150",
-            "M-100,150 Q700,350 400,150 T-100,300"
-          ]
-        }}
-        transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.path
-        initial={{ d: "M-100,250 Q500,150 300,350 T-100,200" }}
-        fill="none"
-        stroke="rgba(16, 185, 129, 1)"
-        strokeWidth="10"
-        animate={{
-          d: [
-            "M-100,250 Q500,150 300,350 T-100,200",
-            "M-100,150 Q600,400 400,250 T-100,100",
-            "M-100,250 Q500,150 300,350 T-100,200"
-          ]
-        }}
-        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-      />
-    </svg>
+  <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 mix-blend-screen opacity-100">
+    {/* Layer 1 — wide, slow-moving, deeply blurred */}
+    <motion.div
+      className="absolute w-[160%] h-[80%] top-[-5%] left-[-30%] rounded-[50%]"
+      style={{
+        background: 'linear-gradient(180deg, transparent 0%, rgba(217,70,239,0.15) 40%, rgba(20,184,166,0.3) 70%, rgba(16,185,129,0.6) 100%)',
+        filter: 'blur(30px)',
+        willChange: 'transform',
+      }}
+      animate={{
+        translateY: ['0%', '8%', '0%'],
+        scaleX: [1, 1.08, 1],
+        scaleY: [1, 0.92, 1],
+      }}
+      transition={{ duration: 28, repeat: Infinity, ease: 'easeInOut' }}
+    />
+    {/* Layer 2 — sharper, narrower accent band */}
+    <motion.div
+      className="absolute w-[140%] h-[60%] top-[5%] left-[-20%] rounded-[50%]"
+      style={{
+        background: 'linear-gradient(180deg, transparent 0%, rgba(16,185,129,0.1) 50%, rgba(20,184,166,0.5) 85%, rgba(132,204,22,0.7) 100%)',
+        filter: 'blur(20px)',
+        willChange: 'transform',
+      }}
+      animate={{
+        translateY: ['0%', '-6%', '0%'],
+        scaleX: [1, 0.95, 1],
+        scaleY: [1, 1.1, 1],
+      }}
+      transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }}
+    />
   </div>
 );
+
+/* ─── Meteors (reduced 4 → 2) ─── */
+const METEOR_COUNT = 2;
+const meteorData = Array.from({ length: METEOR_COUNT }).map((_, i) => ({
+  id: i,
+  top: Math.random() * 50 - 20,
+  left: Math.random() * 80 - 40,
+  delay: Math.random() * 15,
+  duration: Math.random() * 0.8 + 1.2,
+}));
 
 const ShootingStar = ({ top, left, delay, duration }: any) => (
   <motion.div
@@ -155,8 +147,8 @@ const ShootingStar = ({ top, left, delay, duration }: any) => (
       filter: 'drop-shadow(0 0 4px rgba(255,255,255,1))'
     }}
     animate={{ 
-      x: [0, 800],
-      y: [0, 800],
+      x: [0, 100],
+      y: [0, 100],
       opacity: [0, 1, 0],
       scale: [0, 1.5, 0]
     }}
@@ -169,6 +161,7 @@ const ShootingStar = ({ top, left, delay, duration }: any) => (
   />
 );
 
+/* ─── HelixNebula (lazy-loaded img, only mounts when dark + inView) ─── */
 const HelixNebula = () => (
   <motion.div 
     className="absolute top-[20%] left-[80%] -translate-y-1/2 -translate-x-1/2 pointer-events-none z-0 opacity-80 mix-blend-screen w-[600px] h-[600px] md:w-[800px] md:h-[800px]"
@@ -178,6 +171,7 @@ const HelixNebula = () => (
     <img 
       src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/NGC7293_%282004%29.jpg/1024px-NGC7293_%282004%29.jpg"
       alt="Helix Nebula"
+      loading="lazy"
       className="w-full h-full object-cover"
       style={{
         maskImage: 'radial-gradient(circle at center, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 65%)',
@@ -188,7 +182,8 @@ const HelixNebula = () => (
   </motion.div>
 );
 
-const SkillPill = ({ skill, orbitRadius, initialAngle, containerRef, resetKey, isPaused }: any) => {
+/* ─── SkillPill (memoized, early-return when paused + idle) ─── */
+const SkillPill = memo(({ skill, orbitRadius, initialAngle, containerRef, resetKey, isPaused, isMobile }: any) => {
   const x = useMotionValue(Math.cos(initialAngle) * orbitRadius);
   const y = useMotionValue(Math.sin(initialAngle) * orbitRadius);
   const isInteracting = useRef(false);
@@ -203,6 +198,9 @@ const SkillPill = ({ skill, orbitRadius, initialAngle, containerRef, resetKey, i
   }, [resetKey]);
 
   useAnimationFrame((time, delta) => {
+    // Early-return: if paused AND not mid-drag AND not mid-snap, skip all work
+    if (isPaused && !isInteracting.current && !isSnapping.current) return;
+
     if (!isPaused) {
       angleRef.current += delta * 0.00015;
     }
@@ -234,10 +232,11 @@ const SkillPill = ({ skill, orbitRadius, initialAngle, containerRef, resetKey, i
     }
   });
 
+  // Disable backdrop-blur on mobile for performance (point 6)
   const sizeClasses = {
-    lg: 'text-base md:text-xl px-5 py-2.5 md:px-8 md:py-4 font-bold glass',
-    md: 'text-sm md:text-lg px-4 py-2 md:px-6 md:py-3 font-medium glass',
-    sm: 'text-xs md:text-sm px-3 py-1.5 md:px-4 md:py-2 opacity-90 glass',
+    lg: `text-base md:text-xl px-5 py-2.5 md:px-8 md:py-4 font-bold ${isMobile ? 'bg-card/70 border-border/50' : 'glass'}`,
+    md: `text-sm md:text-lg px-4 py-2 md:px-6 md:py-3 font-medium ${isMobile ? 'bg-card/70 border-border/50' : 'glass'}`,
+    sm: `text-xs md:text-sm px-3 py-1.5 md:px-4 md:py-2 opacity-90 ${isMobile ? 'bg-card/70 border-border/50' : 'glass'}`,
   };
 
   return (
@@ -264,15 +263,12 @@ const SkillPill = ({ skill, orbitRadius, initialAngle, containerRef, resetKey, i
       )}
     </motion.div>
   );
-};
+});
 
 export const SkillsSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [resetKey, setResetKey] = useState(0);
   const [isPaused, setIsPaused] = useState(true);
-  const [stars, setStars] = useState<{ id: number; x: number; y: number; size: number; duration: number; delay: number; color: string }[]>([]);
-  const [clouds, setClouds] = useState<{ id: number; x: number; y: number; scale: number; duration: number; delay: number }[]>([]);
-  const [meteors, setMeteors] = useState<{ id: number; top: number; left: number; delay: number; duration: number }[]>([]);
   const { t } = useLanguage();
   const { theme } = useTheme();
   const [isDark, setIsDark] = useState(true);
@@ -299,41 +295,6 @@ export const SkillsSection = () => {
     return () => observer.disconnect();
   }, [theme]);
 
-  useEffect(() => {
-    // Generate random stars for dark mode with realistic colors
-    const newStars = Array.from({ length: 25 }).map((_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 2.5 + 0.5,
-      duration: Math.random() * 4 + 2,
-      delay: Math.random() * 5,
-      color: Math.random() > 0.85 ? '#93c5fd' : Math.random() > 0.85 ? '#fde047' : '#ffffff',
-    }));
-    setStars(newStars);
-
-    // Generate shooting stars/meteors
-    const newMeteors = Array.from({ length: 4 }).map((_, i) => ({
-      id: i,
-      top: Math.random() * 50 - 20, 
-      left: Math.random() * 80 - 40,
-      delay: Math.random() * 15,
-      duration: Math.random() * 0.8 + 1.2,
-    }));
-    setMeteors(newMeteors);
-
-    // Generate MORE realistic clouds for light mode
-    const newClouds = Array.from({ length: 10 }).map((_, i) => ({
-      id: i,
-      x: Math.random() * 100 - 10,
-      y: Math.random() * 100 - 10,
-      scale: Math.random() * 1.5 + 0.5,
-      duration: Math.random() * 50 + 50,
-      delay: -(Math.random() * 50),
-    }));
-    setClouds(newClouds);
-  }, []);
-
   const handleReset = () => {
     setResetKey(prev => prev + 1);
   };
@@ -349,55 +310,41 @@ export const SkillsSection = () => {
       ref={containerRef}
     >
       
-      {/* Background Elements (Stars or Clouds) */}
+      {/* Background Elements — fully unmount when off-screen (point 1) */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {isDark ? (
-          <>
-            {/* Deep Space Milky Way Dust */}
-            <div className="absolute inset-0 z-0 pointer-events-none opacity-40 mix-blend-screen" style={{
-              background: 'radial-gradient(ellipse at 40% 50%, rgba(30, 27, 75, 0.6) 0%, transparent 60%), radial-gradient(ellipse at 80% 30%, rgba(88, 28, 135, 0.3) 0%, transparent 50%), radial-gradient(ellipse at 20% 80%, rgba(14, 165, 233, 0.2) 0%, transparent 50%)'
-            }} />
-            
-            <Aurora />
-            <HelixNebula />
-            {stars.map((star) => (
-              <motion.div
-                key={star.id}
-                className="absolute rounded-full"
-                style={{
-                  backgroundColor: star.color,
-                  left: `${star.x}%`,
-                  top: `${star.y}%`,
-                  width: star.size,
-                  height: star.size,
-                  opacity: 0.1,
-                  boxShadow: `0 0 ${star.size * 2}px ${star.color}`
-                }}
-                animate={{ opacity: [0.1, 0.8, 0.1], scale: [1, 1.2, 1] }}
-                transition={{ duration: star.duration, delay: star.delay, repeat: Infinity, ease: 'easeInOut' }}
+        {isInView && (
+          isDark ? (
+            <>
+              {/* Deep Space Milky Way Dust */}
+              <div className="absolute inset-0 z-0 pointer-events-none opacity-40 mix-blend-screen" style={{
+                background: 'radial-gradient(ellipse at 40% 50%, rgba(30, 27, 75, 0.6) 0%, transparent 60%), radial-gradient(ellipse at 80% 30%, rgba(88, 28, 135, 0.3) 0%, transparent 50%), radial-gradient(ellipse at 20% 80%, rgba(14, 165, 233, 0.2) 0%, transparent 50%)'
+              }} />
+              
+              <Aurora />
+              <HelixNebula />
+              <StarField />
+              {meteorData.map((meteor) => (
+                <ShootingStar 
+                  key={`meteor-${meteor.id}`}
+                  top={meteor.top}
+                  left={meteor.left}
+                  delay={meteor.delay}
+                  duration={meteor.duration}
+                />
+              ))}
+            </>
+          ) : (
+            cloudData.map((cloud) => (
+              <RealisticCloud
+                key={cloud.id}
+                x={cloud.x}
+                y={cloud.y}
+                scale={cloud.scale}
+                duration={cloud.duration}
+                delay={cloud.delay}
               />
-            ))}
-            {meteors.map((meteor) => (
-              <ShootingStar 
-                key={`meteor-${meteor.id}`}
-                top={meteor.top}
-                left={meteor.left}
-                delay={meteor.delay}
-                duration={meteor.duration}
-              />
-            ))}
-          </>
-        ) : (
-          clouds.map((cloud) => (
-            <RealisticCloud
-              key={cloud.id}
-              x={cloud.x}
-              y={cloud.y}
-              scale={cloud.scale}
-              duration={cloud.duration}
-              delay={cloud.delay}
-            />
-          ))
+            ))
+          )
         )}
       </div>
 
@@ -436,7 +383,7 @@ export const SkillsSection = () => {
         </div>
       </div>
 
-      <div className="relative h-[500px] md:h-[800px] max-w-5xl mx-auto flex items-center justify-center">
+      <div className="relative h-[500px] md:h-[800px] max-w-5xl mx-auto flex items-center justify-center overflow-hidden">
         
         {/* The Core (Sun or Moon) */}
         <div className="absolute flex items-center justify-center z-0">
@@ -529,11 +476,11 @@ export const SkillsSection = () => {
               groupSize = lgSkills.length;
               indexInGroup = lgSkills.indexOf(skill);
             } else if (skill.size === 'md') {
-              baseRadius = isMobile ? 140 : 270; // Middle
+              baseRadius = isMobile ? 120 : 270; // Middle
               groupSize = mdSkills.length;
               indexInGroup = mdSkills.indexOf(skill);
             } else {
-              baseRadius = isMobile ? 190 : 380; // Outer
+              baseRadius = isMobile ? 150 : 380; // Outer
               groupSize = smSkills.length;
               indexInGroup = smSkills.indexOf(skill);
             }
@@ -550,6 +497,7 @@ export const SkillsSection = () => {
                 containerRef={containerRef}
                 resetKey={resetKey}
                 isPaused={isPaused || !isInView}
+                isMobile={isMobile}
               />
             );
           })}

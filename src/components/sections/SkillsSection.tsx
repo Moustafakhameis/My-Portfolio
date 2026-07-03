@@ -4,6 +4,7 @@ import { RotateCcw, Pause, Play } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 import { useTheme } from '../../context/ThemeContext';
 import { cn } from '../../utils/cn';
+import { MobileSkillsDashboard } from './MobileSkillsDashboard';
 
 const skills = [
   { name: 'React 19', category: 'Frontend', size: 'lg' },
@@ -273,13 +274,17 @@ export const SkillsSection = () => {
   const { theme } = useTheme();
   const [isDark, setIsDark] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(true);
   const isInView = useInView(containerRef, { margin: "200px" });
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    const checkScreen = () => {
+      setIsMobile(window.innerWidth < 768);
+      setIsDesktop(window.innerWidth > 1024);
+    };
+    checkScreen();
+    window.addEventListener('resize', checkScreen);
+    return () => window.removeEventListener('resize', checkScreen);
   }, []);
 
   useEffect(() => {
@@ -299,6 +304,24 @@ export const SkillsSection = () => {
     setResetKey(prev => prev + 1);
   };
 
+  /* ─── MOBILE / TABLET: Show premium dashboard ─── */
+  if (!isDesktop) {
+    return (
+      <section
+        className="py-20 px-6 overflow-hidden relative transition-all duration-1000"
+        style={{
+          background: isDark
+            ? 'linear-gradient(180deg, var(--background) 0%, #020617 15%, #0f172a 50%, var(--background) 100%)'
+            : 'linear-gradient(180deg, var(--background) 0%, #38bdf8 15%, #e0f2fe 50%, var(--background) 100%)'
+        }}
+        ref={containerRef}
+      >
+        <MobileSkillsDashboard />
+      </section>
+    );
+  }
+
+  /* ─── DESKTOP: Keep the original Interactive Skills Galaxy ─── */
   return (
     <section 
       className="py-32 px-6 overflow-hidden relative transition-all duration-1000" 
