@@ -416,7 +416,8 @@ class App {
     this.scrollSpeed = scrollSpeed;
     this.autoPlay = autoPlay;
     this.autoPlaySpeed = autoPlaySpeed;
-    this.lastInteractionTime = 0;
+    this.lastInteractionTime = Date.now();
+    this.isHovered = false;
     this.scroll = { ease: scrollEase, current: 0, target: 0, last: 0 };
     this.onCheckDebounce = debounce(this.onCheck, 200);
     this.createRenderer();
@@ -549,9 +550,12 @@ class App {
     }
   }
   update() {
-    if (this.autoPlay && !this.isDown) {
-      if (Date.now() - this.lastInteractionTime > 2000) {
-        this.scroll.target -= this.autoPlaySpeed; // moves right-to-left by default
+    if (this.autoPlay && !this.isDown && !this.isHovered) {
+      if (Date.now() - this.lastInteractionTime > 3000) {
+        if (this.medias && this.medias[0]) {
+          this.scroll.target += this.medias[0].width;
+        }
+        this.lastInteractionTime = Date.now();
       }
     }
 
@@ -571,6 +575,14 @@ class App {
     this.boundOnTouchMove = this.onTouchMove.bind(this);
     this.boundOnTouchUp = this.onTouchUp.bind(this);
     this.boundOnKeyDown = this.onKeyDown.bind(this);
+    this.boundOnMouseEnter = () => {
+      this.isHovered = true;
+      this.lastInteractionTime = Date.now();
+    };
+    this.boundOnMouseLeave = () => {
+      this.isHovered = false;
+      this.lastInteractionTime = Date.now();
+    };
 
     window.addEventListener('resize', this.boundOnResize);
     window.addEventListener('mousedown', this.boundOnTouchDown);
@@ -581,6 +593,8 @@ class App {
     window.addEventListener('touchend', this.boundOnTouchUp);
 
     this.container?.addEventListener('keydown', this.boundOnKeyDown);
+    this.container?.addEventListener('mouseenter', this.boundOnMouseEnter);
+    this.container?.addEventListener('mouseleave', this.boundOnMouseLeave);
   }
   destroy() {
     window.cancelAnimationFrame(this.raf);
@@ -597,6 +611,8 @@ class App {
 
     if (this.container) {
       this.container.removeEventListener('keydown', this.boundOnKeyDown);
+      this.container.removeEventListener('mouseenter', this.boundOnMouseEnter);
+      this.container.removeEventListener('mouseleave', this.boundOnMouseLeave);
     }
   }
 }
