@@ -51,9 +51,12 @@ export const Navbar = () => {
   useMotionValueEvent(scrollY, 'change', (latest) => {
     if (isMobileMenuOpen) return; // Don't hide navbar if mobile menu is open
     const previous = scrollY.getPrevious() ?? 0;
-    
-    // Handle Dock visibility
-    if (latest > 150) {
+    // Check if at the bottom of the page (within 100px)
+    const isAtBottom = typeof window !== 'undefined' && 
+      (window.innerHeight + latest >= document.documentElement.scrollHeight - 100);
+
+    // Handle Dock visibility (hide at top and at very bottom)
+    if (latest > 150 && !isAtBottom) {
       setShowDock(true);
     } else {
       setShowDock(false);
