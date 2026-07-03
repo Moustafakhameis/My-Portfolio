@@ -1,5 +1,11 @@
 import React, { Children, cloneElement, useEffect, useMemo, useRef, useState } from 'react';
-import { motion, useMotionValue, useSpring, useTransform, AnimatePresence, MotionValue, SpringOptions } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform, AnimatePresence, MotionValue } from 'framer-motion';
+
+export interface SpringOptions {
+  mass?: number;
+  stiffness?: number;
+  damping?: number;
+}
 
 import './Dock.css';
 
