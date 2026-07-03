@@ -57,8 +57,18 @@ export const AboutSection = () => {
       >
         <div className="space-y-10">
           <motion.div variants={textReveal} className="relative">
-            <h2 className="text-5xl md:text-7xl font-black tracking-tighter mb-6 text-transparent bg-clip-text bg-gradient-to-r from-foreground via-foreground to-foreground/50">
-              {t('about', 'title')}
+            <h2 className="text-5xl md:text-7xl font-black tracking-tighter mb-6 flex flex-wrap gap-x-3 gap-y-2">
+              {t('about', 'title').split(' ').map((word: string, i: number, arr: string[]) => {
+                const isLast = i === arr.length - 1;
+                return (
+                  <span 
+                    key={i} 
+                    className={isLast ? "text-transparent bg-clip-text bg-gradient-to-r from-primary via-fuchsia-500 to-pink-500 drop-shadow-[0_0_20px_rgba(217,70,239,0.3)]" : "text-foreground"}
+                  >
+                    {word}
+                  </span>
+                );
+              })}
             </h2>
             <motion.div
               initial={{ opacity: 0, scaleX: 0 }}
