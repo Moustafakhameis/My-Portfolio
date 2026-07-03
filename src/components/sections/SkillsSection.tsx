@@ -148,8 +148,8 @@ const ShootingStar = ({ top, left, delay, duration }: any) => (
       filter: 'drop-shadow(0 0 4px rgba(255,255,255,1))'
     }}
     animate={{ 
-      x: [0, 100],
-      y: [0, 100],
+      x: [0, 1000],
+      y: [0, 1000],
       opacity: [0, 1, 0],
       scale: [0, 1.5, 0]
     }}
@@ -254,6 +254,10 @@ const SkillPill = memo(({ skill, orbitRadius, initialAngle, containerRef, resetK
       drag
       dragElastic={0.1}
       onDragStart={() => { isInteracting.current = true; }}
+      onDragEnd={() => { 
+        isInteracting.current = false; 
+        isSnapping.current = true; 
+      }}
     >
       <span className="font-semibold tracking-wide">{skill.name}</span>
       {skill.size === 'lg' && (
