@@ -435,10 +435,10 @@ export const Navbar = () => {
             <div className="pointer-events-auto">
               <Dock
                 items={[
-                  { icon: <User size={22} />, label: t('navbar', 'about'), onClick: () => window.location.hash = '#about' },
-                  { icon: <Briefcase size={22} />, label: t('navbar', 'experience'), onClick: () => window.location.hash = '#experience' },
-                  { icon: <Code2 size={22} />, label: t('navbar', 'projects'), onClick: () => window.location.hash = '#work' },
-                  { icon: <Mail size={22} />, label: t('navbar', 'contact'), onClick: () => window.location.hash = '#contact' },
+                  { icon: <User size={22} />, label: t('navbar', 'about'), onClick: () => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }) },
+                  { icon: <Briefcase size={22} />, label: t('navbar', 'experience'), onClick: () => document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' }) },
+                  { icon: <Code2 size={22} />, label: t('navbar', 'projects'), onClick: () => document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' }) },
+                  { icon: <Mail size={22} />, label: t('navbar', 'contact'), onClick: () => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }) },
                 ]}
                 panelHeight={68}
                 baseItemSize={50}
