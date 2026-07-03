@@ -45,7 +45,7 @@ export const FeaturedProjectCard: React.FC<FeaturedProjectCardProps> = ({ projec
         whileHover={{ y: -10 }} 
         transition={{ type: "tween", ease: "easeOut", duration: 0.4 }}
       >
-        <div className="relative overflow-hidden rounded-[2.5rem] border border-border/40 bg-card/30 md:bg-card/10 md:backdrop-blur-md shadow-2xl hover:shadow-[0_30px_60px_-15px_rgba(168,85,247,0.4)] transition-all duration-700">
+        <div className="relative overflow-hidden rounded-[2.5rem] border border-border/40 bg-card/30 md:bg-card/20 shadow-2xl hover:shadow-[0_30px_60px_-15px_rgba(168,85,247,0.4)] transition-all duration-700">
           
           {/* Intense glow on hover based on mouse position */}
           <motion.div
