@@ -79,7 +79,7 @@ export const projects: Project[] = [
     description: 'A comprehensive, full-stack marketplace and management ecosystem connecting suppliers, farmers, buyers, and agricultural experts. It features a modern glassmorphic UI, real-time chat, premium animations, and a seamless B2B/B2C e-commerce experience tailored for the agricultural sector.',
     challenges: 'Architecting a robust multi-vendor e-commerce platform with complex role-based access (Admins, Suppliers, Farmers, Buyers, Experts). Required implementing multi-lingual support (i18n), integrating real-time Socket.io communication, and managing complex global state while ensuring a highly responsive, premium UI/UX across all devices.',
     results: 'A highly scalable, secure, and visually stunning platform that streamlines the entire agricultural supply chain. It delivers an ultra-premium interactive experience with secure Stripe payment processing, real-time messaging, and powerful admin/vendor dashboards.',
-    link: 'https://zar3a-nrbworhah-moustafakhameis-projects.vercel.app/',
+    link: 'https://zar3a-p80dhsexx-moustafakhameis-projects.vercel.app/',
     github: 'https://github.com/Moustafakhameis/Zar3a'
   },
   {
