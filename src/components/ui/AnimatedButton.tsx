@@ -3,7 +3,7 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
 interface AnimatedButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
-  variant?: 'primary' | 'outline' | 'ghost';
+  variant?: 'primary' | 'outline' | 'ghost' | 'premium';
   href?: string;
   className?: string;
 }
@@ -53,7 +53,8 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
   const variants = {
     primary: "bg-primary text-primary-foreground border border-transparent",
     outline: "bg-transparent text-foreground border border-border hover:border-primary/50 hover:bg-muted/50",
-    ghost: "bg-transparent text-muted-foreground hover:text-foreground hover:bg-muted/50"
+    ghost: "bg-transparent text-muted-foreground hover:text-foreground hover:bg-muted/50",
+    premium: "bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 text-white border border-white/20 shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:shadow-[0_0_40px_rgba(236,72,153,0.6)]"
   };
 
   const Component = href ? motion.a : motion.button;
@@ -75,8 +76,8 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
       whileTap={{ scale: 0.95 }}
       {...props}
     >
-      {/* Background ripple/glow effect for primary buttons */}
-      {variant === 'primary' && (
+      {/* Background ripple/glow effect for primary and premium buttons */}
+      {(variant === 'primary' || variant === 'premium') && (
         <>
           <motion.div
             className="absolute inset-0 bg-white/20 dark:bg-white/10 rounded-full"

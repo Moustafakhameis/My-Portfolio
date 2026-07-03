@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowUp, Heart } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowUp, Heart, IdCard, X } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
+import ReflectiveCard from './ReflectiveCard';
 
 export const Footer = () => {
   const { t, language } = useLanguage();
   const [isHovered, setIsHovered] = useState(false);
+  const [showCard, setShowCard] = useState(false);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -47,14 +49,88 @@ export const Footer = () => {
           className="flex flex-col items-center justify-center text-center gap-16"
         >
           {/* Main Footer Title */}
-          <motion.div variants={itemVariants} className="space-y-6">
-            <h2 className="text-4xl md:text-7xl font-black tracking-tighter leading-tight">
+          <motion.div variants={itemVariants} className="space-y-8 flex flex-col items-center">
+            <h2 className="text-5xl md:text-8xl font-black tracking-tighter leading-tight drop-shadow-2xl">
               {t('footer', 'letCreate1')} <br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-500 to-pink-500 inline-block pt-2 pb-3">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-fuchsia-500 to-pink-500 inline-block pt-2 pb-3 drop-shadow-[0_0_20px_rgba(217,70,239,0.3)]">
                 {t('footer', 'letCreate2')}
               </span>
             </h2>
+
+            {/* Toggle Card Button */}
+            <motion.button
+              onClick={() => setShowCard(!showCard)}
+              className="mt-4 group relative inline-flex items-center gap-3 px-8 py-4 rounded-full font-semibold text-white overflow-hidden transition-all duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              style={{
+                background: showCard
+                  ? 'linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))'
+                  : 'linear-gradient(135deg, #7c3aed, #db2777)',
+                border: showCard ? '1px solid rgba(255,255,255,0.2)' : '1px solid transparent',
+                boxShadow: showCard ? 'none' : '0 0 30px rgba(124, 58, 237, 0.4)',
+              }}
+            >
+              {showCard ? (
+                <>
+                  <X size={20} />
+                  <span className="tracking-wide">{language === 'ar' ? 'إغلاق' : 'Close'}</span>
+                </>
+              ) : (
+                <>
+                  <IdCard size={20} />
+                  <span className="tracking-wide">{language === 'ar' ? 'بطاقة التعريف' : 'View My Card'}</span>
+                </>
+              )}
+              {/* Shine sweep */}
+              {!showCard && (
+                <div className="absolute inset-0 overflow-hidden rounded-full pointer-events-none">
+                  <motion.div
+                    className="absolute top-0 bottom-0 w-[150%] bg-gradient-to-r from-transparent via-white/25 to-transparent skew-x-[-20deg]"
+                    animate={{ x: ['-100%', '200%'] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', repeatDelay: 2 }}
+                  />
+                </div>
+              )}
+            </motion.button>
           </motion.div>
+
+          {/* Reflective Card - Smooth Slide Toggle */}
+          <div>
+            <motion.div
+              initial={false}
+              animate={{
+                maxHeight: showCard ? 580 : 0,
+                opacity: showCard ? 1 : 0,
+                marginTop: showCard ? 16 : 0,
+                marginBottom: showCard ? 16 : 0,
+              }}
+              transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+              style={{ overflow: 'hidden', paddingTop: showCard ? 8 : 0 }}
+            >
+              <motion.div
+                initial={false}
+                animate={{
+                  y: showCard ? 0 : -40,
+                }}
+                transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+                className="flex justify-center"
+              >
+                <ReflectiveCard
+                  overlayColor="rgba(0, 0, 0, 0.15)"
+                  blurStrength={0}
+                  glassDistortion={0}
+                  metalness={0.6}
+                  roughness={0.3}
+                  displacementStrength={3}
+                  noiseScale={2}
+                  specularConstant={0.8}
+                  grayscale={0.3}
+                  color="#ffffff"
+                />
+              </motion.div>
+            </motion.div>
+          </div>
 
           <motion.div variants={itemVariants} className="w-full max-w-4xl h-px bg-gradient-to-r from-transparent via-border/50 to-transparent" />
 
@@ -96,10 +172,21 @@ export const Footer = () => {
               whileHover={{ scale: 1.15, y: -5 }}
               whileTap={{ scale: 0.9 }}
               onClick={scrollToTop}
-              className="p-5 rounded-full bg-primary/10 text-primary border border-primary/20 hover:bg-gradient-to-tr hover:from-primary hover:to-purple-500 hover:text-white hover:shadow-[0_0_25px_rgba(var(--primary),0.6)] hover:border-transparent transition-all duration-300 group"
+              className="relative p-[2px] rounded-full group"
               aria-label="Scroll to top"
+              style={{
+                background: 'linear-gradient(135deg, #7c3aed, #ec4899, #7c3aed)',
+                backgroundSize: '200% 200%',
+              }}
             >
-              <ArrowUp size={24} className="group-hover:-translate-y-1 transition-transform duration-300" />
+              <div className="p-4 rounded-full bg-background/90 backdrop-blur-sm group-hover:bg-transparent transition-all duration-300">
+                <motion.div
+                  animate={{ y: [0, -3, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+                >
+                  <ArrowUp size={22} className="text-foreground group-hover:text-white transition-colors duration-300" />
+                </motion.div>
+              </div>
             </motion.button>
           </div>
         </motion.div>
