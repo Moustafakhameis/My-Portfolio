@@ -54,12 +54,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  pointer-events: none;
 }
 
 .dock-label {
   position: absolute;
   top: -2.5rem;
   left: 50%;
+  pointer-events: none;
   width: max-content;
   white-space: pre;
   border-radius: 0.5rem;
