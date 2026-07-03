@@ -252,7 +252,6 @@ const SkillPill = memo(({ skill, orbitRadius, initialAngle, containerRef, resetK
         zIndex: 50
       }}
       drag
-      dragConstraints={containerRef}
       dragElastic={0.1}
       onDragStart={() => { isInteracting.current = true; }}
     >
@@ -406,7 +405,7 @@ export const SkillsSection = () => {
         </div>
       </div>
 
-      <div className="relative h-[500px] md:h-[800px] max-w-5xl mx-auto flex items-center justify-center overflow-hidden">
+      <div className="relative h-[500px] md:h-[800px] max-w-5xl mx-auto flex items-center justify-center">
         
         {/* The Core (Sun or Moon) */}
         <div className="absolute flex items-center justify-center z-0">
