@@ -35,10 +35,24 @@ export const ProjectsSection = () => {
   const galleryItems = useMemo(() => {
     return projects
       .filter(p => p.image)
-      .map(p => ({
-        image: p.image as string,
-        text: p.title.split(' - ')[0].trim()
-      }));
+      .map(p => {
+        // Create a shorter, but distinct title for the 3D gallery
+        const parts = p.title.split(' - ');
+        let shortTitle = parts[0].trim();
+        
+        // If it's a Zar3a sub-project, keep the 'Ui' or 'UseCase' part to differentiate them
+        if (shortTitle === 'Zar3a' && parts.length > 1) {
+          const subType = parts[1].trim();
+          if (subType === 'Ui' || subType === 'UseCase') {
+            shortTitle = `Zar3a ${subType}`;
+          }
+        }
+        
+        return {
+          image: p.image as string,
+          text: shortTitle
+        };
+      });
   }, []);
 
   return (
