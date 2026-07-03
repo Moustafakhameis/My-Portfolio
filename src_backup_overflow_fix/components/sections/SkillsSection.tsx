@@ -147,8 +147,8 @@ const ShootingStar = ({ top, left, delay, duration }: any) => (
       filter: 'drop-shadow(0 0 4px rgba(255,255,255,1))'
     }}
     animate={{ 
-      x: [0, 100],
-      y: [0, 100],
+      x: [0, 800],
+      y: [0, 800],
       opacity: [0, 1, 0],
       scale: [0, 1.5, 0]
     }}
@@ -383,7 +383,7 @@ export const SkillsSection = () => {
         </div>
       </div>
 
-      <div className="relative h-[500px] md:h-[800px] max-w-5xl mx-auto flex items-center justify-center overflow-hidden">
+      <div className="relative h-[500px] md:h-[800px] max-w-5xl mx-auto flex items-center justify-center">
         
         {/* The Core (Sun or Moon) */}
         <div className="absolute flex items-center justify-center z-0">
@@ -476,11 +476,11 @@ export const SkillsSection = () => {
               groupSize = lgSkills.length;
               indexInGroup = lgSkills.indexOf(skill);
             } else if (skill.size === 'md') {
-              baseRadius = isMobile ? 120 : 270; // Middle
+              baseRadius = isMobile ? 140 : 270; // Middle
               groupSize = mdSkills.length;
               indexInGroup = mdSkills.indexOf(skill);
             } else {
-              baseRadius = isMobile ? 150 : 380; // Outer
+              baseRadius = isMobile ? 190 : 380; // Outer
               groupSize = smSkills.length;
               indexInGroup = smSkills.indexOf(skill);
             }

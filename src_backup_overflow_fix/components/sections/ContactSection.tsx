@@ -39,7 +39,7 @@ export const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="py-24 px-6 md:px-12 max-w-5xl mx-auto text-center relative overflow-hidden">
+    <section id="contact" className="py-24 px-6 md:px-12 max-w-5xl mx-auto text-center relative">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 blur-[100px] -z-10 rounded-full blob-blur" />
       
       <motion.div

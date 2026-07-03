@@ -38,7 +38,7 @@ function App() {
             {isLoaded && isNotFound && <NotFound />}
             
             {isLoaded && !isNotFound && (
-              <div className="relative min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground font-sans transition-colors duration-500 overflow-x-clip">
+              <div className="relative min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground font-sans transition-colors duration-500">
                 <Navbar />
                 <main>
                   <HeroSection />
