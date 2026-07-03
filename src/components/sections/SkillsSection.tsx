@@ -252,8 +252,9 @@ const SkillPill = memo(({ skill, orbitRadius, initialAngle, containerRef, resetK
         zIndex: 50
       }}
       drag
-      dragElastic={0.1}
-      dragMomentum={false}
+      dragConstraints={containerRef}
+      dragElastic={0.2}
+      dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
       onDragStart={() => { isInteracting.current = true; }}
     >
       <span className="font-semibold tracking-wide">{skill.name}</span>
