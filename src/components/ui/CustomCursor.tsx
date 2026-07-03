@@ -88,7 +88,7 @@ export const CustomCursor = () => {
     <>
       {/* Massive Soft Adaptive Glow (Dark Mode Only) */}
       <motion.div
-        className="fixed top-0 left-0 w-[400px] h-[400px] rounded-full pointer-events-none z-40 hidden dark:md:block opacity-60 blur-[100px] bg-white/10"
+        className="fixed top-0 left-0 w-[400px] h-[400px] rounded-full pointer-events-none z-40 hidden dark:lg:block opacity-60 blur-[100px] bg-white/10"
         style={{ 
           x: glowSmoothX, 
           y: glowSmoothY,
@@ -103,7 +103,7 @@ export const CustomCursor = () => {
       />
       {/* Outer Ring */}
       <motion.div
-        className="fixed top-0 left-0 w-8 h-8 rounded-full border border-white pointer-events-none z-50 mix-blend-difference hidden md:block"
+        className="fixed top-0 left-0 w-8 h-8 rounded-full border border-white pointer-events-none z-50 mix-blend-difference hidden lg:block"
         style={{ 
           x: smoothX, 
           y: smoothY,
@@ -119,7 +119,7 @@ export const CustomCursor = () => {
       />
       {/* Inner Dot */}
       <motion.div
-        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-white pointer-events-none z-50 mix-blend-difference hidden md:block"
+        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-white pointer-events-none z-50 mix-blend-difference hidden lg:block"
         style={{ 
           x: innerSmoothX, 
           y: innerSmoothY,
