@@ -31,7 +31,7 @@ export const translations = {
       title: 'Professional Experience',
     },
     projects: {
-      title: 'Featured Projects',
+      title: 'My Projects',
       description: 'A curated selection of my most impactful and technically challenging work, demonstrating my expertise in modern web technologies.',
       viewProject: 'View Live Demo',
       viewGithub: 'View Source',
@@ -106,7 +106,7 @@ export const translations = {
       title: 'الخبرات المهنية',
     },
     projects: {
-      title: 'أبرز المشاريع',
+      title: 'مشاريعي',
       description: 'مجموعة مختارة من أبرز مشاريعي وأكثرها تحدياً من الناحية التقنية، توضح خبرتي في تقنيات الويب الحديثة.',
       viewProject: 'عرض مباشر',
       viewGithub: 'الكود المصدري',
