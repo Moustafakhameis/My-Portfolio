@@ -59,8 +59,8 @@ export const Navbar = () => {
       setShowDock(false);
     }
 
-    // Handle Navbar visibility (hide on scroll down)
-    if (latest > previous && latest > 150) {
+    // Handle Navbar visibility (hide when scrolled past hero)
+    if (latest > 150) {
       setIsHidden(true);
     } else {
       setIsHidden(false);
