@@ -8,8 +8,8 @@
     "build": "vite build && node -e \"require('fs').copyFileSync('dist/index.html', 'dist/404.html')\"",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist -m \"Deploy ${npm_package_version} %date% %time%\""
+    "predeploy": "npm run build && node -e \"require('fs').writeFileSync('dist/timestamp.txt', new Date().toISOString())\"",
+    "deploy": "gh-pages -d dist -m \"Deploy\""
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",
