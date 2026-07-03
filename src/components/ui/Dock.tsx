@@ -71,7 +71,7 @@ function DockItem({ children, className = '', onClick, mouseX, spring, distance,
     >
       {Children.map(children, child => {
         if (React.isValidElement(child)) {
-          return cloneElement(child as React.ReactElement<any>, { isHovered });
+          return cloneElement(child as React.ReactElement<any>, { isHovered, size });
         }
         return child;
       })}
@@ -110,8 +110,17 @@ function DockLabel({ children, className = '', ...rest }: { children: React.Reac
   );
 }
 
-function DockIcon({ children, className = '' }: { children: React.ReactNode; className?: string }) {
-  return <div className={`dock-icon ${className}`}>{children}</div>;
+function DockIcon({ children, className = '', ...rest }: { children: React.ReactNode; className?: string; [key: string]: any }) {
+  const { size } = rest;
+  
+  // Base item size is 50, so we scale relative to that
+  const scale = size ? useTransform(size, (s: number) => s / 50) : 1;
+
+  return (
+    <motion.div style={{ scale }} className={`dock-icon flex items-center justify-center ${className}`}>
+      {children}
+    </motion.div>
+  );
 }
 
 export interface DockProps {
