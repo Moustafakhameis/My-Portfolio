@@ -17,7 +17,7 @@ const GlassCube = () => {
 
   return (
     <Float speed={2} rotationIntensity={1} floatIntensity={2}>
-      <RoundedBox ref={meshRef} args={[2, 2, 2]} radius={0.1} smoothness={4}>
+      <RoundedBox ref={meshRef} args={[2, 2, 2]} radius={0.1} smoothness={2}>
         <MeshDistortMaterial
           color="#a855f7"
           attach="material"
@@ -36,7 +36,9 @@ export const ThreeShowcaseSection = () => {
   const { t } = useLanguage();
   const containerRef = useRef<HTMLDivElement>(null);
   // Only mount canvas when section is within 800px of viewport to prevent main-thread blocking early on
-  const isInView = useInView(containerRef, { once: true, margin: "800px 0px 800px 0px" });
+  const hasEnteredView = useInView(containerRef, { once: true, margin: "800px 0px 800px 0px" });
+  // Control the render loop dynamically based on actual visibility
+  const isCurrentlyVisible = useInView(containerRef, { amount: 0 });
 
   return (
     <section ref={containerRef} className="relative min-h-[600px] w-full bg-background flex flex-col md:flex-row items-center justify-between px-6 md:px-24 py-20 overflow-hidden border-t border-border/10">
@@ -51,8 +53,13 @@ export const ThreeShowcaseSection = () => {
       
       {/* Right side: 3D Canvas Container */}
       <div dir="ltr" className="w-full md:w-1/2 h-[400px] md:h-[600px] z-0">
-        {isInView && (
-          <Canvas dpr={[1, 1.5]} performance={{ min: 0.5 }} camera={{ position: [0, 0, 5], fov: 45 }}>
+        {hasEnteredView && (
+          <Canvas 
+            dpr={[1, 1.5]} 
+            performance={{ min: 0.5 }} 
+            camera={{ position: [0, 0, 5], fov: 45 }}
+            frameloop={isCurrentlyVisible ? 'always' : 'never'}
+          >
             <Suspense fallback={
               <Html center>
                 <div className="flex flex-col items-center justify-center gap-4">
