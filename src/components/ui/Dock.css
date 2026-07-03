@@ -39,8 +39,6 @@
   cursor: pointer;
   outline: none;
   transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
 }
 
 .dock-item:hover {
