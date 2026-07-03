@@ -253,11 +253,8 @@ const SkillPill = memo(({ skill, orbitRadius, initialAngle, containerRef, resetK
       }}
       drag
       dragElastic={0.1}
+      dragMomentum={false}
       onDragStart={() => { isInteracting.current = true; }}
-      onDragEnd={() => { 
-        isInteracting.current = false; 
-        isSnapping.current = true; 
-      }}
     >
       <span className="font-semibold tracking-wide">{skill.name}</span>
       {skill.size === 'lg' && (
