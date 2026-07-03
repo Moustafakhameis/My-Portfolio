@@ -406,12 +406,17 @@ class App {
       borderRadius = 0,
       font = 'bold 30px Figtree',
       scrollSpeed = 2,
-      scrollEase = 0.05
+      scrollEase = 0.05,
+      autoPlay = true,
+      autoPlaySpeed = 0.05
     } = {}
   ) {
     document.documentElement.classList.remove('no-js');
     this.container = container;
     this.scrollSpeed = scrollSpeed;
+    this.autoPlay = autoPlay;
+    this.autoPlaySpeed = autoPlaySpeed;
+    this.lastInteractionTime = 0;
     this.scroll = { ease: scrollEase, current: 0, target: 0, last: 0 };
     this.onCheckDebounce = debounce(this.onCheck, 200);
     this.createRenderer();
@@ -474,25 +479,30 @@ class App {
   }
   onTouchDown(e) {
     this.isDown = true;
+    this.lastInteractionTime = Date.now();
     this.scroll.position = this.scroll.current;
     this.start = e.touches ? e.touches[0].clientX : e.clientX;
   }
   onTouchMove(e) {
     if (!this.isDown) return;
+    this.lastInteractionTime = Date.now();
     const x = e.touches ? e.touches[0].clientX : e.clientX;
     const distance = (this.start - x) * (this.scrollSpeed * 0.025);
     this.scroll.target = this.scroll.position + distance;
   }
   onTouchUp() {
     this.isDown = false;
+    this.lastInteractionTime = Date.now();
     this.onCheck();
   }
   onWheel(e) {
+    this.lastInteractionTime = Date.now();
     const delta = e.deltaY || e.wheelDelta || e.detail;
     this.scroll.target += (delta > 0 ? this.scrollSpeed : -this.scrollSpeed) * 0.2;
     this.onCheckDebounce();
   }
   onKeyDown(e) {
+    this.lastInteractionTime = Date.now();
     switch (e.key) {
       case 'ArrowRight':
         e.preventDefault();
@@ -539,6 +549,12 @@ class App {
     }
   }
   update() {
+    if (this.autoPlay && !this.isDown) {
+      if (Date.now() - this.lastInteractionTime > 2000) {
+        this.scroll.target -= this.autoPlaySpeed; // moves right-to-left by default
+      }
+    }
+
     this.scroll.current = lerp(this.scroll.current, this.scroll.target, this.scroll.ease);
     const direction = this.scroll.current > this.scroll.last ? 'right' : 'left';
     if (this.medias) {
@@ -593,7 +609,9 @@ export default function CircularGallery({
   font = 'bold 30px Figtree',
   fontUrl,
   scrollSpeed = 2,
-  scrollEase = 0.05
+  scrollEase = 0.05,
+  autoPlay = true,
+  autoPlaySpeed = 0.03
 }) {
   const containerRef = useRef(null);
   useEffect(() => {
@@ -609,7 +627,9 @@ export default function CircularGallery({
         borderRadius,
         font: resolvedFont,
         scrollSpeed,
-        scrollEase
+        scrollEase,
+        autoPlay,
+        autoPlaySpeed
       });
     });
 
