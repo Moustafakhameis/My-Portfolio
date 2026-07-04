@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './ReflectiveCard.css';
 import { Fingerprint, Activity, Lock, Check, MapPin, Phone, Mail } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
+import userImage from '../../assets/Mostafa.jpg';
 
 interface ReflectiveCardProps {
   blurStrength?: number;
@@ -126,9 +127,11 @@ const ReflectiveCard = ({
         </div>
 
         <div className="card-body">
-          {/* Avatar / Monogram */}
+          {/* Avatar */}
           <div className="avatar-ring">
-            <div className="avatar-initials">ME</div>
+            <div className="avatar-image-container">
+              <img src={userImage} alt="Mostafa Ali Emam" className="avatar-image" />
+            </div>
           </div>
 
           <div className="user-info">

@@ -57,10 +57,10 @@ export const Footer = () => {
               </span>
             </h2>
 
-            {/* Toggle Card Button */}
+            {/* Toggle Card Button (Mobile Only) */}
             <motion.button
               onClick={() => setShowCard(!showCard)}
-              className="mt-4 group relative inline-flex items-center gap-3 px-8 py-4 rounded-full font-semibold text-white overflow-hidden transition-all duration-300"
+              className="mt-4 md:hidden group relative inline-flex items-center gap-3 px-8 py-4 rounded-full font-semibold text-white overflow-hidden transition-all duration-300"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               style={{
@@ -96,7 +96,7 @@ export const Footer = () => {
           </motion.div>
 
           {/* Reflective Card - Smooth Slide Toggle */}
-          <div>
+          <div className="md:hidden">
             <motion.div
               initial={false}
               animate={{
