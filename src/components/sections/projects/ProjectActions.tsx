@@ -16,14 +16,14 @@ export const ProjectActions: React.FC<ProjectActionsProps> = ({ link, github, ca
   const isCompact = category === 'learning';
 
   return (
-    <div className="flex flex-wrap gap-3 sm:gap-4">
+    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full">
       {link !== '#' && (
         <AnimatedButton 
           href={link}
           target="_blank"
           rel="noopener noreferrer"
           variant="primary"
-          className={`flex-1 justify-center whitespace-nowrap !py-2.5 ${isCompact ? '!text-xs !px-3 min-w-[100px]' : '!text-sm !px-5 min-w-[130px]'}`}
+          className={`w-full sm:w-auto flex-1 justify-center whitespace-nowrap !py-2.5 ${isCompact ? '!text-xs !px-3 min-w-[100px]' : '!text-sm !px-5 min-w-[130px]'}`}
         >
           <ExternalLink size={isCompact ? 14 : 16} />
           {t('projects', 'viewProject')}
@@ -35,7 +35,7 @@ export const ProjectActions: React.FC<ProjectActionsProps> = ({ link, github, ca
           target="_blank"
           rel="noopener noreferrer"
           variant="outline"
-          className={`flex-1 justify-center whitespace-nowrap !py-2.5 ${isCompact ? '!text-xs !px-3 min-w-[100px]' : '!text-sm !px-5 min-w-[130px]'}`}
+          className={`w-full sm:w-auto flex-1 justify-center whitespace-nowrap !py-2.5 ${isCompact ? '!text-xs !px-3 min-w-[100px]' : '!text-sm !px-5 min-w-[130px]'}`}
         >
           <GithubIcon size={isCompact ? 14 : 16} />
           {t('projects', 'viewGithub')}

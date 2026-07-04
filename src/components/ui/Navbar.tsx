@@ -215,10 +215,32 @@ export const Navbar = () => {
         <motion.button
           whileTap={{ scale: 0.9 }}
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="p-2 text-foreground hover:text-primary transition-colors z-50 relative"
+          className="p-2 text-foreground hover:text-primary transition-colors z-50 relative w-12 h-12 flex items-center justify-center"
           aria-label="Toggle mobile menu"
         >
-          {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          <AnimatePresence mode="wait">
+            {isMobileMenuOpen ? (
+              <motion.div
+                key="close"
+                initial={{ opacity: 0, rotate: -90, scale: 0.5 }}
+                animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                exit={{ opacity: 0, rotate: 90, scale: 0.5 }}
+                transition={{ duration: 0.2, ease: "easeInOut" }}
+              >
+                <X size={28} />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="menu"
+                initial={{ opacity: 0, rotate: 90, scale: 0.5 }}
+                animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                exit={{ opacity: 0, rotate: -90, scale: 0.5 }}
+                transition={{ duration: 0.2, ease: "easeInOut" }}
+              >
+                <Menu size={28} />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.button>
       </div>
 
