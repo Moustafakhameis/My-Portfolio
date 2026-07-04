@@ -62,11 +62,25 @@ export const Navbar = () => {
       setShowDock(false);
     }
 
-    // Handle Navbar visibility (hide when scrolled past hero)
-    if (latest > 150) {
-      setIsHidden(true);
+    // Handle Navbar visibility
+    const isMobileOrTablet = typeof window !== 'undefined' && window.innerWidth < 1024;
+
+    if (isMobileOrTablet) {
+      // Mobile/Tablet: Show on scroll up, hide on scroll down
+      if (latest < 150) {
+        setIsHidden(false);
+      } else if (latest < previous) {
+        setIsHidden(false);
+      } else {
+        setIsHidden(true);
+      }
     } else {
-      setIsHidden(false);
+      // Desktop: Keep original behavior (hide when scrolled past 150)
+      if (latest > 150) {
+        setIsHidden(true);
+      } else {
+        setIsHidden(false);
+      }
     }
   });
 

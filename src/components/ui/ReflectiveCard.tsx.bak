@@ -1,9 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import './ReflectiveCard.css';
-import { Fingerprint, Activity, Lock, Check, MapPin, Phone, Mail, Clock } from 'lucide-react';
+import { Fingerprint, Activity, Lock, Check, MapPin, Phone, Mail } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
 import userImage from '../../assets/Mostafa.jpg';
-import { FingerprintContactButton } from './FingerprintContactButton';
 
 interface ReflectiveCardProps {
   blurStrength?: number;
@@ -37,19 +36,6 @@ const ReflectiveCard = ({
   const [copied, setCopied] = useState(false);
   const email = 'moustafakhameis@gmail.com';
   const phone = '+201129482206';
-
-  const [time, setTime] = useState(new Date());
-
-  useEffect(() => {
-    const timer = setInterval(() => setTime(new Date()), 1000);
-    return () => clearInterval(timer);
-  }, []);
-
-  const timeString = time.toLocaleTimeString('en-US', { 
-    timeZone: 'Africa/Cairo', 
-    hour: '2-digit', 
-    minute: '2-digit' 
-  });
 
   const handleCopy = () => {
     navigator.clipboard.writeText(email);
@@ -180,27 +166,24 @@ const ReflectiveCard = ({
         </div>
 
         <div className="card-footer">
-          <div className="id-section" style={{ textAlign: 'left' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '4px', marginBottom: '14px' }}>
-              <span className="label">LOCAL TIME</span>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', fontWeight: 700, letterSpacing: '0.05em', color: 'rgba(255,255,255,0.85)' }}>
-                <Clock size={12} style={{ opacity: 0.5, color: '#a78bfa' }} />
-                <span>{timeString}</span>
-                <span style={{ opacity: 0.4, fontSize: '9px', letterSpacing: '0.1em' }}>CAIRO</span>
-              </span>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '4px' }}>
-              <span className="label">STATUS</span>
-              <span className="value status-available">
-                <span className="status-dot" />
-                AVAILABLE FOR HIRE
-              </span>
-            </div>
+          <div className="id-section">
+            <span className="label">STATUS</span>
+            <span className="value status-available">
+              <span className="status-dot" />
+              AVAILABLE FOR HIRE
+            </span>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
-            <span className="label">HOLD TO SAVE</span>
-            <FingerprintContactButton />
-          </div>
+          <button
+            onClick={handleCopy}
+            className="fingerprint-section"
+            title={copied ? 'Copied!' : 'Copy email'}
+          >
+            {copied ? (
+              <Check size={28} className="fingerprint-icon copied" />
+            ) : (
+              <Fingerprint size={28} className="fingerprint-icon" />
+            )}
+          </button>
         </div>
       </div>
     </div>
