@@ -82,7 +82,7 @@ export const AboutSection = () => {
             </p>
             <div className="flex flex-wrap gap-4 mt-8">
               <AnimatedButton
-                href="https://drive.google.com/file/d/19Ny6-7ZgrcbdwP98RSb9D_moc9PJOkVW/view?usp=drive_link"
+                href="https://drive.google.com/file/d/1LE7vkiKz3AgZi7uFdRrizGO0q8zfS9tc/view?usp=sharing"
                 target="_blank"
                 rel="noopener noreferrer"
                 variant="primary"
