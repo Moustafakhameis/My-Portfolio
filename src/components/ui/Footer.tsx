@@ -60,16 +60,13 @@ export const Footer = () => {
             {/* Toggle Card Button (Mobile Only) */}
             <motion.button
               onClick={() => setShowCard(!showCard)}
-              className="mt-4 md:hidden group relative inline-flex items-center gap-3 px-8 py-4 rounded-full font-semibold text-white overflow-hidden transition-all duration-300"
+              className={`mt-4 md:hidden group relative inline-flex items-center gap-3 px-8 py-4 rounded-full font-semibold overflow-hidden transition-all duration-300 ${
+                showCard
+                  ? 'bg-slate-200 border border-slate-300 text-slate-900 dark:bg-white/10 dark:border-white/20 dark:text-white'
+                  : 'bg-gradient-to-r from-violet-600 to-pink-600 border border-transparent shadow-[0_0_30px_rgba(124,58,237,0.4)] text-white'
+              }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              style={{
-                background: showCard
-                  ? 'linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))'
-                  : 'linear-gradient(135deg, #7c3aed, #db2777)',
-                border: showCard ? '1px solid rgba(255,255,255,0.2)' : '1px solid transparent',
-                boxShadow: showCard ? 'none' : '0 0 30px rgba(124, 58, 237, 0.4)',
-              }}
             >
               {showCard ? (
                 <>
