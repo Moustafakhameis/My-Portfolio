@@ -277,7 +277,7 @@ export const Navbar = () => {
                     }}
                     animate={{ 
                       backgroundImage: theme === 'light' 
-                        ? 'linear-gradient(90deg, #9333ea, #db2777, #9333ea)' 
+                        ? 'linear-gradient(90deg, #9333ea, #db2777, #9333ea, #db2777, #9333ea)' 
                         : 'linear-gradient(90deg, #c084fc, #e879f9, #f0abfc, #e879f9, #c084fc)',
                       backgroundPosition: ['0% center', '200% center'] 
                     }}
@@ -487,7 +487,7 @@ export const Navbar = () => {
                         }}
                         animate={{ 
                           backgroundImage: theme === 'light'
-                            ? 'linear-gradient(90deg, #9333ea, #db2777, #9333ea)'
+                            ? 'linear-gradient(90deg, #9333ea, #db2777, #9333ea, #fff, #9333ea, #db2777, #9333ea)'
                             : 'linear-gradient(90deg, #c084fc, #e879f9, #f0abfc, #fff, #f0abfc, #e879f9, #c084fc)',
                           filter: theme === 'light'
                             ? 'drop-shadow(0 0 0px rgba(168,85,247,0))'
