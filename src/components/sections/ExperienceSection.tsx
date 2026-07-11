@@ -36,7 +36,7 @@ const experiences = [
   },
   {
     title: 'Business Development Member',
-    company: 'Enactus Helwan',
+    company: 'Enactus BIS',
     date: 'Oct. 2023 - Nov. 2024',
     description: 'Conducted market research and helped build business models, contributing to the team placing 2nd in the Enactus Egypt National Competition.',
   },
