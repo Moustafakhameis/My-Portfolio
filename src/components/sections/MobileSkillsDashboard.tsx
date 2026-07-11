@@ -1,5 +1,5 @@
-import React, { useRef, useMemo } from 'react';
-import { motion, useInView } from 'framer-motion';
+import React, { useRef, useMemo, useEffect } from 'react';
+import { motion, useInView, useMotionValue, useTransform, animate } from 'framer-motion';
 import { 
   Code2, Palette, Layers, Zap, Globe, GitBranch, 
   MonitorSmartphone, Sparkles, Box, LayoutGrid, Braces, PenTool
@@ -187,8 +187,25 @@ interface SkillCardProps {
 }
 
 const SkillCard = ({ skill, index, isTablet }: SkillCardProps) => {
+  const cardRef = useRef(null);
+  const isInView = useInView(cardRef, { once: true, margin: '-40px' });
+  const count = useMotionValue(0);
+  const rounded = useTransform(count, Math.round);
+
+  useEffect(() => {
+    if (isInView) {
+      const animation = animate(count, skill.proficiency, {
+        duration: 0.8,
+        delay: 0.2 + (index % 2) * 0.1,
+        ease: 'easeOut'
+      });
+      return animation.stop;
+    }
+  }, [isInView, skill.proficiency, index, count]);
+
   return (
     <motion.div
+      ref={cardRef}
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
@@ -228,7 +245,7 @@ const SkillCard = ({ skill, index, isTablet }: SkillCardProps) => {
             </div>
             <div className="flex-shrink-0 text-right">
               <span className="text-lg font-bold tabular-nums" style={{ color: skill.color }}>
-                {skill.proficiency}%
+                <motion.span>{rounded}</motion.span>%
               </span>
             </div>
           </div>
