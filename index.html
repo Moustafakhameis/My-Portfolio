@@ -1,16 +1,28 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/My-Portfolio/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mostafa Khameis | Frontend Engineer & UI Developer</title>
+    <title>Moustafa Khameis | Frontend Engineer & UI Developer</title>
     <!-- Google Fonts: Inter (English) and Cairo (Arabic) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <script type="module" crossorigin src="/My-Portfolio/assets/index-jNCkgbFj.js"></script>
-    <link rel="stylesheet" crossorigin href="/My-Portfolio/assets/index-DhNTMHkY.css">
+    <script>
+      (function() {
+        try {
+          var theme = localStorage.getItem('vite-ui-theme');
+          if (theme === 'light') {
+            document.documentElement.classList.remove('dark');
+          } else {
+            document.documentElement.classList.add('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <script type="module" crossorigin src="/My-Portfolio/assets/index-BP7NMsTt.js"></script>
+    <link rel="stylesheet" crossorigin href="/My-Portfolio/assets/index-BP7NHRVi.css">
   </head>
   <body>
     <div id="root"></div>
