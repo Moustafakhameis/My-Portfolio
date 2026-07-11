@@ -37,10 +37,10 @@ export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ image, images, t
   // Fallback CSS gradient placeholder based on category
   const getGradient = () => {
     switch (category) {
-      case 'featured': return 'from-purple-900/40 via-fuchsia-900/40 to-pink-900/40';
-      case 'professional': return 'from-blue-900/40 via-cyan-900/40 to-teal-900/40';
-      case 'practice': return 'from-emerald-900/40 via-green-900/40 to-lime-900/40';
-      case 'learning': return 'from-orange-900/40 via-red-900/40 to-rose-900/40';
+      case 'featured': return 'from-purple-500/20 via-fuchsia-500/20 to-pink-500/20 dark:from-purple-900/40 dark:via-fuchsia-900/40 dark:to-pink-900/40';
+      case 'professional': return 'from-blue-500/20 via-cyan-500/20 to-teal-500/20 dark:from-blue-900/40 dark:via-cyan-900/40 dark:to-teal-900/40';
+      case 'practice': return 'from-emerald-500/20 via-green-500/20 to-lime-500/20 dark:from-emerald-900/40 dark:via-green-900/40 dark:to-lime-900/40';
+      case 'learning': return 'from-orange-500/20 via-red-500/20 to-rose-500/20 dark:from-orange-900/40 dark:via-red-900/40 dark:to-rose-900/40';
       default: return 'from-primary/20 to-primary/10';
     }
   };
@@ -92,8 +92,8 @@ export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ image, images, t
         </>
       ) : (
         <div className={`w-full h-full flex flex-col items-center justify-center bg-gradient-to-br ${getGradient()}`}>
-          <div className="absolute inset-0 opacity-20 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent blur-2xl" />
-          <h3 className="text-2xl md:text-4xl font-black text-white/50 tracking-widest uppercase text-center px-4 relative z-10 drop-shadow-lg">
+          <div className="absolute inset-0 opacity-20 dark:opacity-20 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-foreground dark:from-white via-transparent to-transparent blur-2xl" />
+          <h3 className="text-2xl md:text-4xl font-black text-foreground/30 dark:text-white/50 tracking-widest uppercase text-center px-4 relative z-10 drop-shadow-lg">
             {title}
           </h3>
         </div>

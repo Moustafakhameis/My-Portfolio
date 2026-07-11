@@ -406,7 +406,7 @@ export const SymbolShowcaseSection = () => {
 
         {/* Color Palette */}
         <div className="mt-8 flex flex-col md:flex-row items-center gap-4 pointer-events-auto">
-          <div className="flex items-center gap-2 p-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md shadow-lg">
+          <div className="flex items-center gap-2 p-2 rounded-full bg-black/5 dark:bg-white/5 border border-border/40 backdrop-blur-md shadow-lg">
             {COLOR_SCHEMES.map((s, i) => (
               <button key={s.name} onClick={() => setColorIdx(i)}
                 className="w-8 h-8 rounded-full border-2 transition-all duration-300 relative group"
@@ -467,15 +467,15 @@ export const SymbolShowcaseSection = () => {
         .ss-ctrl-btn {
           display: flex; align-items: center; justify-content: center; gap: 5px;
           width: 40px; height: 40px; border-radius: 12px;
-          border: 1px solid rgba(255,255,255,0.08);
-          background: rgba(255,255,255,0.04);
+          border: 1px solid var(--border);
+          background: rgba(128,128,128,0.08);
           backdrop-filter: blur(12px);
-          color: rgba(255,255,255,0.5);
+          color: var(--muted-foreground);
           font-size: 12px; font-weight: 600;
           cursor: pointer; transition: all 0.25s ease;
         }
         .ss-ctrl-btn:hover {
-          background: rgba(255,255,255,0.1); color: #fff;
+          background: rgba(128,128,128,0.15); color: var(--foreground);
           border-color: ${scheme.mid}50;
           box-shadow: 0 0 18px ${scheme.glow};
           transform: translateY(-2px);

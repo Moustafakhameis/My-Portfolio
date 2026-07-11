@@ -69,10 +69,10 @@ const RadarChart = () => {
   }).join(' ');
 
   return (
-    <div className="relative flex items-center justify-center w-full">
+    <div className="relative flex items-center justify-center w-full aspect-square max-h-[320px]">
       <svg
         viewBox={`0 0 ${size} ${size}`}
-        className="w-full max-w-[280px] sm:max-w-[320px]"
+        className="w-full h-full max-w-[280px] sm:max-w-[320px]"
         style={{ filter: 'drop-shadow(0 0 20px rgba(6,182,212,0.15))' }}
       >
         <defs>
@@ -191,12 +191,9 @@ const SkillCard = ({ skill, index, isTablet }: SkillCardProps) => {
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.45, delay: index * 0.06, ease: 'easeOut' }}
       whileTap={{ scale: 0.97 }}
-      className="group relative rounded-2xl border border-white/[0.06] overflow-hidden"
+      className="group relative rounded-2xl border border-border/40 overflow-hidden glass dark:bg-slate-900/60"
       style={{
-        background: 'linear-gradient(135deg, rgba(15,23,42,0.7) 0%, rgba(15,23,42,0.4) 100%)',
-        backdropFilter: 'blur(16px)',
-        WebkitBackdropFilter: 'blur(16px)',
-        boxShadow: `0 0 0 1px rgba(255,255,255,0.03), 0 4px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04)`,
+        boxShadow: `0 4px 24px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.04)`,
         minHeight: isTablet ? '100px' : '88px',
       }}
     >
@@ -223,8 +220,8 @@ const SkillCard = ({ skill, index, isTablet }: SkillCardProps) => {
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-2 mb-1.5">
             <div className="min-w-0">
-              <h4 className="text-sm font-semibold text-white truncate">{skill.name}</h4>
-              <span className="text-[11px] text-white/40 uppercase tracking-wider">{skill.category}</span>
+              <h4 className="text-sm font-semibold text-foreground dark:text-white truncate">{skill.name}</h4>
+              <span className="text-[11px] text-muted-foreground dark:text-white/40 uppercase tracking-wider">{skill.category}</span>
             </div>
             <div className="flex-shrink-0 text-right">
               <span className="text-lg font-bold tabular-nums" style={{ color: skill.color }}>
@@ -234,7 +231,7 @@ const SkillCard = ({ skill, index, isTablet }: SkillCardProps) => {
           </div>
 
           {/* Progress bar */}
-          <div className="relative h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
+          <div className="relative h-1.5 rounded-full bg-black/5 dark:bg-white/[0.06] overflow-hidden">
             {/* Industry avg marker */}
             <div
               className="absolute top-0 h-full w-[2px] bg-yellow-400/40 z-10"
@@ -253,7 +250,7 @@ const SkillCard = ({ skill, index, isTablet }: SkillCardProps) => {
             />
           </div>
           <div className="flex items-center justify-between mt-1">
-            <span className="text-[10px] text-white/30">Avg. {skill.avgIndustry}%</span>
+            <span className="text-[10px] text-muted-foreground dark:text-white/30">Avg. {skill.avgIndustry}%</span>
             <span className="text-[10px] font-medium" style={{ color: `${skill.color}99` }}>
               +{skill.proficiency - skill.avgIndustry}% above avg
             </span>
@@ -304,8 +301,8 @@ const OverallScoreRing = () => {
         />
       </svg>
       <div className="absolute flex flex-col items-center">
-        <span className="text-2xl font-bold text-white tabular-nums">{overall}</span>
-        <span className="text-[10px] text-white/40 uppercase tracking-widest">Score</span>
+        <span className="text-2xl font-bold text-foreground dark:text-white tabular-nums">{overall}</span>
+        <span className="text-[10px] text-muted-foreground dark:text-white/40 uppercase tracking-widest">Score</span>
       </div>
     </div>
   );
@@ -344,7 +341,7 @@ const CategoryChips = () => {
         >
           <span className="w-1.5 h-1.5 rounded-full" style={{ background: cat.color }} />
           {cat.name}
-          <span className="text-white/30 ml-0.5">{cat.avg}%</span>
+          <span className="text-muted-foreground dark:text-white/30 ml-0.5">{cat.avg}%</span>
         </div>
       ))}
     </div>
@@ -373,11 +370,11 @@ export const MobileSkillsDashboard = () => {
             transition={{ delay: 0.1 }}
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/[0.06] mb-4"
           >
-            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-            <span className="text-xs font-medium text-cyan-400 uppercase tracking-wider">Skill Analytics</span>
+            <span className="w-2 h-2 rounded-full bg-cyan-500 dark:bg-cyan-400 animate-pulse" />
+            <span className="text-xs font-medium text-cyan-600 dark:text-cyan-400 uppercase tracking-wider">Skill Analytics</span>
           </motion.div>
-          <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">Performance Dashboard</h3>
-          <p className="text-sm text-white/40">Technical proficiency · Competitive analysis</p>
+          <h3 className="text-xl sm:text-2xl font-bold text-foreground dark:text-white mb-1">Performance Dashboard</h3>
+          <p className="text-sm text-muted-foreground dark:text-white/40">Technical proficiency · Competitive analysis</p>
         </div>
 
         {/* ── Score + Radar Section ── */}
@@ -387,11 +384,7 @@ export const MobileSkillsDashboard = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="w-full sm:flex-1 flex justify-center rounded-2xl border border-white/[0.05] p-4 sm:p-6"
-            style={{
-              background: 'linear-gradient(135deg, rgba(15,23,42,0.6) 0%, rgba(15,23,42,0.3) 100%)',
-              backdropFilter: 'blur(12px)',
-            }}
+            className="w-full sm:flex-1 flex justify-center rounded-2xl border border-border/40 p-4 sm:p-6 glass dark:bg-slate-900/60"
           >
             <RadarChart />
           </motion.div>
@@ -405,11 +398,11 @@ export const MobileSkillsDashboard = () => {
           >
             <OverallScoreRing />
             <div className="flex flex-col gap-2">
-              <div className="flex items-center gap-2 text-[11px] text-white/40">
+              <div className="flex items-center gap-2 text-[11px] text-muted-foreground dark:text-white/40">
                 <span className="w-3 h-[2px] rounded-full bg-cyan-400/80" />
                 Your Level
               </div>
-              <div className="flex items-center gap-2 text-[11px] text-white/40">
+              <div className="flex items-center gap-2 text-[11px] text-muted-foreground dark:text-white/40">
                 <span className="w-3 h-[2px] rounded-full bg-yellow-400/50 border-dashed" style={{ borderTop: '1px dashed rgba(234,179,8,0.5)' }} />
                 Industry Avg
               </div>
@@ -442,7 +435,7 @@ export const MobileSkillsDashboard = () => {
           transition={{ delay: 0.8 }}
           className="mt-6 text-center"
         >
-          <p className="text-[11px] text-white/25">
+          <p className="text-[11px] text-muted-foreground/60 dark:text-white/25">
             Proficiency based on project experience · Industry average sourced from community benchmarks
           </p>
         </motion.div>

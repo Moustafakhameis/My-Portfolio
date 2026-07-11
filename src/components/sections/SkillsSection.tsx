@@ -92,7 +92,7 @@ const RealisticCloud = ({ x, y, scale, delay, duration }: any) => (
 
 /* ─── Transform-based Aurora (replaces expensive SVG path-d animation) ─── */
 const Aurora = () => (
-  <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 mix-blend-screen opacity-100">
+  <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 mix-blend-multiply dark:mix-blend-screen opacity-30 dark:opacity-100">
     {/* Layer 1 — wide, slow-moving, deeply blurred */}
     <motion.div
       className="absolute w-[160%] h-[80%] top-[-5%] left-[-30%] rounded-[50%]"
@@ -138,14 +138,12 @@ const meteorData = Array.from({ length: METEOR_COUNT }).map((_, i) => ({
 
 const ShootingStar = ({ top, left, delay, duration }: any) => (
   <motion.div
-    className="absolute h-[1px] w-[100px] rounded-full pointer-events-none z-0"
+    className="absolute h-[1px] w-[100px] rounded-full pointer-events-none z-0 bg-gradient-to-r from-transparent via-black/40 to-black dark:via-white/40 dark:to-white drop-shadow-[0_0_4px_rgba(0,0,0,0.5)] dark:drop-shadow-[0_0_4px_rgba(255,255,255,1)]"
     style={{
-      background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,1) 100%)',
       top: `${top}%`,
       left: `${left}%`,
       rotate: '35deg',
       opacity: 0,
-      filter: 'drop-shadow(0 0 4px rgba(255,255,255,1))'
     }}
     animate={{ 
       x: [0, 1000],
