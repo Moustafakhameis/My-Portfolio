@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useLanguage } from '../../context/LanguageContext';
 import { AnimatedButton } from '../ui/AnimatedButton';
-import profilePic from '../../assets/Moustafa Ali Emam.PNG';
+import profilePic from '../../assets/Moustafa Ali Emam Optimized.png';
 
 const containerVariants = {
   hidden: { opacity: 0 },
