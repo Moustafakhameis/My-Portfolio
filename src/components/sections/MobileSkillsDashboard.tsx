@@ -72,7 +72,7 @@ const RadarChart = () => {
     <div className="relative flex items-center justify-center w-full aspect-square max-h-[320px]">
       <svg
         viewBox={`0 0 ${size} ${size}`}
-        className="w-full h-full max-w-[280px] sm:max-w-[320px]"
+        className="w-full h-full max-w-[280px] sm:max-w-[320px] overflow-visible"
         style={{ filter: 'drop-shadow(0 0 20px rgba(6,182,212,0.15))' }}
       >
         <defs>
