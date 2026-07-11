@@ -303,7 +303,7 @@ export const Navbar = () => {
             aria-label="Toggle language"
           >
             <Languages size={18} className="text-foreground group-hover:text-primary transition-colors" />
-            <span className="text-xs font-bold uppercase text-foreground group-hover:text-primary transition-colors">{language}</span>
+            <span className="text-xs font-bold uppercase text-foreground group-hover:text-primary transition-colors">{language === 'en' ? 'ar' : 'en'}</span>
           </motion.button>
           
           <motion.button
@@ -417,7 +417,7 @@ export const Navbar = () => {
                   aria-label="Toggle language"
                 >
                   <Languages size={28} className="text-foreground" />
-                  <span className="text-lg font-bold uppercase text-foreground">{language}</span>
+                  <span className="text-lg font-bold uppercase text-foreground">{language === 'en' ? 'ar' : 'en'}</span>
                 </button>
                 
                 <div className="w-px h-8 bg-border/50" />
