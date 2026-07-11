@@ -112,7 +112,7 @@ END:VCARD`;
       whileTap={{ scale: 0.95 }}
     >
       {/* Background container */}
-      <div className="absolute inset-0 rounded-full bg-white/5 group-hover:bg-white/10 transition-colors duration-300 backdrop-blur-sm border border-white/5 group-hover:border-purple-500/30" />
+      <div className="absolute inset-0 rounded-full bg-slate-500/5 group-hover:bg-slate-500/10 dark:bg-white/5 dark:group-hover:bg-white/10 transition-colors duration-300 backdrop-blur-sm border border-slate-500/10 dark:border-white/5 group-hover:border-purple-500/30" />
 
       {/* Idle breathing glow */}
       {!isPressing && !isScanned && (
@@ -138,7 +138,8 @@ END:VCARD`;
           cy="32"
           r="28"
           fill="none"
-          stroke="rgba(255, 255, 255, 0.1)"
+          stroke="currentColor"
+          className="text-slate-200 dark:text-white/10"
           strokeWidth="2"
         />
         <motion.circle
@@ -176,10 +177,10 @@ END:VCARD`;
           size={28} 
           className={`transition-all duration-300 ${
             isScanned 
-              ? 'text-green-400' 
+              ? 'text-green-500 dark:text-green-400' 
               : isPressing 
-                ? 'text-purple-400 scale-110' 
-                : 'text-white/50 group-hover:text-purple-300'
+                ? 'text-purple-500 dark:text-purple-400 scale-110' 
+                : 'text-slate-400 group-hover:text-purple-500 dark:text-white/50 dark:group-hover:text-purple-300'
           }`}
           style={{
             filter: isScanned 
