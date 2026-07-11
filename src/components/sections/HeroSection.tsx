@@ -164,7 +164,7 @@ export const HeroSection = () => {
               <img 
                 src={profilePic} 
                 alt="Moustafa Ali Emam" 
-                className="w-full h-full object-cover scale-110 object-[center_top] brightness-110 contrast-125 saturate-0 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] transition-all duration-700 group-hover:scale-[1.15] group-hover:brightness-125 group-hover:drop-shadow-[0_0_25px_rgba(255,255,255,0.5)]"
+                className="w-full h-full object-cover object-[center_15%] grayscale group-hover:grayscale-0 transition-all duration-700 ease-out scale-110 group-hover:scale-100"
               />
             </motion.div>
             {/* Decorative elements behind photo */}
