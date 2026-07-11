@@ -268,7 +268,7 @@
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: #000;
+  background: #1A1A1A;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -276,7 +276,7 @@
 }
 
 .dark .avatar-image-container {
-  background: #000;
+  background: #1A1A1A;
 }
 
 .avatar-image {
