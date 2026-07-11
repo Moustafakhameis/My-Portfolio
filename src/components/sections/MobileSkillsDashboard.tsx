@@ -95,7 +95,7 @@ const RadarChart = () => {
             key={`grid-${i}`}
             points={points}
             fill="none"
-            stroke="rgba(6,182,212,0.12)"
+            className="stroke-cyan-500/20 dark:stroke-cyan-400/10"
             strokeWidth={i === levels - 1 ? 1.5 : 0.5}
           />
         ))}
@@ -107,7 +107,7 @@ const RadarChart = () => {
             <line
               key={`axis-${i}`}
               x1={center} y1={center} x2={x} y2={y}
-              stroke="rgba(6,182,212,0.1)"
+              className="stroke-cyan-500/20 dark:stroke-cyan-400/10"
               strokeWidth={0.5}
             />
           );
@@ -163,7 +163,7 @@ const RadarChart = () => {
               x={x} y={y}
               textAnchor="middle"
               dominantBaseline="central"
-              className="fill-current text-muted-foreground"
+              className="fill-current text-slate-500 dark:text-muted-foreground"
               style={{ fontSize: '9px', fontWeight: 500 }}
             >
               {skill.name.length > 10 ? skill.name.slice(0, 10) + '…' : skill.name}
@@ -191,7 +191,7 @@ const SkillCard = ({ skill, index, isTablet }: SkillCardProps) => {
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.45, delay: index * 0.06, ease: 'easeOut' }}
       whileTap={{ scale: 0.97 }}
-      className="group relative rounded-2xl border border-border/40 overflow-hidden glass dark:bg-slate-900/60"
+      className="group relative rounded-2xl border border-white/60 dark:border-white/10 overflow-hidden bg-white/50 dark:bg-slate-900/60 backdrop-blur-md shadow-sm"
       style={{
         boxShadow: `0 4px 24px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.04)`,
         minHeight: isTablet ? '100px' : '88px',
@@ -332,7 +332,7 @@ const CategoryChips = () => {
       {categories.map((cat) => (
         <div
           key={cat.name}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border bg-white/40 dark:bg-transparent backdrop-blur-md shadow-sm dark:shadow-none"
           style={{
             background: `${cat.color}08`,
             borderColor: `${cat.color}20`,
@@ -384,7 +384,7 @@ export const MobileSkillsDashboard = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="w-full sm:flex-1 flex justify-center rounded-2xl border border-border/40 p-4 sm:p-6 glass dark:bg-slate-900/60"
+            className="w-full sm:flex-1 flex justify-center rounded-2xl border border-white/60 dark:border-white/10 p-4 sm:p-6 bg-white/50 dark:bg-slate-900/60 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none"
           >
             <RadarChart />
           </motion.div>
