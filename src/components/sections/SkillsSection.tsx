@@ -92,7 +92,7 @@ const RealisticCloud = ({ x, y, scale, delay, duration }: any) => (
 
 /* ─── Transform-based Aurora (replaces expensive SVG path-d animation) ─── */
 const Aurora = () => (
-  <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 mix-blend-multiply dark:mix-blend-screen opacity-30 dark:opacity-100">
+  <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 hidden dark:block mix-blend-screen opacity-100">
     {/* Layer 1 — wide, slow-moving, deeply blurred */}
     <motion.div
       className="absolute w-[160%] h-[80%] top-[-5%] left-[-30%] rounded-[50%]"

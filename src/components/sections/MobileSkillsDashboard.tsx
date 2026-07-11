@@ -336,8 +336,7 @@ const CategoryChips = () => {
           key={cat.name}
           className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border border-white/80 dark:border-white/10 bg-white/80 dark:bg-transparent backdrop-blur-xl shadow-sm dark:shadow-none"
           style={{
-            background: `${cat.color}08`,
-            borderColor: `${cat.color}20`,
+            borderColor: `${cat.color}40`,
             color: cat.color,
           }}
         >
