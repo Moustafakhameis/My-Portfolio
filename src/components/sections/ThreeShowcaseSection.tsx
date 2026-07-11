@@ -1,6 +1,6 @@
 import React, { useRef, useState, useCallback, useEffect } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, useMotionValue, useAnimationFrame, useMotionTemplate } from 'framer-motion';
 import {
   Play, Pause, RotateCcw, Zap, Gauge, Sparkles, Grid3x3, Eye, BoxSelect
 } from 'lucide-react';
@@ -45,8 +45,9 @@ export const ThreeShowcaseSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: '-100px' });
 
-  const [rotateX, setRotateX] = useState(-25);
-  const [rotateY, setRotateY] = useState(35);
+  const rotateX = useMotionValue(-25);
+  const rotateY = useMotionValue(35);
+  const transformTemplate = useMotionTemplate`rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
   const [isDragging, setIsDragging] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
   const [speedIdx, setSpeedIdx] = useState(1);
@@ -65,22 +66,12 @@ export const ThreeShowcaseSection = () => {
   const scheme = COLOR_SCHEMES[activeColor];
   const speed = SPEED_LEVELS[speedIdx].value;
 
-  // ---------- fixed-speed animation loop using delta-time ----------
-  useEffect(() => {
-    const tick = (now: number) => {
-      const dt = (now - prevTime.current) / 1000;   // seconds
-      prevTime.current = now;
-
-      if (isPlaying && !isDragging) {
-        setRotateY(prev => prev + speed * 60 * dt); // 60-fps-normalised
-      }
-      animRef.current = requestAnimationFrame(tick);
-    };
-
-    prevTime.current = performance.now();
-    animRef.current = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(animRef.current);
-  }, [isPlaying, isDragging, speed]);
+  // ---------- fixed-speed animation loop using framer-motion ----------
+  useAnimationFrame((time, delta) => {
+    if (isPlaying && !isDragging && isInView) {
+      rotateY.set(rotateY.get() + speed * 60 * (delta / 1000));
+    }
+  });
 
   // ---------- pointer handlers ----------
   const handlePointerDown = useCallback((e: React.PointerEvent) => {
@@ -94,8 +85,8 @@ export const ThreeShowcaseSection = () => {
     if (!isDragging) return;
     const dx = e.clientX - lastPos.current.x;
     const dy = e.clientY - lastPos.current.y;
-    setRotateY(prev => prev + dx * 0.4);
-    setRotateX(prev => Math.max(-80, Math.min(80, prev - dy * 0.4)));
+    rotateY.set(rotateY.get() + dx * 0.4);
+    rotateX.set(Math.max(-80, Math.min(80, rotateX.get() - dy * 0.4)));
     lastPos.current = { x: e.clientX, y: e.clientY };
   }, [isDragging]);
 
@@ -119,7 +110,7 @@ export const ThreeShowcaseSection = () => {
 
   // ---------- controls ----------
   const resetView = () => { 
-    setRotateX(-25); setRotateY(35); setIsPlaying(true); setIsExploded(false); 
+    rotateX.set(-25); rotateY.set(35); setIsPlaying(true); setIsExploded(false); 
   };
   const cycleSpeed = () => setSpeedIdx(i => (i + 1) % SPEED_LEVELS.length);
   const cycleColor = () => setActiveColor(i => (i + 1) % COLOR_SCHEMES.length);
@@ -211,7 +202,7 @@ export const ThreeShowcaseSection = () => {
           </button>
 
           {/* Reset */}
-          <button onClick={resetView} className="cube-ctrl-btn" title="Reset view">
+          <button onClick={() => { rotateX.set(-25); rotateY.set(35); }} className="cube-ctrl-btn" title="Reset view">
             <RotateCcw size={15} />
           </button>
 
@@ -280,14 +271,14 @@ export const ThreeShowcaseSection = () => {
             style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
           >
             <div className={`css-cube-float-wrapper ${isPlaying && !isDragging ? '' : 'paused'}`}>
-              <div
+              <motion.div
                 className={`css-cube ${isExploded ? 'cube-exploded' : ''}`}
                 style={{
-                  transform: `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
+                  transform: transformTemplate,
                   '--cube-primary': scheme.primary,
                   '--cube-secondary': scheme.secondary,
                   '--cube-glow': scheme.glow,
-                } as React.CSSProperties}
+                } as any}
               >
                 {/* inner eagle core */}
                 <div className="cube-core">
@@ -302,7 +293,7 @@ export const ThreeShowcaseSection = () => {
                     {showGrid && <div className="cube-face-grid" />}
                   </div>
                 ))}
-              </div>
+              </motion.div>
             </div>
           </div>
 

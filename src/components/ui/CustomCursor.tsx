@@ -86,21 +86,6 @@ export const CustomCursor = () => {
 
   return (
     <>
-      {/* Massive Soft Adaptive Glow (Dark Mode Only) */}
-      <motion.div
-        className="fixed top-0 left-0 w-[400px] h-[400px] rounded-full pointer-events-none z-40 hidden dark:lg:block opacity-60 blur-[100px] bg-white/10"
-        style={{ 
-          x: glowSmoothX, 
-          y: glowSmoothY,
-          translateX: "-50%",
-          translateY: "-50%"
-        }}
-        animate={{
-          scale: isHovering ? 1.2 : 1,
-          opacity: isHovering ? 0.8 : 0.6,
-        }}
-        transition={{ type: "tween", duration: 0.3 }}
-      />
       {/* Outer Ring */}
       <motion.div
         className="fixed top-0 left-0 w-8 h-8 rounded-full border border-white pointer-events-none z-50 mix-blend-difference hidden lg:block"

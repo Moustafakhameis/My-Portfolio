@@ -337,6 +337,7 @@ export const SymbolShowcaseSection = () => {
   const targetRotation = useRef({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [isResetting, setIsResetting] = useState(false);
+  const [isCanvasLoaded, setIsCanvasLoaded] = useState(false);
 
   const [colorIdx, setColorIdx] = useState(0);
   const [symbolSpin, setSymbolSpin] = useState(false);
@@ -347,7 +348,13 @@ export const SymbolShowcaseSection = () => {
   
   const isMobile = useMemo(() => typeof window !== 'undefined' && window.innerWidth < 768, []);
   const containerRef = useRef<HTMLElement>(null);
-  const isInView = useInView(containerRef, { once: true, margin: "800px 0px 800px 0px" });
+  const isInView = useInView(containerRef, { margin: "200px 0px 200px 0px" });
+
+  useEffect(() => {
+    if (!isInView) {
+      setIsCanvasLoaded(false);
+    }
+  }, [isInView]);
 
   const scheme = COLOR_SCHEMES[colorIdx];
   const speed = SPEED_LEVELS[speedIdx];
@@ -367,8 +374,24 @@ export const SymbolShowcaseSection = () => {
       <div dir="ltr" className={`absolute inset-0 z-0 pointer-events-auto ${isDragging ? 'cursor-grabbing' : 'cursor-move'}`}>
         <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse at 65% 50%, ${scheme.glow.replace('0.4', '0.15')}, transparent 60%)` }} />
         
+        {/* Loader while Canvas initializes */}
+        {isInView && !isCanvasLoaded && (
+          <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-0">
+            <div className="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin mb-4" />
+            <span className="text-sm font-semibold tracking-widest text-muted-foreground uppercase">Initializing 3D Engine...</span>
+          </div>
+        )}
+
         {isInView && (
-          <Canvas dpr={[1, 1.5]} performance={{ min: 0.5 }} camera={{ position: [0, 0, 10], fov: 45 }}>
+          <Canvas 
+            frameloop={isInView ? 'always' : 'demand'} 
+            dpr={[1, 1.5]} 
+            performance={{ min: 0.5 }} 
+            camera={{ position: [0, 0, 10], fov: 45 }}
+            onCreated={() => setIsCanvasLoaded(true)}
+            className={isCanvasLoaded ? 'opacity-100' : 'opacity-0'}
+            style={{ transition: 'opacity 0.5s ease-in-out', zIndex: 1 }}
+          >
             <Suspense fallback={
               <Html center><div className="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin" /></Html>
             }>
