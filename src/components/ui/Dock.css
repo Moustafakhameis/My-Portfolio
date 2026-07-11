@@ -299,12 +299,12 @@
 /* ─── Active Indicator Star (centered on the bar) ─── */
 .dock-active-dot {
   position: absolute;
-  bottom: -7px;
+  bottom: -8px;
   left: 0;
   right: 0;
   margin: 0 auto;
-  width: 8px;
-  height: 8px;
+  width: 11px;
+  height: 11px;
   background: #fff;
   clip-path: polygon(
     50% 0%, 61% 35%, 100% 35%, 68% 57%,
