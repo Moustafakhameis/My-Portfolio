@@ -480,11 +480,7 @@ export const Navbar = () => {
                   { icon: <Mail size={22} />, label: t('navbar', 'contact'), isActive: activeSection === 'contact', onClick: () => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }) },
                   { 
                     separator: true,
-                    icon: (
-                      <div className="flex items-center justify-center w-[22px] h-[22px] font-bold text-sm uppercase tracking-wider">
-                        {language}
-                      </div>
-                    ), 
+                    icon: <Languages size={22} />,
                     label: language === 'en' ? 'Arabic' : 'English', 
                     onClick: toggleLanguage 
                   },
