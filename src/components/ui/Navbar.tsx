@@ -251,7 +251,7 @@ export const Navbar = () => {
         animate="show"
         className="hidden md:flex items-center gap-2"
       >
-        <div className="flex items-center px-4" onMouseLeave={() => setHoveredIndex(null)}>
+        <div className="flex items-center px-1 gap-1" onMouseLeave={() => setHoveredIndex(null)}>
           {navLinks.map((link, i) => {
             const isActive = activeSection === link.href.substring(1);
             return (
@@ -260,33 +260,64 @@ export const Navbar = () => {
                 variants={itemAnim}
                 href={link.href}
                 onMouseEnter={() => setHoveredIndex(i)}
-                className="relative px-5 py-2 text-sm font-bold text-foreground/80 hover:text-foreground transition-colors capitalize tracking-wide"
+                className="relative px-5 py-2.5 text-[13px] font-semibold tracking-[0.08em] uppercase transition-colors"
+                style={{ color: isActive ? undefined : 'var(--foreground-muted, rgba(255,255,255,0.55))' }}
               >
-                <span className={cn("relative z-10 transition-colors", isActive && "text-primary drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]")}>
+                {/* Active gradient text */}
+                <span className={cn(
+                  "relative z-10 transition-all duration-300",
+                  isActive 
+                    ? "bg-gradient-to-r from-purple-400 via-fuchsia-400 to-purple-400 bg-clip-text text-transparent font-bold drop-shadow-[0_0_12px_rgba(168,85,247,0.6)]" 
+                    : "hover:text-foreground/90"
+                )}>
                   {link.name}
                 </span>
                 
-                {/* Hover Pill */}
+                {/* Hover Pill — glassmorphic capsule */}
                 {hoveredIndex === i && (
                   <motion.div
                     layoutId="nav-hover-pill"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.8 }}
-                    transition={{ type: "tween", ease: "easeOut", duration: 0.6 }}
-                    className="absolute inset-0 bg-primary/20 border border-primary/30 rounded-full z-0"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ type: "tween", ease: "easeOut", duration: 0.4 }}
+                    className="absolute inset-0 rounded-full z-0 border border-primary/20"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(168,85,247,0.12) 0%, rgba(139,92,246,0.06) 100%)',
+                      boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.06), 0 0 16px -4px rgba(168,85,247,0.2)',
+                    }}
                   />
                 )}
 
-                {/* Active Indicator Dot */}
+                {/* Active Indicator — glow bar + star */}
                 {isActive && hoveredIndex !== i && (
-                  <motion.div
-                    layoutId="nav-active-indicator"
-                    className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_8px_rgba(168,85,247,0.8)] z-0"
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ type: "tween", ease: "easeOut", damping: 20 }}
-                  />
+                  <>
+                    {/* Glow bar */}
+                    <motion.div
+                      layoutId="nav-active-bar"
+                      className="absolute -bottom-1 left-[20%] right-[20%] h-[2px] rounded-full z-0"
+                      style={{
+                        background: 'linear-gradient(90deg, transparent, rgba(168,85,247,0.8), transparent)',
+                        boxShadow: '0 0 8px rgba(168,85,247,0.5), 0 0 16px rgba(168,85,247,0.2)',
+                      }}
+                      initial={{ opacity: 0, scaleX: 0 }}
+                      animate={{ opacity: 1, scaleX: 1 }}
+                      transition={{ type: "tween", ease: "easeOut", duration: 0.4 }}
+                    />
+                    {/* Star */}
+                    <motion.div
+                      layoutId="nav-active-star"
+                      className="absolute -bottom-[7px] left-1/2 -translate-x-1/2 w-[10px] h-[10px] z-10"
+                      style={{
+                        background: '#fff',
+                        clipPath: 'polygon(50% 0%, 61% 35%, 100% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 0% 35%, 39% 35%)',
+                        filter: 'drop-shadow(0 0 4px rgba(168,85,247,1)) drop-shadow(0 0 8px rgba(168,85,247,0.6))',
+                      }}
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 20, delay: 0.1 }}
+                    />
+                  </>
                 )}
               </motion.a>
             );
