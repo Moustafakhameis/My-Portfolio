@@ -251,7 +251,7 @@ export const Navbar = () => {
         animate="show"
         className="hidden md:flex items-center gap-2"
       >
-        <div className="flex items-center px-1 gap-1" onMouseLeave={() => setHoveredIndex(null)}>
+        <div className="flex items-center px-1.5 py-1 gap-0.5 rounded-full border border-white/[0.04] bg-white/[0.02]" onMouseLeave={() => setHoveredIndex(null)}>
           {navLinks.map((link, i) => {
             const isActive = activeSection === link.href.substring(1);
             return (
@@ -260,62 +260,87 @@ export const Navbar = () => {
                 variants={itemAnim}
                 href={link.href}
                 onMouseEnter={() => setHoveredIndex(i)}
-                className="relative px-5 py-2.5 text-[13px] font-semibold tracking-[0.08em] uppercase transition-colors"
-                style={{ color: isActive ? undefined : 'var(--foreground-muted, rgba(255,255,255,0.55))' }}
+                className="relative px-5 py-2 text-[13px] font-medium tracking-[0.08em] uppercase"
+                style={{ color: isActive ? undefined : 'var(--foreground-muted, rgba(255,255,255,0.45))' }}
+                whileHover={!isActive ? { scale: 1.04 } : undefined}
               >
-                {/* Active gradient text */}
-                <span className={cn(
-                  "relative z-10 transition-all duration-300",
-                  isActive 
-                    ? "bg-gradient-to-r from-purple-400 via-fuchsia-400 to-purple-400 bg-clip-text text-transparent font-bold drop-shadow-[0_0_12px_rgba(168,85,247,0.6)]" 
-                    : "hover:text-foreground/90"
-                )}>
-                  {link.name}
-                </span>
+                {/* Active gradient text with animated shimmer */}
+                {isActive ? (
+                  <motion.span
+                    className="relative z-10 font-bold"
+                    style={{
+                      backgroundImage: 'linear-gradient(90deg, #c084fc 0%, #e879f9 25%, #f0abfc 50%, #e879f9 75%, #c084fc 100%)',
+                      backgroundSize: '200% auto',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text',
+                    }}
+                    animate={{ backgroundPosition: ['0% center', '200% center'] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+                  >
+                    {link.name}
+                  </motion.span>
+                ) : (
+                  <span className="relative z-10 transition-colors duration-300 hover:text-foreground/90">
+                    {link.name}
+                  </span>
+                )}
                 
+                {/* Active pill background */}
+                {isActive && (
+                  <motion.div
+                    layoutId="nav-active-pill"
+                    className="absolute inset-0 rounded-full z-0"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(168,85,247,0.18) 0%, rgba(139,92,246,0.08) 100%)',
+                      border: '1px solid rgba(168,85,247,0.35)',
+                      boxShadow: '0 0 20px -4px rgba(168,85,247,0.4), inset 0 1px 0 rgba(255,255,255,0.08), inset 0 0 12px rgba(168,85,247,0.06)',
+                    }}
+                    transition={{ type: "spring", stiffness: 350, damping: 28 }}
+                  />
+                )}
+
                 {/* Hover Pill — glassmorphic capsule */}
-                {hoveredIndex === i && (
+                {hoveredIndex === i && !isActive && (
                   <motion.div
                     layoutId="nav-hover-pill"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{ type: "tween", ease: "easeOut", duration: 0.4 }}
-                    className="absolute inset-0 rounded-full z-0 border border-primary/20"
+                    transition={{ type: "tween", ease: "easeOut", duration: 0.35 }}
+                    className="absolute inset-0 rounded-full z-0"
                     style={{
-                      background: 'linear-gradient(135deg, rgba(168,85,247,0.12) 0%, rgba(139,92,246,0.06) 100%)',
-                      boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.06), 0 0 16px -4px rgba(168,85,247,0.2)',
+                      background: 'linear-gradient(135deg, rgba(168,85,247,0.15) 0%, rgba(139,92,246,0.06) 100%)',
+                      border: '1px solid rgba(168,85,247,0.15)',
+                      boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.06), 0 0 20px -6px rgba(168,85,247,0.15)',
                     }}
                   />
                 )}
 
-                {/* Active Indicator — glow bar + star */}
-                {isActive && hoveredIndex !== i && (
+                {/* Active Indicator — glow bar + spinning star */}
+                {isActive && (
                   <>
                     {/* Glow bar */}
                     <motion.div
                       layoutId="nav-active-bar"
-                      className="absolute -bottom-1 left-[20%] right-[20%] h-[2px] rounded-full z-0"
+                      className="absolute -bottom-1.5 left-[10%] right-[10%] h-[2.5px] rounded-full z-0"
                       style={{
-                        background: 'linear-gradient(90deg, transparent, rgba(168,85,247,0.8), transparent)',
-                        boxShadow: '0 0 8px rgba(168,85,247,0.5), 0 0 16px rgba(168,85,247,0.2)',
+                        background: 'linear-gradient(90deg, transparent, rgba(168,85,247,0.9), rgba(192,132,252,1), rgba(168,85,247,0.9), transparent)',
+                        boxShadow: '0 0 10px rgba(168,85,247,0.6), 0 0 20px rgba(168,85,247,0.3), 0 2px 8px rgba(168,85,247,0.2)',
                       }}
-                      initial={{ opacity: 0, scaleX: 0 }}
-                      animate={{ opacity: 1, scaleX: 1 }}
-                      transition={{ type: "tween", ease: "easeOut", duration: 0.4 }}
+                      transition={{ type: "spring", stiffness: 350, damping: 28 }}
                     />
-                    {/* Star */}
+                    {/* Spinning Star */}
                     <motion.div
                       layoutId="nav-active-star"
-                      className="absolute -bottom-[7px] left-1/2 -translate-x-1/2 w-[10px] h-[10px] z-10"
+                      className="absolute -bottom-[9px] left-1/2 -translate-x-1/2 w-[12px] h-[12px] z-10"
                       style={{
                         background: '#fff',
                         clipPath: 'polygon(50% 0%, 61% 35%, 100% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 0% 35%, 39% 35%)',
-                        filter: 'drop-shadow(0 0 4px rgba(168,85,247,1)) drop-shadow(0 0 8px rgba(168,85,247,0.6))',
+                        filter: 'drop-shadow(0 0 5px rgba(168,85,247,1)) drop-shadow(0 0 12px rgba(168,85,247,0.7))',
                       }}
-                      initial={{ opacity: 0, scale: 0 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 20, delay: 0.1 }}
+                      animate={{ rotate: [0, 360] }}
+                      transition={{ duration: 12, repeat: Infinity, ease: 'linear' }}
                     />
                   </>
                 )}
