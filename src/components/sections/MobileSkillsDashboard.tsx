@@ -434,7 +434,7 @@ export const MobileSkillsDashboard = () => {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.8 }}
+          transition={{ delay: 0.2 }}
           className="mt-6 text-center"
         >
           <p className="text-[11px] text-muted-foreground/60 dark:text-white/25">
