@@ -65,8 +65,8 @@ export const FingerprintContactButton = () => {
   const downloadVCard = () => {
     const vCardData = `BEGIN:VCARD
 VERSION:3.0
-N:Ali Emam;Mostafa;;;
-FN:Mostafa Ali Emam
+N:Ali Emam;Moustafa;;;
+FN:Moustafa Ali Emam
 TITLE:Frontend Engineer & UI Designer
 TEL;TYPE=CELL:+201129482206
 EMAIL:moustafakhameis@gmail.com
@@ -77,7 +77,7 @@ END:VCARD`;
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'Mostafa_Ali_Emam_Contact.vcf';
+    link.download = 'Moustafa_Ali_Emam_Contact.vcf';
     document.body.appendChild(link);
     link.click();
     

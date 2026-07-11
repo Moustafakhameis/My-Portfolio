@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import './ReflectiveCard.css';
 import { Fingerprint, Activity, Lock, Check, MapPin, Phone, Mail, Clock } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
-import userImage from '../../assets/Mostafa.jpg';
+import userImage from '../../assets/Moustafa.jpg';
 import { FingerprintContactButton } from './FingerprintContactButton';
 
 interface ReflectiveCardProps {
@@ -144,12 +144,12 @@ const ReflectiveCard = ({
           {/* Avatar */}
           <div className="avatar-ring">
             <div className="avatar-image-container">
-              <img src={userImage} alt="Mostafa Ali Emam" className="avatar-image" />
+              <img src={userImage} alt="Moustafa Ali Emam" className="avatar-image" />
             </div>
           </div>
 
           <div className="user-info">
-            <h2 className="user-name">MOSTAFA ALI EMAM</h2>
+            <h2 className="user-name">MOUSTAFA ALI EMAM</h2>
             <p className="user-role">FRONTEND ENGINEER</p>
             <div className="user-location">
               <MapPin size={12} />

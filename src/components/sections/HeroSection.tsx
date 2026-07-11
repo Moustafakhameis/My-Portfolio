@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useLanguage } from '../../context/LanguageContext';
 import { AnimatedButton } from '../ui/AnimatedButton';
-import profilePic from '../../assets/Mostafa Ali Emam.PNG';
+import profilePic from '../../assets/Moustafa Ali Emam.PNG';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -163,8 +163,8 @@ export const HeroSection = () => {
             >
               <img 
                 src={profilePic} 
-                alt="Mostafa Ali Emam" 
-                className="w-full h-full object-cover object-[center_15%] grayscale group-hover:grayscale-0 transition-all duration-700 ease-out scale-110 group-hover:scale-100"
+                alt="Moustafa Ali Emam" 
+                className="w-full h-full object-cover scale-110 object-[center_top] brightness-110 contrast-125 saturate-0 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] transition-all duration-700 group-hover:scale-[1.15] group-hover:brightness-125 group-hover:drop-shadow-[0_0_25px_rgba(255,255,255,0.5)]"
               />
             </motion.div>
             {/* Decorative elements behind photo */}
@@ -195,7 +195,7 @@ export const HeroSection = () => {
               }}
               className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-[length:200%_auto] inline-block drop-shadow-lg pt-4 pb-3"
             >
-              {language === 'ar' ? 'مُصْطَفَى' : 'Mostafa'}
+              {language === 'ar' ? 'مُصْطَفَى' : 'Moustafa'}
             </motion.span>
           </motion.h1>
           

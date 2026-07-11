@@ -161,7 +161,7 @@ export const Navbar = () => {
               }
             }}
           >
-            {language === 'ar' ? 'مُصْطَفَى' : '𝐌𝐎𝐒𝐓𝐀𝐅𝐀'}
+            {language === 'ar' ? 'مُصْطَفَى' : '𝐌𝐎𝐔𝐒𝐓𝐀𝐅𝐀'}
           </motion.span>
         </motion.span>
         

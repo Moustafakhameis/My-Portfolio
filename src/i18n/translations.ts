@@ -53,7 +53,7 @@ export const translations = {
       openGmail: 'Open in Gmail',
     },
     footer: {
-      copyright: '© 2026 Mostafa Ali Emam. All rights reserved.',
+      copyright: '© 2026 Moustafa Ali Emam. All rights reserved.',
       builtWith: 'Built with React, Tailwind & Framer Motion.',
       letCreate1: "Let's create something",
       letCreate2: 'extraordinary.',
