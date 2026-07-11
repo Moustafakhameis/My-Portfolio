@@ -98,7 +98,7 @@ export const ExperienceSection = () => {
   const { t, language } = useLanguage();
 
   return (
-    <section id="experience" ref={containerRef} className="py-24 px-6 md:px-12 max-w-5xl mx-auto overflow-hidden">
+    <section id="experience" className="py-24 px-6 md:px-12 max-w-5xl mx-auto overflow-hidden">
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -131,7 +131,7 @@ export const ExperienceSection = () => {
         />
       </motion.div>
 
-      <div className={`relative space-y-12 pb-8 ${language === 'ar' ? 'mr-8 md:mr-12' : 'ml-8 md:ml-12'}`}>
+      <div ref={containerRef} className={`relative space-y-12 pb-8 ${language === 'ar' ? 'mr-8 md:mr-12' : 'ml-8 md:ml-12'}`}>
         {/* Background faded line */}
         <div className={`absolute top-6 bottom-0 w-[2px] bg-border/20 rounded-full ${language === 'ar' ? 'right-0 translate-x-1/2' : 'left-0 -translate-x-1/2'}`} />
         
