@@ -270,21 +270,16 @@ export const Navbar = () => {
                   <motion.span
                     className="relative z-10"
                     style={{
+                      backgroundImage: theme === 'light' 
+                        ? 'linear-gradient(90deg, #9333ea, #db2777, #9333ea)' 
+                        : 'linear-gradient(90deg, #c084fc, #e879f9, #f0abfc, #e879f9, #c084fc)',
                       backgroundSize: '200% auto',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
                       backgroundClip: 'text',
                     }}
-                    animate={{ 
-                      backgroundImage: theme === 'light' 
-                        ? 'linear-gradient(90deg, #9333ea, #db2777, #9333ea)' 
-                        : 'linear-gradient(90deg, #c084fc, #e879f9, #f0abfc, #e879f9, #c084fc)',
-                      backgroundPosition: ['0% center', '200% center'] 
-                    }}
-                    transition={{ 
-                      backgroundPosition: { duration: 3, repeat: Infinity, ease: 'linear' },
-                      backgroundImage: { duration: 0.5 }
-                    }}
+                    animate={{ backgroundPosition: ['0% center', '200% center'] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
                   >
                     {link.name}
                   </motion.span>
@@ -300,16 +295,14 @@ export const Navbar = () => {
                     layoutId="nav-active-pill"
                     className="absolute inset-0 rounded-full z-0"
                     style={{
-                      border: theme === 'light'
-                        ? '1px solid rgba(168,85,247,0.2)'
-                        : '1px solid rgba(168,85,247,0.4)',
-                    }}
-                    animate={{
                       background: theme === 'light' 
                         ? 'linear-gradient(135deg, rgba(168,85,247,0.05) 0%, rgba(139,92,246,0.02) 100%)'
                         : 'linear-gradient(135deg, rgba(168,85,247,0.2) 0%, rgba(139,92,246,0.08) 100%)',
+                      border: theme === 'light'
+                        ? '1px solid rgba(168,85,247,0.2)'
+                        : '1px solid rgba(168,85,247,0.4)',
                       boxShadow: theme === 'light'
-                        ? '0 0 10px -4px rgba(168,85,247,0)' 
+                        ? 'none'
                         : '0 0 20px -4px rgba(168,85,247,0.4), inset 0 1px 0 rgba(255,255,255,0.08)',
                     }}
                     transition={{ type: "spring", stiffness: 350, damping: 28 }}
@@ -352,15 +345,12 @@ export const Navbar = () => {
                       style={{
                         width: 12,
                         height: 12,
-                        clipPath: 'polygon(50% 0%, 61% 35%, 100% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 0% 35%, 39% 35%)',
-                      }}
-                      animate={{
                         background: theme === 'light' ? '#9333ea' : '#fff',
+                        clipPath: 'polygon(50% 0%, 61% 35%, 100% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 0% 35%, 39% 35%)',
                         filter: theme === 'light' 
-                          ? 'drop-shadow(0 0 2px rgba(147,51,234,0.4)) drop-shadow(0 0 0px rgba(147,51,234,0))' 
+                          ? 'drop-shadow(0 0 2px rgba(147,51,234,0.4))' 
                           : 'drop-shadow(0 0 4px rgba(168,85,247,1)) drop-shadow(0 0 10px rgba(168,85,247,0.7))',
                       }}
-                      transition={{ duration: 0.5 }}
                     />
                   </>
                 )}
@@ -480,25 +470,19 @@ export const Navbar = () => {
                       <motion.span
                         className="relative z-10 text-4xl font-black tracking-widest uppercase block text-center"
                         style={{
+                          backgroundImage: theme === 'light'
+                            ? 'linear-gradient(90deg, #9333ea, #db2777, #9333ea)'
+                            : 'linear-gradient(90deg, #c084fc, #e879f9, #f0abfc, #fff, #f0abfc, #e879f9, #c084fc)',
                           backgroundSize: '200% auto',
                           WebkitBackgroundClip: 'text',
                           WebkitTextFillColor: 'transparent',
                           backgroundClip: 'text',
-                        }}
-                        animate={{ 
-                          backgroundImage: theme === 'light'
-                            ? 'linear-gradient(90deg, #9333ea, #db2777, #9333ea)'
-                            : 'linear-gradient(90deg, #c084fc, #e879f9, #f0abfc, #fff, #f0abfc, #e879f9, #c084fc)',
                           filter: theme === 'light'
-                            ? 'drop-shadow(0 0 0px rgba(168,85,247,0))'
+                            ? 'none'
                             : 'drop-shadow(0 0 15px rgba(168,85,247,0.5))',
-                          backgroundPosition: ['0% center', '200% center'] 
                         }}
-                        transition={{ 
-                          backgroundPosition: { duration: 3, repeat: Infinity, ease: 'linear' },
-                          backgroundImage: { duration: 0.5 },
-                          filter: { duration: 0.5 }
-                        }}
+                        animate={{ backgroundPosition: ['0% center', '200% center'] }}
+                        transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
                       >
                         {link.name}
                       </motion.span>
@@ -526,15 +510,12 @@ export const Navbar = () => {
                           style={{
                             width: 14,
                             height: 14,
-                            clipPath: 'polygon(50% 0%, 61% 35%, 100% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 0% 35%, 39% 35%)',
-                          }}
-                          animate={{
                             background: theme === 'light' ? '#9333ea' : '#fff',
+                            clipPath: 'polygon(50% 0%, 61% 35%, 100% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 0% 35%, 39% 35%)',
                             filter: theme === 'light'
-                              ? 'drop-shadow(0 0 2px rgba(147,51,234,0.4)) drop-shadow(0 0 0px rgba(147,51,234,0))'
+                              ? 'drop-shadow(0 0 2px rgba(147,51,234,0.4))'
                               : 'drop-shadow(0 0 5px rgba(168,85,247,1)) drop-shadow(0 0 12px rgba(168,85,247,0.8))',
                           }}
-                          transition={{ duration: 0.5 }}
                         />
                       </>
                     )}
