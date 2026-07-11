@@ -156,17 +156,20 @@ const RadarChart = () => {
 
         {/* Labels */}
         {RADAR_SKILLS.map((skill, i) => {
-          const [x, y] = getPoint(i, maxRadius + 20);
+          const [x, y] = getPoint(i, maxRadius + 24);
+          const isLeft = x < center - 5;
+          const isRight = x > center + 5;
+          const anchor = isLeft ? 'end' : isRight ? 'start' : 'middle';
           return (
             <text
               key={`label-${i}`}
               x={x} y={y}
-              textAnchor="middle"
+              textAnchor={anchor}
               dominantBaseline="central"
-              className="fill-current text-slate-500 dark:text-muted-foreground"
-              style={{ fontSize: '9px', fontWeight: 500 }}
+              className="fill-current text-slate-700 dark:text-slate-400"
+              style={{ fontSize: '10px', fontWeight: 600, letterSpacing: '0.02em' }}
             >
-              {skill.name.length > 10 ? skill.name.slice(0, 10) + '…' : skill.name}
+              {skill.name}
             </text>
           );
         })}
@@ -383,7 +386,7 @@ export const MobileSkillsDashboard = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="w-full sm:flex-1 flex justify-center rounded-[32px] border border-white/60 dark:border-white/10 p-4 sm:p-6 bg-gradient-to-br from-white/70 to-white/30 dark:bg-slate-900/60 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.04)] dark:shadow-none"
+            className="w-full sm:flex-1 flex justify-center p-4 sm:p-6"
           >
             <RadarChart />
           </motion.div>
