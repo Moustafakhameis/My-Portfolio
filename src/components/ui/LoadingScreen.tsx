@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../../context/LanguageContext';
+import { useTheme } from '../../context/ThemeContext';
 
 export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
   const [progress, setProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const { language } = useLanguage();
+  const { theme } = useTheme();
 
   useEffect(() => {
     // Smoother, faster increments
@@ -52,14 +54,14 @@ export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
     <AnimatePresence>
       {isLoading && (
         <motion.div
-          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#030014] text-foreground overflow-hidden"
+          className={`fixed inset-0 z-[100] flex flex-col items-center justify-center ${theme === 'light' ? 'bg-[#f8fafc]' : 'bg-[#030014]'} text-foreground overflow-hidden`}
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, scale: 1.1, filter: 'blur(20px)' }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         >
           {/* Animated Background Ambient Glows */}
           <motion.div 
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] max-w-[600px] max-h-[600px] bg-primary/20 blur-[120px] rounded-full mix-blend-screen pointer-events-none"
+            className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] max-w-[600px] max-h-[600px] blur-[120px] rounded-full pointer-events-none ${theme === 'light' ? 'bg-primary/20 mix-blend-multiply' : 'bg-primary/20 mix-blend-screen'}`}
             animate={{ 
               scale: [1, 1.2, 1],
               opacity: [0.5, 0.8, 0.5]
@@ -67,7 +69,7 @@ export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           />
           <motion.div 
-            className="absolute top-1/3 left-1/3 w-[60vw] h-[60vw] max-w-[400px] max-h-[400px] bg-fuchsia-500/20 blur-[100px] rounded-full mix-blend-screen pointer-events-none"
+            className={`absolute top-1/3 left-1/3 w-[60vw] h-[60vw] max-w-[400px] max-h-[400px] blur-[100px] rounded-full pointer-events-none ${theme === 'light' ? 'bg-fuchsia-500/20 mix-blend-multiply' : 'bg-fuchsia-500/20 mix-blend-screen'}`}
             animate={{ 
               scale: [1, 1.5, 1],
               opacity: [0.4, 0.7, 0.4]
@@ -87,7 +89,7 @@ export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
                 <motion.span 
                   key={i} 
                   variants={letterVariants}
-                  className="text-transparent bg-clip-text bg-gradient-to-br from-white via-fuchsia-300 to-pink-500 pb-2"
+                  className={`text-transparent bg-clip-text pb-2 ${theme === 'light' ? 'bg-gradient-to-br from-purple-800 via-fuchsia-600 to-pink-500' : 'bg-gradient-to-br from-white via-fuchsia-300 to-pink-500'}`}
                 >
                   {letter}
                 </motion.span>
@@ -101,7 +103,7 @@ export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
             >
-              <div className="w-full h-1 bg-white/10 rounded-full overflow-hidden backdrop-blur-md border border-white/5 shadow-[inset_0_1px_3px_rgba(0,0,0,0.3)] relative">
+              <div className={`w-full h-1 rounded-full overflow-hidden backdrop-blur-md relative ${theme === 'light' ? 'bg-black/10 border border-black/5 shadow-[inset_0_1px_3px_rgba(0,0,0,0.1)]' : 'bg-white/10 border border-white/5 shadow-[inset_0_1px_3px_rgba(0,0,0,0.3)]'}`}>
                 <motion.div
                   className="absolute top-0 left-0 h-full bg-gradient-to-r from-primary via-fuchsia-400 to-pink-500 rounded-full shadow-[0_0_20px_rgba(217,70,239,0.9)]"
                   initial={{ width: '0%' }}
@@ -112,13 +114,13 @@ export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
               
               <div className="flex justify-between w-full px-1 items-center">
                 <motion.span 
-                  className="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.3em] text-white/50"
+                  className={`text-[10px] sm:text-xs font-semibold uppercase tracking-[0.3em] ${theme === 'light' ? 'text-black/50' : 'text-white/50'}`}
                   animate={{ opacity: progress === 100 ? 0 : 1 }}
                 >
                   Initializing...
                 </motion.span>
                 <motion.span 
-                  className="text-sm sm:text-base font-bold text-white tabular-nums tracking-wider"
+                  className={`text-sm sm:text-base font-bold tabular-nums tracking-wider ${theme === 'light' ? 'text-black' : 'text-white'}`}
                 >
                   {progress}%
                 </motion.span>
