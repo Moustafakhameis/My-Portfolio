@@ -230,17 +230,17 @@ END:VCARD`;
                 damping: 25,
                 mass: 0.8 
               }}
-              className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[9999] flex items-start gap-4 px-5 py-4 rounded-2xl bg-[#110c1f]/95 backdrop-blur-2xl border border-white/10 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.8),0_0_20px_rgba(124,58,237,0.15)] w-max max-w-[90vw]"
+              className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[9999] flex items-start gap-4 px-5 py-4 rounded-2xl bg-white/90 dark:bg-[#110c1f]/95 backdrop-blur-2xl border border-slate-200/50 dark:border-white/10 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.1),0_0_20px_rgba(124,58,237,0.05)] dark:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.8),0_0_20px_rgba(124,58,237,0.15)] w-max max-w-[90vw]"
             >
               <div className="relative flex-shrink-0 mt-0.5">
-                <div className="absolute inset-0 bg-green-500/30 blur-md rounded-full animate-pulse" />
-                <div className="relative flex items-center justify-center w-9 h-9 rounded-full bg-green-500/20 border border-green-500/30">
-                  <CheckCircle className="text-green-400" size={18} strokeWidth={2.5} />
+                <div className="absolute inset-0 bg-green-500/20 dark:bg-green-500/30 blur-md rounded-full animate-pulse" />
+                <div className="relative flex items-center justify-center w-9 h-9 rounded-full bg-green-100 dark:bg-green-500/20 border border-green-200 dark:border-green-500/30">
+                  <CheckCircle className="text-green-600 dark:text-green-400" size={18} strokeWidth={2.5} />
                 </div>
               </div>
               <div className="flex flex-col text-left gap-0.5">
-                <span className="text-gray-100 font-semibold text-sm tracking-wide whitespace-nowrap">Contact Saved</span>
-                <span className="text-gray-400 text-[13px] whitespace-nowrap">vCard downloaded successfully</span>
+                <span className="text-slate-800 dark:text-gray-100 font-semibold text-sm tracking-wide whitespace-nowrap">Contact Saved</span>
+                <span className="text-slate-500 dark:text-gray-400 text-[13px] whitespace-nowrap">vCard downloaded successfully</span>
               </div>
             </motion.div>
           )}
