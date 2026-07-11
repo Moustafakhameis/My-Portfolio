@@ -6,8 +6,6 @@
   overflow: hidden;
   background: #ffffff;
   box-shadow:
-    0 40px 80px -20px rgba(100, 116, 139, 0.15),
-    0 20px 40px -20px rgba(100, 116, 139, 0.2),
     0 0 0 1px rgba(0, 0, 0, 0.04),
     inset 0 1px 1px rgba(255, 255, 255, 0.9),
     inset 0 -1px 1px rgba(0, 0, 0, 0.04);
@@ -19,31 +17,21 @@
 .dark .reflective-card-container {
   background: #0d0d1a;
   box-shadow:
-    0 40px 80px -20px rgba(0, 0, 0, 0.5),
-    0 20px 40px -20px rgba(0, 0, 0, 0.6),
     0 0 0 1px rgba(255, 255, 255, 0.1),
-    inset 0 1px 1px rgba(255, 255, 255, 0.15),
-    0 0 80px rgba(139, 92, 246, 0.15);
+    inset 0 1px 1px rgba(255, 255, 255, 0.15);
 }
 
 .reflective-card-container:hover {
   box-shadow:
-    0 60px 100px -20px rgba(100, 116, 139, 0.15),
-    0 30px 60px -30px rgba(100, 116, 139, 0.25),
     0 0 0 1px rgba(0, 0, 0, 0.04),
     inset 0 1px 1px rgba(255, 255, 255, 1),
     inset 0 -1px 1px rgba(0, 0, 0, 0.04);
-  transform: translateY(-6px);
 }
 
 .dark .reflective-card-container:hover {
   box-shadow:
-    0 60px 100px -20px rgba(0, 0, 0, 0.6),
-    0 30px 60px -30px rgba(0, 0, 0, 0.8),
     0 0 0 1px rgba(255, 255, 255, 0.15),
-    inset 0 1px 1px rgba(255, 255, 255, 0.2),
-    0 0 120px rgba(139, 92, 246, 0.2);
-  transform: translateY(-6px);
+    inset 0 1px 1px rgba(255, 255, 255, 0.2);
 }
 
 .reflective-svg-filters {
@@ -287,7 +275,7 @@
   height: 100%;
   object-fit: contain;
   object-position: center;
-  transform: scale(1.08) translateY(4%);
+  transform: translateY(4%);
   filter: contrast(1.1) brightness(1.05);
 }
 
