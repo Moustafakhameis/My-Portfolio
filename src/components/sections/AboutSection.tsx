@@ -128,6 +128,7 @@ const TechStyle = () => (
       }
       .light .tech-card .tech-icon {
         opacity: 0.85 !important;
+        color: var(--light-hover-color) !important;
       }
       .light .tech-card:hover, .light .tech-card:active {
         border-color: rgba(0, 0, 0, 0.12) !important;
@@ -404,8 +405,7 @@ export const AboutSection = () => {
             gap={20}
             hoverSpeed={15}
             scaleOnHover={false}
-            fadeOut={true}
-            fadeOutColor="var(--background)"
+            fadeOut={false}
             className="transition-colors duration-500"
           />
         </div>
