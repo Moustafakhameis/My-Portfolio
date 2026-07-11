@@ -17,10 +17,10 @@ const experiences = [
     description: 'Intensive training program focusing on modern software development practices and frontend technologies.',
   },
   {
-    title: 'Summer Intern',
-    company: 'QNB (Qatar National Bank)',
+    title: 'Customer Service & IT Intern',
+    company: 'QNB Alahli',
     date: 'Jul. 2025',
-    description: 'Summer internship gaining hands-on experience in corporate environments and systems.',
+    description: 'Supported daily branch operations and collaborated with the IT team to resolve technical issues while gaining practical knowledge of digital banking systems.',
   },
   {
     title: 'Front-End Development Trainee',
@@ -29,16 +29,16 @@ const experiences = [
     description: 'Advanced web development bootcamp covering React, modern JavaScript, and building responsive user interfaces.',
   },
   {
-    title: 'HR at Three DOS',
+    title: 'HR Member',
     company: 'Three DOS',
     date: 'Jan. 2024 - Sept. 2024',
-    description: 'Handled human resources responsibilities, organizational tasks, and team coordination.',
+    description: 'Conducted 250+ interviews, evaluated candidates using structured criteria, and organized training sessions while tracking team KPIs and overall performance.',
   },
   {
-    title: 'Member / Contributor',
-    company: 'Enactus',
+    title: 'Business Development Member',
+    company: 'Enactus Helwan',
     date: 'Oct. 2023 - Nov. 2024',
-    description: 'Collaborated on entrepreneurial projects aimed at creating sustainable positive impact in the community.',
+    description: 'Conducted market research and helped build business models, contributing to the team placing 2nd in the Enactus Egypt National Competition.',
   },
   {
     title: 'Mint Ambassador',
@@ -47,10 +47,10 @@ const experiences = [
     description: 'Represented the Mint program and engaged in various campus and community initiatives.',
   },
   {
-    title: 'Summer Intern',
+    title: 'Banking Intern',
     company: 'CIB (Commercial International Bank)',
     date: 'Aug. 2023',
-    description: 'Participated in comprehensive training covering banking operations and modern financial technologies.',
+    description: 'Participated in workshops and case studies to learn the fundamentals of banking operations, financial services, and customer experience.',
   },
 ];
 
