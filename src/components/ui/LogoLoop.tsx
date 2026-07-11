@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState, memo, ReactNode } from 'react';
+import { useInView } from 'framer-motion';
 import './LogoLoop.css';
 
 const ANIMATION_CONFIG = { SMOOTH_TAU: 0.25, MIN_COPIES: 2, COPY_HEADROOM: 2 };
@@ -63,7 +64,8 @@ const useAnimationLoop = (
   seqHeight: number, 
   isHovered: boolean, 
   hoverSpeed: number | undefined, 
-  isVertical: boolean
+  isVertical: boolean,
+  isInView: boolean
 ) => {
   const rafRef = useRef<number | null>(null);
   const lastTimestampRef = useRef<number | null>(null);
@@ -97,7 +99,7 @@ const useAnimationLoop = (
       const easingFactor = 1 - Math.exp(-deltaTime / ANIMATION_CONFIG.SMOOTH_TAU);
       velocityRef.current += (target - velocityRef.current) * easingFactor;
 
-      if (seqSize > 0) {
+      if (seqSize > 0 && isInView) {
         let nextOffset = offsetRef.current + velocityRef.current * deltaTime;
         nextOffset = ((nextOffset % seqSize) + seqSize) % seqSize;
         offsetRef.current = nextOffset;
@@ -120,7 +122,7 @@ const useAnimationLoop = (
       }
       lastTimestampRef.current = null;
     };
-  }, [targetVelocity, seqWidth, seqHeight, isHovered, hoverSpeed, isVertical, trackRef]);
+  }, [targetVelocity, seqWidth, seqHeight, isHovered, hoverSpeed, isVertical, trackRef, isInView]);
 };
 
 export interface LogoItemNode {
@@ -182,6 +184,7 @@ const LogoLoop = memo(
     const containerRef = useRef<HTMLDivElement>(null);
     const trackRef = useRef<HTMLDivElement>(null);
     const seqRef = useRef<HTMLUListElement>(null);
+    const isInView = useInView(containerRef, { margin: "200px 0px 200px 0px" });
 
     const [seqWidth, setSeqWidth] = useState(0);
     const [seqHeight, setSeqHeight] = useState(0);
@@ -238,7 +241,7 @@ const LogoLoop = memo(
 
     useImageLoader(seqRef, updateDimensions, [logos, gap, logoHeight, isVertical]);
 
-    useAnimationLoop(trackRef, targetVelocity, seqWidth, seqHeight, isHovered, effectiveHoverSpeed, isVertical);
+    useAnimationLoop(trackRef, targetVelocity, seqWidth, seqHeight, isHovered, effectiveHoverSpeed, isVertical, isInView);
 
     const cssVariables = useMemo(
       () => ({

@@ -140,7 +140,7 @@ const TechStyle = () => (
 
 const IconWrapper = ({ icon: Icon, hoverColor, glowColor, lightHoverColor }: { icon: React.ElementType, hoverColor: string, glowColor: string, lightHoverColor?: string }) => (
   <div 
-    className="tech-card relative flex items-center justify-center w-[4.5rem] h-[4.5rem] sm:w-[5.5rem] sm:h-[5.5rem] md:w-28 md:h-28 lg:w-32 lg:h-32 rounded-2xl sm:rounded-[1.5rem] lg:rounded-[2rem] bg-card/20 border border-border/30 backdrop-blur-md cursor-pointer shadow-sm"
+    className="tech-card relative flex items-center justify-center w-[4.5rem] h-[4.5rem] sm:w-[5.5rem] sm:h-[5.5rem] md:w-28 md:h-28 lg:w-32 lg:h-32 rounded-2xl sm:rounded-[1.5rem] lg:rounded-[2rem] bg-card/20 border border-border/30 cursor-pointer shadow-sm"
     style={{ '--hover-color': hoverColor, '--light-hover-color': lightHoverColor || hoverColor, '--glow-color': glowColor } as React.CSSProperties}
   >
     {/* Inner background tint */}
@@ -391,8 +391,6 @@ export const AboutSection = () => {
         transition={{ duration: 1, delay: 0.5 }}
         className="mt-32 pt-16 border-t border-border/10 relative"
       >
-        {/* Subtle background glow for the loop area */}
-        <div className="absolute inset-0 top-16 bg-gradient-to-r from-transparent via-blue-500/5 dark:via-primary/5 to-transparent blur-3xl pointer-events-none" />
         <TechStyle />
         <p className="text-center text-sm font-black text-muted-foreground uppercase tracking-[0.3em] mb-12 drop-shadow-sm">{t('about', 'technologies') || "POWERED BY MODERN TECH"}</p>
         
