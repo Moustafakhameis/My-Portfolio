@@ -6,34 +6,56 @@
   overflow: hidden;
   background: #ffffff;
   box-shadow:
-    0 10px 30px rgba(148, 163, 184, 0.1),
-    0 30px 60px rgba(148, 163, 184, 0.15),
-    0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+    0 2px 4px rgba(100, 116, 139, 0.08),
+    0 8px 16px rgba(100, 116, 139, 0.08),
+    0 16px 32px rgba(100, 116, 139, 0.08),
+    0 32px 64px rgba(100, 116, 139, 0.12),
+    0 64px 128px rgba(100, 116, 139, 0.15),
+    0 0 0 1px rgba(0, 0, 0, 0.03),
+    inset 0 1px 1px rgba(255, 255, 255, 0.9),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.03);
   isolation: isolate;
   font-family: 'Inter', sans-serif;
-  transition: box-shadow 0.4s ease;
+  transition: box-shadow 0.4s ease, transform 0.4s ease;
 }
 
 .dark .reflective-card-container {
   background: #0d0d1a;
   box-shadow:
-    0 25px 60px rgba(0, 0, 0, 0.6),
-    0 0 0 1px rgba(255, 255, 255, 0.08) inset,
-    0 0 80px rgba(139, 92, 246, 0.08);
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    0 8px 16px rgba(0, 0, 0, 0.4),
+    0 16px 32px rgba(0, 0, 0, 0.5),
+    0 32px 64px rgba(0, 0, 0, 0.6),
+    0 64px 128px rgba(0, 0, 0, 0.8),
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 1px 1px rgba(255, 255, 255, 0.15),
+    0 0 80px rgba(139, 92, 246, 0.15);
 }
 
 .reflective-card-container:hover {
   box-shadow:
-    0 15px 40px rgba(148, 163, 184, 0.12),
-    0 40px 80px rgba(148, 163, 184, 0.18),
-    0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+    0 4px 8px rgba(100, 116, 139, 0.08),
+    0 16px 32px rgba(100, 116, 139, 0.08),
+    0 32px 64px rgba(100, 116, 139, 0.12),
+    0 64px 128px rgba(100, 116, 139, 0.15),
+    0 80px 160px rgba(100, 116, 139, 0.18),
+    0 0 0 1px rgba(0, 0, 0, 0.03),
+    inset 0 1px 1px rgba(255, 255, 255, 1),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.03);
+  transform: translateY(-4px);
 }
 
 .dark .reflective-card-container:hover {
   box-shadow:
-    0 30px 70px rgba(0, 0, 0, 0.7),
-    0 0 0 1px rgba(255, 255, 255, 0.12) inset,
-    0 0 100px rgba(139, 92, 246, 0.12);
+    0 4px 8px rgba(0, 0, 0, 0.4),
+    0 16px 32px rgba(0, 0, 0, 0.5),
+    0 32px 64px rgba(0, 0, 0, 0.6),
+    0 64px 128px rgba(0, 0, 0, 0.8),
+    0 80px 160px rgba(0, 0, 0, 1),
+    0 0 0 1px rgba(255, 255, 255, 0.15),
+    inset 0 1px 1px rgba(255, 255, 255, 0.2),
+    0 0 120px rgba(139, 92, 246, 0.2);
+  transform: translateY(-4px);
 }
 
 .reflective-svg-filters {
