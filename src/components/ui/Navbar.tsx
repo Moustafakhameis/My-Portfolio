@@ -481,6 +481,16 @@ export const Navbar = () => {
                   { 
                     separator: true,
                     icon: (
+                      <div className="flex items-center justify-center w-[22px] h-[22px] font-bold text-sm uppercase tracking-wider">
+                        {language}
+                      </div>
+                    ), 
+                    label: language === 'en' ? 'Arabic' : 'English', 
+                    onClick: toggleLanguage 
+                  },
+                  { 
+                    separator: false,
+                    icon: (
                       <AnimatePresence mode="wait" initial={false}>
                         <motion.div
                           key={theme}
