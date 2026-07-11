@@ -156,18 +156,18 @@ const IconWrapper = ({ icon: Icon, hoverColor, glowColor, lightHoverColor }: { i
 );
 
 const techLogos = [
-  { node: <IconWrapper icon={SiReact} hoverColor="#61DAFB" glowColor="rgba(97,218,251,0.5)" />, title: "React 19" },
-  { node: <IconWrapper icon={SiNextdotjs} hoverColor="#FFFFFF" lightHoverColor="#000000" glowColor="rgba(0,0,0,0.3)" />, title: "Next.js" },
-  { node: <IconWrapper icon={SiTypescript} hoverColor="#3178C6" glowColor="rgba(49,120,198,0.5)" />, title: "TypeScript" },
-  { node: <IconWrapper icon={SiTailwindcss} hoverColor="#06B6D4" glowColor="rgba(6,182,212,0.5)" />, title: "Tailwind v4" },
-  { node: <IconWrapper icon={SiFramer} hoverColor="#0055FF" glowColor="rgba(0,85,255,0.5)" />, title: "Framer Motion" },
-  { node: <IconWrapper icon={SiThreedotjs} hoverColor="#FFFFFF" lightHoverColor="#000000" glowColor="rgba(0,0,0,0.3)" />, title: "Three.js" },
-  { node: <IconWrapper icon={SiJavascript} hoverColor="#F7DF1E" glowColor="rgba(247,223,30,0.5)" />, title: "JavaScript" },
-  { node: <IconWrapper icon={SiHtml5} hoverColor="#E34F26" glowColor="rgba(227,79,38,0.5)" />, title: "HTML5" },
-  { node: <IconWrapper icon={SiCss} hoverColor="#1572B6" glowColor="rgba(21,114,182,0.5)" />, title: "CSS3" },
-  { node: <IconWrapper icon={SiGreensock} hoverColor="#88CE02" glowColor="rgba(136,206,2,0.5)" />, title: "GSAP" },
-  { node: <IconWrapper icon={SiGithub} hoverColor="#FFFFFF" lightHoverColor="#000000" glowColor="rgba(0,0,0,0.3)" />, title: "GitHub" },
-  { node: <IconWrapper icon={SiBootstrap} hoverColor="#7952B3" glowColor="rgba(121,82,179,0.5)" />, title: "Bootstrap" },
+  { node: <IconWrapper icon={SiReact} hoverColor="#61DAFB" glowColor="rgba(97,218,251,0.5)" />, title: "React 19", href: "https://react.dev" },
+  { node: <IconWrapper icon={SiNextdotjs} hoverColor="#FFFFFF" lightHoverColor="#000000" glowColor="rgba(0,0,0,0.3)" />, title: "Next.js", href: "https://nextjs.org" },
+  { node: <IconWrapper icon={SiTypescript} hoverColor="#3178C6" glowColor="rgba(49,120,198,0.5)" />, title: "TypeScript", href: "https://www.typescriptlang.org" },
+  { node: <IconWrapper icon={SiTailwindcss} hoverColor="#06B6D4" glowColor="rgba(6,182,212,0.5)" />, title: "Tailwind v4", href: "https://tailwindcss.com" },
+  { node: <IconWrapper icon={SiFramer} hoverColor="#0055FF" glowColor="rgba(0,85,255,0.5)" />, title: "Framer Motion", href: "https://www.framer.com/motion/" },
+  { node: <IconWrapper icon={SiThreedotjs} hoverColor="#FFFFFF" lightHoverColor="#000000" glowColor="rgba(0,0,0,0.3)" />, title: "Three.js", href: "https://threejs.org" },
+  { node: <IconWrapper icon={SiJavascript} hoverColor="#F7DF1E" glowColor="rgba(247,223,30,0.5)" />, title: "JavaScript", href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript" },
+  { node: <IconWrapper icon={SiHtml5} hoverColor="#E34F26" glowColor="rgba(227,79,38,0.5)" />, title: "HTML5", href: "https://developer.mozilla.org/en-US/docs/Web/HTML" },
+  { node: <IconWrapper icon={SiCss} hoverColor="#1572B6" glowColor="rgba(21,114,182,0.5)" />, title: "CSS3", href: "https://developer.mozilla.org/en-US/docs/Web/CSS" },
+  { node: <IconWrapper icon={SiGreensock} hoverColor="#88CE02" glowColor="rgba(136,206,2,0.5)" />, title: "GSAP", href: "https://gsap.com" },
+  { node: <IconWrapper icon={SiGithub} hoverColor="#FFFFFF" lightHoverColor="#000000" glowColor="rgba(0,0,0,0.3)" />, title: "GitHub", href: "https://github.com" },
+  { node: <IconWrapper icon={SiBootstrap} hoverColor="#7952B3" glowColor="rgba(121,82,179,0.5)" />, title: "Bootstrap", href: "https://getbootstrap.com" },
 ];
 
 export const AboutSection = () => {
