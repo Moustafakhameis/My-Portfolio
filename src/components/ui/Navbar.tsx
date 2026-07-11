@@ -444,19 +444,66 @@ export const Navbar = () => {
                       hidden: { opacity: 0, y: 50 },
                       show: { opacity: 1, y: 0, transition: { type: "tween", ease: "easeOut", damping: 24 } }
                     }}
-                    className="relative group"
+                    className="relative group px-8 py-2"
                   >
-                    <span className={cn(
-                      "text-4xl font-black tracking-widest uppercase transition-colors duration-300",
-                      isActive ? "text-transparent bg-clip-text bg-gradient-to-r from-primary to-pink-500 drop-shadow-[0_0_15px_rgba(168,85,247,0.5)]" : "text-foreground/70 hover:text-foreground"
-                    )}>
-                      {link.name}
-                    </span>
+                    {/* Soft glow backdrop behind active text */}
                     {isActive && (
                       <motion.div
-                        layoutId="mobile-active"
-                        className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-primary shadow-[0_0_10px_rgba(168,85,247,0.8)]"
+                        className="absolute inset-0 z-[1] pointer-events-none"
+                        style={{
+                          background: 'radial-gradient(ellipse at 50% 50%, rgba(168,85,247,0.2) 0%, transparent 60%)',
+                        }}
+                        animate={{ opacity: [0.6, 1, 0.6] }}
+                        transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
                       />
+                    )}
+
+                    {isActive ? (
+                      <motion.span
+                        className="relative z-10 text-4xl font-black tracking-widest uppercase block text-center"
+                        style={{
+                          backgroundImage: 'linear-gradient(90deg, #c084fc, #e879f9, #f0abfc, #fff, #f0abfc, #e879f9, #c084fc)',
+                          backgroundSize: '200% auto',
+                          WebkitBackgroundClip: 'text',
+                          WebkitTextFillColor: 'transparent',
+                          backgroundClip: 'text',
+                          filter: 'drop-shadow(0 0 15px rgba(168,85,247,0.5))',
+                        }}
+                        animate={{ backgroundPosition: ['0% center', '200% center'] }}
+                        transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+                      >
+                        {link.name}
+                      </motion.span>
+                    ) : (
+                      <span className="relative z-10 text-4xl font-black tracking-widest uppercase text-foreground/50 hover:text-foreground/90 transition-colors duration-300 block text-center">
+                        {link.name}
+                      </span>
+                    )}
+
+                    {isActive && (
+                      <>
+                        {/* Glow bar */}
+                        <motion.div
+                          layoutId="mobile-active-bar"
+                          className="absolute -bottom-2 left-[10%] right-[10%] h-[3px] rounded-full z-0"
+                          style={{
+                            background: 'linear-gradient(90deg, transparent, rgba(168,85,247,0.9), rgba(192,132,252,1), rgba(168,85,247,0.9), transparent)',
+                            boxShadow: '0 0 12px rgba(168,85,247,0.7), 0 0 24px rgba(168,85,247,0.35)',
+                          }}
+                        />
+                        {/* Centered Star */}
+                        <motion.div
+                          layoutId="mobile-active-star"
+                          className="absolute -bottom-[14px] left-1/2 -translate-x-1/2 z-10"
+                          style={{
+                            width: 14,
+                            height: 14,
+                            background: '#fff',
+                            clipPath: 'polygon(50% 0%, 61% 35%, 100% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 0% 35%, 39% 35%)',
+                            filter: 'drop-shadow(0 0 5px rgba(168,85,247,1)) drop-shadow(0 0 12px rgba(168,85,247,0.8))',
+                          }}
+                        />
+                      </>
                     )}
                   </motion.a>
                 );
