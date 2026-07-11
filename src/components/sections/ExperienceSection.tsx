@@ -146,10 +146,10 @@ export const ExperienceSection = () => {
             key={index}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, margin: "0px 0px -50% 0px" }}
             variants={{
               hidden: { opacity: 0 },
-              visible: { opacity: 1, transition: { staggerChildren: 0.2, delayChildren: index * 0.1 } }
+              visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
             }}
             className={`relative group ${language === 'ar' ? 'pr-8 md:pr-16' : 'pl-8 md:pl-16'}`}
           >
