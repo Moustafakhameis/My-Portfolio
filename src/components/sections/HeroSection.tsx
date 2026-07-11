@@ -129,11 +129,11 @@ export const HeroSection = () => {
       {/* Floating background elements */}
       <motion.div 
         custom={1} variants={floatingBubbleVariants} animate="animate"
-        className="absolute top-1/4 left-1/4 w-72 h-72 bg-primary/5 rounded-full blur-3xl -z-10 blob-blur"
+        className="absolute top-1/4 left-1/4 w-72 h-72 bg-blue-500/10 dark:bg-primary/5 rounded-full blur-3xl -z-10 blob-blur"
       />
       <motion.div 
         custom={2} variants={floatingBubbleVariants} animate="animate"
-        className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl -z-10 blob-blur"
+        className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 dark:bg-primary/10 rounded-full blur-3xl -z-10 blob-blur"
       />
 
       <motion.div 
@@ -171,7 +171,7 @@ export const HeroSection = () => {
             <div 
               className="absolute inset-[-15%] rounded-full bg-gradient-to-tr from-primary/30 to-transparent -z-10 blur-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-500 blob-blur"
             />
-            <div className="absolute inset-0 rounded-full bg-primary/20 -z-20 blur-3xl scale-150 group-hover:bg-primary/30 transition-colors duration-500"></div>
+            <div className="absolute inset-0 rounded-full bg-blue-500/20 dark:bg-primary/20 -z-20 blur-3xl scale-150 group-hover:scale-175 transition-transform duration-500 opacity-50" />
           </motion.div>
 
           <motion.div variants={itemVariants} whileHover={{ scale: 1.1, y: -5 }} className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary/5 text-primary mb-6 border border-primary/20 shadow-sm cursor-default">

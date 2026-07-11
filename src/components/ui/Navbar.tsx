@@ -465,23 +465,50 @@ export const Navbar = () => {
       <AnimatePresence>
         {showDock && (
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 50 }}
-            transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+            initial={{ opacity: 0, y: 40, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 30, scale: 0.97 }}
+            transition={{ type: 'spring', stiffness: 200, damping: 22, mass: 0.8 }}
             className="fixed bottom-6 left-0 right-0 z-50 pointer-events-none flex justify-center hidden md:flex"
           >
-            <div className="pointer-events-auto">
+            <div className="pointer-events-auto relative">
               <Dock
                 items={[
-                  { icon: <User size={22} />, label: t('navbar', 'about'), onClick: () => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }) },
-                  { icon: <Briefcase size={22} />, label: t('navbar', 'experience'), onClick: () => document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' }) },
-                  { icon: <Code2 size={22} />, label: t('navbar', 'projects'), onClick: () => document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' }) },
-                  { icon: <Mail size={22} />, label: t('navbar', 'contact'), onClick: () => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }) },
+                  { icon: <User size={22} />, label: t('navbar', 'about'), isActive: activeSection === 'about', onClick: () => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }) },
+                  { icon: <Briefcase size={22} />, label: t('navbar', 'experience'), isActive: activeSection === 'experience', onClick: () => document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' }) },
+                  { icon: <Code2 size={22} />, label: t('navbar', 'projects'), isActive: activeSection === 'work', onClick: () => document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' }) },
+                  { icon: <Mail size={22} />, label: t('navbar', 'contact'), isActive: activeSection === 'contact', onClick: () => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }) },
+                  { 
+                    separator: true,
+                    icon: (
+                      <AnimatePresence mode="wait" initial={false}>
+                        <motion.div
+                          key={theme}
+                          initial={{ opacity: 0, rotate: -90, scale: 0.6 }}
+                          animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                          exit={{ opacity: 0, rotate: 90, scale: 0.6 }}
+                          transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
+                          className="flex items-center justify-center w-[22px] h-[22px]"
+                        >
+                          {theme === 'dark' ? <Sun size={22} /> : <Moon size={22} />}
+                        </motion.div>
+                      </AnimatePresence>
+                    ), 
+                    label: theme === 'dark' ? 'Light Mode' : 'Dark Mode', 
+                    onClick: toggleTheme 
+                  },
                 ]}
                 panelHeight={68}
                 baseItemSize={50}
                 magnification={70}
+              />
+              {/* Floor reflection */}
+              <div 
+                className="absolute -bottom-3 left-[15%] right-[15%] h-[6px] rounded-full pointer-events-none"
+                style={{
+                  background: 'radial-gradient(ellipse at 50% 0%, rgba(168,85,247,0.08) 0%, transparent 70%)',
+                  filter: 'blur(4px)',
+                }}
               />
             </div>
           </motion.div>

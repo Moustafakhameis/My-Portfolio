@@ -108,6 +108,7 @@
 /* Disable expensive backdrop-blur on mobile for smooth scrolling */
 @media (max-width: 767px) {
   .glass {
+    background: rgba(255, 255, 255, 0.95);
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
     will-change: auto;

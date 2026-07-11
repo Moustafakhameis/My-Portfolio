@@ -54,6 +54,47 @@ const TechStyle = () => (
     .tech-card:hover .tech-reflection {
       opacity: 0.6;
     }
+
+    /* ─── Light Mode ─── */
+    .light .tech-card {
+      background-color: rgba(255, 255, 255, 0.8);
+      border-color: rgba(0, 0, 0, 0.08);
+      box-shadow: 
+        0 1px 3px rgba(0, 0, 0, 0.06),
+        0 4px 12px rgba(0, 0, 0, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    }
+    .light .tech-card:hover {
+      background-color: rgba(255, 255, 255, 0.95);
+      border-color: rgba(0, 0, 0, 0.1);
+      box-shadow: 
+        0 4px 20px rgba(0, 0, 0, 0.08),
+        0 8px 32px var(--glow-color),
+        inset 0 1px 0 rgba(255, 255, 255, 1);
+      transform: translateY(-8px);
+    }
+    .light .tech-card .tech-icon {
+      color: var(--light-hover-color);
+      opacity: 0.7;
+      filter: none;
+    }
+    .light .tech-card:hover .tech-icon {
+      color: var(--light-hover-color);
+      opacity: 1;
+      filter: drop-shadow(0 0 10px var(--glow-color));
+      transform: scale(1.15);
+    }
+    .light .tech-card:hover .tech-bg {
+      opacity: 0.06;
+      background-color: var(--light-hover-color);
+    }
+    .light .tech-card .tech-glow {
+      box-shadow: inset 0 0 20px var(--glow-color);
+    }
+    .light .tech-card:hover .tech-glow {
+      opacity: 0.4;
+    }
+
     /* Mobile & Tablet Optimizations */
     @media (max-width: 1023px) {
       .tech-card {
@@ -79,14 +120,27 @@ const TechStyle = () => (
         transform: scale(0.95) !important;
         border-color: rgba(255, 255, 255, 0.3) !important;
       }
+      /* Light mode mobile */
+      .light .tech-card {
+        background-color: rgba(255, 255, 255, 0.9);
+        border-color: rgba(0, 0, 0, 0.08);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      }
+      .light .tech-card .tech-icon {
+        opacity: 0.85 !important;
+      }
+      .light .tech-card:hover, .light .tech-card:active {
+        border-color: rgba(0, 0, 0, 0.12) !important;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08) !important;
+      }
     }
   `}</style>
 );
 
-const IconWrapper = ({ icon: Icon, hoverColor, glowColor }: { icon: React.ElementType, hoverColor: string, glowColor: string }) => (
+const IconWrapper = ({ icon: Icon, hoverColor, glowColor, lightHoverColor }: { icon: React.ElementType, hoverColor: string, glowColor: string, lightHoverColor?: string }) => (
   <div 
     className="tech-card relative flex items-center justify-center w-[4.5rem] h-[4.5rem] sm:w-[5.5rem] sm:h-[5.5rem] md:w-28 md:h-28 lg:w-32 lg:h-32 rounded-2xl sm:rounded-[1.5rem] lg:rounded-[2rem] bg-card/20 border border-border/30 backdrop-blur-md cursor-pointer shadow-sm"
-    style={{ '--hover-color': hoverColor, '--glow-color': glowColor } as React.CSSProperties}
+    style={{ '--hover-color': hoverColor, '--light-hover-color': lightHoverColor || hoverColor, '--glow-color': glowColor } as React.CSSProperties}
   >
     {/* Inner background tint */}
     <div className="tech-bg absolute inset-0 rounded-2xl sm:rounded-[1.5rem] lg:rounded-[2rem]" />
@@ -102,16 +156,16 @@ const IconWrapper = ({ icon: Icon, hoverColor, glowColor }: { icon: React.Elemen
 
 const techLogos = [
   { node: <IconWrapper icon={SiReact} hoverColor="#61DAFB" glowColor="rgba(97,218,251,0.5)" />, title: "React 19", href: "https://react.dev" },
-  { node: <IconWrapper icon={SiNextdotjs} hoverColor="#FFFFFF" glowColor="rgba(255,255,255,0.3)" />, title: "Next.js", href: "https://nextjs.org" },
+  { node: <IconWrapper icon={SiNextdotjs} hoverColor="#FFFFFF" lightHoverColor="#000000" glowColor="rgba(0,0,0,0.3)" />, title: "Next.js", href: "https://nextjs.org" },
   { node: <IconWrapper icon={SiTypescript} hoverColor="#3178C6" glowColor="rgba(49,120,198,0.5)" />, title: "TypeScript", href: "https://www.typescriptlang.org" },
   { node: <IconWrapper icon={SiTailwindcss} hoverColor="#06B6D4" glowColor="rgba(6,182,212,0.5)" />, title: "Tailwind v4", href: "https://tailwindcss.com" },
   { node: <IconWrapper icon={SiFramer} hoverColor="#0055FF" glowColor="rgba(0,85,255,0.5)" />, title: "Framer Motion", href: "https://www.framer.com/motion/" },
-  { node: <IconWrapper icon={SiThreedotjs} hoverColor="#FFFFFF" glowColor="rgba(255,255,255,0.3)" />, title: "Three.js", href: "https://threejs.org" },
+  { node: <IconWrapper icon={SiThreedotjs} hoverColor="#FFFFFF" lightHoverColor="#000000" glowColor="rgba(0,0,0,0.3)" />, title: "Three.js", href: "https://threejs.org" },
   { node: <IconWrapper icon={SiJavascript} hoverColor="#F7DF1E" glowColor="rgba(247,223,30,0.5)" />, title: "JavaScript", href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript" },
   { node: <IconWrapper icon={SiHtml5} hoverColor="#E34F26" glowColor="rgba(227,79,38,0.5)" />, title: "HTML5", href: "https://developer.mozilla.org/en-US/docs/Web/HTML" },
   { node: <IconWrapper icon={SiCss} hoverColor="#1572B6" glowColor="rgba(21,114,182,0.5)" />, title: "CSS3", href: "https://developer.mozilla.org/en-US/docs/Web/CSS" },
   { node: <IconWrapper icon={SiGreensock} hoverColor="#88CE02" glowColor="rgba(136,206,2,0.5)" />, title: "GSAP", href: "https://gsap.com" },
-  { node: <IconWrapper icon={SiGithub} hoverColor="#FFFFFF" glowColor="rgba(255,255,255,0.3)" />, title: "GitHub", href: "https://github.com" },
+  { node: <IconWrapper icon={SiGithub} hoverColor="#FFFFFF" lightHoverColor="#000000" glowColor="rgba(0,0,0,0.3)" />, title: "GitHub", href: "https://github.com" },
   { node: <IconWrapper icon={SiBootstrap} hoverColor="#7952B3" glowColor="rgba(121,82,179,0.5)" />, title: "Bootstrap", href: "https://getbootstrap.com" },
 ];
 
@@ -229,10 +283,10 @@ export const AboutSection = () => {
                 <div className="relative p-6 md:p-8 w-full h-full flex flex-col items-center justify-center text-center group cursor-pointer overflow-hidden rounded-[32px]">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   <div className="relative z-10 flex flex-col items-center w-full transform transition-transform duration-300 group-hover:scale-105">
-                    <h3 className="text-6xl md:text-7xl font-black mb-2 text-foreground/90 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-b group-hover:from-white group-hover:to-primary transition-all duration-500 drop-shadow-sm group-hover:drop-shadow-[0_0_20px_rgba(var(--primary),0.8)]">
+                    <h3 className="text-6xl md:text-7xl font-black mb-2 text-foreground/90 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-b group-hover:from-foreground group-hover:to-primary transition-all duration-500 drop-shadow-sm group-hover:drop-shadow-[0_0_20px_rgba(var(--primary),0.8)]">
                       1+
                     </h3>
-                    <p className="text-sm font-bold text-muted-foreground uppercase tracking-[0.25em] group-hover:text-white transition-colors duration-500 mt-2">{t('about', 'yearsOfExperience')}</p>
+                    <p className="text-sm font-bold text-muted-foreground uppercase tracking-[0.25em] group-hover:text-foreground transition-colors duration-500 mt-2">{t('about', 'yearsOfExperience')}</p>
                   </div>
                 </div>
               </BorderGlow>
@@ -255,10 +309,10 @@ export const AboutSection = () => {
                 <div className="relative p-6 md:p-8 w-full h-full flex flex-col items-center justify-center text-center group cursor-pointer overflow-hidden rounded-[32px]">
                   <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   <div className="relative z-10 flex flex-col items-center w-full transform transition-transform duration-300 group-hover:scale-105">
-                    <h3 className="text-6xl md:text-7xl font-black mb-2 text-foreground/90 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-b group-hover:from-white group-hover:to-purple-500 transition-all duration-500 drop-shadow-sm group-hover:drop-shadow-[0_0_20px_rgba(168,85,247,0.8)]">
+                    <h3 className="text-6xl md:text-7xl font-black mb-2 text-foreground/90 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-b group-hover:from-foreground group-hover:to-purple-500 transition-all duration-500 drop-shadow-sm group-hover:drop-shadow-[0_0_20px_rgba(168,85,247,0.8)]">
                       20+
                     </h3>
-                    <p className="text-sm font-bold text-muted-foreground uppercase tracking-[0.25em] group-hover:text-white transition-colors duration-500 mt-2">{t('about', 'projectsCompleted')}</p>
+                    <p className="text-sm font-bold text-muted-foreground uppercase tracking-[0.25em] group-hover:text-foreground transition-colors duration-500 mt-2">{t('about', 'projectsCompleted')}</p>
                   </div>
                 </div>
               </BorderGlow>
@@ -282,10 +336,10 @@ export const AboutSection = () => {
                   <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   <div className="absolute right-0 top-0 w-48 h-48 bg-cyan-400/10 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                   <div className="relative z-10 flex flex-col items-center w-full justify-center text-center transform transition-transform duration-300 group-hover:scale-105">
-                    <h3 className="text-6xl md:text-7xl font-black mb-2 text-foreground/90 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-b group-hover:from-white group-hover:to-cyan-400 transition-all duration-500 drop-shadow-sm group-hover:drop-shadow-[0_0_20px_rgba(34,211,238,0.8)]">
+                    <h3 className="text-6xl md:text-7xl font-black mb-2 text-foreground/90 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-b group-hover:from-foreground group-hover:to-cyan-400 transition-all duration-500 drop-shadow-sm group-hover:drop-shadow-[0_0_20px_rgba(34,211,238,0.8)]">
                       10+
                     </h3>
-                    <p className="text-sm font-bold text-muted-foreground uppercase tracking-[0.25em] group-hover:text-white transition-colors duration-500 mt-2">{t('about', 'happyClients')}</p>
+                    <p className="text-sm font-bold text-muted-foreground uppercase tracking-[0.25em] group-hover:text-foreground transition-colors duration-500 mt-2">{t('about', 'happyClients')}</p>
                   </div>
                 </div>
               </BorderGlow>
@@ -297,7 +351,7 @@ export const AboutSection = () => {
           variants={eduReveal} 
           className="glass p-6 md:p-10 rounded-3xl border border-border/50 relative overflow-hidden group hover:border-primary/30 transition-colors duration-500 hover:shadow-2xl hover:shadow-primary/5 isolate"
         >
-          <div className={`absolute top-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 group-hover:bg-primary/10 transition-colors duration-500 blob-blur ${language === 'ar' ? 'left-0 -translate-x-1/2' : 'right-0 translate-x-1/2'}`} />
+          <div className={`absolute top-0 w-64 h-64 bg-blue-500/10 dark:bg-primary/5 rounded-full blur-3xl -translate-y-1/2 group-hover:bg-blue-500/20 dark:group-hover:bg-primary/10 transition-colors duration-500 blob-blur ${language === 'ar' ? 'left-0 -translate-x-1/2' : 'right-0 translate-x-1/2'}`} />
           <div className={`absolute bottom-0 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl translate-y-1/2 group-hover:bg-purple-500/10 transition-colors duration-500 blob-blur ${language === 'ar' ? 'right-0 translate-x-1/2' : 'left-0 -translate-x-1/2'}`} />
           
           <h3 className="text-3xl font-bold mb-10 flex items-center gap-4">
@@ -337,7 +391,7 @@ export const AboutSection = () => {
         className="mt-32 pt-16 border-t border-border/10 relative"
       >
         {/* Subtle background glow for the loop area */}
-        <div className="absolute inset-0 top-16 bg-gradient-to-r from-transparent via-primary/5 to-transparent blur-3xl pointer-events-none" />
+        <div className="absolute inset-0 top-16 bg-gradient-to-r from-transparent via-blue-500/5 dark:via-primary/5 to-transparent blur-3xl pointer-events-none" />
         <TechStyle />
         <p className="text-center text-sm font-black text-muted-foreground uppercase tracking-[0.3em] mb-12 drop-shadow-sm">{t('about', 'technologies') || "POWERED BY MODERN TECH"}</p>
         

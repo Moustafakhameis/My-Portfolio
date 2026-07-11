@@ -14,6 +14,8 @@ export interface DockItemData {
   label: string;
   onClick?: () => void;
   className?: string;
+  separator?: boolean;
+  isActive?: boolean;
 }
 
 interface DockItemProps {
@@ -26,9 +28,10 @@ interface DockItemProps {
   magnification: number;
   baseItemSize: number;
   label: string;
+  isActive?: boolean;
 }
 
-function DockItem({ children, className = '', onClick, mouseX, spring, distance, magnification, baseItemSize, label }: DockItemProps) {
+function DockItem({ children, className = '', onClick, mouseX, spring, distance, magnification, baseItemSize, label, isActive }: DockItemProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isHovered = useMotionValue(0);
 
@@ -61,8 +64,8 @@ function DockItem({ children, className = '', onClick, mouseX, spring, distance,
       onHoverEnd={() => isHovered.set(0)}
       onFocus={() => isHovered.set(1)}
       onBlur={() => isHovered.set(0)}
-      onClick={onClick}
-      className={`dock-item ${className}`}
+      onClick={() => { isHovered.set(0); onClick?.(); }}
+      className={`dock-item ${isActive ? 'dock-item-active' : ''} ${className}`}
       tabIndex={0}
       role="button"
       aria-haspopup="true"
@@ -75,6 +78,18 @@ function DockItem({ children, className = '', onClick, mouseX, spring, distance,
         }
         return child;
       })}
+      {/* Active indicator dot */}
+      <AnimatePresence>
+        {isActive && (
+          <motion.div
+            className="dock-active-dot"
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0 }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
+          />
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
@@ -95,10 +110,10 @@ function DockLabel({ children, className = '', ...rest }: { children: React.Reac
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          initial={{ opacity: 0, y: 0 }}
-          animate={{ opacity: 1, y: -10 }}
-          exit={{ opacity: 0, y: 0 }}
-          transition={{ duration: 0.2 }}
+          initial={{ opacity: 0, y: 0, scale: 0.85 }}
+          animate={{ opacity: 1, y: -10, scale: 1 }}
+          exit={{ opacity: 0, y: 0, scale: 0.85 }}
+          transition={{ type: 'spring', stiffness: 400, damping: 24, mass: 0.6 }}
           className={`dock-label ${className}`}
           role="tooltip"
           style={{ x: '-50%' }}
@@ -137,9 +152,9 @@ export interface DockProps {
 export default function Dock({
   items,
   className = '',
-  spring = { mass: 0.1, stiffness: 150, damping: 12 },
+  spring = { mass: 0.1, stiffness: 170, damping: 14 },
   magnification = 70,
-  distance = 200,
+  distance = 180,
   panelHeight = 68,
   dockHeight = 256,
   baseItemSize = 50
@@ -170,21 +185,38 @@ export default function Dock({
         role="toolbar"
         aria-label="Application dock"
       >
+        {/* Noise texture filter */}
+        <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ borderRadius: 'inherit', overflow: 'hidden' }}>
+          <defs>
+            <filter id="dock-noise">
+              <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" />
+              <feColorMatrix type="saturate" values="0" />
+            </filter>
+          </defs>
+          <rect width="100%" height="100%" filter="url(#dock-noise)" opacity="0.025" />
+        </svg>
+        {/* Animated shimmer sweep */}
+        <div className="dock-shimmer" />
         {items.map((item, index) => (
-          <DockItem
-            key={index}
-            onClick={item.onClick}
-            className={item.className}
-            mouseX={mouseX}
-            spring={spring}
-            distance={distance}
-            magnification={magnification}
-            baseItemSize={baseItemSize}
-            label={item.label}
-          >
-            <DockIcon>{item.icon}</DockIcon>
-            <DockLabel>{item.label}</DockLabel>
-          </DockItem>
+          <React.Fragment key={index}>
+            {item.separator && (
+              <div className="dock-separator" />
+            )}
+            <DockItem
+              onClick={item.onClick}
+              className={item.className}
+              mouseX={mouseX}
+              spring={spring}
+              distance={distance}
+              magnification={magnification}
+              baseItemSize={baseItemSize}
+              label={item.label}
+              isActive={item.isActive}
+            >
+              <DockIcon>{item.icon}</DockIcon>
+              <DockLabel>{item.label}</DockLabel>
+            </DockItem>
+          </React.Fragment>
         ))}
       </motion.div>
     </motion.div>
