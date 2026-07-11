@@ -121,7 +121,6 @@ const RadarChart = () => {
           strokeDasharray="4 4"
         />
 
-        {/* Data polygon */}
         <motion.polygon
           points={dataPoints}
           fill="url(#dataFill)"
@@ -129,8 +128,9 @@ const RadarChart = () => {
           strokeWidth={1.5}
           strokeLinejoin="round"
           initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, ease: 'easeOut', delay: 0.3 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
           style={{ transformOrigin: 'center' }}
         />
 
@@ -146,8 +146,9 @@ const RadarChart = () => {
               stroke="white"
               strokeWidth={1}
               initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.5 + i * 0.08 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 + i * 0.08 }}
               filter={`drop-shadow(0 0 4px ${skill.color})`}
             />
           );
@@ -191,7 +192,7 @@ const SkillCard = ({ skill, index, isTablet }: SkillCardProps) => {
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
-      transition={{ duration: 0.45, delay: index * 0.06, ease: 'easeOut' }}
+      transition={{ duration: 0.45, delay: (index % 2) * 0.1, ease: 'easeOut' }}
       whileTap={{ scale: 0.97 }}
       className="group relative rounded-2xl border border-white/80 dark:border-white/10 overflow-hidden bg-white/80 dark:bg-slate-900/60 backdrop-blur-2xl shadow-md"
       style={{
@@ -248,7 +249,7 @@ const SkillCard = ({ skill, index, isTablet }: SkillCardProps) => {
               initial={{ width: 0 }}
               whileInView={{ width: `${skill.proficiency}%` }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.3 + index * 0.06, ease: 'easeOut' }}
+              transition={{ duration: 0.8, delay: 0.2 + (index % 2) * 0.1, ease: 'easeOut' }}
             />
           </div>
           <div className="flex items-center justify-between mt-1">
