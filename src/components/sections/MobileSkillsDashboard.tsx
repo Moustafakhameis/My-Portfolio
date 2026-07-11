@@ -39,7 +39,7 @@ const RADAR_SKILLS = skillMetrics.slice(0, 8); // Use top 8 for radar clarity
 const RadarChart = () => {
   const size = 280;
   const center = size / 2;
-  const maxRadius = size * 0.38;
+  const maxRadius = size * 0.32;
   const levels = 5;
 
   const getPoint = (index: number, radius: number): [number, number] => {
@@ -116,9 +116,8 @@ const RadarChart = () => {
         {/* Industry avg polygon */}
         <polygon
           points={avgPoints}
-          fill="rgba(234,179,8,0.02)"
-          stroke="rgba(234,179,8,0.25)"
-          strokeWidth={1}
+          className="fill-yellow-500/5 dark:fill-yellow-400/5 stroke-yellow-500/80 dark:stroke-yellow-400/40"
+          strokeWidth={1.5}
           strokeDasharray="4 4"
         />
 
@@ -156,7 +155,7 @@ const RadarChart = () => {
 
         {/* Labels */}
         {RADAR_SKILLS.map((skill, i) => {
-          const [x, y] = getPoint(i, maxRadius + 24);
+          const [x, y] = getPoint(i, maxRadius + 14);
           const isLeft = x < center - 5;
           const isRight = x > center + 5;
           const anchor = isLeft ? 'end' : isRight ? 'start' : 'middle';
