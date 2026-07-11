@@ -81,13 +81,13 @@ const RadarChart = () => {
             <stop offset="100%" stopColor="transparent" />
           </radialGradient>
           <linearGradient id="dataFill" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="rgba(6,182,212,0.35)" />
-            <stop offset="100%" stopColor="rgba(59,130,246,0.2)" />
+            <stop offset="0%" stopColor="rgba(6,182,212,0.15)" />
+            <stop offset="100%" stopColor="rgba(59,130,246,0.05)" />
           </linearGradient>
         </defs>
 
         {/* Background glow */}
-        <circle cx={center} cy={center} r={maxRadius} fill="url(#radarGlow)" />
+        <circle cx={center} cy={center} r={maxRadius} fill="url(#radarGlow)" className="hidden dark:block" />
 
         {/* Grid levels */}
         {gridPolygons.map((points, i) => (
@@ -116,8 +116,8 @@ const RadarChart = () => {
         {/* Industry avg polygon */}
         <polygon
           points={avgPoints}
-          fill="rgba(234,179,8,0.06)"
-          stroke="rgba(234,179,8,0.4)"
+          fill="rgba(234,179,8,0.02)"
+          stroke="rgba(234,179,8,0.25)"
           strokeWidth={1}
           strokeDasharray="4 4"
         />
@@ -272,8 +272,6 @@ const OverallScoreRing = () => {
 
   return (
     <div className="relative flex items-center justify-center">
-      {/* Background glow for contrast in light mode */}
-      <div className="absolute inset-0 bg-white/60 dark:bg-transparent blur-2xl rounded-full scale-110 pointer-events-none" />
       <svg width="110" height="110" viewBox="0 0 110 110" className="relative z-10">
         <defs>
           <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
