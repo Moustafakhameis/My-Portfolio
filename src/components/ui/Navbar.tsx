@@ -260,12 +260,10 @@ export const Navbar = () => {
                 variants={itemAnim}
                 href={link.href}
                 onMouseEnter={() => setHoveredIndex(i)}
-                className="relative px-5 py-2 text-[13px] tracking-[0.06em] uppercase"
-                style={{ 
-                  color: isActive ? undefined : 'var(--foreground-muted, rgba(255,255,255,0.5))',
-                  fontWeight: isActive ? 700 : 500,
-                }}
-                whileHover={!isActive ? { color: 'rgba(255,255,255,0.9)' } : undefined}
+                className={cn(
+                  "relative px-5 py-2 text-[13px] tracking-[0.06em] uppercase transition-colors duration-300",
+                  isActive ? "font-bold" : "font-medium text-muted-foreground hover:text-foreground"
+                )}
               >
                 {/* Active shimmer text */}
                 {isActive ? (
