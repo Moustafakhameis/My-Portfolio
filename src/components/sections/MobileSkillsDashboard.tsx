@@ -191,7 +191,7 @@ const SkillCard = ({ skill, index, isTablet }: SkillCardProps) => {
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.45, delay: index * 0.06, ease: 'easeOut' }}
       whileTap={{ scale: 0.97 }}
-      className="group relative rounded-2xl border border-white/60 dark:border-white/10 overflow-hidden bg-white/50 dark:bg-slate-900/60 backdrop-blur-md shadow-sm"
+      className="group relative rounded-2xl border border-white/80 dark:border-white/10 overflow-hidden bg-white/80 dark:bg-slate-900/60 backdrop-blur-2xl shadow-md"
       style={{
         boxShadow: `0 4px 24px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.04)`,
         minHeight: isTablet ? '100px' : '88px',
@@ -272,7 +272,9 @@ const OverallScoreRing = () => {
 
   return (
     <div className="relative flex items-center justify-center">
-      <svg width="110" height="110" viewBox="0 0 110 110">
+      {/* Background glow for contrast in light mode */}
+      <div className="absolute inset-0 bg-white/60 dark:bg-transparent blur-2xl rounded-full scale-110 pointer-events-none" />
+      <svg width="110" height="110" viewBox="0 0 110 110" className="relative z-10">
         <defs>
           <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#06b6d4" />
@@ -300,9 +302,9 @@ const OverallScoreRing = () => {
           filter="drop-shadow(0 0 6px rgba(6,182,212,0.4))"
         />
       </svg>
-      <div className="absolute flex flex-col items-center">
-        <span className="text-2xl font-bold text-foreground dark:text-white tabular-nums">{overall}</span>
-        <span className="text-[10px] text-muted-foreground dark:text-white/40 uppercase tracking-widest">Score</span>
+      <div className="absolute flex flex-col items-center z-10">
+        <span className="text-2xl font-bold text-slate-800 dark:text-white tabular-nums">{overall}</span>
+        <span className="text-[10px] text-slate-600 dark:text-white/40 uppercase tracking-widest font-semibold">Score</span>
       </div>
     </div>
   );
@@ -332,7 +334,7 @@ const CategoryChips = () => {
       {categories.map((cat) => (
         <div
           key={cat.name}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border bg-white/40 dark:bg-transparent backdrop-blur-md shadow-sm dark:shadow-none"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border border-white/80 dark:border-white/10 bg-white/80 dark:bg-transparent backdrop-blur-xl shadow-sm dark:shadow-none"
           style={{
             background: `${cat.color}08`,
             borderColor: `${cat.color}20`,
@@ -371,10 +373,10 @@ export const MobileSkillsDashboard = () => {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/[0.06] mb-4"
           >
             <span className="w-2 h-2 rounded-full bg-cyan-500 dark:bg-cyan-400 animate-pulse" />
-            <span className="text-xs font-medium text-cyan-600 dark:text-cyan-400 uppercase tracking-wider">Skill Analytics</span>
+            <span className="text-xs font-bold text-cyan-700 dark:text-cyan-400 uppercase tracking-wider">Skill Analytics</span>
           </motion.div>
-          <h3 className="text-xl sm:text-2xl font-bold text-foreground dark:text-white mb-1">Performance Dashboard</h3>
-          <p className="text-sm text-muted-foreground dark:text-white/40">Technical proficiency · Competitive analysis</p>
+          <h3 className="text-xl sm:text-2xl font-black text-slate-800 dark:text-white mb-1">Performance Dashboard</h3>
+          <p className="text-sm font-medium text-slate-600 dark:text-white/40">Technical proficiency · Competitive analysis</p>
         </div>
 
         {/* ── Score + Radar Section ── */}
@@ -384,7 +386,7 @@ export const MobileSkillsDashboard = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="w-full sm:flex-1 flex justify-center rounded-2xl border border-white/60 dark:border-white/10 p-4 sm:p-6 bg-white/50 dark:bg-slate-900/60 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none"
+            className="w-full sm:flex-1 flex justify-center rounded-2xl border border-white/80 dark:border-white/10 p-4 sm:p-6 bg-white/80 dark:bg-slate-900/60 backdrop-blur-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:shadow-none"
           >
             <RadarChart />
           </motion.div>
@@ -398,12 +400,12 @@ export const MobileSkillsDashboard = () => {
           >
             <OverallScoreRing />
             <div className="flex flex-col gap-2">
-              <div className="flex items-center gap-2 text-[11px] text-muted-foreground dark:text-white/40">
-                <span className="w-3 h-[2px] rounded-full bg-cyan-400/80" />
+              <div className="flex items-center gap-2 text-[11px] font-medium text-slate-600 dark:text-white/40">
+                <span className="w-3 h-[2px] rounded-full bg-cyan-500 dark:bg-cyan-400/80" />
                 Your Level
               </div>
-              <div className="flex items-center gap-2 text-[11px] text-muted-foreground dark:text-white/40">
-                <span className="w-3 h-[2px] rounded-full bg-yellow-400/50 border-dashed" style={{ borderTop: '1px dashed rgba(234,179,8,0.5)' }} />
+              <div className="flex items-center gap-2 text-[11px] font-medium text-slate-600 dark:text-white/40">
+                <span className="w-3 h-[2px] rounded-full bg-yellow-500/80 dark:bg-yellow-400/50 border-dashed" style={{ borderTop: '1px dashed rgba(234,179,8,0.5)' }} />
                 Industry Avg
               </div>
             </div>
