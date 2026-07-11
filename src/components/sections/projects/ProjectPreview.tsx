@@ -52,6 +52,14 @@ export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ image, images, t
     >
       {displayImages.length > 0 ? (
         <>
+          {/* Invisible placeholder to perfectly match the image's natural aspect ratio without arbitrary cropping */}
+          <img 
+            src={displayImages[0]} 
+            alt="aspect-ratio-placeholder" 
+            className="w-full h-auto opacity-0 pointer-events-none block" 
+            aria-hidden="true" 
+          />
+          
           <AnimatePresence mode="popLayout">
             <motion.img 
               key={currentIndex}
@@ -61,7 +69,7 @@ export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ image, images, t
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 1, ease: "easeInOut" }}
-              className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-110"
+              className="absolute inset-0 w-full h-full object-contain transition-transform duration-700 ease-out group-hover:scale-105"
               loading="lazy"
               decoding="async"
             />

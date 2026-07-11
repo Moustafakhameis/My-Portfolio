@@ -42,7 +42,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
         <div className="relative overflow-hidden rounded-[2rem] border border-border/40 bg-card/60 md:bg-card/40 shadow-xl hover:shadow-2xl transition-all duration-500 h-full flex flex-col group/card">
           
           {/* Image */}
-          <div className="h-48 sm:h-56 w-full relative overflow-hidden border-b border-border/20">
+          <div className="w-full max-h-[16rem] sm:max-h-[20rem] lg:max-h-[24rem] relative overflow-hidden border-b border-border/20">
             <ProjectPreview image={project.image} images={project.images} title={project.title} category={project.category} />
           </div>
 

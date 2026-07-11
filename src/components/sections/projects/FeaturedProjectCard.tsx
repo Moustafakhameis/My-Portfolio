@@ -63,7 +63,7 @@ export const FeaturedProjectCard: React.FC<FeaturedProjectCardProps> = ({ projec
 
           <div className="flex flex-col h-full relative z-20">
             {/* Image Top */}
-            <div className="w-full h-72 sm:h-96 md:h-[30rem] lg:h-[36rem] shrink-0 border-b border-border/20 relative overflow-hidden bg-black/20">
+            <div className="w-full max-h-[24rem] sm:max-h-[30rem] lg:max-h-[40rem] shrink-0 border-b border-border/20 relative overflow-hidden bg-black/20">
               <ProjectPreview image={project.image} images={project.images} title={project.title} category={project.category} />
             </div>
 
