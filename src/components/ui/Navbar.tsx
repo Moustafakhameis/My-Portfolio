@@ -335,19 +335,14 @@ export const Navbar = () => {
                     {/* Centered Star */}
                     <motion.div
                       layoutId="nav-active-star"
-                      className="absolute -bottom-[8px] z-10"
+                      className="absolute -bottom-[8px] left-1/2 -translate-x-1/2 z-10"
                       style={{
-                        left: 0,
-                        right: 0,
-                        margin: '0 auto',
                         width: 12,
                         height: 12,
                         background: '#fff',
                         clipPath: 'polygon(50% 0%, 61% 35%, 100% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 0% 35%, 39% 35%)',
                         filter: 'drop-shadow(0 0 4px rgba(168,85,247,1)) drop-shadow(0 0 10px rgba(168,85,247,0.7))',
                       }}
-                      animate={{ rotate: [0, 360] }}
-                      transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
                     />
                   </>
                 )}
