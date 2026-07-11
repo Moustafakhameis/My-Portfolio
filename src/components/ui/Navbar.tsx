@@ -346,8 +346,8 @@ export const Navbar = () => {
                       animate={{
                         background: theme === 'light' ? '#9333ea' : '#fff',
                         filter: theme === 'light' 
-                          ? 'drop-shadow(0 0 2px rgba(147,51,234,0.4)) drop-shadow(0 0 0px rgba(147,51,234,0))' 
-                          : 'drop-shadow(0 0 4px rgba(168,85,247,1)) drop-shadow(0 0 10px rgba(168,85,247,0.7))',
+                          ? 'drop-shadow(0px 0px 2px #9333ea66) drop-shadow(0px 0px 0px #9333ea00)' 
+                          : 'drop-shadow(0px 0px 4px #a855f7ff) drop-shadow(0px 0px 10px #a855f7b3)',
                       }}
                       transition={{ duration: 0.5 }}
                     />
@@ -520,8 +520,8 @@ export const Navbar = () => {
                           animate={{
                             background: theme === 'light' ? '#9333ea' : '#fff',
                             filter: theme === 'light'
-                              ? 'drop-shadow(0 0 2px rgba(147,51,234,0.4)) drop-shadow(0 0 0px rgba(147,51,234,0))'
-                              : 'drop-shadow(0 0 5px rgba(168,85,247,1)) drop-shadow(0 0 12px rgba(168,85,247,0.8))',
+                              ? 'drop-shadow(0px 0px 2px #9333ea66) drop-shadow(0px 0px 0px #9333ea00)'
+                              : 'drop-shadow(0px 0px 5px #a855f7ff) drop-shadow(0px 0px 12px #a855f7cc)',
                           }}
                           transition={{ duration: 0.5 }}
                         />
