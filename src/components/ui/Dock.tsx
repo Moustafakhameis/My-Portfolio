@@ -78,16 +78,27 @@ function DockItem({ children, className = '', onClick, mouseX, spring, distance,
         }
         return child;
       })}
-      {/* Active indicator dot */}
+      {/* Active indicator — glowing arc + dot */}
       <AnimatePresence>
         {isActive && (
-          <motion.div
-            className="dock-active-dot"
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0 }}
-            transition={{ duration: 0.2, ease: 'easeOut' }}
-          />
+          <>
+            {/* Glow bar */}
+            <motion.div
+              className="dock-active-bar"
+              initial={{ opacity: 0, scaleX: 0 }}
+              animate={{ opacity: 1, scaleX: 1 }}
+              exit={{ opacity: 0, scaleX: 0 }}
+              transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+            />
+            {/* Center dot */}
+            <motion.div
+              className="dock-active-dot"
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0 }}
+              transition={{ duration: 0.25, ease: 'easeOut', delay: 0.1 }}
+            />
+          </>
         )}
       </AnimatePresence>
     </motion.div>
