@@ -97,13 +97,13 @@ export const Footer = () => {
             <motion.div
               initial={false}
               animate={{
-                maxHeight: showCard ? 580 : 0,
+                maxHeight: showCard ? 700 : 0,
                 opacity: showCard ? 1 : 0,
                 marginTop: showCard ? 16 : 0,
                 marginBottom: showCard ? 16 : 0,
               }}
               transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-              style={{ overflow: 'hidden', paddingTop: showCard ? 8 : 0 }}
+              style={{ overflow: 'hidden', paddingTop: showCard ? 40 : 0, paddingBottom: showCard ? 60 : 0 }}
             >
               <motion.div
                 initial={false}
