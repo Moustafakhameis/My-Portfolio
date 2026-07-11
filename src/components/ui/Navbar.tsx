@@ -55,32 +55,21 @@ export const Navbar = () => {
     const isAtBottom = typeof window !== 'undefined' && 
       (window.innerHeight + latest >= document.documentElement.scrollHeight - 100);
 
-    // Handle Dock visibility (hide at top and at very bottom)
-    if (latest > 150 && !isAtBottom) {
-      setShowDock(true);
-    } else {
+    const isScrollingDown = latest > previous;
+    const isScrollingUp = latest < previous;
+
+    if (latest < 50) {
+      setIsHidden(false);
       setShowDock(false);
+      return;
     }
 
-    // Handle Navbar visibility
-    const isMobileOrTablet = typeof window !== 'undefined' && window.innerWidth < 1024;
-
-    if (isMobileOrTablet) {
-      // Mobile/Tablet: Show on scroll up, hide on scroll down
-      if (latest < 150) {
-        setIsHidden(false);
-      } else if (latest < previous) {
-        setIsHidden(false);
-      } else {
-        setIsHidden(true);
-      }
-    } else {
-      // Desktop: Keep original behavior (hide when scrolled past 150)
-      if (latest > 150) {
-        setIsHidden(true);
-      } else {
-        setIsHidden(false);
-      }
+    if (isScrollingDown) {
+      setIsHidden(true); // Hide Navbar
+      setShowDock(!isAtBottom); // Show Dock
+    } else if (isScrollingUp) {
+      setIsHidden(false); // Show Navbar
+      setShowDock(false); // Hide Dock
     }
   });
 
