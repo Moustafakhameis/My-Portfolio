@@ -95,7 +95,7 @@ const RadarChart = () => {
             key={`grid-${i}`}
             points={points}
             fill="none"
-            className="stroke-cyan-500/20 dark:stroke-cyan-400/10"
+            className="stroke-slate-300/60 dark:stroke-slate-600/30"
             strokeWidth={i === levels - 1 ? 1.5 : 0.5}
           />
         ))}
@@ -107,7 +107,7 @@ const RadarChart = () => {
             <line
               key={`axis-${i}`}
               x1={center} y1={center} x2={x} y2={y}
-              className="stroke-cyan-500/20 dark:stroke-cyan-400/10"
+              className="stroke-slate-300/60 dark:stroke-slate-600/30"
               strokeWidth={0.5}
             />
           );
@@ -383,7 +383,7 @@ export const MobileSkillsDashboard = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="w-full sm:flex-1 flex justify-center rounded-2xl border border-white/80 dark:border-white/10 p-4 sm:p-6 bg-white/80 dark:bg-slate-900/60 backdrop-blur-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:shadow-none"
+            className="w-full sm:flex-1 flex justify-center rounded-[32px] border border-white/60 dark:border-white/10 p-4 sm:p-6 bg-gradient-to-br from-white/70 to-white/30 dark:bg-slate-900/60 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.04)] dark:shadow-none"
           >
             <RadarChart />
           </motion.div>
@@ -396,14 +396,14 @@ export const MobileSkillsDashboard = () => {
             className="flex flex-row sm:flex-col items-center sm:items-center gap-6 sm:gap-5"
           >
             <OverallScoreRing />
-            <div className="flex flex-col gap-2">
-              <div className="flex items-center gap-2 text-[11px] font-medium text-slate-600 dark:text-white/40">
-                <span className="w-3 h-[2px] rounded-full bg-cyan-500 dark:bg-cyan-400/80" />
-                Your Level
+            <div className="flex flex-col gap-2.5">
+              <div className="flex items-center gap-2.5 px-3 py-1.5 rounded-lg bg-white/50 dark:bg-slate-800/50 border border-white/60 dark:border-white/5 shadow-sm">
+                <div className="w-2 h-2 rounded-full bg-cyan-500 shadow-[0_0_8px_rgba(6,182,212,0.6)]" />
+                <span className="text-[11px] font-bold text-slate-700 dark:text-white/60">Your Level</span>
               </div>
-              <div className="flex items-center gap-2 text-[11px] font-medium text-slate-600 dark:text-white/40">
-                <span className="w-3 h-[2px] rounded-full bg-yellow-500/80 dark:bg-yellow-400/50 border-dashed" style={{ borderTop: '1px dashed rgba(234,179,8,0.5)' }} />
-                Industry Avg
+              <div className="flex items-center gap-2.5 px-3 py-1.5 rounded-lg bg-white/50 dark:bg-slate-800/50 border border-white/60 dark:border-white/5 shadow-sm">
+                <div className="w-2 h-2 rounded-full border-[2px] border-yellow-500/80 dark:border-yellow-400/50" />
+                <span className="text-[11px] font-bold text-slate-700 dark:text-white/60">Industry Avg</span>
               </div>
             </div>
           </motion.div>
