@@ -427,7 +427,7 @@ export const Navbar = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, transition: { delay: 0.3 } }}
             transition={{ duration: 0.4, ease: "easeInOut" }}
-            className="fixed inset-0 bg-background flex flex-col justify-center items-center md:hidden z-40 overflow-hidden"
+            className="fixed inset-0 bg-background flex flex-col justify-center items-center md:hidden z-40 overflow-hidden pt-24"
           >
             {/* Background Decorative Blob */}
             <motion.div 
