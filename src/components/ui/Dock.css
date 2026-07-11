@@ -296,31 +296,36 @@
   pointer-events: none;
 }
 
-/* ─── Active Indicator Dot (centered on the bar) ─── */
+/* ─── Active Indicator Star (centered on the bar) ─── */
 .dock-active-dot {
   position: absolute;
-  bottom: -6px;
+  bottom: -7px;
   left: 0;
   right: 0;
   margin: 0 auto;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
+  width: 8px;
+  height: 8px;
   background: #fff;
+  clip-path: polygon(
+    50% 0%, 61% 35%, 100% 35%, 68% 57%,
+    79% 91%, 50% 70%, 21% 91%, 32% 57%,
+    0% 35%, 39% 35%
+  );
   box-shadow:
     0 0 6px rgba(168, 85, 247, 1),
     0 0 14px rgba(168, 85, 247, 0.8),
     0 0 28px rgba(168, 85, 247, 0.4);
-  animation: dot-pulse 2.5s ease-in-out infinite;
+  filter: drop-shadow(0 0 4px rgba(168, 85, 247, 1)) drop-shadow(0 0 10px rgba(168, 85, 247, 0.6));
+  animation: star-pulse 2.5s ease-in-out infinite;
   pointer-events: none;
 }
 
-@keyframes dot-pulse {
+@keyframes star-pulse {
   0%, 100% {
-    box-shadow: 0 0 6px rgba(168, 85, 247, 0.8), 0 0 14px rgba(168, 85, 247, 0.5), 0 0 28px rgba(168, 85, 247, 0.2);
+    filter: drop-shadow(0 0 4px rgba(168, 85, 247, 0.8)) drop-shadow(0 0 10px rgba(168, 85, 247, 0.4));
   }
   50% {
-    box-shadow: 0 0 8px rgba(168, 85, 247, 1), 0 0 20px rgba(168, 85, 247, 0.7), 0 0 40px rgba(168, 85, 247, 0.35);
+    filter: drop-shadow(0 0 6px rgba(168, 85, 247, 1)) drop-shadow(0 0 16px rgba(168, 85, 247, 0.7)) drop-shadow(0 0 28px rgba(168, 85, 247, 0.3));
   }
 }
 
@@ -461,10 +466,7 @@
 
 .light .dock-active-dot {
   background: rgb(168, 85, 247);
-  box-shadow:
-    0 0 6px rgba(168, 85, 247, 0.9),
-    0 0 14px rgba(168, 85, 247, 0.5),
-    0 0 28px rgba(168, 85, 247, 0.2);
+  filter: drop-shadow(0 0 4px rgba(168, 85, 247, 0.9)) drop-shadow(0 0 10px rgba(168, 85, 247, 0.5));
 }
 
 .light .dock-label {
