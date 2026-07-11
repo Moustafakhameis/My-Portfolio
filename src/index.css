@@ -64,14 +64,6 @@
   #root {
     overflow-x: clip;
   }
-    
-  /* Ultra-smooth, highly performant universal theme transition */
-  /* We strictly limit properties to colors to avoid breaking transforms/framer-motion */
-  *, *::before, *::after {
-    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
-    transition-duration: 300ms;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  }
 }
 
 /* Custom Scrollbar */

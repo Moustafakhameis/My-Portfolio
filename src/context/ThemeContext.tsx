@@ -29,23 +29,43 @@ export function ThemeProvider({
   const [theme, setTheme] = useState<Theme>(
     () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
   );
+  
+  const isInitialMount = React.useRef(true);
 
   useEffect(() => {
     const root = window.document.documentElement;
 
-    root.classList.remove('light', 'dark');
+    const applyTheme = () => {
+      root.classList.remove('light', 'dark');
 
-    if (theme === 'system') {
-      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
-        .matches
-        ? 'dark'
-        : 'light';
+      if (theme === 'system') {
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
+          .matches
+          ? 'dark'
+          : 'light';
 
-      root.classList.add(systemTheme);
+        root.classList.add(systemTheme);
+      } else {
+        root.classList.add(theme);
+      }
+    };
+
+    // Skip the transition effect on the very first page load
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      applyTheme();
       return;
     }
 
-    root.classList.add(theme);
+    // Use the native View Transitions API for buttery smooth, zero-lag GPU crossfading
+    // This completely bypasses the need for laggy CSS transition properties on DOM elements.
+    if (!document.startViewTransition) {
+      applyTheme();
+    } else {
+      document.startViewTransition(() => {
+        applyTheme();
+      });
+    }
   }, [theme]);
 
   const value = {
