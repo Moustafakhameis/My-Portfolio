@@ -299,6 +299,25 @@ const ExtrudedSymbol = ({
   );
 };
 
+/* ─── Camera Rig for Responsive Offset ─── */
+const CameraRig = ({ isTabletCheck }: { isTabletCheck: boolean }) => {
+  const { size, camera } = useThree();
+  
+  useEffect(() => {
+    if (camera instanceof THREE.PerspectiveCamera) {
+      if (!isTabletCheck) {
+        // Shift the viewport left by 25%, causing the center (and our model) to move 25% right
+        camera.setViewOffset(size.width, size.height, -size.width * 0.25, 0, size.width, size.height);
+      } else {
+        camera.clearViewOffset();
+      }
+      camera.updateProjectionMatrix();
+    }
+  }, [size.width, size.height, isTabletCheck, camera]);
+  
+  return null;
+};
+
 /* ─── Scene Layout ─── */
 const SceneLayout = (props: any) => {
   const { viewport } = useThree();
@@ -364,7 +383,7 @@ export const SymbolShowcaseSection = () => {
   }, []);
 
   const isTablet = windowWidth < 1024;
-  const cameraOffset = isTablet ? 0 : -2.5;
+  const isMobile = windowWidth < 768;
 
   const scheme = COLOR_SCHEMES[colorIdx];
   const speed = SPEED_LEVELS[speedIdx];
@@ -397,7 +416,7 @@ export const SymbolShowcaseSection = () => {
             frameloop={isInView ? 'always' : 'demand'} 
             dpr={[1, 1.5]} 
             performance={{ min: 0.5 }} 
-            camera={{ position: [cameraOffset, 0, 10], fov: 45 }}
+            camera={{ position: [0, 0, 10], fov: 45 }}
             onCreated={() => setIsCanvasLoaded(true)}
             className={isCanvasLoaded ? 'opacity-100' : 'opacity-0'}
             style={{ transition: 'opacity 0.5s ease-in-out', zIndex: 1 }}
@@ -411,6 +430,7 @@ export const SymbolShowcaseSection = () => {
               <pointLight position={[0, 0, 5]} intensity={1.5 * glowIntensity} color={scheme.front} />
               <pointLight position={[0, -5, 3]} intensity={1 * glowIntensity} color={scheme.ring} />
               
+              <CameraRig isTabletCheck={isTablet} />
               <SceneLayout 
                 targetRotation={targetRotation} isDragging={isDragging} setIsDragging={setIsDragging}
                 controlsRef={controlsRef} isMobileCheck={isMobile} isTabletCheck={isTablet} colorScheme={scheme}
@@ -421,7 +441,7 @@ export const SymbolShowcaseSection = () => {
               <Sparkles count={isMobile ? 20 : 80} scale={20} size={8} speed={0.4} opacity={0.6} color={scheme.spark} />
               
               <Environment preset="city" />
-              <OrbitControls target={[cameraOffset, 0, 0]} ref={controlsRef} makeDefault enableZoom={false} enablePan={false} enableRotate maxDistance={20} minDistance={3} enableDamping dampingFactor={0.05} />
+              <OrbitControls target={[0, 0, 0]} ref={controlsRef} makeDefault enableZoom={false} enablePan={false} enableRotate maxDistance={20} minDistance={3} enableDamping dampingFactor={0.05} />
             </Suspense>
           </Canvas>
         )}
