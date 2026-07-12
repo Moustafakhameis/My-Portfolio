@@ -111,7 +111,7 @@ export const Navbar = () => {
         variants={navContainer}
         initial="visible"
         animate={isHidden ? 'hidden' : 'visible'}
-        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 md:px-12 md:py-6 bg-background/60 backdrop-blur-xl border-b border-white/5 shadow-[0_4px_30px_rgba(0,0,0,0.1)]"
+        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 md:px-12 md:py-6 bg-background/70 backdrop-blur-md border-b border-white/5 shadow-[0_4px_30px_rgba(0,0,0,0.1)] transform-gpu will-change-transform"
       >
       {/* Logo */}
       <motion.a 

@@ -86,18 +86,18 @@
 
 /* Utilities for 3D and Animations */
 .glass {
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   border: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
   /* GPU promote glass elements to avoid repainting */
-  will-change: backdrop-filter;
+  will-change: transform;
   transform: translateZ(0);
 }
 
 .dark .glass {
-  background: rgba(20, 20, 20, 0.4);
+  background: rgba(20, 20, 20, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
 }

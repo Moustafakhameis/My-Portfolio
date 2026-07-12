@@ -393,7 +393,7 @@ export const SkillsSection = () => {
             whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(168, 85, 247, 0.4)" }}
             whileTap={{ scale: 0.95 }}
             onClick={handleReset}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-card/40 backdrop-blur-md border border-border/50 hover:border-primary/50 hover:bg-primary/10 text-foreground font-semibold rounded-full transition-all duration-300 relative overflow-hidden group"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-card/95 border border-border/50 hover:border-primary/50 hover:bg-primary/10 text-foreground font-semibold rounded-full transition-all duration-300 relative overflow-hidden group transform-gpu"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
             <RotateCcw size={18} className="group-hover:-rotate-180 transition-transform duration-500 ease-out text-primary" />
@@ -404,7 +404,7 @@ export const SkillsSection = () => {
             whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(168, 85, 247, 0.4)" }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setIsPaused(!isPaused)}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-card/40 backdrop-blur-md border border-border/50 hover:border-primary/50 hover:bg-primary/10 text-foreground font-semibold rounded-full transition-all duration-300 relative overflow-hidden group"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-card/95 border border-border/50 hover:border-primary/50 hover:bg-primary/10 text-foreground font-semibold rounded-full transition-all duration-300 relative overflow-hidden group transform-gpu"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
             <motion.div animate={{ scale: isPaused ? [1, 1.2, 1] : 1 }} transition={{ duration: 1.5, repeat: isPaused ? Infinity : 0, ease: "easeInOut" }}>
