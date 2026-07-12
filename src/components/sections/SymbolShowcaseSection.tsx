@@ -303,11 +303,11 @@ const ExtrudedSymbol = ({
 const SceneLayout = (props: any) => {
   const { viewport } = useThree();
   const { language } = useLanguage();
-  const isRtl = language === 'ar';
-  const xPos = props.isMobileCheck ? 0 : (isRtl ? -viewport.width / 4 : viewport.width / 4);
+  
+  const xPos = 0; // Handled perfectly by the camera offset now
   const yPos = props.isMobileCheck ? -2.2 : 0;
-  // Reduced scale to make the atom smaller and fit better on screen
-  const scale = props.isMobileCheck ? 0.5 : 0.75;
+  // Adjusted scale for better responsive fit
+  const scale = props.isMobileCheck ? 0.45 : (props.isTabletCheck ? 0.55 : 0.65);
   
   return (
     <group position={[xPos, yPos, 0]} scale={scale}>
@@ -413,7 +413,7 @@ export const SymbolShowcaseSection = () => {
               
               <SceneLayout 
                 targetRotation={targetRotation} isDragging={isDragging} setIsDragging={setIsDragging}
-                controlsRef={controlsRef} isMobileCheck={isMobile} colorScheme={scheme}
+                controlsRef={controlsRef} isMobileCheck={isMobile} isTabletCheck={isTablet} colorScheme={scheme}
                 symbolSpin={symbolSpin} atomSpin={atomSpin} speedValue={speed.value} glowIntensity={glowIntensity} scattered={scattered}
               />
               
