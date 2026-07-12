@@ -365,7 +365,7 @@ export const SymbolShowcaseSection = () => {
   const [glowIntensity, setGlowIntensity] = useState(1.0);
   const [scattered, setScattered] = useState(false);
   
-  const isMobile = useMemo(() => typeof window !== 'undefined' && window.innerWidth < 768, []);
+
   const containerRef = useRef<HTMLElement>(null);
   const isInView = useInView(containerRef, { margin: "200px 0px 200px 0px" });
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
