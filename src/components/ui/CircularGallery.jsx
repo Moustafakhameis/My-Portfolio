@@ -626,8 +626,15 @@ class App {
     window.removeEventListener('mouseup', this.boundOnTouchUp);
     window.removeEventListener('touchmove', this.boundOnTouchMove);
     window.removeEventListener('touchend', this.boundOnTouchUp);
-    if (this.renderer && this.renderer.gl && this.renderer.gl.canvas.parentNode) {
-      this.renderer.gl.canvas.parentNode.removeChild(this.renderer.gl.canvas);
+    if (this.renderer && this.renderer.gl) {
+      const gl = this.renderer.gl;
+      const loseContextExt = gl.getExtension('WEBGL_lose_context');
+      if (loseContextExt) {
+        loseContextExt.loseContext();
+      }
+      if (gl.canvas && gl.canvas.parentNode) {
+        gl.canvas.parentNode.removeChild(gl.canvas);
+      }
     }
 
     if (this.container) {
