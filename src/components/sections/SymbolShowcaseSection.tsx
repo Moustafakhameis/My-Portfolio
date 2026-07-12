@@ -349,12 +349,22 @@ export const SymbolShowcaseSection = () => {
   const isMobile = useMemo(() => typeof window !== 'undefined' && window.innerWidth < 768, []);
   const containerRef = useRef<HTMLElement>(null);
   const isInView = useInView(containerRef, { margin: "200px 0px 200px 0px" });
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
 
   useEffect(() => {
     if (!isInView) {
       setIsCanvasLoaded(false);
     }
   }, [isInView]);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const isTablet = windowWidth < 1024;
+  const cameraOffset = isTablet ? 0 : -2.5;
 
   const scheme = COLOR_SCHEMES[colorIdx];
   const speed = SPEED_LEVELS[speedIdx];
@@ -368,7 +378,7 @@ export const SymbolShowcaseSection = () => {
   };
 
   return (
-    <section ref={containerRef} className="relative min-h-[700px] w-full bg-background border-t border-border/10 flex flex-col md:flex-row items-center justify-between px-6 md:px-24 pt-20 pb-32 md:pb-24 overflow-hidden">
+    <section ref={containerRef} className="relative min-h-[700px] w-full bg-background border-t border-border/10 flex flex-col lg:flex-row items-center justify-between px-6 md:px-24 pt-20 pb-32 md:pb-24 overflow-hidden">
       
       {/* 3D Canvas */}
       <div dir="ltr" className={`absolute inset-0 z-0 pointer-events-auto ${isDragging ? 'cursor-grabbing' : 'cursor-move'}`}>
@@ -387,7 +397,7 @@ export const SymbolShowcaseSection = () => {
             frameloop={isInView ? 'always' : 'demand'} 
             dpr={[1, 1.5]} 
             performance={{ min: 0.5 }} 
-            camera={{ position: [isMobile ? 0 : -2.5, 0, 10], fov: 45 }}
+            camera={{ position: [cameraOffset, 0, 10], fov: 45 }}
             onCreated={() => setIsCanvasLoaded(true)}
             className={isCanvasLoaded ? 'opacity-100' : 'opacity-0'}
             style={{ transition: 'opacity 0.5s ease-in-out', zIndex: 1 }}
@@ -411,14 +421,14 @@ export const SymbolShowcaseSection = () => {
               <Sparkles count={isMobile ? 20 : 80} scale={20} size={8} speed={0.4} opacity={0.6} color={scheme.spark} />
               
               <Environment preset="city" />
-              <OrbitControls target={[isMobile ? 0 : -2.5, 0, 0]} ref={controlsRef} makeDefault enableZoom={false} enablePan={false} enableRotate maxDistance={20} minDistance={3} enableDamping dampingFactor={0.05} />
+              <OrbitControls target={[cameraOffset, 0, 0]} ref={controlsRef} makeDefault enableZoom={false} enablePan={false} enableRotate maxDistance={20} minDistance={3} enableDamping dampingFactor={0.05} />
             </Suspense>
           </Canvas>
         )}
       </div>
 
       {/* Text Overlay */}
-      <div className="relative w-full md:w-1/2 z-10 flex flex-col justify-start pt-4 md:pt-0 md:justify-center text-center md:text-start pointer-events-none mt-10 md:mt-0">
+      <div className="relative w-full lg:w-1/2 z-10 flex flex-col justify-start pt-4 lg:pt-0 lg:justify-center text-center lg:text-start pointer-events-none mt-10 lg:mt-0">
         <h2 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-foreground drop-shadow-sm">
           {t('symbolShowcase', 'title1')} <br className="hidden md:block" />
           <span className="drop-shadow-xl" style={{ textShadow: `0 0 50px ${scheme.glow}`, backgroundImage: `linear-gradient(135deg, ${scheme.mid}, ${scheme.light})`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
@@ -428,7 +438,7 @@ export const SymbolShowcaseSection = () => {
         <p className="mt-4 md:mt-6 text-lg sm:text-xl md:text-2xl text-muted-foreground font-medium tracking-wide">{t('symbolShowcase', 'description')}</p>
 
         {/* Color Palette */}
-        <div className="mt-8 flex flex-col md:flex-row items-center gap-4 pointer-events-auto">
+        <div className="mt-8 flex flex-col lg:flex-row items-center gap-4 pointer-events-auto">
           <div className="flex items-center gap-2 p-2 rounded-full bg-black/5 dark:bg-white/5 border border-border/40 backdrop-blur-md shadow-lg">
             {COLOR_SCHEMES.map((s, i) => (
               <button key={s.name} onClick={() => setColorIdx(i)}
@@ -445,14 +455,14 @@ export const SymbolShowcaseSection = () => {
               </button>
             ))}
           </div>
-          <div className="flex flex-col items-center md:items-start justify-center">
+          <div className="flex flex-col items-center lg:items-start justify-center">
             <span className="text-[10px] uppercase tracking-widest text-muted-foreground/60 font-semibold mb-0.5">Active Element</span>
             <span className="text-sm font-bold tracking-[0.15em] uppercase" style={{ color: scheme.light, textShadow: `0 0 15px ${scheme.glow}` }}>{scheme.name}</span>
           </div>
         </div>
         
         {/* Control Bar */}
-        <div className="mt-5 flex items-center gap-2 flex-wrap justify-center md:justify-start pointer-events-auto">
+        <div className="mt-5 flex items-center gap-2 flex-wrap justify-center lg:justify-start pointer-events-auto">
           <button onClick={() => setSymbolSpin(p => !p)} className={`ss-ctrl-btn ss-ctrl-wide ${symbolSpin ? 'ss-ctrl-active' : ''}`} title="Toggle Logo Spin">
             {symbolSpin ? <Pause size={14} /> : <Play size={14} />} <span className="flex items-center gap-1">Logo 𖤍</span>
           </button>
@@ -474,7 +484,7 @@ export const SymbolShowcaseSection = () => {
         </div>
 
         {/* Explore Work */}
-        <div className="mt-8 md:mt-10 flex justify-center md:justify-start pointer-events-auto px-6 sm:px-0">
+        <div className="mt-8 lg:mt-10 flex justify-center lg:justify-start pointer-events-auto px-6 sm:px-0">
           <motion.button 
             onClick={() => document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' })}
             whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }}
