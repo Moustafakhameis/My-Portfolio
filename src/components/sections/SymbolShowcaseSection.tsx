@@ -165,12 +165,14 @@ const ExtrudedSymbol = ({
   const groupRef = useRef<THREE.Group>(null);
   const atomGroupRef = useRef<THREE.Group>(null);
   const [hovered, setHovered] = useState(false);
+  const { invalidate } = useThree();
 
   useEffect(() => {
     const handlePointerMove = (e: PointerEvent) => {
       if (isDragging) {
         targetRotation.current.y += e.movementX * 0.01;
         targetRotation.current.x += e.movementY * 0.01;
+        invalidate(); // Force frame render for smooth drag under demand mode
       }
     };
     const handlePointerUp = () => {
@@ -192,19 +194,71 @@ const ExtrudedSymbol = ({
 
   useFrame((state, delta) => {
     if (groupRef.current) {
-      if (!isDragging && symbolSpin) {
-        // Full 360-degree continuous spin restored
-        targetRotation.current.y += speedValue * delta;
+      if (!isDragging) {
+        if (symbolSpin) {
+          // Full 360-degree continuous spin restored
+          targetRotation.current.y += speedValue * delta;
+        } else if (!atomSpin) {
+          // Aesthetic pause pose: Slightly tilted up, rotated slightly left
+          const AESTHETIC_X = 0.15;
+          const AESTHETIC_Y = -0.3;
+          
+          targetRotation.current.x = THREE.MathUtils.lerp(targetRotation.current.x, AESTHETIC_X, 2 * delta);
+          
+          const currentY = targetRotation.current.y;
+          let diffY = AESTHETIC_Y - (currentY % (Math.PI * 2));
+          if (diffY > Math.PI) diffY -= Math.PI * 2;
+          if (diffY < -Math.PI) diffY += Math.PI * 2;
+          targetRotation.current.y += diffY * 2 * delta;
+        }
       }
 
-      groupRef.current.rotation.x = THREE.MathUtils.lerp(groupRef.current.rotation.x, targetRotation.current.x, 0.1);
-      groupRef.current.rotation.y = THREE.MathUtils.lerp(groupRef.current.rotation.y, targetRotation.current.y, 0.1);
+      const diffX = targetRotation.current.x - groupRef.current.rotation.x;
+      const diffY = targetRotation.current.y - groupRef.current.rotation.y;
+      const dist = diffX * diffX + diffY * diffY;
+      
+      // Only lerp and force frames if distance is significant to prevent micro-drifts and stutter
+      if (dist > 0.00001 || isDragging || symbolSpin) {
+        groupRef.current.rotation.x += diffX * (isDragging ? 0.3 : 0.1);
+        groupRef.current.rotation.y += diffY * (isDragging ? 0.3 : 0.1);
+        invalidate();
+      } else {
+        // Snap exactly to target when close enough to completely decouple from React state changes
+        groupRef.current.rotation.x = targetRotation.current.x;
+        groupRef.current.rotation.y = targetRotation.current.y;
+      }
     }
 
-    if (atomGroupRef.current && atomSpin) {
-      // The atom rings also spin continuously for dynamic energy
-      atomGroupRef.current.rotation.y += speedValue * delta * 1.5;
-      atomGroupRef.current.rotation.z += speedValue * delta * 0.2;
+    if (atomGroupRef.current) {
+      if (atomSpin) {
+        // The atom rings also spin continuously for dynamic energy
+        atomGroupRef.current.rotation.y += speedValue * delta * 1.5;
+        atomGroupRef.current.rotation.z += speedValue * delta * 0.2;
+        invalidate();
+      } else if (!symbolSpin) {
+        // Return atom rings to aesthetic pose
+        const AESTHETIC_ATOM_Y = 0;
+        const AESTHETIC_ATOM_Z = 0;
+        const currentY = atomGroupRef.current.rotation.y;
+        const currentZ = atomGroupRef.current.rotation.z;
+        
+        let dY = AESTHETIC_ATOM_Y - (currentY % (Math.PI * 2));
+        if (dY > Math.PI) dY -= Math.PI * 2;
+        if (dY < -Math.PI) dY += Math.PI * 2;
+        
+        let dZ = AESTHETIC_ATOM_Z - (currentZ % (Math.PI * 2));
+        if (dZ > Math.PI) dZ -= Math.PI * 2;
+        if (dZ < -Math.PI) dZ += Math.PI * 2;
+        
+        if (Math.abs(dY) > 0.001 || Math.abs(dZ) > 0.001) {
+          atomGroupRef.current.rotation.y += dY * 2 * delta;
+          atomGroupRef.current.rotation.z += dZ * 2 * delta;
+          invalidate();
+        } else {
+          atomGroupRef.current.rotation.y = Math.round(currentY / (Math.PI*2)) * (Math.PI*2) + AESTHETIC_ATOM_Y;
+          atomGroupRef.current.rotation.z = Math.round(currentZ / (Math.PI*2)) * (Math.PI*2) + AESTHETIC_ATOM_Z;
+        }
+      }
     }
   });
 
