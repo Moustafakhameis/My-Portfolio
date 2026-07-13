@@ -191,7 +191,10 @@ const ExtrudedSymbol = ({
     };
   }, [isDragging, controlsRef, targetRotation, setIsDragging]);
 
-  useFrame((state, delta) => {
+  useFrame((state, rawDelta) => {
+    // Clamp delta to a maximum of 0.1s (10fps equivalent) to prevent large jumps when returning to tab or scrolling back into view
+    const delta = Math.min(rawDelta, 0.1);
+    
     if (groupRef.current) {
       if (!isDragging) {
         if (symbolSpin) {
