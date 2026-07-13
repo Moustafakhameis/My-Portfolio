@@ -396,6 +396,8 @@ export const SymbolShowcaseSection = () => {
     setTimeout(() => setIsResetting(false), 800);
   };
 
+  const needsAnimation = symbolSpin || atomSpin;
+
   return (
     <section ref={containerRef} className="relative min-h-[700px] w-full bg-background border-t border-border/10 flex flex-col lg:flex-row items-center justify-between px-6 md:px-24 pt-20 pb-32 md:pb-24 overflow-hidden">
       
@@ -411,9 +413,8 @@ export const SymbolShowcaseSection = () => {
           </div>
         )}
 
-        {isInView && (
           <Canvas 
-            frameloop={isInView ? 'always' : 'demand'} 
+            frameloop={!isCanvasLoaded || (isInView && needsAnimation) ? 'always' : 'demand'} 
             dpr={[1, 1.5]} 
             performance={{ min: 0.5 }} 
             camera={{ position: [0, 0, 10], fov: 45 }}
@@ -444,7 +445,6 @@ export const SymbolShowcaseSection = () => {
               <OrbitControls target={[0, 0, 0]} ref={controlsRef} makeDefault enableZoom={false} enablePan={false} enableRotate maxDistance={20} minDistance={3} enableDamping dampingFactor={0.05} />
             </Suspense>
           </Canvas>
-        )}
       </div>
 
       {/* Text Overlay */}
