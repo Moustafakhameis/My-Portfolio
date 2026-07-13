@@ -192,8 +192,9 @@ const ExtrudedSymbol = ({
   }, [isDragging, controlsRef, targetRotation, setIsDragging]);
 
   useFrame((state, rawDelta) => {
-    // Clamp delta to a maximum of 0.1s (10fps equivalent) to prevent large jumps when returning to tab or scrolling back into view
-    const delta = Math.min(rawDelta, 0.1);
+    // If the delta is suspiciously large (> 0.1s), it means the tab was just focused or the canvas just scrolled back into view.
+    // Instead of clamping it to 0.1s (which still causes a tiny 'jump' movement), we set it to 0 so it resumes perfectly smoothly.
+    const delta = rawDelta > 0.1 ? 0 : rawDelta;
     
     if (groupRef.current) {
       if (!isDragging) {
@@ -424,11 +425,8 @@ export const SymbolShowcaseSection = () => {
   const isInView = useInView(containerRef, { margin: "200px 0px 200px 0px" });
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
 
-  useEffect(() => {
-    if (!isInView) {
-      setIsSceneReady(false);
-    }
-  }, [isInView]);
+  // Removed the unnecessary isSceneReady reset on scroll out of view.
+  // The assets only need to load once via Suspense.
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
