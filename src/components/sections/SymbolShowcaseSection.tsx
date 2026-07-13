@@ -51,21 +51,28 @@ const AtomicRing = ({ radius, tube, color, rotation, intensity = 1 }: {
 };
 
 /* ─── Glowing Electron (Orbiting perfectly along the atomic rings) ─── */
-const AtomicElectron = ({ radius, speed, color, rotation, phase = 0, intensity = 1 }: { 
-  radius: number; speed: number; color: string; rotation: [number, number, number]; phase?: number; intensity?: number;
+const AtomicElectron = ({ radius, speed, color, rotation, phase = 0, intensity = 1, atomSpin }: { 
+  radius: number; speed: number; color: string; rotation: [number, number, number]; phase?: number; intensity?: number; atomSpin: boolean;
 }) => {
   const meshRef = useRef<THREE.Mesh>(null!);
   const trailGroupRef = useRef<THREE.Group>(null!);
+  const angle = useRef(phase);
+  const pulseTime = useRef(0);
   
-  useFrame((state) => {
+  useFrame((state, delta) => {
     if (meshRef.current && trailGroupRef.current) {
-      const t = state.clock.elapsedTime * speed + phase;
+      // Only increment time variables if the animation is actually spinning
+      if (atomSpin) {
+        angle.current += speed * delta;
+        pulseTime.current += delta;
+      }
+      
       // Orbit in the XY plane matching the TorusGeometry
-      meshRef.current.position.x = Math.cos(t) * radius;
-      meshRef.current.position.y = Math.sin(t) * radius;
+      meshRef.current.position.x = Math.cos(angle.current) * radius;
+      meshRef.current.position.y = Math.sin(angle.current) * radius;
       meshRef.current.position.z = 0;
       
-      const pulse = 1 + Math.sin(state.clock.elapsedTime * 6) * 0.25;
+      const pulse = 1 + Math.sin(pulseTime.current * 6) * 0.25;
       meshRef.current.scale.setScalar(pulse);
     }
   });
@@ -93,18 +100,26 @@ const AtomicElectron = ({ radius, speed, color, rotation, phase = 0, intensity =
 };
 
 /* ─── Orbiting Mini 𖤍 ─── */
-const OrbitingMiniSymbol = ({ radius, speed, color, tilt, phase = 0, size = 0.4 }: {
-  radius: number; speed: number; color: string; tilt: [number, number, number]; phase?: number; size?: number
+const OrbitingMiniSymbol = ({ radius, speed, color, tilt, phase = 0, size = 0.4, atomSpin }: {
+  radius: number; speed: number; color: string; tilt: [number, number, number]; phase?: number; size?: number; atomSpin: boolean;
 }) => {
   const ref = useRef<THREE.Group>(null);
-  useFrame((state) => {
+  const angle = useRef(phase);
+  const rotZ = useRef(0);
+  const rotY = useRef(0);
+
+  useFrame((state, delta) => {
     if (ref.current) {
-      const t = state.clock.elapsedTime * speed + phase;
-      ref.current.position.x = Math.cos(t) * radius;
-      ref.current.position.y = Math.sin(t) * radius;
-      ref.current.position.z = Math.sin(t * 0.5) * (radius * 0.4);
-      ref.current.rotation.z = state.clock.elapsedTime * 2;
-      ref.current.rotation.y = state.clock.elapsedTime * 1.2;
+      if (atomSpin) {
+        angle.current += speed * delta;
+        rotZ.current += 2 * delta;
+        rotY.current += 1.2 * delta;
+      }
+      ref.current.position.x = Math.cos(angle.current) * radius;
+      ref.current.position.y = Math.sin(angle.current) * radius;
+      ref.current.position.z = Math.sin(angle.current * 0.5) * (radius * 0.4);
+      ref.current.rotation.z = rotZ.current;
+      ref.current.rotation.y = rotY.current;
     }
   });
 
@@ -255,15 +270,15 @@ const ExtrudedSymbol = ({
         <group ref={atomGroupRef} rotation={[Math.PI / 4, 0, Math.PI / 6]}>
           {/* Ring 1 - Flat */}
           <AtomicRing radius={4.2} tube={0.05} color={colorScheme.ring} rotation={[0, 0, 0]} intensity={glowIntensity} />
-          <AtomicElectron radius={4.2} speed={1.2} color={colorScheme.ring} rotation={[0, 0, 0]} phase={0} intensity={glowIntensity} />
+          <AtomicElectron radius={4.2} speed={1.2} color={colorScheme.ring} rotation={[0, 0, 0]} phase={0} intensity={glowIntensity} atomSpin={atomSpin} />
 
           {/* Ring 2 - Rotated 60 degrees around Y */}
           <AtomicRing radius={4.2} tube={0.05} color={colorScheme.mid} rotation={[0, Math.PI / 3, 0]} intensity={glowIntensity} />
-          <AtomicElectron radius={4.2} speed={1.2} color={colorScheme.mid} rotation={[0, Math.PI / 3, 0]} phase={Math.PI / 2} intensity={glowIntensity} />
+          <AtomicElectron radius={4.2} speed={1.2} color={colorScheme.mid} rotation={[0, Math.PI / 3, 0]} phase={Math.PI / 2} intensity={glowIntensity} atomSpin={atomSpin} />
 
           {/* Ring 3 - Rotated 120 degrees around Y */}
           <AtomicRing radius={4.2} tube={0.05} color={colorScheme.light} rotation={[0, 2 * Math.PI / 3, 0]} intensity={glowIntensity} />
-          <AtomicElectron radius={4.2} speed={1.2} color={colorScheme.light} rotation={[0, 2 * Math.PI / 3, 0]} phase={Math.PI} intensity={glowIntensity} />
+          <AtomicElectron radius={4.2} speed={1.2} color={colorScheme.light} rotation={[0, 2 * Math.PI / 3, 0]} phase={Math.PI} intensity={glowIntensity} atomSpin={atomSpin} />
         </group>
 
         {/* ─── Inner Symbol (The "Nucleus") ─── */}
@@ -302,6 +317,7 @@ const ExtrudedSymbol = ({
             tilt={ms.tilt}
             phase={ms.phase}
             size={ms.size}
+            atomSpin={atomSpin}
           />
         ))}
       </group>
