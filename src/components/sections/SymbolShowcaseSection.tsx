@@ -164,7 +164,6 @@ const ExtrudedSymbol = ({
 }) => {
   const groupRef = useRef<THREE.Group>(null);
   const atomGroupRef = useRef<THREE.Group>(null);
-  const [hovered, setHovered] = useState(false);
   const { invalidate } = useThree();
 
   useEffect(() => {
@@ -178,7 +177,7 @@ const ExtrudedSymbol = ({
     const handlePointerUp = () => {
       if (isDragging) {
         setIsDragging(false);
-        document.body.style.cursor = hovered ? 'grab' : 'auto';
+        document.body.style.cursor = '';
         if (controlsRef.current) controlsRef.current.enabled = true;
       }
     };
@@ -288,37 +287,9 @@ const ExtrudedSymbol = ({
     <Float speed={2.5} rotationIntensity={0.2} floatIntensity={1.5}>
       <group 
         ref={groupRef}
-        onPointerOver={(e) => { e.stopPropagation(); setHovered(true); if (!isDragging) document.body.style.cursor = 'grab'; }}
-        onPointerOut={() => { setHovered(false); if (controlsRef.current) controlsRef.current.enabled = true; }}
         onPointerMissed={() => { if (controlsRef.current) controlsRef.current.enabled = false; }}
         onPointerDown={(e) => { e.stopPropagation(); setIsDragging(true); document.body.style.cursor = 'grabbing'; if (controlsRef.current) controlsRef.current.enabled = false; }}
       >
-        {/* Hover Label */}
-        {!isMobile && (
-          <Html position={[0, 2.8, 0]} center zIndexRange={[100, 0]} className="pointer-events-none">
-            <AnimatePresence>
-              {hovered && (
-                <motion.div 
-                  initial={{ opacity: 0, y: 30, scale: 0.5 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: 15, scale: 0.8 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                >
-                  <motion.div 
-                    animate={{ boxShadow: [ `0px 0px 15px ${colorScheme.glow}`, `0px 0px 40px ${colorScheme.glow.replace('0.4', '0.9')}`, `0px 0px 15px ${colorScheme.glow}` ] }}
-                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                    className="bg-background/90 backdrop-blur-xl text-foreground font-black tracking-[0.2em] px-8 py-3 rounded-full border border-primary/50 whitespace-nowrap uppercase"
-                  >
-                    <span style={{ background: `linear-gradient(135deg, ${colorScheme.mid}, ${colorScheme.light})`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                      Mr-Eagle
-                    </span>
-                  </motion.div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </Html>
-        )}
-
         {/* ─── Atomic Structure ─── */}
         {/* We wrap the atom rings in a group to tilt the entire structure to look good on camera */}
         <group ref={atomGroupRef} rotation={[Math.PI / 4, 0, Math.PI / 6]}>
