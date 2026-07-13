@@ -189,7 +189,7 @@ const ExtrudedSymbol = ({
       window.removeEventListener('pointermove', handlePointerMove);
       window.removeEventListener('pointerup', handlePointerUp);
     };
-  }, [isDragging, hovered, controlsRef, targetRotation, setIsDragging]);
+  }, [isDragging, controlsRef, targetRotation, setIsDragging]);
 
   useFrame((state, delta) => {
     if (groupRef.current) {
