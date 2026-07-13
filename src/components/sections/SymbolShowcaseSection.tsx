@@ -120,6 +120,16 @@ const OrbitingMiniSymbol = ({ radius, speed, color, tilt, phase = 0, size = 0.4 
   );
 };
 
+/* ─── Scene Ready Tracker ─── */
+function SceneReady({ onReady }: { onReady: () => void }) {
+  useEffect(() => {
+    // Wait a brief moment after mounting to ensure the first frame renders
+    const timer = setTimeout(onReady, 100);
+    return () => clearTimeout(timer);
+  }, [onReady]);
+  return null;
+}
+
 /* ─── Extruded Symbol ─── */
 const ExtrudedSymbol = ({ 
   targetRotation, isDragging, setIsDragging, controlsRef, isMobile,
@@ -356,7 +366,7 @@ export const SymbolShowcaseSection = () => {
   const targetRotation = useRef({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [isResetting, setIsResetting] = useState(false);
-  const [isCanvasLoaded, setIsCanvasLoaded] = useState(false);
+  const [isSceneReady, setIsSceneReady] = useState(false);
 
   const [colorIdx, setColorIdx] = useState(0);
   const [symbolSpin, setSymbolSpin] = useState(false);
@@ -372,7 +382,7 @@ export const SymbolShowcaseSection = () => {
 
   useEffect(() => {
     if (!isInView) {
-      setIsCanvasLoaded(false);
+      setIsSceneReady(false);
     }
   }, [isInView]);
 
@@ -406,7 +416,7 @@ export const SymbolShowcaseSection = () => {
         <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse at 65% 50%, ${scheme.glow.replace('0.4', '0.15')}, transparent 60%)` }} />
         
         {/* Loader while Canvas initializes */}
-        {isInView && !isCanvasLoaded && (
+        {isInView && !isSceneReady && (
           <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-0">
             <div className="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin mb-4" />
             <span className="text-sm font-semibold tracking-widest text-muted-foreground uppercase">Initializing 3D Engine...</span>
@@ -414,17 +424,17 @@ export const SymbolShowcaseSection = () => {
         )}
 
           <Canvas 
-            frameloop={!isCanvasLoaded || (isInView && needsAnimation) ? 'always' : 'demand'} 
+            frameloop={!isSceneReady || (isInView && needsAnimation) ? 'always' : 'demand'} 
             dpr={[1, 1.5]} 
             performance={{ min: 0.5 }} 
             camera={{ position: [0, 0, 10], fov: 45 }}
-            onCreated={() => setIsCanvasLoaded(true)}
-            className={isCanvasLoaded ? 'opacity-100' : 'opacity-0'}
+            className={isSceneReady ? 'opacity-100' : 'opacity-0'}
             style={{ transition: 'opacity 0.5s ease-in-out', zIndex: 1 }}
           >
             <Suspense fallback={
               <Html center><div className="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin" /></Html>
             }>
+              <SceneReady onReady={() => setIsSceneReady(true)} />
               <ambientLight intensity={0.3} />
               <directionalLight position={[10, 10, 10]} intensity={2.5 * glowIntensity} color={scheme.mid} />
               <spotLight position={[-10, 10, 10]} angle={0.15} penumbra={1} intensity={4 * glowIntensity} color={scheme.light} />
