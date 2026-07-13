@@ -14,7 +14,7 @@ export const TechStack: React.FC<TechStackProps> = ({ tech, category }) => {
     <div className="flex flex-wrap gap-2">
       {tech.map((t, i) => (
         <motion.span 
-          key={t} 
+          key={`${t}-${i}`} 
           initial={{ opacity: 0, scale: 0.8 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ delay: i * 0.05, type: "tween", ease: "easeOut" }}

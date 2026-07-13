@@ -611,7 +611,8 @@ class App {
 
     this.container?.addEventListener('mousedown', this.boundOnTouchDown);
     this.container?.addEventListener('touchstart', this.boundOnTouchDown);
-    this.container?.addEventListener('wheel', this.boundOnWheel, { passive: true });
+    // Disabled to prevent page scroll from wildly spinning the gallery
+    // this.container?.addEventListener('wheel', this.boundOnWheel, { passive: true });
     this.container?.addEventListener('keydown', this.boundOnKeyDown);
     this.container?.addEventListener('mouseenter', this.boundOnMouseEnter);
     this.container?.addEventListener('mouseleave', this.boundOnMouseLeave);
@@ -640,7 +641,7 @@ class App {
     if (this.container) {
       this.container.removeEventListener('mousedown', this.boundOnTouchDown);
       this.container.removeEventListener('touchstart', this.boundOnTouchDown);
-      this.container.removeEventListener('wheel', this.boundOnWheel);
+      // this.container.removeEventListener('wheel', this.boundOnWheel);
       this.container.removeEventListener('keydown', this.boundOnKeyDown);
       this.container.removeEventListener('mouseenter', this.boundOnMouseEnter);
       this.container.removeEventListener('mouseleave', this.boundOnMouseLeave);

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useMotionTemplate, useMotionValue, AnimatePresence } from 'framer-motion';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface ProjectPreviewProps {
   image?: string;
@@ -12,21 +13,22 @@ export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ image, images, t
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
 
   // Determine the array of images to display
   const displayImages = images && images.length > 0 ? images : (image ? [image] : []);
   const hasMultipleImages = displayImages.length > 1;
 
-  // Auto-play the carousel every 3 seconds if there are multiple images
+  // Auto-play the carousel every 3 seconds if there are multiple images and not hovered
   useEffect(() => {
-    if (!hasMultipleImages) return;
+    if (!hasMultipleImages || isHovered) return;
 
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % displayImages.length);
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [displayImages.length, hasMultipleImages]);
+  }, [displayImages.length, hasMultipleImages, isHovered]);
 
   function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
     const { left, top } = currentTarget.getBoundingClientRect();
@@ -48,7 +50,9 @@ export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ image, images, t
   return (
     <div 
       className="relative w-full h-full overflow-hidden bg-card/40 flex items-center justify-center group"
+      onMouseEnter={() => setIsHovered(true)}
       onMouseMove={handleMouseMove}
+      onMouseLeave={() => { setIsHovered(false); mouseX.set(0); mouseY.set(0); }}
     >
       {displayImages.length > 0 ? (
         <>
@@ -76,14 +80,35 @@ export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ image, images, t
           </AnimatePresence>
           
           {/* Subtle overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-background/5 to-transparent opacity-40 group-hover:opacity-0 transition-opacity duration-500 z-10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-background/5 to-transparent opacity-40 group-hover:opacity-0 transition-opacity duration-500 z-10 pointer-events-none" />
+          
+          {/* Navigation Buttons */}
+          {hasMultipleImages && (
+            <>
+              <button 
+                onClick={(e) => { e.preventDefault(); e.stopPropagation(); setCurrentIndex((prev) => (prev - 1 + displayImages.length) % displayImages.length); }}
+                className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-30 p-2 md:p-3 rounded-full bg-background/60 hover:bg-primary/60 text-foreground hover:text-white backdrop-blur-md transition-all duration-300 opacity-100 md:opacity-0 md:group-hover:opacity-100 border border-border/30 hover:border-primary/50 shadow-xl"
+                aria-label="Previous image"
+              >
+                <ChevronLeft size={20} className="md:w-6 md:h-6" />
+              </button>
+              <button 
+                onClick={(e) => { e.preventDefault(); e.stopPropagation(); setCurrentIndex((prev) => (prev + 1) % displayImages.length); }}
+                className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-30 p-2 md:p-3 rounded-full bg-background/60 hover:bg-primary/60 text-foreground hover:text-white backdrop-blur-md transition-all duration-300 opacity-100 md:opacity-0 md:group-hover:opacity-100 border border-border/30 hover:border-primary/50 shadow-xl"
+                aria-label="Next image"
+              >
+                <ChevronRight size={20} className="md:w-6 md:h-6" />
+              </button>
+            </>
+          )}
+
           
           {/* Pagination Indicators */}
           {hasMultipleImages && (
             <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
               {displayImages.map((_, idx) => (
                 <div 
-                  key={idx} 
+                  key={`indicator-${idx}`} 
                   className={`h-1.5 rounded-full transition-all duration-500 ${idx === currentIndex ? 'w-6 bg-primary shadow-[0_0_10px_rgba(168,85,247,0.8)]' : 'w-2 bg-white/40'}`}
                 />
               ))}

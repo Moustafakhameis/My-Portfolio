@@ -5,26 +5,13 @@ import {
   projects, 
   groupProjectsByCategory, 
   FeaturedProjectCard, 
-  ProjectCard 
+  ProjectCard,
+  SectionHeader
 } from './projects';
 
 import CircularGallery from '../ui/CircularGallery';
 import LightRays from '../ui/LightRays';
 
-const SectionHeader = ({ title, description, delay = 0 }: { title: string, description: string, delay?: number }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, amount: 0.2 }}
-    transition={{ type: "tween", ease: "easeOut", duration: 0.8, delay }}
-    className="mb-10 mt-20 first:mt-0"
-  >
-    <h3 className="text-3xl md:text-4xl font-bold mb-4 flex items-center gap-3">
-      {title}
-    </h3>
-    <p className="text-muted-foreground text-lg">{description}</p>
-  </motion.div>
-);
 
 export const ProjectsSection = () => {
   const { t } = useLanguage();
@@ -82,7 +69,7 @@ export const ProjectsSection = () => {
             const isLast = i === arr.length - 1;
             return (
               <span 
-                key={i} 
+                key={`${word}-${i}`} 
                 className={isLast ? "text-transparent bg-clip-text bg-gradient-to-r from-primary via-fuchsia-500 to-pink-500 drop-shadow-[0_0_20px_rgba(217,70,239,0.3)] pr-2 pb-3" : "text-foreground"}
               >
                 {word}

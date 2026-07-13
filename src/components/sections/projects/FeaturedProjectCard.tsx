@@ -40,6 +40,7 @@ export const FeaturedProjectCard: React.FC<FeaturedProjectCardProps> = ({ projec
       viewport={{ once: true, amount: 0.1 }}
       className="w-full relative group"
       onMouseMove={handleMouseMove}
+      onMouseLeave={() => { mouseX.set(0); mouseY.set(0); }}
     >
       <motion.div 
         whileHover={{ y: -10 }} 
