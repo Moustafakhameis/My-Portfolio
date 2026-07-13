@@ -360,7 +360,7 @@ export const SymbolShowcaseSection = () => {
 
   const [colorIdx, setColorIdx] = useState(0);
   const [symbolSpin, setSymbolSpin] = useState(false);
-  const [atomSpin, setAtomSpin] = useState(true);
+  const [atomSpin, setAtomSpin] = useState(false);
   const [speedIdx, setSpeedIdx] = useState(1);
   const [glowIntensity, setGlowIntensity] = useState(1.0);
   const [scattered, setScattered] = useState(false);
@@ -390,9 +390,9 @@ export const SymbolShowcaseSection = () => {
 
   const handleReset = () => {
     setIsResetting(true);
-    if (controlsRef.current) controlsRef.current.reset();
     targetRotation.current = { x: 0, y: 0 };
-    setSymbolSpin(false); setAtomSpin(true); setSpeedIdx(1); setGlowIntensity(1.0); setScattered(false);
+    if (controlsRef.current) controlsRef.current.reset();
+    setSymbolSpin(false); setAtomSpin(false); setSpeedIdx(1); setGlowIntensity(1.0); setScattered(false);
     setTimeout(() => setIsResetting(false), 800);
   };
 

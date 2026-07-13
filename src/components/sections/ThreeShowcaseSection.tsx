@@ -49,7 +49,7 @@ export const ThreeShowcaseSection = () => {
   const rotateY = useMotionValue(35);
   const transformTemplate = useMotionTemplate`rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
   const [isDragging, setIsDragging] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [speedIdx, setSpeedIdx] = useState(1);
   const [activeColor, setActiveColor] = useState(0);
   const [showGrid, setShowGrid] = useState(true);
