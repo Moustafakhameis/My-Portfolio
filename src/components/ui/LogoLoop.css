@@ -29,12 +29,18 @@
   user-select: none;
   position: relative;
   z-index: 0;
+  animation: logoloop-horizontal var(--logoloop-duration, 50s) linear infinite var(--logoloop-direction, normal);
+}
+
+.logoloop--pause-hover:hover .logoloop__track {
+  animation-play-state: paused;
 }
 
 .logoloop--vertical .logoloop__track {
   flex-direction: column;
   height: max-content;
   width: 100%;
+  animation-name: logoloop-vertical;
 }
 
 .logoloop__list {
@@ -174,10 +180,21 @@
 @media (prefers-reduced-motion: reduce) {
   .logoloop__track {
     transform: translate3d(0, 0, 0) !important;
+    animation: none !important;
   }
 
   .logoloop__item img,
   .logoloop__node {
     transition: none !important;
   }
+}
+
+@keyframes logoloop-horizontal {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+@keyframes logoloop-vertical {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(0, -50%, 0); }
 }
