@@ -30,13 +30,22 @@ export const SkillsSection = () => {
   const isInView = useInView(containerRef, { margin: "200px" });
 
   useEffect(() => {
+    let timeoutId: ReturnType<typeof setTimeout>;
     const checkScreen = () => {
-      setIsMobile(window.innerWidth < 768);
-      setIsDesktop(window.innerWidth > 1024);
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        setIsMobile(window.innerWidth < 768);
+        setIsDesktop(window.innerWidth > 1024);
+      }, 150);
     };
-    checkScreen();
+    // Run immediately on mount (no debounce for initial check)
+    setIsMobile(window.innerWidth < 768);
+    setIsDesktop(window.innerWidth > 1024);
     window.addEventListener('resize', checkScreen);
-    return () => window.removeEventListener('resize', checkScreen);
+    return () => {
+      window.removeEventListener('resize', checkScreen);
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   useEffect(() => {

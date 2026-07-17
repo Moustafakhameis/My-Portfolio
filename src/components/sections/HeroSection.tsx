@@ -114,7 +114,14 @@ const AnimatedText = ({ text }: { text: string }) => {
 };
 
 export const HeroSection = () => {
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mql = window.matchMedia('(max-width: 767px)');
+    setIsMobile(mql.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mql.addEventListener('change', handler);
+    return () => mql.removeEventListener('change', handler);
+  }, []);
   const { scrollY } = useScroll();
   const y1 = useTransform(scrollY, [0, 1000], [0, isMobile ? 0 : 200]);
   const opacity = useTransform(scrollY, [300, 700], [1, isMobile ? 1 : 0]);

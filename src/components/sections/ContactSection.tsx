@@ -55,7 +55,7 @@ export const ContactSection = () => {
               const isLast = i === arr.length - 1;
               return (
                 <span 
-                  key={i} 
+                  key={`contact-title-${i}-${word}`} 
                   className={isLast ? "text-transparent bg-clip-text bg-gradient-to-r from-primary via-fuchsia-500 to-pink-500 drop-shadow-[0_0_20px_rgba(217,70,239,0.3)] pr-2 pb-3" : "text-foreground"}
                 >
                   {word}

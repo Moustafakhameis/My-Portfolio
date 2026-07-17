@@ -114,6 +114,7 @@ export const Footer = () => {
                 className="flex justify-center"
               >
                 <ReflectiveCard
+                  isVisible={showCard}
                   overlayColor="rgba(0, 0, 0, 0.15)"
                   blurStrength={0}
                   glassDistortion={0}
@@ -176,7 +177,7 @@ export const Footer = () => {
                 backgroundSize: '200% 200%',
               }}
             >
-              <div className="p-4 rounded-full bg-background/90 backdrop-blur-sm group-hover:bg-transparent transition-all duration-300">
+              <div className="p-4 rounded-full bg-background group-hover:bg-transparent transition-all duration-300">
                 <motion.div
                   animate={{ y: [0, -3, 0] }}
                   transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}

@@ -57,8 +57,18 @@ const experiences = [
 const SpotlightCard = ({ children, className = "" }: { children: React.ReactNode, className?: string }) => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+  const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+
+  const background = useMotionTemplate`
+    radial-gradient(
+      400px circle at ${mouseX}px ${mouseY}px,
+      rgba(168, 85, 247, 0.15) 0%,
+      transparent 80%
+    )
+  `;
 
   function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
+    if (isTouchDevice) return;
     const { left, top } = currentTarget.getBoundingClientRect();
     mouseX.set(clientX - left);
     mouseY.set(clientY - top);
@@ -71,15 +81,7 @@ const SpotlightCard = ({ children, className = "" }: { children: React.ReactNode
     >
       <motion.div
         className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 transition duration-500 group-hover:opacity-100"
-        style={{
-          background: useMotionTemplate`
-            radial-gradient(
-              400px circle at ${mouseX}px ${mouseY}px,
-              rgba(168, 85, 247, 0.15) 0%,
-              transparent 80%
-            )
-          `
-        }}
+        style={{ background }}
       />
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-0" />
       <div className="relative z-10">{children}</div>
@@ -173,7 +175,7 @@ export const ExperienceSection = () => {
               }}
             >
               <motion.div whileHover={{ scale: 1.01, x: language === 'ar' ? -5 : 5 }} transition={{ type: "tween", ease: "easeOut" }}>
-                <SpotlightCard className="p-8 md:p-10 backdrop-blur-md">
+                <SpotlightCard className="p-8 md:p-10">
                   <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-6">
                     <div>
                       <h3 className="text-2xl md:text-3xl font-bold text-foreground group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-pink-500 transition-all duration-500">

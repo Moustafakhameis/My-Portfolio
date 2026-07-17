@@ -139,8 +139,10 @@ function DockLabel({ children, className = '', ...rest }: { children: React.Reac
 function DockIcon({ children, className = '', ...rest }: { children: React.ReactNode; className?: string; [key: string]: any }) {
   const { size } = rest;
   
-  // Base item size is 50, so we scale relative to that
-  const scale = size ? useTransform(size, (s: number) => s / 50) : 1;
+  // Always call the hook unconditionally (Rules of Hooks)
+  const fallbackSize = useMotionValue(50);
+  const effectiveSize = size || fallbackSize;
+  const scale = useTransform(effectiveSize, (s: number) => s / 50);
 
   return (
     <motion.div style={{ scale }} className={`dock-icon flex items-center justify-center ${className}`}>

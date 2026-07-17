@@ -24,11 +24,15 @@ export const FingerprintContactButton = () => {
     
     const startTime = Date.now();
     
-    progressInterval.current = setInterval(() => {
+    const updateProgress = () => {
       const elapsed = Date.now() - startTime;
       const newProgress = Math.min((elapsed / HOLD_DURATION) * 100, 100);
       setProgress(newProgress);
-    }, UPDATE_INTERVAL);
+      if (newProgress < 100) {
+        progressInterval.current = requestAnimationFrame(updateProgress) as unknown as NodeJS.Timeout;
+      }
+    };
+    progressInterval.current = requestAnimationFrame(updateProgress) as unknown as NodeJS.Timeout;
 
     pressTimer.current = setTimeout(() => {
       completeScan();
@@ -40,14 +44,14 @@ export const FingerprintContactButton = () => {
     setIsPressing(false);
     setProgress(0);
     if (pressTimer.current) clearTimeout(pressTimer.current);
-    if (progressInterval.current) clearInterval(progressInterval.current);
+    if (progressInterval.current) cancelAnimationFrame(progressInterval.current as unknown as number);
   };
 
   const completeScan = () => {
     setIsPressing(false);
     setIsScanned(true);
     if (pressTimer.current) clearTimeout(pressTimer.current);
-    if (progressInterval.current) clearInterval(progressInterval.current);
+    if (progressInterval.current) cancelAnimationFrame(progressInterval.current as unknown as number);
 
     setTimeout(() => {
       downloadVCard();
@@ -57,7 +61,7 @@ export const FingerprintContactButton = () => {
   useEffect(() => {
     return () => {
       if (pressTimer.current) clearTimeout(pressTimer.current);
-      if (progressInterval.current) clearInterval(progressInterval.current);
+      if (progressInterval.current) cancelAnimationFrame(progressInterval.current as unknown as number);
       if (toastTimer.current) clearTimeout(toastTimer.current);
     };
   }, []);
@@ -112,7 +116,7 @@ END:VCARD`;
       whileTap={{ scale: 0.95 }}
     >
       {/* Background container */}
-      <div className="absolute inset-0 rounded-full bg-slate-500/5 group-hover:bg-slate-500/10 dark:bg-white/5 dark:group-hover:bg-white/10 transition-colors duration-300 backdrop-blur-sm border border-slate-500/10 dark:border-white/5 group-hover:border-purple-500/30" />
+      <div className="absolute inset-0 rounded-full bg-slate-500/5 group-hover:bg-slate-500/10 dark:bg-white/5 dark:group-hover:bg-white/10 transition-colors duration-300 border border-slate-500/10 dark:border-white/5 group-hover:border-purple-500/30" />
 
       {/* Idle breathing glow */}
       {!isPressing && !isScanned && (

@@ -18,6 +18,7 @@ interface ReflectiveCardProps {
   glassDistortion?: number;
   className?: string;
   style?: React.CSSProperties;
+  isVisible?: boolean;
 }
 
 const ReflectiveCard = ({
@@ -32,7 +33,8 @@ const ReflectiveCard = ({
   grayscale = 1,
   glassDistortion = 0,
   className = '',
-  style = {}
+  style = {},
+  isVisible = true
 }: ReflectiveCardProps) => {
   const [copied, setCopied] = useState(false);
   const email = 'moustafakhameis@gmail.com';
@@ -41,9 +43,10 @@ const ReflectiveCard = ({
   const [time, setTime] = useState(new Date());
 
   useEffect(() => {
+    if (!isVisible) return;
     const timer = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(timer);
-  }, []);
+  }, [isVisible]);
 
   const timeString = time.toLocaleTimeString('en-US', { 
     timeZone: 'Africa/Cairo', 
