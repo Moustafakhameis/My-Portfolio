@@ -1,0 +1,51 @@
+/* Global hardware-accelerated animations to replace JS Framer Motion loops */
+
+@keyframes pulse-opacity {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: pulse-opacity 0.8s linear infinite;
+  will-change: opacity;
+}
+
+@keyframes float-up-down {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -15px, 0); }
+}
+
+.animate-float-profile {
+  animation: float-up-down 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes pulse-heart {
+  0%, 100% { transform: scale3d(1, 1, 1); }
+  50% { transform: scale3d(1.4, 1.4, 1); }
+}
+
+.animate-pulse-heart {
+  animation: pulse-heart 1.2s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes arrow-bob {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -3px, 0); }
+}
+
+.animate-arrow-bob {
+  animation: arrow-bob 1.5s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes background-pan {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.animate-bg-pan {
+  animation: background-pan 4s ease-in-out infinite;
+  background-size: 200% auto;
+}

@@ -76,11 +76,7 @@ const TypewriterText = ({ text, delay = 1500 }: { text: string, delay?: number }
   return (
     <span className="inline-flex items-center min-h-[1.5em] text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-500">
       <span>{displayedText}</span>
-      <motion.span 
-        animate={{ opacity: [1, 0, 1] }}
-        transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }}
-        className="inline-block w-1 md:w-1.5 h-[1.1em] bg-primary ml-1"
-      />
+      <span className="inline-block w-1 md:w-1.5 h-[1.1em] bg-primary ml-1 animate-blink" />
     </span>
   );
 };
@@ -160,13 +156,11 @@ export const HeroSection = () => {
           >
             <motion.div
               whileHover={{ scale: 1.05, rotate: 3 }}
-              animate={{ y: [0, -15, 0] }}
               transition={{ 
-                y: { repeat: Infinity, duration: 6, ease: "easeInOut" },
                 scale: { type: "tween", ease: "easeOut" },
                 rotate: { type: "tween", ease: "easeOut" }
               }}
-              className="relative w-40 h-40 md:w-52 md:h-52 lg:w-56 lg:h-56 rounded-full overflow-hidden border-4 border-primary/20 shadow-2xl shadow-primary/20 bg-background/80 z-10 transition-colors duration-500 group-hover:border-primary/60 group-hover:shadow-primary/40"
+              className="relative w-40 h-40 md:w-52 md:h-52 lg:w-56 lg:h-56 rounded-full overflow-hidden border-4 border-primary/20 shadow-2xl shadow-primary/20 bg-background/80 z-10 transition-colors duration-500 group-hover:border-primary/60 group-hover:shadow-primary/40 animate-float-profile"
             >
               <img 
                 src={profilePic} 
@@ -193,14 +187,13 @@ export const HeroSection = () => {
             <AnimatedText text={String(t('hero', 'greeting'))} />{' '}
             <motion.span 
               initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1, backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}
+              animate={{ opacity: 1, scale: 1 }}
               transition={{ 
                 opacity: { duration: 0.8, delay: 1.5 },
                 scale: { type: "tween", ease: "easeOut", delay: 1.5 },
-                filter: { duration: 0.8, delay: 1.5 },
-                backgroundPosition: { repeat: Infinity, duration: 4, ease: "easeInOut" } 
+                filter: { duration: 0.8, delay: 1.5 }
               }}
-              className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-[length:200%_auto] inline-block drop-shadow-lg pt-4 pb-3"
+              className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-500 to-pink-500 inline-block drop-shadow-lg pt-4 pb-3 animate-bg-pan"
             >
               {language === 'ar' ? 'مُصْطَفَى' : 'Moustafa'}
             </motion.span>

@@ -55,7 +55,12 @@ const LightRays = ({
   const meshRef = useRef(null);
   const cleanupFunctionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
+  const isVisibleRef = useRef(false);
   const observerRef = useRef(null);
+
+  useEffect(() => {
+    isVisibleRef.current = isVisible;
+  }, [isVisible]);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -79,7 +84,7 @@ const LightRays = ({
   }, []);
 
   useEffect(() => {
-    if (!isVisible || !containerRef.current) return;
+    if (!containerRef.current) return;
 
     if (cleanupFunctionRef.current) {
       cleanupFunctionRef.current();
@@ -260,6 +265,12 @@ void main() {
       };
 
       const loop = t => {
+        // Always request next frame to keep loop alive
+        animationIdRef.current = requestAnimationFrame(loop);
+
+        // Skip heavy WebGL work if off-screen
+        if (!isVisibleRef.current) return;
+
         if (!rendererRef.current || !uniformsRef.current || !meshRef.current) {
           return;
         }
@@ -277,7 +288,6 @@ void main() {
 
         try {
           renderer.render({ scene: mesh });
-          animationIdRef.current = requestAnimationFrame(loop);
         } catch (error) {
           console.warn('WebGL rendering error:', error);
           return;
@@ -326,21 +336,7 @@ void main() {
         cleanupFunctionRef.current = null;
       }
     };
-  }, [
-    isVisible,
-    raysOrigin,
-    raysColor,
-    raysSpeed,
-    lightSpread,
-    rayLength,
-    pulsating,
-    fadeDistance,
-    saturation,
-    followMouse,
-    mouseInfluence,
-    noiseAmount,
-    distortion
-  ]);
+  }, []); // Run initialization exactly once on mount
 
   useEffect(() => {
     if (!uniformsRef.current || !containerRef.current || !rendererRef.current) return;

@@ -9,8 +9,9 @@ import {
   SectionHeader
 } from './projects';
 
-import CircularGallery from '../ui/CircularGallery';
-import LightRays from '../ui/LightRays';
+import { Suspense, lazy } from 'react';
+const CircularGallery = lazy(() => import('../ui/CircularGallery'));
+const LightRays = lazy(() => import('../ui/LightRays'));
 
 
 export const ProjectsSection = () => {
@@ -104,35 +105,37 @@ export const ProjectsSection = () => {
           transition={{ duration: 1 }}
           className="w-full h-[500px] md:h-[600px] relative mb-32 rounded-[2.5rem] overflow-hidden border border-primary/20 shadow-[0_0_50px_-12px_rgba(168,85,247,0.15)] bg-slate-950 hidden lg:block"
         >
-          {/* Interactive LightRays Background */}
-          <div className="absolute inset-0 z-0">
-            <LightRays
-              raysOrigin="top-center"
-              raysColor="#a855f7" // Primary purple theme
-              raysSpeed={1.5}
-              lightSpread={0.8}
-              rayLength={1.5}
-              followMouse={true}
-              mouseInfluence={0.1}
-              noiseAmount={0.05}
-              distortion={0.05}
-              pulsating={true}
-              fadeDistance={1}
-              saturation={1}
-            />
-          </div>
+          <Suspense fallback={<div className="w-full h-full flex items-center justify-center text-primary">Loading 3D Engine...</div>}>
+            {/* Interactive LightRays Background */}
+            <div className="absolute inset-0 z-0">
+              <LightRays
+                raysOrigin="top-center"
+                raysColor="#a855f7" // Primary purple theme
+                raysSpeed={1.5}
+                lightSpread={0.8}
+                rayLength={1.5}
+                followMouse={true}
+                mouseInfluence={0.1}
+                noiseAmount={0.05}
+                distortion={0.05}
+                pulsating={true}
+                fadeDistance={1}
+                saturation={1}
+              />
+            </div>
 
-          {/* Foreground Circular Gallery */}
-          <div className="relative z-10 w-full h-full">
-            <CircularGallery
-              items={galleryItems}
-              bend={2}
-              textColor="rgba(255, 255, 255, 0.9)"
-              borderRadius={0.05}
-              scrollEase={0.05}
-              font="bold 24px Inter, sans-serif"
-            />
-          </div>
+            {/* Foreground Circular Gallery */}
+            <div className="relative z-10 w-full h-full">
+              <CircularGallery
+                items={galleryItems}
+                bend={2}
+                textColor="rgba(255, 255, 255, 0.9)"
+                borderRadius={0.05}
+                scrollEase={0.05}
+                font="bold 24px Inter, sans-serif"
+              />
+            </div>
+          </Suspense>
         </motion.div>
       )}
 

@@ -142,3 +142,5 @@
   letter-spacing: normal !important;
 }
 
+
+@import './global-animations.css';

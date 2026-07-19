@@ -136,12 +136,9 @@ export const Footer = () => {
           <div className="w-full flex flex-col md:flex-row justify-between items-center gap-10">
             <motion.div variants={itemVariants} className="flex items-center flex-wrap justify-center gap-2 text-sm md:text-base text-muted-foreground font-medium">
               <span>{t('footer', 'designedAndBuilt')}</span>
-              <motion.div
-                animate={{ scale: [1, 1.4, 1] }}
-                transition={{ duration: 1.2, repeat: Infinity }}
-              >
+              <div className="animate-pulse-heart transform-gpu">
                 <Heart size={18} className="text-red-500 fill-red-500 drop-shadow-[0_0_10px_rgba(239,68,68,0.8)]" />
-              </motion.div>
+              </div>
               <span>{t('footer', 'by')}</span>
               <motion.a 
                 href="#"
@@ -178,12 +175,9 @@ export const Footer = () => {
               }}
             >
               <div className="p-4 rounded-full bg-background group-hover:bg-transparent transition-all duration-300">
-                <motion.div
-                  animate={{ y: [0, -3, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-                >
+                <div className="animate-arrow-bob transform-gpu">
                   <ArrowUp size={22} className="text-foreground group-hover:text-white transition-colors duration-300" />
-                </motion.div>
+                </div>
               </div>
             </motion.button>
           </div>
