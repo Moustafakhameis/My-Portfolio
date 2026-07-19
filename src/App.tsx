@@ -1,4 +1,4 @@
-import React, { useState, Suspense, lazy } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { ThemeProvider } from './context/ThemeContext';
 import { LanguageProvider } from './context/LanguageContext';
 import { ToastProvider } from './context/ToastContext';
@@ -21,6 +21,17 @@ const SymbolShowcaseSection = lazy(() => import('./components/sections/SymbolSho
 
 function App() {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [showBelowFold, setShowBelowFold] = useState(false);
+
+  // Stagger the mount: let the Hero paint first, then mount heavier sections during idle time
+  useEffect(() => {
+    if (isLoaded) {
+      const id = requestAnimationFrame(() => {
+        setShowBelowFold(true);
+      });
+      return () => cancelAnimationFrame(id);
+    }
+  }, [isLoaded]);
 
   // Check if current path matches the base URL or root
   const currentPath = window.location.pathname;
@@ -42,19 +53,23 @@ function App() {
                 <Navbar />
                 <main>
                   <HeroSection />
-                  <AboutSection />
-                  <SkillsSection />
-                  <ExperienceSection />
-                  <ProjectsSection />
-                  <div className="hidden lg:block">
-                    <Suspense fallback={<div className="w-full h-[600px] flex items-center justify-center opacity-50">Loading 3D Engine...</div>}>
-                      <ThreeShowcaseSection />
-                      <SymbolShowcaseSection />
-                    </Suspense>
-                  </div>
-                  <ContactSection />
+                  {showBelowFold && (
+                    <>
+                      <AboutSection />
+                      <SkillsSection />
+                      <ExperienceSection />
+                      <ProjectsSection />
+                      <div className="hidden lg:block">
+                        <Suspense fallback={<div className="w-full h-[600px] flex items-center justify-center opacity-50">Loading 3D Engine...</div>}>
+                          <ThreeShowcaseSection />
+                          <SymbolShowcaseSection />
+                        </Suspense>
+                      </div>
+                      <ContactSection />
+                    </>
+                  )}
                 </main>
-                <Footer />
+                {showBelowFold && <Footer />}
               </div>
             )}
           </LenisProvider>

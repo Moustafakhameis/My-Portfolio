@@ -64,6 +64,9 @@
   #root {
     overflow-x: clip;
   }
+  section {
+    contain: content;
+  }
 }
 
 /* Custom Scrollbar */

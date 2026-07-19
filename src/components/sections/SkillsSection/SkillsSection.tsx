@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, memo } from 'react';
+import React, { useRef, useState, useEffect, useMemo, memo } from 'react';
 import { motion, useAnimationFrame, useMotionValue, useInView } from 'framer-motion';
 import { RotateCcw, Pause, Play } from 'lucide-react';
 import { useLanguage } from '../../../context/LanguageContext';
@@ -28,6 +28,32 @@ export const SkillsSection = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [isDesktop, setIsDesktop] = useState(true);
   const isInView = useInView(containerRef, { margin: "200px" });
+
+  // Pre-compute skill layout once (was 36 filter+indexOf calls per render inside .map())
+  const skillLayout = useMemo(() => {
+    const lgSkills = skills.filter(s => s.size === 'lg');
+    const mdSkills = skills.filter(s => s.size === 'md');
+    const smSkills = skills.filter(s => s.size === 'sm');
+
+    return skills.map(skill => {
+      let baseRadius: number, groupSize: number, indexInGroup: number;
+      if (skill.size === 'lg') {
+        baseRadius = isMobile ? 90 : 160;
+        groupSize = lgSkills.length;
+        indexInGroup = lgSkills.indexOf(skill);
+      } else if (skill.size === 'md') {
+        baseRadius = isMobile ? 120 : 270;
+        groupSize = mdSkills.length;
+        indexInGroup = mdSkills.indexOf(skill);
+      } else {
+        baseRadius = isMobile ? 150 : 380;
+        groupSize = smSkills.length;
+        indexInGroup = smSkills.indexOf(skill);
+      }
+      const initialAngle = (indexInGroup / groupSize) * Math.PI * 2;
+      return { skill, orbitRadius: baseRadius, initialAngle };
+    });
+  }, [isMobile]);
 
   useEffect(() => {
     let timeoutId: ReturnType<typeof setTimeout>;
@@ -256,45 +282,18 @@ export const SkillsSection = () => {
 
         {/* Skills wrapper (non-rotating) */}
         <div className="absolute inset-0 flex items-center justify-center z-10">
-          {skills.map((skill) => {
-            const lgSkills = skills.filter((s) => s.size === 'lg');
-            const mdSkills = skills.filter((s) => s.size === 'md');
-            const smSkills = skills.filter((s) => s.size === 'sm');
-
-            let baseRadius = 0;
-            let groupSize = 1;
-            let indexInGroup = 0;
-
-            if (skill.size === 'lg') {
-              baseRadius = isMobile ? 90 : 160; // Inner
-              groupSize = lgSkills.length;
-              indexInGroup = lgSkills.indexOf(skill);
-            } else if (skill.size === 'md') {
-              baseRadius = isMobile ? 120 : 270; // Middle
-              groupSize = mdSkills.length;
-              indexInGroup = mdSkills.indexOf(skill);
-            } else {
-              baseRadius = isMobile ? 150 : 380; // Outer
-              groupSize = smSkills.length;
-              indexInGroup = smSkills.indexOf(skill);
-            }
-
-            const initialAngle = (indexInGroup / groupSize) * Math.PI * 2;
-            const orbitRadius = baseRadius;
-
-            return (
-              <SkillPill
-                key={skill.name}
-                skill={skill}
-                orbitRadius={orbitRadius}
-                initialAngle={initialAngle}
-                containerRef={containerRef}
-                resetKey={resetKey}
-                isPaused={isPaused || !isInView}
-                isMobile={isMobile}
-              />
-            );
-          })}
+          {skillLayout.map(({ skill, orbitRadius, initialAngle }) => (
+            <SkillPill
+              key={skill.name}
+              skill={skill}
+              orbitRadius={orbitRadius}
+              initialAngle={initialAngle}
+              containerRef={containerRef}
+              resetKey={resetKey}
+              isPaused={isPaused || !isInView}
+              isMobile={isMobile}
+            />
+          ))}
         </div>
       </div>
     </section>

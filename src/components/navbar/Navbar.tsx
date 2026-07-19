@@ -29,13 +29,29 @@ export const Navbar = () => {
       { rootMargin: '-20% 0px -60% 0px', threshold: 0 }
     );
 
-    const sections = ['about', 'experience', 'work', 'contact'];
-    sections.forEach((id) => {
-      const element = document.getElementById(id);
-      if (element) observer.observe(element);
-    });
+    const sectionsToObserve = new Set(['about', 'experience', 'work', 'contact']);
+    let timeoutId: ReturnType<typeof setTimeout>;
+    
+    const tryObserve = () => {
+      sectionsToObserve.forEach((id) => {
+        const element = document.getElementById(id);
+        if (element) {
+          observer.observe(element);
+          sectionsToObserve.delete(id);
+        }
+      });
+      
+      if (sectionsToObserve.size > 0) {
+        timeoutId = setTimeout(tryObserve, 100);
+      }
+    };
+    
+    tryObserve();
 
-    return () => observer.disconnect();
+    return () => {
+      clearTimeout(timeoutId);
+      observer.disconnect();
+    };
   }, []);
 
   useEffect(() => {

@@ -63,22 +63,14 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
               )}
             >
               {isActive ? (
-                <motion.span
-                  className="relative z-10"
-                  style={{
-                    backgroundSize: '200% auto',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text',
-                  }}
+                <motion.span 
+                  className="bg-clip-text text-transparent bg-[length:200%_auto] animate-bg-pan"
                   animate={{ 
                     backgroundImage: theme === 'light' 
                       ? 'linear-gradient(90deg, #9333ea, #db2777, #9333ea, #db2777, #9333ea)' 
-                      : 'linear-gradient(90deg, #c084fc, #e879f9, #f0abfc, #e879f9, #c084fc)',
-                    backgroundPosition: ['0% center', '200% center'] 
+                      : 'linear-gradient(90deg, #c084fc, #e879f9, #f0abfc, #e879f9, #c084fc)'
                   }}
                   transition={{ 
-                    backgroundPosition: { duration: 3, repeat: Infinity, ease: 'linear' },
                     backgroundImage: { duration: 0.5 }
                   }}
                 >

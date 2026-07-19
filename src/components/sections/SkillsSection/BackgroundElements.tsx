@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import helixNebulaImg from '../../../assets/helix-nebula.jpg';
 
 const STAR_COUNT = 16;
 export const starData = Array.from({ length: STAR_COUNT }).map((_, i) => ({
@@ -49,23 +50,22 @@ export const cloudData = Array.from({ length: CLOUD_COUNT }).map((_, i) => ({
   delay: -(Math.random() * 50),
 }));
 
-export const RealisticCloud = ({ x, y, scale, delay, duration }: any) => (
-  <motion.div
-    className="absolute pointer-events-none z-0"
-    style={{ left: `${x}%`, top: `${y}%`, opacity: 0.9 }}
-    animate={{ x: [0, 150, 0] }}
-    transition={{ duration, repeat: Infinity, ease: 'linear', delay }}
+export const RealisticCloud = ({ x, y, scale, delay, duration }: { x: number, y: number, scale: number, delay: number, duration: number }) => (
+  <div
+    className="absolute pointer-events-none z-0 animate-cloud-drift"
+    style={{
+      left: `${x}%`,
+      top: `${y}%`,
+      scale,
+      opacity: 0.9,
+      animationDuration: `${duration}s`,
+      animationDelay: `${delay}s`,
+    }}
   >
-    <div 
-      className="relative w-32 h-16 drop-shadow-lg" 
-      style={{ transform: `scale(${scale})` }}
-    >
-      <div className="absolute top-2 left-2 w-10 h-10 bg-white rounded-full blur-[1px] blob-blur" />
-      <div className="absolute -top-2 left-8 w-16 h-16 bg-slate-50 rounded-full blur-[1px] blob-blur" />
-      <div className="absolute top-1 left-16 w-14 h-14 bg-white rounded-full blur-[1px] blob-blur" />
-      <div className="absolute top-6 left-0 w-32 h-8 bg-slate-50 rounded-full blur-[1px] blob-blur" />
-    </div>
-  </motion.div>
+    <div className="absolute w-[300px] h-[100px] bg-white/[0.03] dark:bg-slate-900/[0.2] rounded-full blur-[40px] mix-blend-screen" />
+    <div className="absolute top-[20px] left-[50px] w-[200px] h-[120px] bg-white/[0.04] dark:bg-slate-800/[0.3] rounded-full blur-[50px] mix-blend-screen" />
+    <div className="absolute top-[10px] left-[120px] w-[250px] h-[90px] bg-white/[0.02] dark:bg-slate-700/[0.2] rounded-full blur-[45px] mix-blend-screen" />
+  </div>
 );
 
 export const Aurora = () => (
@@ -135,13 +135,11 @@ export const ShootingStar = ({ top, left, delay, duration }: any) => (
 );
 
 export const HelixNebula = () => (
-  <motion.div 
-    className="absolute top-[20%] left-[80%] -translate-y-1/2 -translate-x-1/2 pointer-events-none z-0 opacity-80 mix-blend-screen w-[600px] h-[600px] md:w-[800px] md:h-[800px]"
-    animate={{ rotate: 360 }}
-    transition={{ duration: 400, repeat: Infinity, ease: "linear" }}
+  <div 
+    className="absolute top-[20%] left-[80%] -translate-y-1/2 -translate-x-1/2 pointer-events-none z-0 opacity-80 mix-blend-screen w-[600px] h-[600px] md:w-[800px] md:h-[800px] animate-spin-slow"
   >
     <img 
-      src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/NGC7293_%282004%29.jpg/1024px-NGC7293_%282004%29.jpg"
+      src={helixNebulaImg}
       alt="Helix Nebula"
       loading="lazy"
       className="w-full h-full object-cover"
@@ -151,5 +149,5 @@ export const HelixNebula = () => (
         filter: 'contrast(1.2) brightness(1.1) saturate(1.2)'
       }}
     />
-  </motion.div>
+  </div>
 );

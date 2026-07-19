@@ -120,19 +120,7 @@ END:VCARD`;
 
       {/* Idle breathing glow */}
       {!isPressing && !isScanned && (
-        <motion.div
-          className="absolute inset-0 rounded-full border border-purple-500/20"
-          animate={{ 
-            scale: [1, 1.1, 1],
-            opacity: [0.3, 0.6, 0.3],
-            boxShadow: [
-              '0 0 0px rgba(139, 92, 246, 0)', 
-              '0 0 15px rgba(139, 92, 246, 0.3)', 
-              '0 0 0px rgba(139, 92, 246, 0)'
-            ]
-          }}
-          transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-        />
+        <div className="absolute inset-0 rounded-full border border-purple-500/20 animate-breathe-glow" />
       )}
 
       {/* Background ring for progress */}

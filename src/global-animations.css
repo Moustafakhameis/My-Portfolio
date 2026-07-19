@@ -49,3 +49,33 @@
   animation: background-pan 4s ease-in-out infinite;
   background-size: 200% auto;
 }
+
+@keyframes cloud-drift {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(150px, 0, 0); }
+}
+
+.animate-cloud-drift {
+  animation: cloud-drift 28s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 400s linear infinite;
+  will-change: transform;
+}
+
+@keyframes breathe-glow {
+  0%, 100% { transform: scale3d(1,1,1); opacity: 0.3; box-shadow: 0 0 0px rgba(139, 92, 246, 0); }
+  50% { transform: scale3d(1.1,1.1,1); opacity: 0.6; box-shadow: 0 0 15px rgba(139, 92, 246, 0.3); }
+}
+
+.animate-breathe-glow {
+  animation: breathe-glow 3s ease-in-out infinite;
+  will-change: transform, opacity, box-shadow;
+}

@@ -37,13 +37,11 @@ export const Logo: React.FC<LogoProps> = ({ language, theme }) => {
         }}
       >
         <motion.span 
-          className="bg-clip-text text-transparent inline-block"
+          className="bg-clip-text text-transparent inline-block bg-[length:200%_auto] animate-bg-pan"
           animate={{ 
-            backgroundPosition: ["200% center", "-200% center"],
             backgroundImage: `linear-gradient(120deg, ${theme === 'dark' ? '#ffffff' : '#000000'} 40%, rgba(168,85,247,0.5) 50%, ${theme === 'dark' ? '#ffffff' : '#000000'} 60%)`
           }}
           transition={{ 
-            backgroundPosition: { duration: 4, repeat: Infinity, ease: "linear" },
             backgroundImage: { duration: 0.5, ease: "easeInOut" }
           }}
           variants={{
