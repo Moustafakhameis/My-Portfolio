@@ -1,0 +1,1 @@
+import{n as e,s as t}from"./jsx-runtime-BseJUIpC.js";import{M as n,N as r,i}from"./createLucideIcon-B1QVzcBy.js";var a=t(e(),1);function o(e){let t=(0,a.useRef)(0),{isStatic:o}=(0,a.useContext)(i);(0,a.useEffect)(()=>{if(o)return;let i=({timestamp:n,delta:r})=>{t.current||=n,e(n-t.current,r)};return r.update(i,!0),()=>n(i)},[e])}export{o as t};
