@@ -75,17 +75,17 @@ export const Navbar = () => {
     const isScrollingUp = latest < previous;
 
     if (latest < 50) {
-      setIsHidden(false);
-      setShowDock(false);
+      setIsHidden(prev => prev !== false ? false : prev);
+      setShowDock(prev => prev !== false ? false : prev);
       return;
     }
 
     if (isScrollingDown) {
-      setIsHidden(true);
-      setShowDock(!isAtBottom);
+      setIsHidden(prev => prev !== true ? true : prev);
+      setShowDock(prev => prev !== !isAtBottom ? !isAtBottom : prev);
     } else if (isScrollingUp) {
-      setIsHidden(false);
-      setShowDock(false);
+      setIsHidden(prev => prev !== false ? false : prev);
+      setShowDock(prev => prev !== false ? false : prev);
     }
   });
 

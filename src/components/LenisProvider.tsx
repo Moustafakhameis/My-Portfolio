@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import Lenis from 'lenis';
 
-export const LenisProvider = ({ children }: { children: React.ReactNode }) => {
+export const LenisProvider = ({ children, isActive = true }: { children: React.ReactNode, isActive?: boolean }) => {
   useEffect(() => {
+    if (!isActive) return;
     // Disable Lenis smooth scroll on touch/mobile devices — native momentum scrolling is always smoother
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     if (isTouchDevice) return;

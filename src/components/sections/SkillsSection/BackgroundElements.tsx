@@ -40,31 +40,37 @@ export const StarField = () => (
   </>
 );
 
-const CLOUD_COUNT = 6;
-export const cloudData = Array.from({ length: CLOUD_COUNT }).map((_, i) => ({
-  id: i,
-  x: Math.random() * 100 - 10,
-  y: Math.random() * 100 - 10,
-  scale: Math.random() * 1.5 + 0.5,
-  duration: Math.random() * 50 + 50,
-  delay: -(Math.random() * 50),
-}));
+export const cloudData = [
+  { id: 0, x: -5, y: 15, scale: 0.8, duration: 60, delay: -10 },
+  { id: 1, x: 75, y: 5, scale: 1.1, duration: 80, delay: -30 },
+  { id: 2, x: 55, y: 22, scale: 0.6, duration: 70, delay: -20 },
+];
 
 export const RealisticCloud = ({ x, y, scale, delay, duration }: { x: number, y: number, scale: number, delay: number, duration: number }) => (
   <div
-    className="absolute pointer-events-none z-0 animate-cloud-drift"
+    className="absolute pointer-events-none z-0 animate-cloud-drift transform-gpu will-change-transform"
     style={{
       left: `${x}%`,
       top: `${y}%`,
-      scale,
-      opacity: 0.9,
+      transform: `scale(${scale})`,
+      opacity: 0.75,
       animationDuration: `${duration}s`,
       animationDelay: `${delay}s`,
     }}
   >
-    <div className="absolute w-[300px] h-[100px] bg-white/[0.03] dark:bg-slate-900/[0.2] rounded-full blur-[40px] mix-blend-screen" />
-    <div className="absolute top-[20px] left-[50px] w-[200px] h-[120px] bg-white/[0.04] dark:bg-slate-800/[0.3] rounded-full blur-[50px] mix-blend-screen" />
-    <div className="absolute top-[10px] left-[120px] w-[250px] h-[90px] bg-white/[0.02] dark:bg-slate-700/[0.2] rounded-full blur-[45px] mix-blend-screen" />
+    {/* Volumetric realistic cloud structure */}
+    <div className="relative drop-shadow-xl" style={{ width: '300px', height: '120px', filter: 'blur(6px)' }}>
+      {/* Bottom base */}
+      <div className="absolute bottom-0 left-[20px] right-[20px] h-[60px] bg-white dark:bg-slate-300 rounded-[50px]" />
+      {/* Left bump */}
+      <div className="absolute bottom-[20px] left-[30px] w-[80px] h-[80px] bg-white dark:bg-slate-300 rounded-full" />
+      {/* Center huge bump */}
+      <div className="absolute bottom-[30px] left-[80px] w-[130px] h-[130px] bg-white dark:bg-slate-300 rounded-full" />
+      {/* Right bump */}
+      <div className="absolute bottom-[20px] right-[40px] w-[90px] h-[90px] bg-white dark:bg-slate-300 rounded-full" />
+      {/* Extra filler bump */}
+      <div className="absolute bottom-[10px] left-[60px] w-[70px] h-[70px] bg-white dark:bg-slate-300 rounded-full" />
+    </div>
   </div>
 );
 
@@ -112,7 +118,7 @@ export const meteorData = Array.from({ length: METEOR_COUNT }).map((_, i) => ({
 
 export const ShootingStar = ({ top, left, delay, duration }: any) => (
   <motion.div
-    className="absolute h-[1px] w-[100px] rounded-full pointer-events-none z-0 bg-gradient-to-r from-transparent via-black/40 to-black dark:via-white/40 dark:to-white drop-shadow-[0_0_4px_rgba(0,0,0,0.5)] dark:drop-shadow-[0_0_4px_rgba(255,255,255,1)]"
+    className="absolute h-[1px] w-[100px] rounded-full pointer-events-none z-0 bg-gradient-to-r from-transparent via-black/40 to-black dark:via-white/40 dark:to-white drop-shadow-[0_0_4px_rgba(0,0,0,0.5)] dark:drop-shadow-[0_0_4px_rgba(255,255,255,1)] transform-gpu will-change-transform"
     style={{
       top: `${top}%`,
       left: `${left}%`,

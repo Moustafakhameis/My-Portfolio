@@ -44,6 +44,7 @@ export const ThreeShowcaseSection = () => {
   const { t } = useLanguage();
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: '-100px' });
+  const isVisible = useInView(containerRef, { margin: '0px' });
 
   const rotateX = useMotionValue(-25);
   const rotateY = useMotionValue(35);
@@ -68,7 +69,7 @@ export const ThreeShowcaseSection = () => {
 
   // ---------- fixed-speed animation loop using framer-motion ----------
   useAnimationFrame((time, delta) => {
-    if (isPlaying && !isDragging && isInView) {
+    if (isPlaying && !isDragging && isVisible) {
       rotateY.set(rotateY.get() + speed * 60 * (delta / 1000));
     }
   });
