@@ -145,5 +145,49 @@
   letter-spacing: normal !important;
 }
 
+/* ==========================================================================
+   GLOBAL TOUCH SCREEN OPTIMIZATION (MOBILE & TABLET TOUCH SCREENS)
+   Prevent mobile and tablet browsers from triggering and sticking in 
+   :hover / group-hover states when tapped or swiped.
+   ========================================================================== */
+@media (hover: none), (pointer: coarse) {
+  /* Prevent sticky hover transforms and shadows on touch screens */
+  *:hover {
+    transform: none !important;
+    box-shadow: inherit !important;
+  }
+  
+  /* Disable Tailwind group-hover sticky animations on cards, projects, stats, and buttons */
+  .group:hover {
+    box-shadow: inherit !important;
+    border-color: inherit !important;
+    background-color: inherit !important;
+  }
+  
+  /* Prevent background glow gradients from appearing and sticking on tap */
+  .group:hover [class*="group-hover:opacity-100"],
+  .group:hover [class*="group-hover:opacity-"],
+  [class*="hover:opacity-"]:hover {
+    opacity: 0 !important;
+  }
+  
+  /* Prevent text and elements from scaling or shifting when tapped */
+  .group:hover [class*="group-hover:scale-"],
+  .group:hover [class*="group-hover:translate-"],
+  [class*="hover:scale-"]:hover,
+  [class*="hover:-translate-"]:hover,
+  [class*="hover:translate-"]:hover {
+    transform: none !important;
+  }
+
+  /* Keep original text colors when tapping cards */
+  .group:hover [class*="group-hover:text-"],
+  .group:hover [class*="group-hover:from-"],
+  [class*="hover:text-"]:hover {
+    color: inherit !important;
+    background-image: inherit !important;
+    -webkit-text-fill-color: inherit !important;
+  }
+}
 
 @import './global-animations.css';

@@ -41,7 +41,7 @@ export const Biography = () => {
   return (
     <>
       <motion.div variants={textReveal} className="relative">
-        <h2 className="text-5xl md:text-7xl font-black tracking-tighter mb-6 flex flex-wrap gap-x-3 gap-y-2">
+        <h2 className="text-3xl sm:text-5xl md:text-7xl font-black tracking-tighter mb-6 flex flex-wrap gap-x-3 gap-y-2">
           {t('about', 'title').split(' ').map((word: string, i: number, arr: string[]) => {
             const isLast = i === arr.length - 1;
             return (
@@ -105,7 +105,7 @@ export const Biography = () => {
                 <h3 className="text-6xl md:text-7xl font-black mb-2 text-foreground/90 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-b group-hover:from-foreground group-hover:to-primary transition-all duration-500 drop-shadow-sm group-hover:drop-shadow-[0_0_20px_rgba(var(--primary),0.8)]">
                   1+
                 </h3>
-                <p className="text-sm font-bold text-muted-foreground uppercase tracking-[0.25em] group-hover:text-foreground transition-colors duration-500 mt-2">{t('about', 'yearsOfExperience')}</p>
+                <p className="text-sm font-bold text-muted-foreground uppercase tracking-wider sm:tracking-[0.25em] group-hover:text-foreground transition-colors duration-500 mt-2">{t('about', 'yearsOfExperience')}</p>
               </div>
             </div>
           </BorderGlow>
@@ -131,7 +131,7 @@ export const Biography = () => {
                 <h3 className="text-6xl md:text-7xl font-black mb-2 text-foreground/90 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-b group-hover:from-foreground group-hover:to-purple-500 transition-all duration-500 drop-shadow-sm group-hover:drop-shadow-[0_0_20px_rgba(168,85,247,0.8)]">
                   20+
                 </h3>
-                <p className="text-sm font-bold text-muted-foreground uppercase tracking-[0.25em] group-hover:text-foreground transition-colors duration-500 mt-2">{t('about', 'projectsCompleted')}</p>
+                <p className="text-sm font-bold text-muted-foreground uppercase tracking-wider sm:tracking-[0.25em] group-hover:text-foreground transition-colors duration-500 mt-2">{t('about', 'projectsCompleted')}</p>
               </div>
             </div>
           </BorderGlow>
@@ -158,7 +158,7 @@ export const Biography = () => {
                 <h3 className="text-6xl md:text-7xl font-black mb-2 text-foreground/90 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-b group-hover:from-foreground group-hover:to-cyan-400 transition-all duration-500 drop-shadow-sm group-hover:drop-shadow-[0_0_20px_rgba(34,211,238,0.8)]">
                   10+
                 </h3>
-                <p className="text-sm font-bold text-muted-foreground uppercase tracking-[0.25em] group-hover:text-foreground transition-colors duration-500 mt-2">{t('about', 'happyClients')}</p>
+                <p className="text-sm font-bold text-muted-foreground uppercase tracking-wider sm:tracking-[0.25em] group-hover:text-foreground transition-colors duration-500 mt-2">{t('about', 'happyClients')}</p>
               </div>
             </div>
           </BorderGlow>

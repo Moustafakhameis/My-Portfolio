@@ -35,7 +35,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
       className="h-full"
     >
       <motion.div 
-        whileHover={{ y: -5 }} 
+        whileHover={typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.innerWidth < 1024) ? {} : { y: -5 }} 
         transition={{ type: "tween", ease: "easeOut", duration: 0.3 }}
         className="h-full"
       >

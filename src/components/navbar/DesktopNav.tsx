@@ -21,6 +21,7 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
   navLinks, activeSection, theme, toggleTheme, language, toggleLanguage
 }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.innerWidth < 1024);
 
   const staggerContainer = {
     hidden: { opacity: 0 },
@@ -56,7 +57,7 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
                 document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
                 window.history.pushState(null, '', link.href);
               }}
-              onMouseEnter={() => setHoveredIndex(i)}
+              onMouseEnter={() => !isTouchDevice && setHoveredIndex(i)}
               className={cn(
                 "relative px-5 py-2 text-[13px] tracking-[0.06em] uppercase transition-colors duration-300",
                 isActive ? "font-bold" : "font-medium text-muted-foreground hover:text-foreground"
@@ -154,7 +155,7 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
       
       <motion.div variants={itemAnim} className="flex items-center gap-2 border-l border-border/50 pl-4 ml-2">
         <motion.button
-          whileHover={{ scale: 1.1, rotate: 5, backgroundColor: "rgba(168,85,247,0.15)" }}
+          whileHover={isTouchDevice ? undefined : { scale: 1.1, rotate: 5, backgroundColor: "rgba(168,85,247,0.15)" }}
           whileTap={{ scale: 0.9 }}
           onClick={toggleLanguage}
           className="p-2.5 rounded-full transition-colors flex items-center gap-2 group"
@@ -165,7 +166,7 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
         </motion.button>
         
         <motion.button
-          whileHover={{ scale: 1.1, backgroundColor: "rgba(168,85,247,0.15)" }}
+          whileHover={isTouchDevice ? undefined : { scale: 1.1, backgroundColor: "rgba(168,85,247,0.15)" }}
           whileTap={{ scale: 0.9 }}
           onClick={toggleTheme}
           className="p-2.5 rounded-full transition-colors relative flex items-center justify-center w-10 h-10 overflow-hidden"

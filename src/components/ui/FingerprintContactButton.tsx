@@ -14,6 +14,7 @@ export const FingerprintContactButton = () => {
 
   const HOLD_DURATION = 1000;
   const UPDATE_INTERVAL = 10;
+  const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.innerWidth < 1024);
 
   const handlePointerDown = (e: React.PointerEvent) => {
     e.preventDefault();
@@ -112,7 +113,7 @@ END:VCARD`;
       onPointerLeave={cancelPress}
       onPointerCancel={cancelPress}
       title="Hold to save contact"
-      whileHover={{ scale: 1.05 }}
+      whileHover={isTouchDevice ? undefined : { scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
     >
       {/* Background container */}

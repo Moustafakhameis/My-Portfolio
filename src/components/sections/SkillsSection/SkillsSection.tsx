@@ -60,13 +60,15 @@ export const SkillsSection = () => {
     const checkScreen = () => {
       clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
+        const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
         setIsMobile(window.innerWidth < 768);
-        setIsDesktop(window.innerWidth > 1024);
+        setIsDesktop(window.innerWidth >= 1024 && !isTouch);
       }, 150);
     };
     // Run immediately on mount (no debounce for initial check)
+    const isTouch = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
     setIsMobile(window.innerWidth < 768);
-    setIsDesktop(window.innerWidth > 1024);
+    setIsDesktop(window.innerWidth >= 1024 && !isTouch);
     window.addEventListener('resize', checkScreen);
     return () => {
       window.removeEventListener('resize', checkScreen);

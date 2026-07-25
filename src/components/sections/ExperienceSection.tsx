@@ -57,7 +57,7 @@ const experiences = [
 const SpotlightCard = ({ children, className = "" }: { children: React.ReactNode, className?: string }) => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+  const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.innerWidth < 1024);
 
   const background = useMotionTemplate`
     radial-gradient(
@@ -90,6 +90,7 @@ const SpotlightCard = ({ children, className = "" }: { children: React.ReactNode
 };
 
 export const ExperienceSection = () => {
+  const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.innerWidth < 1024);
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -120,7 +121,7 @@ export const ExperienceSection = () => {
             hidden: { opacity: 0, y: 30 },
             visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 20 } }
           }}
-          className="text-5xl md:text-7xl font-black tracking-tighter mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-foreground via-foreground to-foreground/50 pr-2 pb-3"
+          className="text-3xl sm:text-5xl md:text-7xl font-black tracking-tighter mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-foreground via-foreground to-foreground/50 pr-2 pb-3"
         >
           {t('experience', 'title')}
         </motion.h2>
@@ -133,7 +134,7 @@ export const ExperienceSection = () => {
         />
       </motion.div>
 
-      <div ref={containerRef} className={`relative space-y-12 pb-8 ${language === 'ar' ? 'mr-8 md:mr-12' : 'ml-8 md:ml-12'}`}>
+      <div ref={containerRef} className={`relative space-y-12 pb-8 ${language === 'ar' ? 'mr-4 sm:mr-8 md:mr-12' : 'ml-4 sm:ml-8 md:ml-12'}`}>
         {/* Background faded line */}
         <div className={`absolute top-6 bottom-0 w-[2px] bg-border/20 rounded-full ${language === 'ar' ? 'right-0 translate-x-1/2' : 'left-0 -translate-x-1/2'}`} />
         
@@ -153,7 +154,7 @@ export const ExperienceSection = () => {
               hidden: { opacity: 0 },
               visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
             }}
-            className={`relative group ${language === 'ar' ? 'pr-8 md:pr-16' : 'pl-8 md:pl-16'}`}
+            className={`relative group ${language === 'ar' ? 'pr-4 sm:pr-8 md:pr-16' : 'pl-4 sm:pl-8 md:pl-16'}`}
           >
             {/* Timeline icon */}
             <motion.div 
@@ -161,7 +162,7 @@ export const ExperienceSection = () => {
                 hidden: { opacity: 0, scale: 0 },
                 visible: { opacity: 1, scale: 1, transition: { type: "tween", ease: "easeOut", duration: 0.8 } }
               }}
-              whileHover={{ scale: 1.2, rotate: 360, transition: { type: "tween", ease: "easeOut", duration: 0.8 } }}
+              whileHover={isTouchDevice ? undefined : { scale: 1.2, rotate: 360, transition: { type: "tween", ease: "easeOut", duration: 0.8 } }}
               className={`absolute top-6 p-2.5 bg-background border-2 border-border group-hover:border-primary rounded-full text-muted-foreground group-hover:text-primary shadow-sm group-hover:shadow-[0_0_20px_rgba(168,85,247,0.6)] transition-colors z-10 ring-4 ring-background ${language === 'ar' ? 'right-0 translate-x-1/2' : 'left-0 -translate-x-1/2'}`}
             >
               <Briefcase size={18} />
@@ -174,8 +175,8 @@ export const ExperienceSection = () => {
                 visible: { opacity: 1, x: 0, transition: { type: "tween", ease: "easeOut", duration: 1 } }
               }}
             >
-              <motion.div whileHover={{ scale: 1.01, x: language === 'ar' ? -5 : 5 }} transition={{ type: "tween", ease: "easeOut" }}>
-                <SpotlightCard className="p-8 md:p-10">
+              <motion.div whileHover={isTouchDevice ? undefined : { scale: 1.01, x: language === 'ar' ? -5 : 5 }} transition={{ type: "tween", ease: "easeOut" }}>
+                <SpotlightCard className="p-4 sm:p-6 md:p-10">
                   <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-6">
                     <div>
                       <h3 className="text-2xl md:text-3xl font-bold text-foreground group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-pink-500 transition-all duration-500">
@@ -183,7 +184,7 @@ export const ExperienceSection = () => {
                       </h3>
                       <p className="text-lg md:text-xl text-primary font-semibold mt-2 opacity-90">{exp.company}</p>
                     </div>
-                    <span className="inline-flex px-5 py-2 bg-primary/10 border border-primary/20 rounded-full text-sm font-bold text-primary shadow-inner whitespace-nowrap">
+                    <span className="inline-flex px-3 sm:px-5 py-1.5 sm:py-2 bg-primary/10 border border-primary/20 rounded-full text-xs sm:text-sm font-bold text-primary shadow-inner">
                       {exp.date}
                     </span>
                   </div>

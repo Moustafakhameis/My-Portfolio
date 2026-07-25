@@ -17,6 +17,7 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
 }) => {
   const ref = useRef<HTMLButtonElement | HTMLAnchorElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const isTouch = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.innerWidth < 1024);
 
   // Magnetic effect logic
   const x = useMotionValue(0);
@@ -26,7 +27,7 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
   const springY = useSpring(y, springConfig);
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!ref.current) return;
+    if (isTouch || !ref.current) return;
     const { left, top, width, height } = ref.current.getBoundingClientRect();
     const centerX = left + width / 2;
     const centerY = top + height / 2;
@@ -39,12 +40,14 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
   };
 
   const handleMouseLeave = () => {
+    if (isTouch) return;
     setIsHovered(false);
     x.set(0);
     y.set(0);
   };
 
   const handleMouseEnter = () => {
+    if (isTouch) return;
     setIsHovered(true);
   };
 
@@ -69,10 +72,10 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
       onMouseLeave={handleMouseLeave}
       onMouseEnter={handleMouseEnter}
       style={{
-        x: springX,
-        y: springY,
+        x: isTouch ? 0 : springX,
+        y: isTouch ? 0 : springY,
       }}
-      whileHover={{ scale: 1.05 }}
+      whileHover={isTouch ? {} : { scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       {...props}
     >

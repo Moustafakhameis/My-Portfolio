@@ -11,6 +11,7 @@ export const NotFound = () => {
   const smoothX = useSpring(mouseX, springConfig);
   const smoothY = useSpring(mouseY, springConfig);
 
+  const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.innerWidth < 1024);
   const parallaxX = useTransform(smoothX, [0, typeof window !== 'undefined' ? window.innerWidth : 1000], [-50, 50]);
   const parallaxY = useTransform(smoothY, [0, typeof window !== 'undefined' ? window.innerHeight : 1000], [-50, 50]);
 
@@ -84,7 +85,7 @@ export const NotFound = () => {
             <motion.span 
               key={index}
               variants={textVariants}
-              whileHover={{ scale: 1.1, rotate: (Math.random() - 0.5) * 20, color: '#a855f7' }}
+              whileHover={isTouchDevice ? undefined : { scale: 1.1, rotate: (Math.random() - 0.5) * 20, color: '#a855f7' }}
               className="text-[150px] md:text-[250px] font-black leading-none text-transparent bg-clip-text bg-gradient-to-br from-primary via-purple-500 to-pink-500 drop-shadow-[0_0_40px_rgba(168,85,247,0.4)] cursor-default select-none inline-block transition-colors duration-300"
             >
               {char}

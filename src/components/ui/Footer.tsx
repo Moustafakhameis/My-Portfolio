@@ -8,6 +8,7 @@ export const Footer = () => {
   const { t, language } = useLanguage();
   const [isHovered, setIsHovered] = useState(false);
   const [showCard, setShowCard] = useState(false);
+  const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.innerWidth < 1024);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -50,7 +51,7 @@ export const Footer = () => {
         >
           {/* Main Footer Title */}
           <motion.div variants={itemVariants} className="space-y-8 flex flex-col items-center">
-            <h2 className="text-5xl md:text-8xl font-black tracking-tighter leading-tight drop-shadow-2xl">
+            <h2 className="text-3xl sm:text-5xl md:text-8xl font-black tracking-tighter leading-tight drop-shadow-2xl">
               {t('footer', 'letCreate1')} <br/>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-fuchsia-500 to-pink-500 inline-block pt-2 pb-3 drop-shadow-[0_0_20px_rgba(217,70,239,0.3)]">
                 {t('footer', 'letCreate2')}
@@ -65,7 +66,7 @@ export const Footer = () => {
                   ? 'bg-slate-200 border border-slate-300 text-slate-900 dark:bg-white/10 dark:border-white/20 dark:text-white'
                   : 'bg-gradient-to-r from-violet-600 to-pink-600 border border-transparent shadow-[0_0_30px_rgba(124,58,237,0.4)] text-white'
               }`}
-              whileHover={{ scale: 1.05 }}
+              whileHover={isTouchDevice ? undefined : { scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               {showCard ? (
@@ -97,7 +98,7 @@ export const Footer = () => {
             <motion.div
               initial={false}
               animate={{
-                maxHeight: showCard ? 700 : 0,
+                maxHeight: showCard ? 'min(700px, 85vh)' : 0,
                 opacity: showCard ? 1 : 0,
                 marginTop: showCard ? 16 : 0,
                 marginBottom: showCard ? 16 : 0,
@@ -164,7 +165,7 @@ export const Footer = () => {
 
             <motion.button
               variants={itemVariants}
-              whileHover={{ scale: 1.15, y: -5 }}
+              whileHover={isTouchDevice ? undefined : { scale: 1.15, y: -5 }}
               whileTap={{ scale: 0.9 }}
               onClick={scrollToTop}
               className="relative p-[2px] rounded-full group"

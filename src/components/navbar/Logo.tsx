@@ -7,13 +7,14 @@ interface LogoProps {
 }
 
 export const Logo: React.FC<LogoProps> = ({ language, theme }) => {
+  const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.innerWidth < 1024);
   return (
     <motion.a 
       href="#" 
       className="flex items-center gap-2 text-2xl font-bold tracking-tighter"
       initial="idle"
       animate="idle"
-      whileHover="hover"
+      whileHover={isTouchDevice ? undefined : "hover"}
       whileTap="tap"
       variants={{
         idle: { scale: 1 },

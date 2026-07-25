@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, useMotionTemplate, useMotionValue, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -14,23 +14,39 @@ export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ image, images, t
   const mouseY = useMotionValue(0);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.innerWidth < 1024);
 
   // Determine the array of images to display
   const displayImages = images && images.length > 0 ? images : (image ? [image] : []);
   const hasMultipleImages = displayImages.length > 1;
 
-  // Auto-play the carousel every 3 seconds if there are multiple images and not hovered
+  // Only autoplay when visible on screen (saves CPU/GPU on mobile)
   useEffect(() => {
-    if (!hasMultipleImages || isHovered) return;
+    const el = containerRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  // Auto-play the carousel every 3 seconds if visible, has multiple images, and not hovered
+  useEffect(() => {
+    if (!hasMultipleImages || isHovered || !isVisible) return;
 
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % displayImages.length);
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [displayImages.length, hasMultipleImages, isHovered]);
+  }, [displayImages.length, hasMultipleImages, isHovered, isVisible]);
 
   function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
+    if (isTouchDevice) return;
     const { left, top } = currentTarget.getBoundingClientRect();
     mouseX.set(clientX - left);
     mouseY.set(clientY - top);
@@ -49,10 +65,11 @@ export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ image, images, t
 
   return (
     <div 
+      ref={containerRef}
       className="relative w-full h-full overflow-hidden bg-card/40 flex items-center justify-center group"
-      onMouseEnter={() => setIsHovered(true)}
+      onMouseEnter={() => !isTouchDevice && setIsHovered(true)}
       onMouseMove={handleMouseMove}
-      onMouseLeave={() => { setIsHovered(false); mouseX.set(0); mouseY.set(0); }}
+      onMouseLeave={() => { if (!isTouchDevice) { setIsHovered(false); mouseX.set(0); mouseY.set(0); } }}
     >
       {displayImages.length > 0 ? (
         <>
@@ -87,29 +104,31 @@ export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ image, images, t
             <>
               <button 
                 onClick={(e) => { e.preventDefault(); e.stopPropagation(); setCurrentIndex((prev) => (prev - 1 + displayImages.length) % displayImages.length); }}
-                className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-30 p-2 md:p-3 rounded-full bg-background/60 hover:bg-primary/60 text-foreground hover:text-white backdrop-blur-md transition-all duration-300 opacity-100 md:opacity-0 md:group-hover:opacity-100 border border-border/30 hover:border-primary/50 shadow-xl"
+                className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-30 p-1.5 md:p-3 rounded-full bg-background/70 md:bg-background/60 md:hover:bg-primary/60 text-foreground md:hover:text-white md:backdrop-blur-md transition-all duration-300 opacity-70 md:opacity-0 md:group-hover:opacity-100 border border-border/30 md:hover:border-primary/50 shadow-lg md:shadow-xl"
                 aria-label="Previous image"
               >
-                <ChevronLeft size={20} className="md:w-6 md:h-6" />
+                <ChevronLeft size={16} className="md:w-6 md:h-6" />
               </button>
               <button 
                 onClick={(e) => { e.preventDefault(); e.stopPropagation(); setCurrentIndex((prev) => (prev + 1) % displayImages.length); }}
-                className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-30 p-2 md:p-3 rounded-full bg-background/60 hover:bg-primary/60 text-foreground hover:text-white backdrop-blur-md transition-all duration-300 opacity-100 md:opacity-0 md:group-hover:opacity-100 border border-border/30 hover:border-primary/50 shadow-xl"
+                className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-30 p-1.5 md:p-3 rounded-full bg-background/70 md:bg-background/60 md:hover:bg-primary/60 text-foreground md:hover:text-white md:backdrop-blur-md transition-all duration-300 opacity-70 md:opacity-0 md:group-hover:opacity-100 border border-border/30 md:hover:border-primary/50 shadow-lg md:shadow-xl"
                 aria-label="Next image"
               >
-                <ChevronRight size={20} className="md:w-6 md:h-6" />
+                <ChevronRight size={16} className="md:w-6 md:h-6" />
               </button>
             </>
           )}
 
           
-          {/* Pagination Indicators */}
+          {/* Pagination Indicators — always visible on mobile, hover-only on desktop */}
           {hasMultipleImages && (
-            <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+            <div className="absolute bottom-3 md:bottom-4 left-0 right-0 flex justify-center gap-1.5 md:gap-2 z-10 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500">
               {displayImages.map((_, idx) => (
-                <div 
-                  key={`indicator-${idx}`} 
-                  className={`h-1.5 rounded-full transition-all duration-500 ${idx === currentIndex ? 'w-6 bg-primary shadow-[0_0_10px_rgba(168,85,247,0.8)]' : 'w-2 bg-white/40'}`}
+                <button 
+                  key={`indicator-${idx}`}
+                  onClick={(e) => { e.preventDefault(); e.stopPropagation(); setCurrentIndex(idx); }}
+                  className={`h-1 md:h-1.5 rounded-full transition-all duration-500 ${idx === currentIndex ? 'w-5 md:w-6 bg-primary shadow-[0_0_10px_rgba(168,85,247,0.8)]' : 'w-1.5 md:w-2 bg-white/40'}`}
+                  aria-label={`Go to image ${idx + 1}`}
                 />
               ))}
             </div>
@@ -124,19 +143,21 @@ export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ image, images, t
         </div>
       )}
 
-      {/* Interactive Hover Glow specific to the image area */}
-      <motion.div
-        className="pointer-events-none absolute -inset-px opacity-0 transition duration-500 group-hover:opacity-100 z-20"
-        style={{
-          background: useMotionTemplate`
-            radial-gradient(
-              400px circle at ${mouseX}px ${mouseY}px,
-              rgba(255, 255, 255, 0.1) 0%,
-              transparent 80%
-            )
-          `
-        }}
-      />
+      {/* Interactive Hover Glow — desktop only */}
+      {!isTouchDevice && (
+        <motion.div
+          className="pointer-events-none absolute -inset-px opacity-0 transition duration-500 group-hover:opacity-100 z-20"
+          style={{
+            background: useMotionTemplate`
+              radial-gradient(
+                400px circle at ${mouseX}px ${mouseY}px,
+                rgba(255, 255, 255, 0.1) 0%,
+                transparent 80%
+              )
+            `
+          }}
+        />
+      )}
     </div>
   );
 };

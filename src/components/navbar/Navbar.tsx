@@ -175,7 +175,7 @@ export const Navbar = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 30, scale: 0.97 }}
             transition={{ type: 'spring', stiffness: 200, damping: 22, mass: 0.8 }}
-            className="fixed bottom-6 left-0 right-0 z-50 pointer-events-none flex justify-center hidden md:flex"
+            className="fixed bottom-6 left-0 right-0 z-50 pointer-events-none flex justify-center hidden lg:flex"
           >
             <div className="pointer-events-auto relative">
               <Dock

@@ -29,7 +29,7 @@ export const MobileNav: React.FC<MobileNavProps> = ({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0, transition: { delay: 0.3 } }}
           transition={{ duration: 0.4, ease: "easeInOut" }}
-          className="fixed inset-0 bg-background flex flex-col justify-center items-center md:hidden z-40 overflow-hidden pt-24"
+          className="fixed inset-0 bg-background flex flex-col justify-center items-center md:hidden z-40 overflow-y-auto pt-24 pb-8"
         >
           <motion.div 
             initial={{ scale: 0.8, opacity: 0 }}
@@ -50,7 +50,7 @@ export const MobileNav: React.FC<MobileNavProps> = ({
                 transition: { staggerChildren: 0.1, delayChildren: 0.2 }
               }
             }}
-            className="flex flex-col items-center gap-10 w-full"
+            className="flex flex-col items-center gap-6 sm:gap-10 w-full"
           >
             {navLinks.map((link) => {
               const isActive = activeSection === link.href.substring(1);
@@ -147,7 +147,7 @@ export const MobileNav: React.FC<MobileNavProps> = ({
             >
               <button
                 onClick={toggleLanguage}
-                className="flex items-center gap-3 p-3 rounded-full hover:bg-primary/10 transition-colors"
+                className="flex items-center gap-3 p-3 rounded-full transition-colors active:scale-95"
                 aria-label="Toggle language"
               >
                 <Languages size={28} className="text-foreground" />
@@ -157,10 +157,9 @@ export const MobileNav: React.FC<MobileNavProps> = ({
               <div className="w-px h-8 bg-border/50" />
               
               <motion.button
-                whileHover={{ scale: 1.1, backgroundColor: "rgba(168,85,247,0.15)" }}
                 whileTap={{ scale: 0.9 }}
                 onClick={toggleTheme}
-                className="p-3 rounded-full transition-colors relative flex items-center justify-center w-14 h-14 overflow-hidden hover:bg-primary/10"
+                className="p-3 rounded-full transition-colors relative flex items-center justify-center w-14 h-14 overflow-hidden"
                 aria-label="Toggle theme"
               >
                 <motion.div

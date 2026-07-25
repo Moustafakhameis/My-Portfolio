@@ -50,7 +50,7 @@ export const ContactSection = () => {
         className="relative z-10"
       >
         <motion.div variants={itemVariants}>
-          <h2 className="text-5xl md:text-7xl font-black tracking-tighter mb-2 pb-8 pt-2 flex flex-wrap justify-center gap-x-3 gap-y-2">
+          <h2 className="text-3xl sm:text-5xl md:text-7xl font-black tracking-tighter mb-2 pb-8 pt-2 flex flex-wrap justify-center gap-x-3 gap-y-2">
             {t('contact', 'title').split(' ').map((word: string, i: number, arr: string[]) => {
               const isLast = i === arr.length - 1;
               return (
@@ -71,8 +71,8 @@ export const ContactSection = () => {
         <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 mb-20 flex-wrap w-full">
           
           {/* Email Group */}
-          <motion.div variants={itemVariants} className="relative group flex items-center gap-3 md:gap-0 w-full max-w-[320px] md:max-w-none md:w-auto mx-auto md:mx-0">
-            <div className="flex-1 md:flex-none hover:scale-[1.03] active:scale-[0.97] transition-transform duration-200 ease-out">
+          <motion.div variants={itemVariants} className="relative group flex items-center gap-3 md:gap-0 w-full max-w-sm md:max-w-none md:w-auto mx-auto md:mx-0">
+            <div className="flex-1 md:flex-none md:hover:scale-[1.03] active:scale-[0.97] transition-transform duration-200 ease-out">
               <AnimatedButton
                 href={`mailto:${email}`}
                 variant="primary"
@@ -92,8 +92,8 @@ export const ContactSection = () => {
           </motion.div>
 
           {/* Gmail Group */}
-          <motion.div variants={itemVariants} className="relative group flex items-center gap-3 md:gap-0 w-full max-w-[320px] md:max-w-none md:w-auto mx-auto md:mx-0">
-            <div className="flex-1 md:flex-none hover:scale-[1.03] active:scale-[0.97] transition-transform duration-200 ease-out">
+          <motion.div variants={itemVariants} className="relative group flex items-center gap-3 md:gap-0 w-full max-w-sm md:max-w-none md:w-auto mx-auto md:mx-0">
+            <div className="flex-1 md:flex-none md:hover:scale-[1.03] active:scale-[0.97] transition-transform duration-200 ease-out">
               <AnimatedButton
                 href={`https://mail.google.com/mail/?view=cm&fs=1&to=${email}`}
                 target="_blank"
@@ -110,8 +110,8 @@ export const ContactSection = () => {
           </motion.div>
 
           {/* Phone Group */}
-          <motion.div variants={itemVariants} className="relative group flex items-center gap-3 md:gap-0 w-full max-w-[320px] md:max-w-none md:w-auto mx-auto md:mx-0">
-            <div className="flex-1 md:flex-none hover:scale-[1.03] active:scale-[0.97] transition-transform duration-200 ease-out">
+          <motion.div variants={itemVariants} className="relative group flex items-center gap-3 md:gap-0 w-full max-w-sm md:max-w-none md:w-auto mx-auto md:mx-0">
+            <div className="flex-1 md:flex-none md:hover:scale-[1.03] active:scale-[0.97] transition-transform duration-200 ease-out">
               <AnimatedButton
                 onClick={() => handleCopy(phone, setCopiedPhone, 'Phone number copied to clipboard')}
                 variant="outline"

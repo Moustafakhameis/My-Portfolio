@@ -112,9 +112,10 @@ const AnimatedText = ({ text }: { text: string }) => {
 export const HeroSection = () => {
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
-    const mql = window.matchMedia('(max-width: 767px)');
-    setIsMobile(mql.matches);
-    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    const checkTouch = () => window.matchMedia('(max-width: 1023px)').matches || ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    setIsMobile(checkTouch());
+    const mql = window.matchMedia('(max-width: 1023px)');
+    const handler = () => setIsMobile(checkTouch());
     mql.addEventListener('change', handler);
     return () => mql.removeEventListener('change', handler);
   }, []);
@@ -155,7 +156,7 @@ export const HeroSection = () => {
             className="mb-6 md:mb-8 relative group cursor-pointer"
           >
             <motion.div
-              whileHover={{ scale: 1.05, rotate: 3 }}
+              whileHover={isMobile ? {} : { scale: 1.05, rotate: 3 }}
               transition={{ 
                 scale: { type: "tween", ease: "easeOut" },
                 rotate: { type: "tween", ease: "easeOut" }
@@ -175,7 +176,7 @@ export const HeroSection = () => {
             <div className="absolute inset-0 rounded-full bg-blue-500/20 dark:bg-primary/20 -z-20 blur-3xl scale-150 group-hover:scale-175 transition-transform duration-500 opacity-50" />
           </motion.div>
 
-          <motion.div variants={itemVariants} whileHover={{ scale: 1.1, y: -5 }} className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary/5 text-primary mb-6 border border-primary/20 shadow-sm cursor-default">
+          <motion.div variants={itemVariants} whileHover={isMobile ? {} : { scale: 1.1, y: -5 }} className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary/5 text-primary mb-6 border border-primary/20 shadow-sm cursor-default">
             <span className="relative flex h-3 w-3">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
               <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
@@ -199,17 +200,17 @@ export const HeroSection = () => {
             </motion.span>
           </motion.h1>
           
-          <motion.h2 variants={itemVariants} className="text-xl sm:text-2xl md:text-4xl lg:text-5xl text-muted-foreground font-semibold mb-8 text-center max-w-4xl flex justify-center h-8 sm:h-10 md:h-12 lg:h-16">
+          <motion.h2 variants={itemVariants} className="text-xl sm:text-2xl md:text-4xl lg:text-5xl text-muted-foreground font-semibold mb-8 text-center max-w-4xl flex justify-center min-h-[2rem] sm:min-h-[2.5rem] md:min-h-[3rem] lg:min-h-[4rem]">
             <TypewriterText text={String(t('hero', 'role'))} delay={2200} />
           </motion.h2>
 
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-6 mt-4 w-full sm:w-auto items-center justify-center z-20 pb-4">
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <motion.div whileHover={isMobile ? {} : { scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <AnimatedButton href="#work" variant="primary">
                 {t('hero', 'viewWork')}
               </AnimatedButton>
             </motion.div>
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <motion.div whileHover={isMobile ? {} : { scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <AnimatedButton href="#contact" variant="outline">
                 {t('hero', 'contactMe')}
               </AnimatedButton>

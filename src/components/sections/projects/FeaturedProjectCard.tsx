@@ -14,7 +14,7 @@ interface FeaturedProjectCardProps {
 export const FeaturedProjectCard: React.FC<FeaturedProjectCardProps> = ({ project, index }) => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+  const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.innerWidth < 1024);
 
   function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
     if (isTouchDevice) return;
@@ -43,24 +43,26 @@ export const FeaturedProjectCard: React.FC<FeaturedProjectCardProps> = ({ projec
       onMouseLeave={() => { mouseX.set(0); mouseY.set(0); }}
     >
       <motion.div 
-        whileHover={{ y: -10 }} 
+        whileHover={isTouchDevice ? undefined : { y: -10 }} 
         transition={{ type: "tween", ease: "easeOut", duration: 0.4 }}
       >
         <div className="relative overflow-hidden rounded-[2.5rem] border border-border/40 bg-card/30 md:bg-card/20 shadow-2xl hover:shadow-[0_30px_60px_-15px_rgba(168,85,247,0.4)] transition-all duration-700">
           
-          {/* Intense glow on hover based on mouse position */}
-          <motion.div
-            className="pointer-events-none absolute -inset-px opacity-0 transition duration-500 group-hover:opacity-100 z-10 rounded-[2.5rem]"
-            style={{
-              background: useMotionTemplate`
-                radial-gradient(
-                  800px circle at ${mouseX}px ${mouseY}px,
-                  rgba(168, 85, 247, 0.15) 0%,
-                  transparent 80%
-                )
-              `
-            }}
-          />
+          {/* Intense glow on hover based on mouse position — desktop only */}
+          {!isTouchDevice && (
+            <motion.div
+              className="pointer-events-none absolute -inset-px opacity-0 transition duration-500 group-hover:opacity-100 z-10 rounded-[2.5rem]"
+              style={{
+                background: useMotionTemplate`
+                  radial-gradient(
+                    800px circle at ${mouseX}px ${mouseY}px,
+                    rgba(168, 85, 247, 0.15) 0%,
+                    transparent 80%
+                  )
+                `
+              }}
+            />
+          )}
 
           <div className="flex flex-col h-full relative z-20">
             {/* Image Top */}
@@ -69,7 +71,7 @@ export const FeaturedProjectCard: React.FC<FeaturedProjectCardProps> = ({ projec
             </div>
 
             {/* Content Bottom */}
-            <div className="w-full p-6 md:p-10 lg:p-16 flex flex-col justify-center max-w-6xl mx-auto">
+            <div className="w-full p-4 sm:p-6 md:p-10 lg:p-16 flex flex-col justify-center max-w-6xl mx-auto">
               <div className="flex items-center gap-4 mb-6">
                 <ProjectBadge category={project.category} />
                 <span className="h-px flex-1 bg-gradient-to-r from-border/50 to-transparent" />
@@ -85,14 +87,14 @@ export const FeaturedProjectCard: React.FC<FeaturedProjectCardProps> = ({ projec
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
                 <motion.div 
-                  whileHover={{ y: -5 }}
+                  whileHover={isTouchDevice ? undefined : { y: -5 }}
                   className="p-6 rounded-2xl bg-background/40 border border-border/30 group-hover:border-primary/40 group-hover:bg-primary/5 transition-all duration-300"
                 >
                   <span className="text-xs uppercase tracking-widest font-black text-primary block mb-2">Challenges Solved</span>
                   <p className="text-sm md:text-base text-muted-foreground group-hover:text-foreground/80 transition-colors">{project.challenges}</p>
                 </motion.div>
                 <motion.div 
-                  whileHover={{ y: -5 }}
+                  whileHover={isTouchDevice ? undefined : { y: -5 }}
                   className="p-6 rounded-2xl bg-background/40 border border-border/30 group-hover:border-pink-500/40 group-hover:bg-pink-500/5 transition-all duration-300"
                 >
                   <span className="text-xs uppercase tracking-widest font-black text-pink-500 block mb-2">Technical Results</span>

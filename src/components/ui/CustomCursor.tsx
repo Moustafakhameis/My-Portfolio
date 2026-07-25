@@ -2,9 +2,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 
 export const CustomCursor = () => {
-  // Skip entirely on touch devices — the cursor is hidden via CSS (lg:block)
-  // but without this guard, 4 global event listeners and 6 spring simulations still run
-  const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+  // Skip entirely on touch devices and tablets (<1024px)
+  const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.innerWidth < 1024);
   if (isTouchDevice) return null;
 
   return <CustomCursorInner />;

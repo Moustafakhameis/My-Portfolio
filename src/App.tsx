@@ -23,6 +23,17 @@ const SymbolShowcaseSection = lazy(() => import('./components/sections/SymbolSho
 function App() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [showBelowFold, setShowBelowFold] = useState(false);
+  const [isDesktopView, setIsDesktopView] = useState(false);
+
+  useEffect(() => {
+    const checkDesktop = () => {
+      const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      setIsDesktopView(window.innerWidth >= 1024 && !isTouch);
+    };
+    checkDesktop();
+    window.addEventListener('resize', checkDesktop);
+    return () => window.removeEventListener('resize', checkDesktop);
+  }, []);
 
   // Stagger the mount: let the Hero paint first, then mount heavier sections during idle time
   useEffect(() => {
@@ -70,12 +81,14 @@ function App() {
                         <SkillsSection />
                         <ExperienceSection />
                         <ProjectsSection />
-                        <div className="hidden lg:block">
-                          <Suspense fallback={<div className="w-full h-[600px] flex items-center justify-center opacity-50">Loading 3D Engine...</div>}>
-                            <ThreeShowcaseSection />
-                            <SymbolShowcaseSection />
-                          </Suspense>
-                        </div>
+                        {isDesktopView && (
+                          <div className="hidden lg:block">
+                            <Suspense fallback={<div className="w-full h-[600px] flex items-center justify-center opacity-50">Loading 3D Engine...</div>}>
+                              <ThreeShowcaseSection />
+                              <SymbolShowcaseSection />
+                            </Suspense>
+                          </div>
+                        )}
                         <ContactSection />
                       </Suspense>
                     </>

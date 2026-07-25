@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { skillMetrics } from '../../../data/skillMetrics';
 import { RadarChart } from './RadarChart';
@@ -9,6 +9,16 @@ import { CategoryChips } from './CategoryChips';
 export const MobileSkillsDashboard = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-80px' });
+  const [isTablet, setIsTablet] = useState(false);
+
+  useEffect(() => {
+    const checkTablet = () => {
+      setIsTablet(window.innerWidth >= 640 && window.innerWidth < 1024);
+    };
+    checkTablet();
+    window.addEventListener('resize', checkTablet);
+    return () => window.removeEventListener('resize', checkTablet);
+  }, []);
 
   return (
     <div ref={sectionRef} className="w-full">
@@ -72,7 +82,7 @@ export const MobileSkillsDashboard = () => {
               key={skill.name}
               skill={skill}
               index={i}
-              isTablet={false}
+              isTablet={isTablet}
             />
           ))}
         </div>
