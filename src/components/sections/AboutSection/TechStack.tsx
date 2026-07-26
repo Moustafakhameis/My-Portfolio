@@ -137,13 +137,16 @@ const TechStyle = () => (
 
 const IconWrapper = ({ icon: Icon, hoverColor, glowColor, lightHoverColor }: { icon: React.ElementType, hoverColor: string, glowColor: string, lightHoverColor?: string }) => (
   <div 
-    className="tech-card relative flex items-center justify-center w-[4.5rem] h-[4.5rem] sm:w-[5.5rem] sm:h-[5.5rem] md:w-28 md:h-28 lg:w-32 lg:h-32 rounded-2xl sm:rounded-[1.5rem] lg:rounded-[2rem] bg-card/20 border border-border/30 cursor-pointer shadow-sm transform-gpu will-change-transform"
+    className="tech-card relative flex items-center justify-center w-[4.5rem] h-[4.5rem] sm:w-[5.5rem] sm:h-[5.5rem] md:w-28 md:h-28 lg:w-32 lg:h-32 rounded-2xl sm:rounded-[1.5rem] lg:rounded-[2rem] bg-card/20 border border-border/30 cursor-pointer shadow-sm"
     style={{ '--hover-color': hoverColor, '--light-hover-color': lightHoverColor || hoverColor, '--glow-color': glowColor } as React.CSSProperties}
   >
     <div className="tech-bg absolute inset-0 rounded-2xl sm:rounded-[1.5rem] lg:rounded-[2rem]" />
     <div className="tech-glow absolute inset-0 rounded-2xl sm:rounded-[1.5rem] lg:rounded-[2rem]" />
-    <div className="tech-reflection absolute -bottom-4 w-1/2 h-4 blur-xl rounded-full hidden lg:block transform-gpu will-change-transform" />
-    <Icon className="tech-icon relative z-10 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 transform-gpu" />
+    <div 
+      className="tech-reflection absolute -bottom-4 left-1/4 w-1/2 h-4 rounded-full hidden lg:block pointer-events-none" 
+      style={{ background: 'radial-gradient(ellipse at center, var(--hover-color) 0%, transparent 80%)' }} 
+    />
+    <Icon className="tech-icon relative z-10 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16" />
   </div>
 );
 

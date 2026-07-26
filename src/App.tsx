@@ -9,12 +9,11 @@ import { Navbar } from './components/ui/Navbar';
 import { HeroSection } from './components/sections/HeroSection';
 import { Footer } from './components/ui/Footer';
 import { NotFound } from './components/ui/NotFound';
-
-const AboutSection = lazy(() => import('./components/sections/AboutSection').then(m => ({ default: m.AboutSection })));
-const SkillsSection = lazy(() => import('./components/sections/SkillsSection').then(m => ({ default: m.SkillsSection })));
-const ExperienceSection = lazy(() => import('./components/sections/ExperienceSection').then(m => ({ default: m.ExperienceSection })));
-const ProjectsSection = lazy(() => import('./components/sections/ProjectsSection').then(m => ({ default: m.ProjectsSection })));
-const ContactSection = lazy(() => import('./components/sections/ContactSection').then(m => ({ default: m.ContactSection })));
+import { AboutSection } from './components/sections/AboutSection';
+import { SkillsSection } from './components/sections/SkillsSection';
+import { ExperienceSection } from './components/sections/ExperienceSection';
+import { ProjectsSection } from './components/sections/ProjectsSection';
+import { ContactSection } from './components/sections/ContactSection';
 
 // Lazy load ONLY the heavy 3D sections so we don't block the main thread parsing 1MB of Three.js code on load
 const ThreeShowcaseSection = lazy(() => import('./components/sections/ThreeShowcaseSection').then(module => ({ default: module.ThreeShowcaseSection })));
@@ -22,8 +21,9 @@ const SymbolShowcaseSection = lazy(() => import('./components/sections/SymbolSho
 
 function App() {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [showBelowFold, setShowBelowFold] = useState(false);
+  const [show3D, setShow3D] = useState(false);
   const [isDesktopView, setIsDesktopView] = useState(false);
+  const threeRef = React.useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const checkDesktop = () => {
@@ -35,24 +35,26 @@ function App() {
     return () => window.removeEventListener('resize', checkDesktop);
   }, []);
 
-  // Stagger the mount: let the Hero paint first, then mount heavier sections during idle time
+  // Load the heavy 3D engine (1.1MB Three.js & WebGL shader compilation) only when the user scrolls
+  // near the 3D section (within 1200px). This eliminates main-thread freezes and FPS drops when scrolling
+  // through Hero, About, and Skills at the top of the page!
   useEffect(() => {
-    if (isLoaded) {
-      let timeoutId: ReturnType<typeof setTimeout>;
-      const initIdle = () => {
-        if ('requestIdleCallback' in window) {
-          (window as any).requestIdleCallback(() => setShowBelowFold(true));
-        } else {
-          timeoutId = setTimeout(() => setShowBelowFold(true), 150);
+    if (!isLoaded || !isDesktopView) return;
+    const currentRef = threeRef.current;
+    if (!currentRef) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setShow3D(true);
+          observer.disconnect();
         }
-      };
-      const id = requestAnimationFrame(initIdle);
-      return () => {
-        cancelAnimationFrame(id);
-        if (timeoutId) clearTimeout(timeoutId);
-      };
-    }
-  }, [isLoaded]);
+      },
+      { rootMargin: '1200px 0px' }
+    );
+    observer.observe(currentRef);
+    return () => observer.disconnect();
+  }, [isLoaded, isDesktopView]);
 
   // Check if current path matches the base URL or root
   const currentPath = window.location.pathname;
@@ -63,38 +65,36 @@ function App() {
     <ThemeProvider defaultTheme="dark">
       <LanguageProvider>
         <ToastProvider>
-          <LenisProvider isActive={showBelowFold}>
+          <LenisProvider isActive={isLoaded}>
             <CustomCursor />
             {!isLoaded && <LoadingScreen onComplete={() => setIsLoaded(true)} />}
             
             {isLoaded && isNotFound && <NotFound />}
             
-            {isLoaded && !isNotFound && (
+            {!isNotFound && (
               <div className="relative min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground font-sans transition-colors duration-500 overflow-x-clip">
-                <Navbar />
+                <Navbar active={isLoaded} />
                 <main>
-                  <HeroSection />
-                  {showBelowFold && (
-                    <>
-                      <Suspense fallback={null}>
-                        <AboutSection />
-                        <SkillsSection />
-                        <ExperienceSection />
-                        <ProjectsSection />
-                        {isDesktopView && (
-                          <div className="hidden lg:block">
-                            <Suspense fallback={<div className="w-full h-[600px] flex items-center justify-center opacity-50">Loading 3D Engine...</div>}>
-                              <ThreeShowcaseSection />
-                              <SymbolShowcaseSection />
-                            </Suspense>
-                          </div>
-                        )}
-                        <ContactSection />
-                      </Suspense>
-                    </>
+                  <HeroSection animate={isLoaded} />
+                  <AboutSection />
+                  <SkillsSection />
+                  <ExperienceSection />
+                  <ProjectsSection />
+                  {isDesktopView && (
+                    <div ref={threeRef} className="hidden lg:block min-h-[600px]">
+                      {show3D ? (
+                        <Suspense fallback={<div className="w-full h-[600px] flex items-center justify-center opacity-50">Loading 3D Engine...</div>}>
+                          <ThreeShowcaseSection />
+                          <SymbolShowcaseSection />
+                        </Suspense>
+                      ) : (
+                        <div className="w-full h-[600px]" />
+                      )}
+                    </div>
                   )}
+                  <ContactSection />
                 </main>
-                {showBelowFold && <Footer />}
+                <Footer />
               </div>
             )}
           </LenisProvider>

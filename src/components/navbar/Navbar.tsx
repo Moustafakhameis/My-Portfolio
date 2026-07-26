@@ -8,7 +8,7 @@ import { Logo } from './Logo';
 import { DesktopNav } from './DesktopNav';
 import { MobileNav } from './MobileNav';
 
-export const Navbar = () => {
+export const Navbar = ({ active = true }: { active?: boolean }) => {
   const { theme, setTheme } = useTheme();
   const { language, setLanguage, t } = useLanguage();
   const [showDock, setShowDock] = useState(false);
@@ -16,6 +16,15 @@ export const Navbar = () => {
   const [activeSection, setActiveSection] = useState<string>('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { scrollY } = useScroll();
+  const [blurReady, setBlurReady] = useState(false);
+
+  // Defer the expensive backdrop-blur until hero entrance animations are done (~2.5s)
+  // This is the #1 GPU perf killer: blurring behind the navbar on every animation frame
+  useEffect(() => {
+    if (!active) return;
+    const id = setTimeout(() => setBlurReady(true), 2500);
+    return () => clearTimeout(id);
+  }, [active]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -110,7 +119,7 @@ export const Navbar = () => {
         variants={navContainer}
         initial="visible"
         animate={isHidden ? 'hidden' : 'visible'}
-        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 md:px-12 md:py-6 bg-background/70 backdrop-blur-md border-b border-white/5 shadow-[0_4px_30px_rgba(0,0,0,0.1)] transform-gpu will-change-transform"
+        className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 md:px-12 md:py-6 bg-background/70 ${blurReady ? 'backdrop-blur-md' : ''} border-b border-white/5 shadow-[0_4px_30px_rgba(0,0,0,0.1)] transform-gpu will-change-transform`}
       >
         <Logo language={language} theme={theme} />
 

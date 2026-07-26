@@ -18,7 +18,7 @@ export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
           clearInterval(interval);
           setTimeout(() => {
             setIsLoading(false);
-            setTimeout(onComplete, 800); // Allow smooth exit animation
+            setTimeout(onComplete, 400); // Allow smooth exit animation
           }, 500);
           return 100;
         }
@@ -56,8 +56,8 @@ export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
         <motion.div
           className={`fixed inset-0 z-[100] flex flex-col items-center justify-center ${theme === 'light' ? 'bg-[#f8fafc]' : 'bg-[#030014]'} text-foreground overflow-hidden`}
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, scale: 1.1, filter: 'blur(20px)' }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
         >
           {/* Animated Background Ambient Glows */}
           <motion.div 

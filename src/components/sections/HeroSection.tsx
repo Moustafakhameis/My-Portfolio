@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useLanguage } from '../../context/LanguageContext';
 import { AnimatedButton } from '../ui/AnimatedButton';
@@ -26,6 +26,7 @@ const itemVariants = {
 };
 
 const floatingBubbleVariants = {
+  initial: { opacity: 0 },
   animate: (i: number) => ({
     y: [0, -60, 0],
     x: [0, i % 2 === 0 ? 40 : -40, 0],
@@ -34,16 +35,18 @@ const floatingBubbleVariants = {
       duration: 10 + i * 2,
       repeat: Infinity,
       ease: "easeInOut",
-      delay: i * 0.5
+      delay: 2.0 + i * 0.5
     }
   })
 };
 
 // Robust Typewriter using React state with looping (clears and rewrites)
-const TypewriterText = ({ text, delay = 1500 }: { text: string, delay?: number }) => {
+const TypewriterText = ({ text, delay = 1500, active = true }: { text: string, delay?: number, active?: boolean }) => {
   const [displayedText, setDisplayedText] = useState('');
   
   useEffect(() => {
+    if (!active) return; // Don't start typing until hero is visible
+
     let timeout: NodeJS.Timeout;
     let isDeleting = false;
     let i = 0;
@@ -71,7 +74,7 @@ const TypewriterText = ({ text, delay = 1500 }: { text: string, delay?: number }
     timeout = setTimeout(type, delay);
 
     return () => clearTimeout(timeout);
-  }, [text, delay]);
+  }, [text, delay, active]);
 
   return (
     <span className="inline-flex items-center min-h-[1.5em] text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-500">
@@ -82,7 +85,7 @@ const TypewriterText = ({ text, delay = 1500 }: { text: string, delay?: number }
 };
 
 // Word reveal animation with blur and vibrant colors
-const AnimatedText = ({ text }: { text: string }) => {
+const AnimatedText = ({ text, animate = true }: { text: string, animate?: boolean }) => {
   const words = text.split(' ');
   const colors = [
     "from-blue-400 to-cyan-300",
@@ -97,9 +100,9 @@ const AnimatedText = ({ text }: { text: string }) => {
         <span key={i} className="inline-block overflow-visible me-4 pb-2">
           <motion.span
             initial={{ y: "50%", opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
+            animate={animate ? { y: 0, opacity: 1 } : { y: "50%", opacity: 0 }}
             transition={{ duration: 0.8, ease: [] as const, delay: 0.8 + i * 0.15 }}
-            className={`text-transparent bg-clip-text bg-gradient-to-r ${colors[i % colors.length]} inline-block drop-shadow-sm pt-4 pb-3`}
+            className={`text-transparent bg-clip-text bg-gradient-to-r ${colors[i % colors.length]} inline-block drop-shadow-sm pt-4 pb-3 transform-gpu will-change-[transform,opacity]`}
           >
             {word}
           </motion.span>
@@ -109,8 +112,11 @@ const AnimatedText = ({ text }: { text: string }) => {
   );
 };
 
-export const HeroSection = () => {
+export const HeroSection = ({ animate = true }: { animate?: boolean }) => {
   const [isMobile, setIsMobile] = useState(false);
+  const [heroReady, setHeroReady] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
   useEffect(() => {
     const checkTouch = () => window.matchMedia('(max-width: 1023px)').matches || ('ontouchstart' in window || navigator.maxTouchPoints > 0);
     setIsMobile(checkTouch());
@@ -119,35 +125,44 @@ export const HeroSection = () => {
     mql.addEventListener('change', handler);
     return () => mql.removeEventListener('change', handler);
   }, []);
+
+  // Defer expensive decorative effects (blur glows, ping, drop-shadows, bg-pan)
+  // until AFTER entrance animations complete to avoid GPU contention
+  useEffect(() => {
+    if (!animate) return;
+    const id = setTimeout(() => setHeroReady(true), 2500);
+    return () => clearTimeout(id);
+  }, [animate]);
+
   const { scrollY } = useScroll();
-  const y1 = useTransform(scrollY, [0, 1000], [0, isMobile ? 0 : 200]);
-  const opacity = useTransform(scrollY, [300, 700], [1, isMobile ? 1 : 0]);
+  const y1 = useTransform(scrollY, [0, 1000], [0, isMobile || !animate ? 0 : 200]);
+  const opacity = useTransform(scrollY, [300, 700], [1, isMobile || !animate ? 1 : 0]);
 
   const { t, language } = useLanguage();
 
   return (
-    <section className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden px-6 pt-24 md:pt-28 pb-12 w-full">
+    <section ref={sectionRef} className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden px-6 pt-24 md:pt-28 pb-12 w-full">
       {/* Background Animated Gradients */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/5 via-background to-background pointer-events-none" />
       
-      {/* Floating background elements */}
+      {/* Floating background elements — only animate after hero entrance starts */}
       <motion.div 
-        custom={1} variants={floatingBubbleVariants} animate="animate"
-        className="absolute top-1/4 left-1/4 w-72 h-72 bg-blue-500/10 dark:bg-primary/5 rounded-full blur-3xl -z-10 blob-blur"
+        custom={1} variants={floatingBubbleVariants} initial="initial" animate={animate ? "animate" : "initial"}
+        className="absolute top-1/4 left-1/4 w-72 h-72 bg-blue-500/10 dark:bg-primary/5 rounded-full blur-2xl -z-10 blob-blur"
       />
       <motion.div 
-        custom={2} variants={floatingBubbleVariants} animate="animate"
-        className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 dark:bg-primary/10 rounded-full blur-3xl -z-10 blob-blur"
+        custom={2} variants={floatingBubbleVariants} initial="initial" animate={animate ? "animate" : "initial"}
+        className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 dark:bg-primary/10 rounded-full blur-2xl -z-10 blob-blur"
       />
 
       <motion.div 
         style={{ y: y1, opacity }}
-        className="z-10 text-center max-w-7xl mx-auto flex flex-col items-center w-full"
+        className="z-10 text-center max-w-7xl mx-auto flex flex-col items-center w-full transform-gpu will-change-[transform,opacity]"
       >
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate="show"
+          animate={animate ? "show" : "hidden"}
           className="flex flex-col items-center z-10 w-full"
         >
           {/* Profile Photo */}
@@ -161,47 +176,55 @@ export const HeroSection = () => {
                 scale: { type: "tween", ease: "easeOut" },
                 rotate: { type: "tween", ease: "easeOut" }
               }}
-              className="relative w-40 h-40 md:w-52 md:h-52 lg:w-56 lg:h-56 rounded-full overflow-hidden border-4 border-primary/20 shadow-2xl shadow-primary/20 bg-background/80 z-10 transition-colors duration-500 group-hover:border-primary/60 group-hover:shadow-primary/40 animate-float-profile"
+              className="relative w-40 h-40 md:w-52 md:h-52 lg:w-56 lg:h-56 rounded-full overflow-hidden border-4 border-primary/20 bg-background/80 z-10 transition-all duration-700 group-hover:border-primary/60 animate-float-profile transform-gpu"
+              style={heroReady ? { boxShadow: '0 25px 50px -12px rgba(168,85,247,0.2)' } : undefined}
             >
               <img 
                 src={profilePic} 
                 alt="Moustafa Ali Emam" 
+                loading="eager"
+                decoding="async"
+                fetchPriority="high"
                 className="w-full h-full object-cover object-[center_15%] grayscale-0 md:grayscale group-hover:grayscale-0 transition-all duration-700 ease-out scale-100 md:scale-110 group-hover:scale-100"
               />
             </motion.div>
-            {/* Decorative elements behind photo */}
-            <div 
-              className="absolute inset-[-15%] rounded-full bg-gradient-to-tr from-primary/30 to-transparent -z-10 blur-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-500 blob-blur"
-            />
-            <div className="absolute inset-0 rounded-full bg-blue-500/20 dark:bg-primary/20 -z-20 blur-3xl scale-150 group-hover:scale-175 transition-transform duration-500 opacity-50" />
+            {/* Decorative blur glows — only render after entrance to avoid GPU contention */}
+            {heroReady && (
+              <>
+                <div 
+                  className="absolute inset-[-15%] rounded-full bg-gradient-to-tr from-primary/30 to-transparent -z-10 blur-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-500 blob-blur"
+                />
+                <div className="absolute inset-0 rounded-full bg-blue-500/20 dark:bg-primary/20 -z-20 blur-3xl scale-150 group-hover:scale-175 transition-transform duration-500 opacity-50" />
+              </>
+            )}
           </motion.div>
 
           <motion.div variants={itemVariants} whileHover={isMobile ? {} : { scale: 1.1, y: -5 }} className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary/5 text-primary mb-6 border border-primary/20 shadow-sm cursor-default">
             <span className="relative flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+              <span className={`${heroReady ? 'animate-ping' : ''} absolute inline-flex h-full w-full rounded-full bg-primary opacity-75`}></span>
               <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
             </span>
             <span className="text-sm md:text-base font-bold tracking-widest uppercase">{t('hero', 'basedIn')}</span>
           </motion.div>
 
           <motion.h1 variants={itemVariants} className={`text-4xl sm:text-5xl md:text-7xl lg:text-[7rem] mb-4 text-center leading-[1.1] ${language === 'ar' ? 'font-bold' : 'font-black tracking-tighter'}`}>
-            <AnimatedText text={String(t('hero', 'greeting'))} />{' '}
+            <AnimatedText text={String(t('hero', 'greeting'))} animate={animate} />{' '}
             <motion.span 
               initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
+              animate={animate ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }}
               transition={{ 
                 opacity: { duration: 0.8, delay: 1.5 },
                 scale: { type: "tween", ease: "easeOut", delay: 1.5 },
                 filter: { duration: 0.8, delay: 1.5 }
               }}
-              className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-500 to-pink-500 inline-block drop-shadow-lg pt-4 pb-3 animate-bg-pan"
+              className={`text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-500 to-pink-500 inline-block pt-4 pb-3 transform-gpu ${heroReady ? 'drop-shadow-lg animate-bg-pan' : ''}`}
             >
               {language === 'ar' ? 'مُصْطَفَى' : 'Moustafa'}
             </motion.span>
           </motion.h1>
           
           <motion.h2 variants={itemVariants} className="text-xl sm:text-2xl md:text-4xl lg:text-5xl text-muted-foreground font-semibold mb-8 text-center max-w-4xl flex justify-center min-h-[2rem] sm:min-h-[2.5rem] md:min-h-[3rem] lg:min-h-[4rem]">
-            <TypewriterText text={String(t('hero', 'role'))} delay={2200} />
+            <TypewriterText text={String(t('hero', 'role'))} delay={2200} active={animate} />
           </motion.h2>
 
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-6 mt-4 w-full sm:w-auto items-center justify-center z-20 pb-4">

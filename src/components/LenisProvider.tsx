@@ -29,7 +29,7 @@ export const LenisProvider = ({ children, isActive = true }: { children: React.R
       cancelAnimationFrame(rafId);
       lenis.destroy();
     };
-  }, []);
+  }, [isActive]);
 
   return <>{children}</>;
 };

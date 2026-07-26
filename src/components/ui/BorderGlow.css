@@ -2,8 +2,6 @@
   position: relative;
   border-radius: var(--border-radius, 32px);
   background: var(--card-bg, rgba(255, 255, 255, 0.02));
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
   display: flex;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
@@ -24,30 +22,36 @@
   z-index: 0;
   overflow: hidden;
   padding: 2px; /* Border thickness */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   -webkit-mask: 
     linear-gradient(#fff 0 0) content-box, 
     linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .border-glow-wrapper::before {
   content: "";
   position: absolute;
-  top: -100%;
-  left: -100%;
-  width: 300%;
-  height: 300%;
+  width: max(300%, 1200px);
+  aspect-ratio: 1 / 1;
   background: conic-gradient(
     from 0deg,
     transparent 0%,
-    transparent 50%,
-    var(--glow-color-1, #34d399) 80%,
-    var(--glow-color-2, #059669) 98%,
+    transparent 40%,
+    var(--glow-color-1, #34d399) 75%,
+    var(--glow-color-2, #059669) 95%,
     transparent 100%
   );
-  filter: blur(4px);
+  filter: blur(8px);
   animation: spin-glow 4s linear infinite;
+  will-change: transform;
+  transform-origin: center center;
+  backface-visibility: hidden;
 }
 
 .border-glow-inner {
