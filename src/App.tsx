@@ -21,6 +21,7 @@ const SymbolShowcaseSection = lazy(() => import('./components/sections/SymbolSho
 
 function App() {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [showSections, setShowSections] = useState(false);
   const [show3D, setShow3D] = useState(false);
   const [isDesktopView, setIsDesktopView] = useState(false);
   const threeRef = React.useRef<HTMLDivElement>(null);
@@ -35,11 +36,19 @@ function App() {
     return () => window.removeEventListener('resize', checkDesktop);
   }, []);
 
-  // Load the heavy 3D engine (1.1MB Three.js & WebGL shader compilation) only when the user scrolls
-  // near the 3D section (within 1200px). This eliminates main-thread freezes and FPS drops when scrolling
-  // through Hero, About, and Skills at the top of the page!
+  // After loading completes: mount below-fold sections on the next idle frame
+  // so the Hero entrance animation plays without any competing DOM work
   useEffect(() => {
-    if (!isLoaded || !isDesktopView) return;
+    if (isLoaded && !showSections) {
+      requestAnimationFrame(() => {
+        setShowSections(true);
+      });
+    }
+  }, [isLoaded, showSections]);
+
+  // Load the heavy 3D engine only when the user scrolls near the 3D section
+  useEffect(() => {
+    if (!showSections || !isDesktopView) return;
     const currentRef = threeRef.current;
     if (!currentRef) return;
 
@@ -54,7 +63,7 @@ function App() {
     );
     observer.observe(currentRef);
     return () => observer.disconnect();
-  }, [isLoaded, isDesktopView]);
+  }, [showSections, isDesktopView]);
 
   // Check if current path matches the base URL or root
   const currentPath = window.location.pathname;
@@ -76,25 +85,29 @@ function App() {
                 <Navbar active={isLoaded} />
                 <main>
                   <HeroSection animate={isLoaded} />
-                  <AboutSection />
-                  <SkillsSection />
-                  <ExperienceSection />
-                  <ProjectsSection />
-                  {isDesktopView && (
-                    <div ref={threeRef} className="hidden lg:block min-h-[600px]">
-                      {show3D ? (
-                        <Suspense fallback={<div className="w-full h-[600px] flex items-center justify-center opacity-50">Loading 3D Engine...</div>}>
-                          <ThreeShowcaseSection />
-                          <SymbolShowcaseSection />
-                        </Suspense>
-                      ) : (
-                        <div className="w-full h-[600px]" />
+                  {showSections && (
+                    <>
+                      <AboutSection />
+                      <SkillsSection />
+                      <ExperienceSection />
+                      <ProjectsSection />
+                      {isDesktopView && (
+                        <div ref={threeRef} className="hidden lg:block min-h-[600px]">
+                          {show3D ? (
+                            <Suspense fallback={<div className="w-full h-[600px] flex items-center justify-center opacity-50">Loading 3D Engine...</div>}>
+                              <ThreeShowcaseSection />
+                              <SymbolShowcaseSection />
+                            </Suspense>
+                          ) : (
+                            <div className="w-full h-[600px]" />
+                          )}
+                        </div>
                       )}
-                    </div>
+                      <ContactSection />
+                    </>
                   )}
-                  <ContactSection />
                 </main>
-                <Footer />
+                {showSections && <Footer />}
               </div>
             )}
           </LenisProvider>
