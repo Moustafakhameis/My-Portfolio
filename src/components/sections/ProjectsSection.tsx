@@ -19,19 +19,12 @@ export const ProjectsSection = () => {
   const galleryContainerRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
-    if (shouldLoad3D || !galleryContainerRef.current) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          setShouldLoad3D(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: '1000px 0px' }
-    );
-    observer.observe(galleryContainerRef.current);
-    return () => observer.disconnect();
-  }, [shouldLoad3D]);
+    // Preload WebGL in the background after 2000ms idle time so shader compilation never freezes the scroll
+    const timer = setTimeout(() => {
+      setShouldLoad3D(true);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
   
   // Memoize grouped projects for performance
   const groupedProjects = useMemo(() => groupProjectsByCategory(projects), []);

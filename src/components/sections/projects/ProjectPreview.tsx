@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useMotionTemplate, useMotionValue, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface ProjectPreviewProps {
@@ -10,11 +10,8 @@ interface ProjectPreviewProps {
 }
 
 export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ image, images, title, category }) => {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.innerWidth < 1024);
 
@@ -22,35 +19,17 @@ export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ image, images, t
   const displayImages = images && images.length > 0 ? images : (image ? [image] : []);
   const hasMultipleImages = displayImages.length > 1;
 
-  // Only autoplay when visible on screen (saves CPU/GPU on mobile)
+  // Only auto-play carousel when the user is hovering over the card, preventing
+  // 20+ background timers from running and causing DOM mutations while scrolling!
   useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsVisible(entry.isIntersecting),
-      { threshold: 0.1 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  // Auto-play the carousel every 3 seconds if visible, has multiple images, and not hovered
-  useEffect(() => {
-    if (!hasMultipleImages || isHovered || !isVisible) return;
+    if (!hasMultipleImages || !isHovered) return;
 
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % displayImages.length);
-    }, 3000);
+    }, 2500);
 
     return () => clearInterval(interval);
-  }, [displayImages.length, hasMultipleImages, isHovered, isVisible]);
-
-  function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
-    if (isTouchDevice) return;
-    const { left, top } = currentTarget.getBoundingClientRect();
-    mouseX.set(clientX - left);
-    mouseY.set(clientY - top);
-  }
+  }, [displayImages.length, hasMultipleImages, isHovered]);
 
   // Fallback CSS gradient placeholder based on category
   const getGradient = () => {
@@ -68,8 +47,7 @@ export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ image, images, t
       ref={containerRef}
       className="relative w-full h-full overflow-hidden bg-card/40 flex items-center justify-center group"
       onMouseEnter={() => !isTouchDevice && setIsHovered(true)}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={() => { if (!isTouchDevice) { setIsHovered(false); mouseX.set(0); mouseY.set(0); } }}
+      onMouseLeave={() => { if (!isTouchDevice) setIsHovered(false); }}
     >
       {displayImages.length > 0 ? (
         <>
@@ -144,18 +122,10 @@ export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ image, images, t
       )}
 
       {/* Interactive Hover Glow — desktop only */}
+      {/* Interactive Hover Glow — desktop only */}
       {!isTouchDevice && (
-        <motion.div
-          className="pointer-events-none absolute -inset-px opacity-0 transition duration-500 group-hover:opacity-100 z-20"
-          style={{
-            background: useMotionTemplate`
-              radial-gradient(
-                400px circle at ${mouseX}px ${mouseY}px,
-                rgba(255, 255, 255, 0.1) 0%,
-                transparent 80%
-              )
-            `
-          }}
+        <div
+          className="pointer-events-none absolute -inset-px opacity-0 transition duration-500 group-hover:opacity-100 z-20 bg-[radial-gradient(400px_circle_at_center,rgba(255,255,255,0.1)_0%,transparent_80%)]"
         />
       )}
     </div>

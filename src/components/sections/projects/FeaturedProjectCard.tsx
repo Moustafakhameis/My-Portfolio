@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
+import { motion } from 'framer-motion';
 import type { Project } from './types';
 import { ProjectPreview } from './ProjectPreview';
 import { ProjectBadge } from './ProjectBadge';
@@ -12,16 +12,7 @@ interface FeaturedProjectCardProps {
 }
 
 export const FeaturedProjectCard: React.FC<FeaturedProjectCardProps> = ({ project, index }) => {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
   const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.innerWidth < 1024);
-
-  function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
-    if (isTouchDevice) return;
-    const { left, top } = currentTarget.getBoundingClientRect();
-    mouseX.set(clientX - left);
-    mouseY.set(clientY - top);
-  }
 
   const cardVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -39,8 +30,6 @@ export const FeaturedProjectCard: React.FC<FeaturedProjectCardProps> = ({ projec
       whileInView="visible"
       viewport={{ once: true, amount: 0.1 }}
       className="w-full relative group"
-      onMouseMove={handleMouseMove}
-      onMouseLeave={() => { mouseX.set(0); mouseY.set(0); }}
     >
       <motion.div 
         whileHover={isTouchDevice ? undefined : { y: -10 }} 
@@ -48,19 +37,10 @@ export const FeaturedProjectCard: React.FC<FeaturedProjectCardProps> = ({ projec
       >
         <div className="relative overflow-hidden rounded-[2.5rem] border border-border/40 bg-card/30 md:bg-card/20 shadow-2xl hover:shadow-[0_30px_60px_-15px_rgba(168,85,247,0.4)] transition-all duration-700">
           
-          {/* Intense glow on hover based on mouse position — desktop only */}
+          {/* Intense glow on hover — desktop only */}
           {!isTouchDevice && (
-            <motion.div
-              className="pointer-events-none absolute -inset-px opacity-0 transition duration-500 group-hover:opacity-100 z-10 rounded-[2.5rem]"
-              style={{
-                background: useMotionTemplate`
-                  radial-gradient(
-                    800px circle at ${mouseX}px ${mouseY}px,
-                    rgba(168, 85, 247, 0.15) 0%,
-                    transparent 80%
-                  )
-                `
-              }}
+            <div
+              className="pointer-events-none absolute -inset-px opacity-0 transition duration-500 group-hover:opacity-100 z-10 rounded-[2.5rem] bg-[radial-gradient(800px_circle_at_center,rgba(168,85,247,0.15)_0%,transparent_80%)]"
             />
           )}
 
