@@ -36,13 +36,14 @@ function App() {
     return () => window.removeEventListener('resize', checkDesktop);
   }, []);
 
-  // After loading completes: mount below-fold sections on the next idle frame
-  // so the Hero entrance animation plays without any competing DOM work
+  // After loading completes: mount below-fold sections after Hero entrance animation finishes
+  // so there is zero main-thread contention or stutter during initial rendering or early scrolling
   useEffect(() => {
     if (isLoaded && !showSections) {
-      requestAnimationFrame(() => {
+      const timer = setTimeout(() => {
         setShowSections(true);
-      });
+      }, 500);
+      return () => clearTimeout(timer);
     }
   }, [isLoaded, showSections]);
 

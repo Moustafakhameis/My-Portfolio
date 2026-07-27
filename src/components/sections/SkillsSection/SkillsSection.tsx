@@ -122,41 +122,39 @@ export const SkillsSection = () => {
       ref={containerRef}
     >
       
-      {/* Background Elements — fully unmount when off-screen (point 1) */}
+      {/* Background Elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {isInView && (
-          isDark ? (
-            <>
-              {/* Deep Space Milky Way Dust */}
-              <div className="absolute inset-0 z-0 pointer-events-none opacity-40 mix-blend-screen" style={{
-                background: 'radial-gradient(ellipse at 40% 50%, rgba(30, 27, 75, 0.6) 0%, transparent 60%), radial-gradient(ellipse at 80% 30%, rgba(88, 28, 135, 0.3) 0%, transparent 50%), radial-gradient(ellipse at 20% 80%, rgba(14, 165, 233, 0.2) 0%, transparent 50%)'
-              }} />
-              
-              <Aurora />
-              <HelixNebula />
-              <StarField />
-              {meteorData.map((meteor) => (
-                <ShootingStar 
-                  key={`meteor-${meteor.id}`}
-                  top={meteor.top}
-                  left={meteor.left}
-                  delay={meteor.delay}
-                  duration={meteor.duration}
-                />
-              ))}
-            </>
-          ) : (
-            cloudData.map((cloud) => (
-              <RealisticCloud
-                key={cloud.id}
-                x={cloud.x}
-                y={cloud.y}
-                scale={cloud.scale}
-                duration={cloud.duration}
-                delay={cloud.delay}
+        {isDark ? (
+          <>
+            {/* Deep Space Milky Way Dust */}
+            <div className="absolute inset-0 z-0 pointer-events-none opacity-40 mix-blend-screen" style={{
+              background: 'radial-gradient(ellipse at 40% 50%, rgba(30, 27, 75, 0.6) 0%, transparent 60%), radial-gradient(ellipse at 80% 30%, rgba(88, 28, 135, 0.3) 0%, transparent 50%), radial-gradient(ellipse at 20% 80%, rgba(14, 165, 233, 0.2) 0%, transparent 50%)'
+            }} />
+            
+            <Aurora />
+            <HelixNebula />
+            <StarField />
+            {meteorData.map((meteor) => (
+              <ShootingStar 
+                key={`meteor-${meteor.id}`}
+                top={meteor.top}
+                left={meteor.left}
+                delay={meteor.delay}
+                duration={meteor.duration}
               />
-            ))
-          )
+            ))}
+          </>
+        ) : (
+          cloudData.map((cloud) => (
+            <RealisticCloud
+              key={cloud.id}
+              x={cloud.x}
+              y={cloud.y}
+              scale={cloud.scale}
+              duration={cloud.duration}
+              delay={cloud.delay}
+            />
+          ))
         )}
       </div>
 

@@ -190,4 +190,12 @@
   }
 }
 
+/* ==========================================================================
+   Hardware Acceleration & Virtualization for Ultra-Smooth Scrolling
+   ========================================================================== */
+section, .logoloop__track, [class*="blob-blur"] {
+  content-visibility: auto;
+  contain-intrinsic-size: 800px;
+}
+
 @import './global-animations.css';
