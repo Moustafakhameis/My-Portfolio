@@ -10,6 +10,7 @@ interface NavLink {
 interface MobileNavProps {
   navLinks: NavLink[];
   activeSection: string;
+  setActiveSection: (section: string) => void;
   theme: string;
   toggleTheme: () => void;
   language: string;
@@ -19,7 +20,7 @@ interface MobileNavProps {
 }
 
 export const MobileNav: React.FC<MobileNavProps> = ({
-  navLinks, activeSection, theme, toggleTheme, language, toggleLanguage, isMobileMenuOpen, setIsMobileMenuOpen
+  navLinks, activeSection, setActiveSection, theme, toggleTheme, language, toggleLanguage, isMobileMenuOpen, setIsMobileMenuOpen
 }) => {
   return (
     <AnimatePresence>
@@ -62,8 +63,20 @@ export const MobileNav: React.FC<MobileNavProps> = ({
                     e.preventDefault();
                     setIsMobileMenuOpen(false);
                     const targetId = link.href.substring(1);
-                    document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
-                    window.history.pushState(null, '', link.href);
+                    setActiveSection(targetId);
+                    const target = document.getElementById(targetId);
+                    if (target) {
+                      // @ts-ignore
+                      if (window.lenis) {
+                        // @ts-ignore
+                        window.lenis.scrollTo(target);
+                        setTimeout(() => document.getElementById(targetId) && (window as any).lenis.scrollTo(document.getElementById(targetId)), 600);
+                      } else {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                        setTimeout(() => document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' }), 600);
+                      }
+                      window.history.pushState(null, '', link.href);
+                    }
                   }}
                   variants={{
                     hidden: { opacity: 0, y: 50 },

@@ -16,6 +16,9 @@ export const LenisProvider = ({ children, isActive = true }: { children: React.R
       smoothWheel: true,
       wheelMultiplier: 0.8,
     });
+    
+    // @ts-ignore
+    window.lenis = lenis;
 
     let rafId: number;
     function raf(time: number) {
@@ -28,6 +31,8 @@ export const LenisProvider = ({ children, isActive = true }: { children: React.R
     return () => {
       cancelAnimationFrame(rafId);
       lenis.destroy();
+      // @ts-ignore
+      delete window.lenis;
     };
   }, [isActive]);
 

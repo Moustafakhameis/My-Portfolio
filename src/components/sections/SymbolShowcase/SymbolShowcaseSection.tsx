@@ -4,6 +4,7 @@ import { Environment, Html, Stars, Sparkles } from '@react-three/drei';
 import { useInView } from 'framer-motion';
 
 import { useTheme } from '../../../context/ThemeContext';
+import { useLanguage } from '../../../context/LanguageContext';
 import { SceneReady } from './SceneReady';
 import { SceneLayout } from './SceneLayout';
 import { ShowcaseUI } from './ShowcaseUI';
@@ -11,6 +12,7 @@ import { COLOR_SCHEMES, SPEED_LEVELS } from './types';
 
 export const SymbolShowcaseSection = () => {
   const { theme } = useTheme();
+  const { language } = useLanguage();
   const targetRotation = useRef({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [isResetting, setIsResetting] = useState(false);
@@ -50,7 +52,11 @@ export const SymbolShowcaseSection = () => {
   const needsAnimation = symbolSpin || atomSpin || isResetting;
 
   return (
-    <section ref={containerRef} className="relative min-h-[700px] w-full bg-background border-t border-border/10 flex flex-col lg:flex-row items-center justify-between px-6 md:px-24 pt-20 pb-32 md:pb-24 overflow-hidden">
+    <section
+      ref={containerRef}
+      id="symbol"
+      className="relative min-h-[700px] w-full bg-background border-t border-border/10 flex flex-col lg:flex-row items-center justify-between px-6 md:px-24 pt-20 pb-32 md:pb-24 overflow-hidden"
+    >
       
       {/* 3D Canvas */}
       {/* Pointer-Events CSS Lock via Vanilla DOM */}
@@ -86,7 +92,7 @@ export const SymbolShowcaseSection = () => {
             
             <SceneLayout 
               targetRotation={targetRotation} isDragging={isDragging} setIsDragging={setIsDragging}
-              isMobileCheck={isMobile} isTabletCheck={isTablet} colorScheme={scheme}
+              isMobileCheck={isMobile} isTabletCheck={isTablet} colorScheme={scheme} language={language}
               symbolSpin={symbolSpin} atomSpin={atomSpin} speedValue={speed.value} glowIntensity={glowIntensity} scattered={scattered}
             />
             
@@ -126,7 +132,7 @@ export const SymbolShowcaseSection = () => {
           box-shadow: 0 0 18px ${scheme.glow};
           transform: translateY(-2px);
         }
-        .ss-ctrl-wide { width: auto; padding: 0 14px; }
+        .ss-ctrl-wide { width: auto; padding: 0 10px; }
         .ss-ctrl-active {
           background: ${scheme.mid}22; color: ${scheme.mid};
           border-color: ${scheme.mid}55; box-shadow: 0 0 14px ${scheme.glow};

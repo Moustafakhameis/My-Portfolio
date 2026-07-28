@@ -35,7 +35,8 @@ export const ShowcaseUI: React.FC<ShowcaseUIProps> = ({
   isResetting, handleReset,
   showParticles, setShowParticles
 }) => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const isRTL = language === 'ar';
   const speed = SPEED_LEVELS[speedIdx];
 
   return (
@@ -75,12 +76,12 @@ export const ShowcaseUI: React.FC<ShowcaseUIProps> = ({
       </div>
       
       {/* Control Bar */}
-      <div className="mt-5 flex items-center gap-2 flex-wrap justify-center lg:justify-start pointer-events-auto">
+      <div className="mt-5 flex items-center gap-[6px] flex-wrap justify-center lg:justify-start pointer-events-auto">
         <button onClick={() => setSymbolSpin(p => !p)} className={`ss-ctrl-btn ss-ctrl-wide ${symbolSpin ? 'ss-ctrl-active' : ''}`} title="Toggle Logo Spin">
           {symbolSpin ? <Pause size={14} /> : <Play size={14} />} <span className="flex items-center gap-1">Logo 𖤍</span>
         </button>
         <button onClick={() => setAtomSpin(p => !p)} className={`ss-ctrl-btn ss-ctrl-wide ${atomSpin ? 'ss-ctrl-active' : ''}`} title="Toggle Atom Spin">
-          {atomSpin ? <Pause size={14} /> : <Play size={14} />} <span className="flex items-center gap-1">Atom ⚛️</span>
+          {atomSpin ? <Pause size={14} /> : <Play size={14} />} <span className="flex items-center gap-1">Atom ⚛</span>
         </button>
         <button onClick={() => setSpeedIdx(i => (i + 1) % SPEED_LEVELS.length)} className="ss-ctrl-btn ss-ctrl-wide" title="Speed">
           <Gauge size={14} /><span>{speed.label}</span>

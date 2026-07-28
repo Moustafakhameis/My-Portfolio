@@ -11,6 +11,7 @@ interface NavLink {
 interface DesktopNavProps {
   navLinks: NavLink[];
   activeSection: string;
+  setActiveSection: (section: string) => void;
   theme: string;
   toggleTheme: () => void;
   language: string;
@@ -18,7 +19,7 @@ interface DesktopNavProps {
 }
 
 export const DesktopNav: React.FC<DesktopNavProps> = ({
-  navLinks, activeSection, theme, toggleTheme, language, toggleLanguage
+  navLinks, activeSection, setActiveSection, theme, toggleTheme, language, toggleLanguage
 }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.innerWidth < 1024);
@@ -54,8 +55,18 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
               onClick={(e) => {
                 e.preventDefault();
                 const targetId = link.href.substring(1);
-                document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
-                window.history.pushState(null, '', link.href);
+                setActiveSection(targetId);
+                const target = document.getElementById(targetId);
+                if (target) {
+                  // @ts-ignore
+                  if (window.lenis) {
+                    // @ts-ignore
+                    window.lenis.scrollTo(target);
+                  } else {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                  }
+                  window.history.pushState(null, '', link.href);
+                }
               }}
               onMouseEnter={() => !isTouchDevice && setHoveredIndex(i)}
               className={cn(

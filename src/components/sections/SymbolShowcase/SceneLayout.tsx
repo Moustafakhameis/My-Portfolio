@@ -11,15 +11,20 @@ export const SceneLayout = (props: {
   isMobileCheck: boolean;
   isTabletCheck: boolean;
   colorScheme: ColorScheme;
+  language: string;
   symbolSpin: boolean;
   atomSpin: boolean;
   speedValue: number;
   glowIntensity: number;
   scattered: boolean;
 }) => {
-  const xPos = props.isTabletCheck ? 0 : 3.5; 
+  const basePosX = props.isTabletCheck ? 0 : 3.5;
+  const isRTL = props.language === 'ar';
+  const xPos = isRTL ? -basePosX : basePosX;
   const yPos = props.isMobileCheck ? -2.2 : (props.isTabletCheck ? -1 : 0);
   const scale = props.isMobileCheck ? 0.45 : (props.isTabletCheck ? 0.55 : 0.65);
+  
+  console.log('SceneLayout -> language:', props.language, 'isTablet:', props.isTabletCheck, 'xPos:', xPos);
   
   return (
     <group position={[xPos, yPos, 0]} scale={scale}>
@@ -34,6 +39,7 @@ export const SceneLayout = (props: {
         speedValue={props.speedValue}
         glowIntensity={props.glowIntensity}
         scattered={props.scattered}
+        language={props.language}
       />
       <ContactShadows position={[0, -3.5, 0]} opacity={0.6} scale={25} blur={2.5} far={10} color={props.colorScheme.back} />
     </group>

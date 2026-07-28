@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion';
-import { Menu, X, User, Briefcase, Code2, Mail, Languages, Sun, Moon } from 'lucide-react';
+import { Menu, X, User, Briefcase, Code2, Mail, Languages, Sun, Moon, Cpu } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { useLanguage } from '../../context/LanguageContext';
 import Dock from '../ui/Dock';
@@ -27,41 +27,41 @@ export const Navbar = ({ active = true }: { active?: boolean }) => {
   }, [active]);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      { rootMargin: '-20% 0px -60% 0px', threshold: 0 }
-    );
-
-    const sectionsToObserve = new Set(['about', 'experience', 'work', 'contact']);
-    let timeoutId: ReturnType<typeof setTimeout>;
-    
-    const tryObserve = () => {
-      sectionsToObserve.forEach((id) => {
+    const handleScroll = () => {
+      const sections = ['about', 'skills', 'experience', 'work', 'contact'];
+      let currentSection = '';
+      
+      // Check which section is currently active based on viewport position
+      for (const id of sections) {
         const element = document.getElementById(id);
         if (element) {
-          observer.observe(element);
-          sectionsToObserve.delete(id);
+          const rect = element.getBoundingClientRect();
+          // If the top of the element is above the middle of the viewport
+          // it's considered active (we iterate in order, so the last one wins)
+          if (rect.top <= window.innerHeight * 0.5) {
+            currentSection = id;
+          }
         }
-      });
+      }
       
-      if (sectionsToObserve.size > 0) {
-        timeoutId = setTimeout(tryObserve, 100);
+      // Special case: if we're at the absolute bottom of the page, force 'contact'
+      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
+        currentSection = 'contact';
+      }
+      
+      if (currentSection && currentSection !== activeSection) {
+        setActiveSection(currentSection);
       }
     };
-    
-    tryObserve();
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Run once on mount to set initial state
+    setTimeout(handleScroll, 100);
 
     return () => {
-      clearTimeout(timeoutId);
-      observer.disconnect();
+      window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [activeSection]);
 
   useEffect(() => {
     if (isMobileMenuOpen) {
@@ -100,6 +100,7 @@ export const Navbar = ({ active = true }: { active?: boolean }) => {
 
   const navLinks = [
     { name: t('navbar', 'about'), href: '#about' },
+    { name: t('navbar', 'skills'), href: '#skills' },
     { name: t('navbar', 'experience'), href: '#experience' },
     { name: t('navbar', 'projects'), href: '#work' },
     { name: t('navbar', 'contact'), href: '#contact' },
@@ -159,6 +160,7 @@ export const Navbar = ({ active = true }: { active?: boolean }) => {
         <DesktopNav 
           navLinks={navLinks} 
           activeSection={activeSection} 
+          setActiveSection={setActiveSection}
           theme={theme} 
           toggleTheme={toggleTheme} 
           language={language} 
@@ -169,6 +171,7 @@ export const Navbar = ({ active = true }: { active?: boolean }) => {
       <MobileNav 
         navLinks={navLinks} 
         activeSection={activeSection} 
+        setActiveSection={setActiveSection}
         theme={theme} 
         toggleTheme={toggleTheme} 
         language={language} 
@@ -178,8 +181,27 @@ export const Navbar = ({ active = true }: { active?: boolean }) => {
       />
 
       <AnimatePresence>
-        {showDock && (
-          <motion.div
+        {showDock && (() => {
+          const scrollToSection = (targetId: string) => {
+            setActiveSection(targetId);
+            const target = document.getElementById(targetId);
+            if (target) {
+              // @ts-ignore
+              if (window.lenis) {
+                // @ts-ignore
+                window.lenis.scrollTo(target);
+                // Re-trigger after lazy sections mount to fix interrupted scroll
+                setTimeout(() => document.getElementById(targetId) && (window as any).lenis.scrollTo(document.getElementById(targetId)), 600);
+              } else {
+                target.scrollIntoView({ behavior: 'smooth' });
+                setTimeout(() => document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' }), 600);
+              }
+              window.history.pushState(null, '', `#${targetId}`);
+            }
+          };
+
+          return (
+            <motion.div
             initial={{ opacity: 0, y: 40, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 30, scale: 0.97 }}
@@ -189,10 +211,11 @@ export const Navbar = ({ active = true }: { active?: boolean }) => {
             <div className="pointer-events-auto relative">
               <Dock
                 items={[
-                  { icon: <User size={22} />, label: t('navbar', 'about'), isActive: activeSection === 'about', onClick: () => { document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }); window.history.pushState(null, '', '#about'); } },
-                  { icon: <Briefcase size={22} />, label: t('navbar', 'experience'), isActive: activeSection === 'experience', onClick: () => { document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' }); window.history.pushState(null, '', '#experience'); } },
-                  { icon: <Code2 size={22} />, label: t('navbar', 'projects'), isActive: activeSection === 'work', onClick: () => { document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' }); window.history.pushState(null, '', '#work'); } },
-                  { icon: <Mail size={22} />, label: t('navbar', 'contact'), isActive: activeSection === 'contact', onClick: () => { document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); window.history.pushState(null, '', '#contact'); } },
+                  { icon: <User size={22} />, label: t('navbar', 'about'), isActive: activeSection === 'about', onClick: () => scrollToSection('about') },
+                  { icon: <Cpu size={22} />, label: t('navbar', 'skills'), isActive: activeSection === 'skills', onClick: () => scrollToSection('skills') },
+                  { icon: <Briefcase size={22} />, label: t('navbar', 'experience'), isActive: activeSection === 'experience', onClick: () => scrollToSection('experience') },
+                  { icon: <Code2 size={22} />, label: t('navbar', 'projects'), isActive: activeSection === 'work', onClick: () => scrollToSection('work') },
+                  { icon: <Mail size={22} />, label: t('navbar', 'contact'), isActive: activeSection === 'contact', onClick: () => scrollToSection('contact') },
                   { 
                     separator: true,
                     icon: <Languages size={22} />,
@@ -232,7 +255,8 @@ export const Navbar = ({ active = true }: { active?: boolean }) => {
               />
             </div>
           </motion.div>
-        )}
+          );
+        })()}
       </AnimatePresence>
     </>
   );

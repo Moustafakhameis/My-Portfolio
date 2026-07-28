@@ -97,6 +97,7 @@ export const SkillsSection = () => {
   if (!isDesktop) {
     return (
       <section
+        id="skills"
         className="py-20 px-6 overflow-hidden relative transition-all duration-1000"
         style={{
           background: isDark
@@ -113,6 +114,7 @@ export const SkillsSection = () => {
   /* ─── DESKTOP: Keep the original Interactive Skills Galaxy ─── */
   return (
     <section 
+      id="skills"
       className="py-32 px-6 overflow-hidden relative transition-all duration-1000" 
       style={{
         background: isDark 

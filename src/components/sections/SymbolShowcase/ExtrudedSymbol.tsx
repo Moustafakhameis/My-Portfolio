@@ -98,7 +98,7 @@ const OrbitingMiniSymbol = ({ radius, speed, color, tilt, phase = 0, size = 0.4,
 
 export const ExtrudedSymbol = ({ 
   targetRotation, isDragging, setIsDragging, controlsRef, isMobile,
-  colorScheme, symbolSpin, atomSpin, speedValue, glowIntensity, scattered,
+  colorScheme, symbolSpin, atomSpin, speedValue, glowIntensity, scattered, language,
 }: { 
   targetRotation: React.MutableRefObject<{ x: number, y: number }>,
   isDragging: boolean,
@@ -110,6 +110,7 @@ export const ExtrudedSymbol = ({
   speedValue: number,
   glowIntensity: number,
   scattered: boolean,
+  language: string,
 }) => {
   const groupRef = useRef<THREE.Group>(null);
   const atomGroupRef = useRef<THREE.Group>(null);
@@ -148,7 +149,7 @@ export const ExtrudedSymbol = ({
           targetRotation.current.y += speedValue * delta;
         } else if (!atomSpin) {
           const AESTHETIC_X = 0.15;
-          const AESTHETIC_Y = -0.3;
+          const AESTHETIC_Y = language === 'ar' ? 0.3 : -0.3;
           
           const currentY = targetRotation.current.y;
           let dY = AESTHETIC_Y - (currentY % (Math.PI * 2));
@@ -238,7 +239,7 @@ export const ExtrudedSymbol = ({
         ref={groupRef}
         onPointerDown={(e) => { e.stopPropagation(); setIsDragging(true); document.body.style.cursor = 'grabbing'; }}
       >
-        <group ref={atomGroupRef} rotation={[Math.PI / 4, 0, Math.PI / 6]}>
+        <group ref={atomGroupRef} rotation={[Math.PI / 4, 0, language === 'ar' ? -Math.PI / 6 : Math.PI / 6]}>
           <AtomicRing radius={4.2} tube={0.05} color={colorScheme.ring} rotation={[0, 0, 0]} intensity={glowIntensity} />
           <AtomicElectron radius={4.2} speed={1.2} color={colorScheme.ring} rotation={[0, 0, 0]} phase={0} intensity={glowIntensity} atomSpin={atomSpin} />
           <AtomicRing radius={4.2} tube={0.05} color={colorScheme.mid} rotation={[0, Math.PI / 3, 0]} intensity={glowIntensity} />

@@ -27,6 +27,9 @@ export const translations = {
       gpa: 'GPA: 3.87',
       downloadResume: 'View Resume',
     },
+    loading: {
+      initializing: '...INITIALIZING',
+    },
     experience: {
       title: 'Professional Experience',
     },
@@ -101,6 +104,9 @@ export const translations = {
       university: 'جامعة حلوان',
       gpa: 'المعدل التراكمي: 3.87',
       downloadResume: 'عرض السيرة الذاتية',
+    },
+    loading: {
+      initializing: '...جاري التحضير',
     },
     experience: {
       title: 'الخبرات المهنية',

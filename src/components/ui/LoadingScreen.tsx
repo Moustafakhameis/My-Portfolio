@@ -6,7 +6,7 @@ import { useTheme } from '../../context/ThemeContext';
 export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
   const [progress, setProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const { theme } = useTheme();
 
   useEffect(() => {
@@ -91,20 +91,29 @@ export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
           <div className="flex flex-col items-center gap-10 relative z-10 w-full max-w-md px-6">
             {/* Animated Logo Text */}
             <motion.div
-              className="text-5xl md:text-7xl font-black tracking-tighter flex justify-center"
+              className={`text-5xl md:text-7xl font-black ${language === 'ar' ? '' : 'tracking-tighter'} flex justify-center`}
               variants={containerVariants}
               initial="hidden"
               animate="visible"
             >
-              {letters.map((letter, i) => (
+              {language === 'ar' ? (
                 <motion.span 
-                  key={i} 
                   variants={letterVariants}
                   className={`text-transparent bg-clip-text pb-2 ${theme === 'light' ? 'bg-gradient-to-br from-purple-800 via-fuchsia-600 to-pink-500' : 'bg-gradient-to-br from-white via-fuchsia-300 to-pink-500'}`}
                 >
-                  {letter}
+                  {text}
                 </motion.span>
-              ))}
+              ) : (
+                letters.map((letter, i) => (
+                  <motion.span 
+                    key={i} 
+                    variants={letterVariants}
+                    className={`text-transparent bg-clip-text pb-2 ${theme === 'light' ? 'bg-gradient-to-br from-purple-800 via-fuchsia-600 to-pink-500' : 'bg-gradient-to-br from-white via-fuchsia-300 to-pink-500'}`}
+                  >
+                    {letter}
+                  </motion.span>
+                ))
+              )}
             </motion.div>
 
             {/* Progress Container */}
@@ -116,24 +125,28 @@ export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
             >
               <div className={`w-full h-1 rounded-full overflow-hidden relative ${theme === 'light' ? 'bg-black/10 border border-black/5 shadow-[inset_0_1px_3px_rgba(0,0,0,0.1)]' : 'bg-white/10 border border-white/5 shadow-[inset_0_1px_3px_rgba(0,0,0,0.3)]'}`}>
                 <motion.div
-                  className="absolute top-0 left-0 h-full bg-gradient-to-r from-primary via-fuchsia-400 to-pink-500 rounded-full shadow-[0_0_20px_rgba(217,70,239,0.9)]"
+                  className={`absolute top-0 h-full rounded-full shadow-[0_0_20px_rgba(217,70,239,0.9)] ${
+                    language === 'ar' 
+                      ? 'right-0 bg-gradient-to-l from-primary via-fuchsia-400 to-pink-500' 
+                      : 'left-0 bg-gradient-to-r from-primary via-fuchsia-400 to-pink-500'
+                  }`}
                   initial={{ width: '0%' }}
                   animate={{ width: `${progress}%` }}
                   transition={{ duration: 0.1, ease: "linear" }}
                 />
               </div>
               
-              <div className="flex justify-between w-full px-1 items-center">
+              <div className={`flex w-full px-1 items-center justify-between ${language === 'ar' ? 'flex-row-reverse' : 'flex-row'}`}>
                 <motion.span 
-                  className={`text-[10px] sm:text-xs font-semibold uppercase tracking-[0.3em] ${theme === 'light' ? 'text-black/50' : 'text-white/50'}`}
+                  className={`text-[10px] sm:text-xs font-semibold ${language === 'ar' ? '' : 'uppercase tracking-[0.3em]'} ${theme === 'light' ? 'text-black/50' : 'text-white/50'}`}
                   animate={{ opacity: progress === 100 ? 0 : 1 }}
                 >
-                  Initializing...
+                  {t('loading', 'initializing')}
                 </motion.span>
                 <motion.span 
-                  className={`text-sm sm:text-base font-bold tabular-nums tracking-wider ${theme === 'light' ? 'text-black' : 'text-white'}`}
+                  className={`text-sm sm:text-base font-bold ${language === 'ar' ? '' : 'tabular-nums tracking-wider'} ${theme === 'light' ? 'text-black' : 'text-white'}`}
                 >
-                  {progress}%
+                  {language === 'ar' ? `${new Intl.NumberFormat('ar-EG').format(progress)}٪` : `${progress}%`}
                 </motion.span>
               </div>
             </motion.div>
