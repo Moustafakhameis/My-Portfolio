@@ -180,6 +180,7 @@ export const SkillsSection = () => {
         
         <div className="flex flex-wrap items-center justify-center gap-4">
           <motion.button
+            type="button"
             whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(168, 85, 247, 0.4)" }}
             whileTap={{ scale: 0.95 }}
             onClick={handleReset}
@@ -191,6 +192,7 @@ export const SkillsSection = () => {
           </motion.button>
           
           <motion.button
+            type="button"
             whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(168, 85, 247, 0.4)" }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setIsPaused(!isPaused)}
