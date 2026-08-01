@@ -69,7 +69,7 @@ export const NotFound = () => {
         <Rocket size={120} className="drop-shadow-2xl" />
       </motion.div>
       
-      <div className="relative z-10 text-center px-4 max-w-3xl flex flex-col items-center">
+      <div className="relative z-10 text-center px-4 w-full max-w-3xl flex flex-col items-center">
         
         {/* 404 Text Stagger */}
         <motion.div
@@ -79,14 +79,14 @@ export const NotFound = () => {
             hidden: {},
             visible: { transition: { staggerChildren: 0.15 } }
           }}
-          className="flex gap-2 relative z-10"
+          className="flex gap-2 md:gap-4 relative z-10 justify-center"
         >
           {['4', '0', '4'].map((char, index) => (
             <motion.span 
               key={index}
               variants={textVariants}
               whileHover={isTouchDevice ? undefined : { scale: 1.1, rotate: (Math.random() - 0.5) * 20, color: '#a855f7' }}
-              className="text-[150px] md:text-[250px] font-black leading-none text-transparent bg-clip-text bg-gradient-to-br from-primary via-purple-500 to-pink-500 drop-shadow-[0_0_40px_rgba(168,85,247,0.4)] cursor-default select-none inline-block transition-colors duration-300"
+              className="text-[100px] sm:text-[150px] md:text-[250px] font-black leading-none text-transparent bg-clip-text bg-gradient-to-br from-primary via-purple-500 to-pink-500 drop-shadow-[0_0_40px_rgba(168,85,247,0.4)] cursor-default select-none inline-block transition-colors duration-300"
             >
               {char}
             </motion.span>
@@ -97,12 +97,12 @@ export const NotFound = () => {
           initial={{ opacity: 0, scale: 0.8, filter: "blur(10px)" }}
           animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
           transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
-          className="relative z-10 mt-4"
+          className="relative z-10 mt-4 md:mt-8 px-2"
         >
-          <h2 className="text-4xl md:text-6xl font-black mb-6 text-foreground tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-muted-foreground">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-black mb-4 md:mb-6 text-foreground tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-muted-foreground">
             Lost in Space
           </h2>
-          <p className="hidden md:block text-muted-foreground text-xl md:text-2xl max-w-lg mx-auto mb-12 leading-relaxed">
+          <p className="text-muted-foreground text-base sm:text-xl md:text-2xl max-w-lg mx-auto mb-8 md:mb-12 leading-relaxed">
             The page you are looking for has drifted into the cosmic void. 
             Let's get you back to familiar territory.
           </p>
@@ -116,8 +116,8 @@ export const NotFound = () => {
         >
           <div onClick={goHome} className="group cursor-pointer">
             <div className="absolute -inset-1 bg-gradient-to-r from-primary via-purple-500 to-pink-500 rounded-full blur opacity-40 group-hover:opacity-75 transition duration-500"></div>
-            <AnimatedButton href={import.meta.env.BASE_URL} className="relative inline-flex items-center justify-center gap-3 !px-10 !py-5 text-xl font-bold bg-background rounded-full hover:bg-background/80 overflow-hidden shadow-2xl transition-all">
-              <Home size={24} className="group-hover:text-purple-500 transition-colors" />
+            <AnimatedButton href={import.meta.env.BASE_URL} className="relative inline-flex items-center justify-center gap-3 !px-8 !py-4 md:!px-10 md:!py-5 text-lg md:text-xl font-bold bg-background rounded-full hover:bg-background/80 overflow-hidden shadow-2xl transition-all w-full sm:w-auto">
+              <Home size={20} className="md:w-6 md:h-6 group-hover:text-purple-500 transition-colors" />
               <span className="group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-pink-500 transition-all duration-300">Return to Earth</span>
             </AnimatedButton>
           </div>
