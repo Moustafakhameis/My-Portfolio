@@ -136,7 +136,7 @@ export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
                 />
               </div>
               
-              <div className={`flex w-full px-1 items-center justify-between ${language === 'ar' ? 'flex-row-reverse' : 'flex-row'}`}>
+              <div className="flex w-full px-1 items-center justify-between flex-row">
                 <motion.span 
                   className={`text-[10px] sm:text-xs font-semibold ${language === 'ar' ? '' : 'uppercase tracking-[0.3em]'} ${theme === 'light' ? 'text-black/50' : 'text-white/50'}`}
                   animate={{ opacity: progress === 100 ? 0 : 1 }}

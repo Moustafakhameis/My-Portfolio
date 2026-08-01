@@ -106,7 +106,7 @@ export const translations = {
       downloadResume: 'عرض السيرة الذاتية',
     },
     loading: {
-      initializing: '...جاري التحضير',
+      initializing: 'جاري التحضير...',
     },
     experience: {
       title: 'الخبرات المهنية',
