@@ -194,7 +194,7 @@
    Hardware Acceleration & Virtualization for Ultra-Smooth Scrolling
    ========================================================================== */
 section, .logoloop__track, [class*="blob-blur"] {
-  content-visibility: auto;
+  /* content-visibility removed to fix severe scroll freezing */
   contain-intrinsic-size: 800px;
 }
 
