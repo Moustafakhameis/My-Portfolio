@@ -79,3 +79,8 @@
   animation: breathe-glow 3s ease-in-out infinite;
   will-change: transform, opacity, box-shadow;
 }
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.2); }
+}

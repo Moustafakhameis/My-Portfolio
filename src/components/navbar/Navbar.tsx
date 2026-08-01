@@ -27,31 +27,36 @@ export const Navbar = ({ active = true }: { active?: boolean }) => {
   }, [active]);
 
   useEffect(() => {
+    const sections = ['about', 'skills', 'experience', 'work', 'contact'];
+    let rafId = 0;
+    let currentActive = '';
+
     const handleScroll = () => {
-      const sections = ['about', 'skills', 'experience', 'work', 'contact'];
-      let currentSection = '';
-      
-      // Check which section is currently active based on viewport position
-      for (const id of sections) {
-        const element = document.getElementById(id);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          // If the top of the element is above the middle of the viewport
-          // it's considered active (we iterate in order, so the last one wins)
-          if (rect.top <= window.innerHeight * 0.5) {
-            currentSection = id;
+      if (rafId) return; // Already scheduled — skip until next frame
+      rafId = requestAnimationFrame(() => {
+        rafId = 0;
+        let found = '';
+
+        for (const id of sections) {
+          const el = document.getElementById(id);
+          if (el) {
+            const rect = el.getBoundingClientRect();
+            if (rect.top <= window.innerHeight * 0.5) {
+              found = id;
+            }
           }
         }
-      }
-      
-      // Special case: if we're at the absolute bottom of the page, force 'contact'
-      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
-        currentSection = 'contact';
-      }
-      
-      if (currentSection && currentSection !== activeSection) {
-        setActiveSection(currentSection);
-      }
+
+        // Special case: at the absolute bottom of the page, force 'contact'
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
+          found = 'contact';
+        }
+
+        if (found !== currentActive) {
+          currentActive = found;
+          setActiveSection(found);
+        }
+      });
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -60,8 +65,9 @@ export const Navbar = ({ active = true }: { active?: boolean }) => {
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      if (rafId) cancelAnimationFrame(rafId);
     };
-  }, [activeSection]);
+  }, []);
 
   useEffect(() => {
     if (isMobileMenuOpen) {

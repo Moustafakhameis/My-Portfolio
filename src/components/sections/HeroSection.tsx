@@ -41,43 +41,64 @@ const floatingBubbleVariants = {
 };
 
 // Robust Typewriter using React state with looping (clears and rewrites)
+// Pauses automatically when scrolled off-screen to save CPU
 const TypewriterText = ({ text, delay = 1500, active = true }: { text: string, delay?: number, active?: boolean }) => {
   const [displayedText, setDisplayedText] = useState('');
-  
-  useEffect(() => {
-    if (!active) return; // Don't start typing until hero is visible
+  const containerRef = useRef<HTMLSpanElement>(null);
+  const isVisibleRef = useRef(true);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const stateRef = useRef({ i: 0, isDeleting: false });
 
-    let timeout: NodeJS.Timeout;
-    let isDeleting = false;
-    let i = 0;
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { isVisibleRef.current = entry.isIntersecting; },
+      { rootMargin: '100px' }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!active) return;
 
     const type = () => {
+      // Skip re-renders when off-screen but keep the loop alive
+      if (!isVisibleRef.current) {
+        timeoutRef.current = setTimeout(type, 200);
+        return;
+      }
+
+      const { i, isDeleting } = stateRef.current;
       if (!isDeleting && i < text.length) {
         setDisplayedText(text.substring(0, i + 1));
-        i++;
-        timeout = setTimeout(type, 100);
+        stateRef.current.i = i + 1;
+        timeoutRef.current = setTimeout(type, 100);
       } else if (!isDeleting && i === text.length) {
-        timeout = setTimeout(() => {
-          isDeleting = true;
+        timeoutRef.current = setTimeout(() => {
+          stateRef.current.isDeleting = true;
           type();
-        }, 2500); // Wait 2.5s at the end before deleting
+        }, 2500);
       } else if (isDeleting && i > 0) {
         setDisplayedText(text.substring(0, i - 1));
-        i--;
-        timeout = setTimeout(type, 50); // Delete faster
+        stateRef.current.i = i - 1;
+        timeoutRef.current = setTimeout(type, 50);
       } else if (isDeleting && i === 0) {
-        isDeleting = false;
-        timeout = setTimeout(type, 800); // Wait 0.8s before re-typing
+        stateRef.current.isDeleting = false;
+        timeoutRef.current = setTimeout(type, 800);
       }
     };
 
-    timeout = setTimeout(type, delay);
+    timeoutRef.current = setTimeout(type, delay);
 
-    return () => clearTimeout(timeout);
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
   }, [text, delay, active]);
 
   return (
-    <span className="inline-flex items-center min-h-[1.5em] text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-500">
+    <span ref={containerRef} className="inline-flex items-center min-h-[1.5em] text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-500">
       <span>{displayedText}</span>
       <span className="inline-block w-1 md:w-1.5 h-[1.1em] bg-primary ml-1 animate-blink" />
     </span>

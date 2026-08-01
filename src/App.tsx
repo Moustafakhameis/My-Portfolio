@@ -66,10 +66,15 @@ function App() {
     return () => observer.disconnect();
   }, [showSections, isDesktopView]);
 
-  // Check if current path matches the base URL or root
+  // Check if current path matches the base URL, root, or index.html
   const currentPath = window.location.pathname;
   const basePath = import.meta.env.BASE_URL;
-  const isNotFound = currentPath !== basePath && currentPath !== basePath.slice(0, -1) && currentPath !== '/';
+  const isNotFound = 
+    currentPath !== basePath && 
+    currentPath !== basePath.slice(0, -1) && 
+    currentPath !== '/' &&
+    currentPath !== basePath + 'index.html' &&
+    currentPath !== '/index.html';
 
   return (
     <ThemeProvider defaultTheme="dark">

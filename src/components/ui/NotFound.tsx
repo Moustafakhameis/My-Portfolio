@@ -102,7 +102,7 @@ export const NotFound = () => {
           <h2 className="text-4xl md:text-6xl font-black mb-6 text-foreground tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-muted-foreground">
             Lost in Space
           </h2>
-          <p className="text-muted-foreground text-xl md:text-2xl max-w-lg mx-auto mb-12 leading-relaxed">
+          <p className="hidden md:block text-muted-foreground text-xl md:text-2xl max-w-lg mx-auto mb-12 leading-relaxed">
             The page you are looking for has drifted into the cosmic void. 
             Let's get you back to familiar territory.
           </p>

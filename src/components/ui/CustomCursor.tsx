@@ -40,29 +40,28 @@ const CustomCursorInner = () => {
       mouseY.set(e.clientY);
     };
 
+    const TEXT_TAGS = new Set(['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'span', 'li']);
+    
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
+      const tag = target.tagName.toLowerCase();
       
       let newHover = false;
       let newText = false;
 
-      // Interactive elements
-      if (
-        target.tagName.toLowerCase() === 'a' ||
-        target.tagName.toLowerCase() === 'button' ||
-        target.closest('a') ||
-        target.closest('button') ||
-        target.classList.contains('magnetic')
-      ) {
+      // Fast path: tag itself is interactive — skip expensive closest() calls
+      if (tag === 'a' || tag === 'button') {
         newHover = true;
-      } 
-      // Text elements
-      else if (
-        ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'span', 'li'].includes(target.tagName.toLowerCase()) && 
-        !target.closest('button') && 
-        !target.closest('a')
-      ) {
-        newText = true;
+      } else if (target.classList.contains('magnetic')) {
+        newHover = true;
+      } else {
+        // Only call closest() when we truly need to (non-interactive tag)
+        const closestInteractive = target.closest('a,button');
+        if (closestInteractive) {
+          newHover = true;
+        } else if (TEXT_TAGS.has(tag)) {
+          newText = true;
+        }
       }
 
       // Only trigger re-render if state actually changed

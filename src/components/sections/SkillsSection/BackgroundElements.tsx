@@ -15,12 +15,6 @@ export const starData = Array.from({ length: STAR_COUNT }).map((_, i) => ({
 
 export const StarField = () => (
   <>
-    <style>{`
-      @keyframes twinkle {
-        0%, 100% { opacity: 0.1; transform: scale(1); }
-        50% { opacity: 0.8; transform: scale(1.2); }
-      }
-    `}</style>
     {starData.map((star) => (
       <div
         key={star.id}
