@@ -28,7 +28,7 @@ export const translations = {
       downloadResume: 'View Resume',
     },
     loading: {
-      initializing: '...INITIALIZING',
+      initializing: 'INITIALIZING...',
     },
     experience: {
       title: 'Professional Experience',
