@@ -21,7 +21,7 @@ const SymbolShowcaseSection = lazy(() => import('./components/sections/SymbolSho
 
 function App() {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [showSections, setShowSections] = useState(false);
+  const [mountStage, setMountStage] = useState(0);
   const [show3D, setShow3D] = useState(false);
   const [isDesktopView, setIsDesktopView] = useState(false);
   const threeRef = React.useRef<HTMLDivElement>(null);
@@ -36,20 +36,35 @@ function App() {
     return () => window.removeEventListener('resize', checkDesktop);
   }, []);
 
-  // After loading completes: mount below-fold sections after Hero entrance animation finishes
-  // so there is zero main-thread contention or stutter during initial rendering or early scrolling
+  // After loading completes: mount below-fold sections slowly one by one
+  // to spread out the heavy DOM manipulation over several frames.
   useEffect(() => {
-    if (isLoaded && !showSections) {
-      const timer = setTimeout(() => {
-        setShowSections(true);
-      }, 500);
-      return () => clearTimeout(timer);
+    if (isLoaded) {
+      const interval = setInterval(() => {
+        setMountStage((prev) => {
+          if (prev >= 5) {
+            clearInterval(interval);
+            return prev;
+          }
+          return prev + 1;
+        });
+      }, 300); // 300ms between each section mount
+      return () => clearInterval(interval);
     }
-  }, [isLoaded, showSections]);
+  }, [isLoaded]);
+
+  // Background Pre-fetching for massive 3D bundles
+  useEffect(() => {
+    if (isLoaded && isDesktopView) {
+      // Secretly download the 3D JS files into cache while the user is reading the Hero text
+      import('./components/sections/ThreeShowcaseSection');
+      import('./components/sections/SymbolShowcaseSection');
+    }
+  }, [isLoaded, isDesktopView]);
 
   // Load the heavy 3D engine only when the user scrolls near the 3D section
   useEffect(() => {
-    if (!showSections || !isDesktopView) return;
+    if (mountStage === 0 || !isDesktopView) return;
     const currentRef = threeRef.current;
     if (!currentRef) return;
 
@@ -64,7 +79,7 @@ function App() {
     );
     observer.observe(currentRef);
     return () => observer.disconnect();
-  }, [showSections, isDesktopView]);
+  }, [mountStage, isDesktopView]);
 
   // Check if current path matches the base URL, root, or index.html
   const currentPath = window.location.pathname;
@@ -91,12 +106,13 @@ function App() {
                 <Navbar active={isLoaded} />
                 <main>
                   <HeroSection animate={isLoaded} />
-                  {showSections && (
+                  {mountStage >= 1 && <AboutSection />}
+                  {mountStage >= 2 && <SkillsSection />}
+                  {mountStage >= 3 && <ExperienceSection />}
+                  {mountStage >= 4 && <ProjectsSection />}
+                  
+                  {mountStage >= 5 && (
                     <>
-                      <AboutSection />
-                      <SkillsSection />
-                      <ExperienceSection />
-                      <ProjectsSection />
                       {isDesktopView && (
                         <div ref={threeRef} className="hidden lg:block min-h-[600px]">
                           {show3D ? (
@@ -113,7 +129,7 @@ function App() {
                     </>
                   )}
                 </main>
-                {showSections && <Footer />}
+                {mountStage >= 5 && <Footer />}
               </div>
             )}
           </LenisProvider>

@@ -75,6 +75,13 @@ export const translations = {
       title1: 'Crafting in',
       title2: 'Dimensions',
       description: 'Performant WebGL experiences'
+    },
+    tooltip: {
+      holdOn: 'Hold on!',
+      holdOnMessage: "This portfolio is more than a list of projects. It's an interactive experience showcasing my skills, creativity, and attention to detail.",
+      holdOnNote: 'Take a quick scroll first before diving into the projects.',
+      lastStop: 'Last stop, I promise!',
+      lastStopMessage: "Take a quick scroll first—I think you won't regret it. 😉"
     }
   },
   ar: {
@@ -153,6 +160,13 @@ export const translations = {
       title1: 'صياغة في',
       title2: 'الأبعاد',
       description: 'تجارب WebGL عالية الأداء'
+    },
+    tooltip: {
+      holdOn: 'لحظة!',
+      holdOnMessage: 'هذا الموقع ليس مجرد قائمة مشاريع. إنه تجربة تفاعلية تعرض مهاراتي وإبداعي واهتمامي بالتفاصيل.',
+      holdOnNote: 'قم بالتمرير سريعاً أولاً قبل الانتقال إلى المشاريع.',
+      lastStop: 'آخر محطة، أعدك!',
+      lastStopMessage: 'قم بالتمرير سريعاً أولاً — أعتقد أنك لن تندم. 😉'
     }
   }
 };

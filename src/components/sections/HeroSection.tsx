@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValueEvent, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../../context/LanguageContext';
 import { AnimatedButton } from '../ui/AnimatedButton';
 import profilePic from '../../assets/Moustafa Ali Emam Optimized.png';
+import { useSmartWorkNavigation } from '../../hooks/useSmartWorkNavigation';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -100,7 +101,7 @@ const TypewriterText = ({ text, delay = 1500, active = true }: { text: string, d
   return (
     <span ref={containerRef} className="inline-flex items-center min-h-[1.5em] text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-500">
       <span>{displayedText}</span>
-      <span className="inline-block w-1 md:w-1.5 h-[1.1em] bg-primary ml-1 animate-blink" />
+      <span className="inline-block w-1 md:w-1.5 h-[1.1em] bg-primary ms-1 animate-blink" />
     </span>
   );
 };
@@ -130,6 +131,19 @@ const AnimatedText = ({ text, animate = true }: { text: string, animate?: boolea
         </span>
       ))}
     </span>
+  );
+};
+
+const SmartWorkButton = ({ children }: { children: React.ReactNode }) => {
+  const { handleClick, tooltipElement } = useSmartWorkNavigation("bottom-[110%] left-1/2 -translate-x-1/2");
+
+  return (
+    <div className="relative">
+      {tooltipElement}
+      <AnimatedButton variant="primary" onClick={handleClick} type="button">
+        {children}
+      </AnimatedButton>
+    </div>
   );
 };
 
@@ -249,12 +263,12 @@ export const HeroSection = ({ animate = true }: { animate?: boolean }) => {
           </motion.h2>
 
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-6 mt-4 w-full sm:w-auto items-center justify-center z-20 pb-4">
-            <motion.div whileHover={isMobile ? {} : { scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <AnimatedButton href="#work" variant="primary">
+            <motion.div whileHover={isMobile ? {} : { scale: 1.05 }} whileTap={{ scale: 0.95 }} className="relative z-50">
+              <SmartWorkButton>
                 {t('hero', 'viewWork')}
-              </AnimatedButton>
+              </SmartWorkButton>
             </motion.div>
-            <motion.div whileHover={isMobile ? {} : { scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <motion.div whileHover={isMobile ? {} : { scale: 1.05 }} whileTap={{ scale: 0.95 }} className="relative z-40">
               <AnimatedButton href="#contact" variant="outline">
                 {t('hero', 'contactMe')}
               </AnimatedButton>

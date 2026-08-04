@@ -10,8 +10,11 @@ export const SkillPill = memo(({ skill, orbitRadius, initialAngle, containerRef,
 
   useEffect(() => {
     if (resetKey > 0) {
-      isInteracting.current = false;
-      isSnapping.current = true;
+      // Only snap back pills that were actually dragged out of orbit
+      if (isInteracting.current) {
+        isInteracting.current = false;
+        isSnapping.current = true;
+      }
       x.stop();
       y.stop();
     }
@@ -68,7 +71,7 @@ export const SkillPill = memo(({ skill, orbitRadius, initialAngle, containerRef,
 
   return (
     <motion.div
-      className="absolute top-1/2 left-1/2 w-0 h-0 z-10"
+      className="absolute top-1/2 left-1/2 w-0 h-0 z-10 pointer-events-auto"
       style={{ x, y }}
       initial={{ opacity: 0, scale: 0 }}
       animate={{ opacity: 1, scale: 1 }}

@@ -7,6 +7,7 @@ import Dock from '../ui/Dock';
 import { Logo } from './Logo';
 import { DesktopNav } from './DesktopNav';
 import { MobileNav } from './MobileNav';
+import { useSmartWorkNavigation } from '../../hooks/useSmartWorkNavigation';
 
 export const Navbar = ({ active = true }: { active?: boolean }) => {
   const { theme, setTheme } = useTheme();
@@ -17,6 +18,7 @@ export const Navbar = ({ active = true }: { active?: boolean }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { scrollY } = useScroll();
   const [blurReady, setBlurReady] = useState(false);
+  const { handleClick: handleDockClick, tooltipElement: DockTooltip } = useSmartWorkNavigation("bottom-[130%] left-1/2 -translate-x-1/2", activeSection);
 
   // Defer the expensive backdrop-blur until hero entrance animations are done (~2.5s)
   // This is the #1 GPU perf killer: blurring behind the navbar on every animation frame
@@ -48,7 +50,7 @@ export const Navbar = ({ active = true }: { active?: boolean }) => {
         }
 
         // Special case: at the absolute bottom of the page, force 'contact'
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
+        if (window.scrollY > 200 && (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
           found = 'contact';
         }
 
@@ -215,12 +217,13 @@ export const Navbar = ({ active = true }: { active?: boolean }) => {
             className="fixed bottom-6 left-0 right-0 z-50 pointer-events-none flex justify-center hidden lg:flex"
           >
             <div className="pointer-events-auto relative">
+              {DockTooltip}
               <Dock
                 items={[
                   { icon: <User size={22} />, label: t('navbar', 'about'), isActive: activeSection === 'about', onClick: () => scrollToSection('about') },
                   { icon: <Cpu size={22} />, label: t('navbar', 'skills'), isActive: activeSection === 'skills', onClick: () => scrollToSection('skills') },
                   { icon: <Briefcase size={22} />, label: t('navbar', 'experience'), isActive: activeSection === 'experience', onClick: () => scrollToSection('experience') },
-                  { icon: <Code2 size={22} />, label: t('navbar', 'projects'), isActive: activeSection === 'work', onClick: () => scrollToSection('work') },
+                  { icon: <Code2 size={22} />, label: t('navbar', 'projects'), isActive: activeSection === 'work', onClick: (e) => { handleDockClick(e as any); } },
                   { icon: <Mail size={22} />, label: t('navbar', 'contact'), isActive: activeSection === 'contact', onClick: () => scrollToSection('contact') },
                   { 
                     separator: true,

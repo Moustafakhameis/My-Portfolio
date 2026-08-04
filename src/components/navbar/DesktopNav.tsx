@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Languages, Sun, Moon } from 'lucide-react';
 import { cn } from '../../utils/cn';
+import { useSmartWorkNavigation } from '../../hooks/useSmartWorkNavigation';
 
 interface NavLink {
   name: string;
@@ -32,6 +33,12 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
     }
   };
 
+  const { handleClick, tooltipElement } = useSmartWorkNavigation(
+    "top-[120%] ltr:right-0 rtl:left-0 lg:ltr:-right-2 lg:rtl:-left-2", 
+    activeSection,
+    "ltr:right-8 rtl:left-8"
+  );
+
   const itemAnim = {
     hidden: { opacity: 0, y: -20 },
     show: { opacity: 1, y: 0, transition: { type: "tween", ease: "easeOut", damping: 24 } }
@@ -48,11 +55,16 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
         {navLinks.map((link, i) => {
           const isActive = activeSection === link.href.substring(1);
           return (
-            <motion.a
-              key={link.name}
+            <div key={link.name} className="relative">
+              {link.href === '#work' && tooltipElement}
+              <motion.a
               variants={itemAnim}
               href={link.href}
               onClick={(e) => {
+                if (link.href === '#work') {
+                  handleClick(e);
+                  return;
+                }
                 e.preventDefault();
                 const targetId = link.href.substring(1);
                 setActiveSection(targetId);
@@ -160,6 +172,7 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
                 </>
               )}
             </motion.a>
+          </div>
           );
         })}
       </div>

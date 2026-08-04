@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Languages, Sun, Moon } from 'lucide-react';
+import { useSmartWorkNavigation } from '../../hooks/useSmartWorkNavigation';
 
 interface NavLink {
   name: string;
@@ -22,6 +23,8 @@ interface MobileNavProps {
 export const MobileNav: React.FC<MobileNavProps> = ({
   navLinks, activeSection, setActiveSection, theme, toggleTheme, language, toggleLanguage, isMobileMenuOpen, setIsMobileMenuOpen
 }) => {
+  const { handleClick, tooltipElement } = useSmartWorkNavigation("top-[110%] left-1/2 -translate-x-1/2", activeSection);
+
   return (
     <AnimatePresence>
       {isMobileMenuOpen && (
@@ -51,17 +54,22 @@ export const MobileNav: React.FC<MobileNavProps> = ({
                 transition: { staggerChildren: 0.1, delayChildren: 0.2 }
               }
             }}
-            className="flex flex-col items-center gap-6 sm:gap-10 w-full"
+            className="flex flex-col items-center gap-6 sm:gap-10 w-full relative"
           >
             {navLinks.map((link) => {
               const isActive = activeSection === link.href.substring(1);
               return (
-                <motion.a
-                  key={link.name}
-                  href={link.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setIsMobileMenuOpen(false);
+                <div key={link.name} className="relative w-full flex justify-center">
+                  {link.href === '#work' && tooltipElement}
+                  <motion.a
+                    href={link.href}
+                    onClick={(e) => {
+                      if (link.href === '#work') {
+                        handleClick(e);
+                        return;
+                      }
+                      e.preventDefault();
+                      setIsMobileMenuOpen(false);
                     const targetId = link.href.substring(1);
                     setActiveSection(targetId);
                     const target = document.getElementById(targetId);
@@ -148,6 +156,7 @@ export const MobileNav: React.FC<MobileNavProps> = ({
                     </>
                   )}
                 </motion.a>
+              </div>
               );
             })}
             
