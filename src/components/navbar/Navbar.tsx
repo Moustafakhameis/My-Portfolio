@@ -18,7 +18,7 @@ export const Navbar = ({ active = true }: { active?: boolean }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { scrollY } = useScroll();
   const [blurReady, setBlurReady] = useState(false);
-  const { handleClick: handleDockClick, tooltipElement: DockTooltip } = useSmartWorkNavigation("bottom-[130%] left-1/2 -translate-x-1/2", activeSection);
+  const { handleClick: handleDockClick, tooltipElement: DockTooltip } = useSmartWorkNavigation("bottom-[90px] left-1/2 -translate-x-1/2", activeSection);
 
   // Defer the expensive backdrop-blur until hero entrance animations are done (~2.5s)
   // This is the #1 GPU perf killer: blurring behind the navbar on every animation frame
@@ -99,10 +99,10 @@ export const Navbar = ({ active = true }: { active?: boolean }) => {
 
     if (isScrollingDown) {
       setIsHidden(prev => prev !== true ? true : prev);
-      setShowDock(prev => prev !== !isAtBottom ? !isAtBottom : prev);
+      setShowDock(prev => prev !== true ? true : prev);
     } else if (isScrollingUp) {
       setIsHidden(prev => prev !== false ? false : prev);
-      setShowDock(prev => prev !== false ? false : prev);
+      setShowDock(prev => prev !== true ? true : prev);
     }
   });
 

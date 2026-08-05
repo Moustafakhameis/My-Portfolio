@@ -54,7 +54,15 @@ export const FeaturedProjectCard: React.FC<FeaturedProjectCardProps> = ({ projec
             <div className="w-full p-4 sm:p-6 md:p-10 lg:p-16 flex flex-col justify-center max-w-6xl mx-auto">
               <div className="flex items-center gap-4 mb-6">
                 <ProjectBadge category={project.category} />
-                <span className="h-px flex-1 bg-gradient-to-r from-border/50 to-transparent" />
+                
+                {/* Animated glowing line */}
+                <div className="relative flex-1 h-[1px] bg-gradient-to-r from-border/30 to-transparent overflow-hidden">
+                  <motion.div 
+                    className="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-transparent via-amber-500 to-transparent opacity-50"
+                    animate={{ x: ['-100%', '200%'] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: 'linear', delay: Math.random() * 2 }}
+                  />
+                </div>
               </div>
 
               <h3 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-foreground via-foreground/90 to-foreground/60 mb-6 group-hover:from-primary group-hover:via-purple-400 group-hover:to-pink-500 transition-all duration-700">

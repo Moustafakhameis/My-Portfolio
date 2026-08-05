@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, memo } from 'react';
 import { motion, useAnimationFrame, useMotionValue } from 'framer-motion';
+import { useIsTouchDevice } from '../../../hooks/useIsTouchDevice';
 
 export const SkillPill = memo(({ skill, orbitRadius, initialAngle, containerRef, resetKey, isPaused, isMobile }: any) => {
   const x = useMotionValue(Math.cos(initialAngle) * orbitRadius);
@@ -7,6 +8,7 @@ export const SkillPill = memo(({ skill, orbitRadius, initialAngle, containerRef,
   const isInteracting = useRef(false);
   const isSnapping = useRef(false);
   const angleRef = useRef(initialAngle);
+  const isTouchDevice = useIsTouchDevice();
 
   useEffect(() => {
     if (resetKey > 0) {
@@ -76,14 +78,12 @@ export const SkillPill = memo(({ skill, orbitRadius, initialAngle, containerRef,
       initial={{ opacity: 0, scale: 0 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
-      whileHover={{ 
-        scale: 1.08, 
-        zIndex: 50
+      whileHover={isTouchDevice ? undefined : { 
+        scale: 1.1, 
+        zIndex: 50, 
+        transition: { type: "spring", stiffness: 400, damping: 10 } 
       }}
-      whileTap={{
-        scale: 0.95,
-        zIndex: 50
-      }}
+      whileTap={{ scale: 0.95 }}
       drag
       dragConstraints={containerRef}
       dragElastic={0.2}

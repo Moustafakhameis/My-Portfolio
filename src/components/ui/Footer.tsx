@@ -36,10 +36,12 @@ export const Footer = () => {
   };
 
   return (
-    <footer className="relative mt-24 pt-20 pb-10 overflow-hidden border-t border-border/10">
+    <footer className="relative mt-24 pt-20 pb-10 border-t border-border/10">
       {/* Background animated glows */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[400px] bg-gradient-to-t from-primary/10 via-purple-500/5 to-transparent blur-[100px] -z-10 blob-blur" />
-      <div className="absolute -bottom-[250px] -left-[100px] w-[600px] h-[600px] bg-primary/20 blur-[150px] rounded-full -z-10 pointer-events-none blob-blur opacity-40" />
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[400px] bg-gradient-to-t from-primary/10 via-purple-500/5 to-transparent blur-[100px] -z-10 blob-blur" />
+        <div className="absolute -bottom-[250px] -left-[100px] w-[600px] h-[600px] bg-primary/20 blur-[150px] rounded-full -z-10 pointer-events-none blob-blur opacity-40" />
+      </div>
       
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         <motion.div 
@@ -58,78 +60,90 @@ export const Footer = () => {
               </span>
             </h2>
 
-            {/* Toggle Card Button (Mobile Only) */}
-            <motion.button
-              onClick={() => setShowCard(!showCard)}
-              className={`mt-4 md:hidden group relative inline-flex items-center gap-3 px-8 py-4 rounded-full font-semibold overflow-hidden transition-all duration-300 ${
-                showCard
-                  ? 'bg-slate-200 border border-slate-300 text-slate-900 dark:bg-white/10 dark:border-white/20 dark:text-white'
-                  : 'bg-gradient-to-r from-violet-600 to-pink-600 border border-transparent shadow-[0_0_30px_rgba(124,58,237,0.4)] text-white'
-              }`}
-              whileHover={isTouchDevice ? undefined : { scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {showCard ? (
-                <>
-                  <X size={20} />
-                  <span className="tracking-wide">{language === 'ar' ? 'إغلاق' : 'Close'}</span>
-                </>
-              ) : (
-                <>
-                  <IdCard size={20} />
-                  <span className="tracking-wide">{language === 'ar' ? 'بطاقة التعريف' : 'View My Card'}</span>
-                </>
+            {/* Reflective Card Accordion Container (Rock-solid Framer Motion accordion) */}
+            <AnimatePresence initial={false}>
+              {showCard && (
+                <motion.div
+                  key="digital-card-accordion"
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.4, ease: "easeInOut" }}
+                  className="w-full overflow-hidden flex justify-center"
+                >
+                  {/* Padding is on the inner static div so Framer Motion can measure height perfectly */}
+                  <div className="w-full flex justify-center pt-6 pb-12 px-2 sm:px-8">
+                    <ReflectiveCard
+                      isVisible={showCard}
+                      overlayColor="rgba(0, 0, 0, 0.15)"
+                      blurStrength={0}
+                      glassDistortion={0}
+                      metalness={0.6}
+                      roughness={0.3}
+                      displacementStrength={3}
+                      noiseScale={2}
+                      specularConstant={0.8}
+                      grayscale={0.3}
+                      color="#ffffff"
+                    />
+                  </div>
+                </motion.div>
               )}
-              {/* Shine sweep */}
-              {!showCard && (
-                <div className="absolute inset-0 overflow-hidden rounded-full pointer-events-none">
-                  <motion.div
-                    className="absolute top-0 bottom-0 w-[150%] bg-gradient-to-r from-transparent via-white/25 to-transparent skew-x-[-20deg]"
-                    animate={{ x: ['-100%', '200%'] }}
-                    transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', repeatDelay: 2 }}
-                  />
-                </div>
-              )}
-            </motion.button>
-          </motion.div>
+            </AnimatePresence>
 
-          {/* Reflective Card - Smooth Slide Toggle */}
-          <div className="md:hidden">
-            <motion.div
-              initial={false}
-              animate={{
-                maxHeight: showCard ? 'min(700px, 85vh)' : 0,
-                opacity: showCard ? 1 : 0,
-                marginTop: showCard ? 16 : 0,
-                marginBottom: showCard ? 16 : 0,
-              }}
-              transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-              style={{ overflow: 'hidden', paddingTop: showCard ? 40 : 0, paddingBottom: showCard ? 60 : 0 }}
+            {/* Toggle Card Button */}
+            <button
+              onClick={() => setShowCard(!showCard)}
+              className={`group relative inline-flex items-center justify-center h-[56px] px-8 rounded-full font-semibold overflow-hidden transition-shadow duration-300 ${
+                showCard
+                  ? 'border border-slate-300 dark:border-white/20 shadow-sm'
+                  : 'border border-transparent shadow-[0_0_30px_rgba(124,58,237,0.4)]'
+              }`}
             >
-              <motion.div
-                initial={false}
-                animate={{
-                  y: showCard ? 0 : -40,
-                }}
-                transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-                className="flex justify-center"
-              >
-                <ReflectiveCard
-                  isVisible={showCard}
-                  overlayColor="rgba(0, 0, 0, 0.15)"
-                  blurStrength={0}
-                  glassDistortion={0}
-                  metalness={0.6}
-                  roughness={0.3}
-                  displacementStrength={3}
-                  noiseScale={2}
-                  specularConstant={0.8}
-                  grayscale={0.3}
-                  color="#ffffff"
+              {/* Smooth Background Transition */}
+              <div className="absolute inset-0 bg-gradient-to-r from-violet-600 to-pink-600 z-0" />
+              <div 
+                className={`absolute inset-0 bg-slate-200 dark:bg-white/10 backdrop-blur-md z-0 transition-opacity duration-300 ${
+                  showCard ? 'opacity-100' : 'opacity-0'
+                }`}
+                style={{ willChange: "opacity" }}
+              />
+
+              {/* Shine sweep (only visible when closed) */}
+              <div className={`absolute inset-0 overflow-hidden rounded-full pointer-events-none z-0 transition-opacity duration-300 ${showCard ? 'opacity-0' : 'opacity-100'}`}>
+                <motion.div
+                  className="absolute top-0 bottom-0 w-[150%] bg-gradient-to-r from-transparent via-white/25 to-transparent skew-x-[-20deg]"
+                  animate={{ x: ['-100%', '200%'] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', repeatDelay: 2 }}
                 />
-              </motion.div>
-            </motion.div>
-          </div>
+              </div>
+
+              {/* Button Content Crossfade (Native CSS transitions for maximum stability) */}
+              <div className="relative z-10 flex items-center justify-center w-[200px] sm:w-[220px] h-6">
+                
+                {/* Close State */}
+                <div 
+                  className={`absolute flex items-center gap-3 text-slate-900 dark:text-white whitespace-nowrap transition-all duration-300 ${
+                    showCard ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
+                  }`}
+                >
+                  <X size={20} className="flex-shrink-0" />
+                  <span className="tracking-wide text-sm md:text-base font-bold">{language === 'ar' ? 'إغلاق' : 'Close'}</span>
+                </div>
+
+                {/* Open State */}
+                <div 
+                  className={`absolute flex items-center gap-3 text-white whitespace-nowrap transition-all duration-300 ${
+                    showCard ? 'opacity-0 -translate-y-4 pointer-events-none' : 'opacity-100 translate-y-0'
+                  }`}
+                >
+                  <IdCard size={20} className="flex-shrink-0" />
+                  <span className="tracking-wide text-sm md:text-base font-bold">{language === 'ar' ? 'افتح بطاقتي الرقمية' : 'Open My Digital Card'}</span>
+                </div>
+
+              </div>
+            </button>
+          </motion.div>
 
           <motion.div variants={itemVariants} className="w-full max-w-4xl h-px bg-gradient-to-r from-transparent via-border/50 to-transparent" />
 

@@ -4,6 +4,7 @@ import { RotateCcw, Compass, Play, Pause, Sun, Gauge, Atom, Sparkles } from 'luc
 import { COLOR_SCHEMES, SPEED_LEVELS } from './types';
 import type { ColorScheme } from './types';
 import { useLanguage } from '../../../context/LanguageContext';
+import { useIsTouchDevice } from '../../../hooks/useIsTouchDevice';
 
 interface ShowcaseUIProps {
   scheme: ColorScheme;
@@ -38,6 +39,7 @@ export const ShowcaseUI: React.FC<ShowcaseUIProps> = ({
   const { t, language } = useLanguage();
   const isRTL = language === 'ar';
   const speed = SPEED_LEVELS[speedIdx];
+  const isTouchDevice = useIsTouchDevice();
 
   return (
     <div className="relative w-full lg:w-1/2 z-10 flex flex-col justify-start pt-4 lg:pt-0 lg:justify-center text-center lg:text-start pointer-events-none mt-10 lg:mt-0">
@@ -104,7 +106,8 @@ export const ShowcaseUI: React.FC<ShowcaseUIProps> = ({
       <div className="mt-8 lg:mt-10 flex justify-center lg:justify-start pointer-events-auto px-6 sm:px-0">
         <motion.button 
           onClick={() => document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' })}
-          whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }}
+          whileHover={isTouchDevice ? undefined : { scale: 1.05, y: -2 }} 
+          whileTap={{ scale: 0.95 }}
           className="px-8 py-3.5 font-bold rounded-full flex items-center gap-2 text-white transition-all duration-300"
           style={{ background: `linear-gradient(135deg, ${scheme.mid}, ${scheme.back})`, boxShadow: `0 0 25px ${scheme.glow}` }}
         >

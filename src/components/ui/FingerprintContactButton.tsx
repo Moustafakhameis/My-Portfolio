@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Fingerprint, CheckCircle } from 'lucide-react';
+import userImage from '../../assets/Moustafa.jpg';
 
 export const FingerprintContactButton = () => {
   const [isPressing, setIsPressing] = useState(false);
@@ -67,7 +68,26 @@ export const FingerprintContactButton = () => {
     };
   }, []);
 
-  const downloadVCard = () => {
+  const downloadVCard = async () => {
+    let base64Photo = '';
+    try {
+      const response = await fetch(userImage);
+      const blob = await response.blob();
+      base64Photo = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const base64data = (reader.result as string).split(',')[1];
+          resolve(base64data);
+        };
+        reader.onerror = () => resolve('');
+        reader.readAsDataURL(blob);
+      });
+    } catch (e) {
+      console.warn("Failed to load photo for vCard", e);
+    }
+
+    const photoString = base64Photo ? `\nPHOTO;ENCODING=b;TYPE=JPEG:${base64Photo}` : '';
+
     const vCardData = `BEGIN:VCARD
 VERSION:3.0
 N:Ali Emam;Moustafa;;;
@@ -75,7 +95,7 @@ FN:Moustafa Ali Emam
 TITLE:Frontend Engineer & UI Designer
 TEL;TYPE=CELL:+201129482206
 EMAIL:moustafakhameis@gmail.com
-ADR;TYPE=WORK:;;15 May;Cairo;;;Egypt
+ADR;TYPE=WORK:;;15 May;Cairo;;;Egypt${photoString}
 END:VCARD`;
 
     const blob = new Blob([vCardData], { type: 'text/vcard' });

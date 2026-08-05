@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import './ReflectiveCard.css';
 import { Fingerprint, Activity, Lock, Check, MapPin, Phone, Mail, Clock } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
@@ -41,6 +42,39 @@ const ReflectiveCard = ({
   const phone = '+201129482206';
 
   const [time, setTime] = useState(new Date());
+  
+  const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.innerWidth < 1024);
+
+  // 3D Tilt Effect
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 30 });
+  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 30 });
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["15deg", "-15deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-15deg", "15deg"]);
+
+  // Sheen Effect
+  const sheenX = useTransform(mouseXSpring, [-0.5, 0.5], ["100%", "0%"]);
+  const sheenY = useTransform(mouseYSpring, [-0.5, 0.5], ["100%", "0%"]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isTouchDevice) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    x.set(mouseX / width - 0.5);
+    y.set(mouseY / height - 0.5);
+  };
+
+  const handleMouseLeave = () => {
+    if (isTouchDevice) return;
+    x.set(0);
+    y.set(0);
+  };
 
   useEffect(() => {
     if (!isVisible) return;
@@ -73,7 +107,18 @@ const ReflectiveCard = ({
   } as React.CSSProperties;
 
   return (
-    <div className={`reflective-card-container ${className}`} style={{ ...style, ...cssVariables }}>
+    <motion.div 
+      className={`reflective-card-container ${className}`} 
+      style={{ 
+        ...style, 
+        ...cssVariables,
+        rotateX,
+        rotateY,
+        transformPerspective: 1200
+      }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
       <svg className="reflective-svg-filters" aria-hidden="true">
         <defs>
           <filter id="metallic-displacement" x="-20%" y="-20%" width="140%" height="140%">
@@ -125,7 +170,14 @@ const ReflectiveCard = ({
       <div className="reflective-gradient-bg" />
 
       <div className="reflective-noise" />
-      <div className="reflective-sheen" />
+      <motion.div 
+        className="reflective-sheen" 
+        style={{ 
+          backgroundPositionX: sheenX, 
+          backgroundPositionY: sheenY,
+          backgroundSize: "200% 200%" 
+        }} 
+      />
       <div className="reflective-border" />
 
       <div className="reflective-content">
@@ -206,7 +258,7 @@ const ReflectiveCard = ({
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

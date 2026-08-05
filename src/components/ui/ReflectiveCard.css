@@ -1,12 +1,15 @@
 .reflective-card-container {
   position: relative;
   width: 340px;
+  max-width: calc(100vw - 32px);
   height: 520px;
+  max-height: calc(100dvh - 120px);
   border-radius: 24px;
   overflow: hidden;
   background: #ffffff;
   box-shadow:
-    0 0 0 1px rgba(15, 23, 42, 0.1),
+    0 0 0 1px rgba(15, 23, 42, 0.05),
+    0 20px 40px -10px rgba(0, 0, 0, 0.15),
     inset 0 1px 1px rgba(255, 255, 255, 0.9),
     inset 0 -1px 1px rgba(15, 23, 42, 0.05);
   isolation: isolate;
@@ -19,8 +22,9 @@
 .dark .reflective-card-container {
   background: #0d0d1a;
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.1),
-    inset 0 1px 1px rgba(255, 255, 255, 0.15);
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 10px 40px -10px rgba(0, 0, 0, 0.6),
+    inset 0 1px 1px rgba(255, 255, 255, 0.1);
 }
 
 .reflective-card-container:hover {
@@ -117,10 +121,16 @@
   padding: 1px;
   background: linear-gradient(
     135deg,
-    rgba(148, 163, 184, 0.5) 0%,
-    rgba(148, 163, 184, 0.1) 50%,
-    rgba(148, 163, 184, 0.4) 100%
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.0) 20%,
+    rgba(255, 255, 255, 0.0) 40%,
+    rgba(139, 92, 246, 0.5) 50%,
+    rgba(255, 255, 255, 0.0) 60%,
+    rgba(255, 255, 255, 0.0) 80%,
+    rgba(255, 255, 255, 0.8) 100%
   );
+  background-size: 200% 200%;
+  animation: border-sheen 6s ease-in-out infinite;
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
@@ -133,13 +143,25 @@
   pointer-events: none;
 }
 
+@keyframes border-sheen {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
 .dark .reflective-border {
   background: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.6) 0%,
-    rgba(255, 255, 255, 0.1) 50%,
-    rgba(255, 255, 255, 0.4) 100%
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.0) 20%,
+    rgba(255, 255, 255, 0.0) 40%,
+    rgba(167, 139, 250, 0.6) 50%,
+    rgba(255, 255, 255, 0.0) 60%,
+    rgba(255, 255, 255, 0.0) 80%,
+    rgba(255, 255, 255, 0.8) 100%
   );
+  background-size: 200% 200%;
+  animation: border-sheen 6s ease-in-out infinite;
 }
 
 .reflective-content {
@@ -148,7 +170,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  padding: 24px 28px;
+  padding: 24px clamp(16px, 5vw, 28px);
   color: #1e293b;
   background: rgba(255, 255, 255, 0.45);
   backdrop-filter: blur(16px);
@@ -291,7 +313,7 @@
 }
 
 .user-name {
-  font-size: 22px;
+  font-size: clamp(16px, 5vw, 22px);
   font-weight: 800;
   letter-spacing: 0.06em;
   margin: 0;
@@ -300,6 +322,12 @@
 }
 .dark .user-name {
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 380px) {
+  .reflective-content {
+    padding: 20px 16px;
+  }
 }
 
 .user-role {

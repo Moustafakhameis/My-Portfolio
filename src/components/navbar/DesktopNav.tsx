@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Languages, Sun, Moon } from 'lucide-react';
 import { cn } from '../../utils/cn';
 import { useSmartWorkNavigation } from '../../hooks/useSmartWorkNavigation';
+import { useIsTouchDevice } from '../../hooks/useIsTouchDevice';
 
 interface NavLink {
   name: string;
@@ -23,7 +24,7 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
   navLinks, activeSection, setActiveSection, theme, toggleTheme, language, toggleLanguage
 }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.innerWidth < 1024);
+  const isTouchDevice = useIsTouchDevice();
 
   const staggerContainer = {
     hidden: { opacity: 0 },
@@ -81,6 +82,7 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
                 }
               }}
               onMouseEnter={() => !isTouchDevice && setHoveredIndex(i)}
+              whileTap={{ scale: 0.95 }}
               className={cn(
                 "relative px-5 py-2 text-[13px] tracking-[0.06em] uppercase transition-colors duration-300",
                 isActive ? "font-bold" : "font-medium text-muted-foreground hover:text-foreground"

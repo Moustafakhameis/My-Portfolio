@@ -65,7 +65,11 @@ export const MobileNav: React.FC<MobileNavProps> = ({
                     href={link.href}
                     onClick={(e) => {
                       if (link.href === '#work') {
-                        handleClick(e);
+                        const navigated = handleClick(e);
+                        if (navigated) {
+                          setIsMobileMenuOpen(false);
+                          setActiveSection('work');
+                        }
                         return;
                       }
                       e.preventDefault();

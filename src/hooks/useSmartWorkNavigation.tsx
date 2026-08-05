@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
+import { useIsTouchDevice } from './useIsTouchDevice';
 
 const InteractiveEyes = () => {
   const mouseX = useMotionValue(0);
@@ -87,6 +88,7 @@ const InteractiveEyes = () => {
 let hasVisitedProjectsGlobal = false;
 
 const HolographicTooltip = ({ clickCount, tooltipPositionClass, arrowPositionClass, t }: { clickCount: number, tooltipPositionClass: string, arrowPositionClass: string, t: any }) => {
+  const isTouchDevice = useIsTouchDevice();
   const mouseX = useMotionValue(0.5);
   const mouseY = useMotionValue(0.5);
 
@@ -128,28 +130,30 @@ const HolographicTooltip = ({ clickCount, tooltipPositionClass, arrowPositionCla
         <div className="absolute -inset-[2px] rounded-2xl bg-gradient-to-r from-primary via-fuchsia-500 to-pink-500 opacity-40 blur-xl group-hover:opacity-60 transition duration-1000 animate-pulse" style={{ transform: "translateZ(-10px)" }} />
         
         {/* Main Tooltip Container */}
-        <div className="relative p-6 rounded-2xl bg-background/90 backdrop-blur-2xl border border-white/20 shadow-[0_20px_60px_-15px_rgba(168,85,247,0.4)] overflow-hidden" style={{ transform: "translateZ(0px)" }}>
+        <div className="relative p-4 md:p-6 rounded-2xl bg-background/90 backdrop-blur-2xl border border-white/20 shadow-[0_20px_60px_-15px_rgba(168,85,247,0.4)] overflow-hidden" style={{ transform: "translateZ(0px)" }}>
           {/* Holographic Glare Overlay */}
-          <motion.div 
-            className="absolute inset-0 pointer-events-none opacity-50 mix-blend-overlay"
-            style={{ 
-              background: "radial-gradient(circle at center, rgba(255,255,255,0.8) 0%, transparent 50%)",
-              x: glareX,
-              y: glareY,
-              scale: 2
-            }} 
-          />
+          {!isTouchDevice && (
+            <motion.div 
+              className="absolute inset-0 pointer-events-none opacity-50 mix-blend-overlay"
+              style={{ 
+                background: "radial-gradient(circle at center, rgba(255,255,255,0.8) 0%, transparent 50%)",
+                x: glareX,
+                y: glareY,
+                scale: 2
+              }} 
+            />
+          )}
 
           {clickCount === 1 && (
             <div className="relative flex flex-col gap-3 text-start z-10" style={{ transform: "translateZ(20px)" }}>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 md:gap-3">
                 <InteractiveEyes />
-                <span className="text-xl md:text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-primary via-fuchsia-400 to-pink-500 drop-shadow-sm">
+                <span className="text-lg sm:text-xl md:text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-primary via-fuchsia-400 to-pink-500 drop-shadow-sm">
                   {t('tooltip', 'holdOn')}
                 </span>
               </div>
               <div className="h-[1px] w-full bg-gradient-to-r from-primary/30 to-transparent rtl:bg-gradient-to-l rtl:from-primary/30 rtl:to-transparent" />
-              <span className="text-sm md:text-base font-medium text-foreground/90 leading-relaxed tracking-wide">
+              <span className="text-[13px] sm:text-sm md:text-base font-medium text-foreground/90 leading-relaxed tracking-wide">
                 {t('tooltip', 'holdOnMessage')}
                 <br/><br/>
                 <span className="text-foreground/70 italic">{t('tooltip', 'holdOnNote')}</span>
@@ -159,14 +163,14 @@ const HolographicTooltip = ({ clickCount, tooltipPositionClass, arrowPositionCla
           
           {clickCount === 2 && (
             <div className="relative flex flex-col gap-3 text-start z-10" style={{ transform: "translateZ(20px)" }}>
-              <div className="flex items-center gap-3">
-                <div className="relative flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500/30 to-purple-500/30 border border-white/20 shadow-[0_0_25px_rgba(168,85,247,0.5)] ring-2 ring-indigo-500/40 backdrop-blur-md overflow-hidden">
+              <div className="flex items-center gap-2 md:gap-3">
+                <div className="relative flex items-center justify-center w-12 h-12 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-indigo-500/30 to-purple-500/30 border border-white/20 shadow-[0_0_25px_rgba(168,85,247,0.5)] ring-2 ring-indigo-500/40 backdrop-blur-md overflow-hidden shrink-0">
                   <motion.div
-                    className="relative flex items-center justify-center z-10"
+                    className="relative flex items-center justify-center z-10 w-full h-full"
                     animate={{ y: [0, -3, 0], rotate: [-5, 5, -5] }}
                     transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                   >
-                    <span className="text-3xl drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]">🚀</span>
+                    <span className="text-2xl md:text-3xl drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]">🚀</span>
                     {/* Exhaust flame */}
                     <motion.div 
                       className="absolute -bottom-4 w-4 h-6 bg-gradient-to-t from-transparent via-orange-500 to-yellow-300 rounded-full blur-[2px] -z-10"
@@ -179,12 +183,12 @@ const HolographicTooltip = ({ clickCount, tooltipPositionClass, arrowPositionCla
                   <motion.div className="absolute w-1.5 h-4 bg-white/80 rounded-full right-4" animate={{ y: [-30, 60], opacity: [0, 1, 0] }} transition={{ duration: 0.5, repeat: Infinity, ease: "linear", delay: 0.4 }} />
                   <motion.div className="absolute w-1 h-2 bg-white/40 rounded-full left-7" animate={{ y: [-30, 60], opacity: [0, 1, 0] }} transition={{ duration: 0.6, repeat: Infinity, ease: "linear", delay: 0.7 }} />
                 </div>
-                <span className="text-xl md:text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-primary via-fuchsia-400 to-pink-500 drop-shadow-sm">
+                <span className="text-lg sm:text-xl md:text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-primary via-fuchsia-400 to-pink-500 drop-shadow-sm">
                   {t('tooltip', 'lastStop')}
                 </span>
               </div>
               <div className="h-[1px] w-full bg-gradient-to-r from-primary/30 to-transparent rtl:bg-gradient-to-l rtl:from-primary/30 rtl:to-transparent" />
-              <span className="text-sm md:text-base font-medium text-foreground/80 leading-relaxed tracking-wide">
+              <span className="text-[13px] sm:text-sm md:text-base font-medium text-foreground/80 leading-relaxed tracking-wide">
                 {t('tooltip', 'lastStopMessage')}
               </span>
             </div>
@@ -198,30 +202,54 @@ const HolographicTooltip = ({ clickCount, tooltipPositionClass, arrowPositionCla
   );
 };
 
+let globalClickCount = 0;
+let globalActiveInstanceId: number | null = null;
+let globalHasVisitedProjects = false;
+let globalTimeoutRef: NodeJS.Timeout | null = null;
+const listeners = new Set<() => void>();
+
+function updateGlobal(updater: () => void) {
+  updater();
+  listeners.forEach(fn => fn());
+}
+
+let nextInstanceId = 1;
+
 export const useSmartWorkNavigation = (
   tooltipPositionClass: string = "bottom-[110%] left-1/2 -translate-x-1/2",
   activeSection: string = "",
   arrowPositionClass: string = "left-1/2 -translate-x-1/2"
 ) => {
   const { t } = useLanguage();
-  const [clickCount, setClickCount] = useState(0);
-  const [showTooltip, setShowTooltip] = useState(false);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [instanceId] = useState(() => nextInstanceId++);
+  const [tick, setTick] = useState(0);
 
-  React.useEffect(() => {
+  useEffect(() => {
+    const l = () => setTick(t => t + 1);
+    listeners.add(l);
+    return () => {
+      listeners.delete(l);
+    };
+  }, []);
+
+  useEffect(() => {
     if (activeSection === 'work') {
-      hasVisitedProjectsGlobal = true;
+      updateGlobal(() => {
+        globalHasVisitedProjects = true;
+      });
     }
   }, [activeSection]);
 
-  const handleClick = (e?: React.MouseEvent) => {
+  const handleClick = (e?: React.MouseEvent): boolean => {
     if (e) e.preventDefault();
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    if (globalTimeoutRef) clearTimeout(globalTimeoutRef);
 
-    if (activeSection === 'work' || hasVisitedProjectsGlobal) {
-      hasVisitedProjectsGlobal = true;
-      setShowTooltip(false);
-      setClickCount(0);
+    if (activeSection === 'work' || globalHasVisitedProjects) {
+      updateGlobal(() => {
+        globalHasVisitedProjects = true;
+        globalActiveInstanceId = null;
+        globalClickCount = 0;
+      });
       const target = document.getElementById('work');
       if (target) {
         // @ts-ignore
@@ -232,25 +260,37 @@ export const useSmartWorkNavigation = (
           target.scrollIntoView({ behavior: 'smooth' });
         }
       }
-      return;
+      return true;
     }
 
-    if (clickCount === 0) {
-      setClickCount(1);
-      setShowTooltip(true);
-      timeoutRef.current = setTimeout(() => {
-        setShowTooltip(false);
-        setClickCount(0);
+    if (globalClickCount === 0) {
+      updateGlobal(() => {
+        globalClickCount = 1;
+        globalActiveInstanceId = instanceId;
+      });
+      globalTimeoutRef = setTimeout(() => {
+        updateGlobal(() => {
+          globalActiveInstanceId = null;
+          globalClickCount = 0;
+        });
       }, 60000);
-    } else if (clickCount === 1) {
-      setClickCount(2);
-      setShowTooltip(true);
-      timeoutRef.current = setTimeout(() => {
-        setShowTooltip(false);
+      return false;
+    } else if (globalClickCount === 1) {
+      updateGlobal(() => {
+        globalClickCount = 2;
+        globalActiveInstanceId = instanceId;
+      });
+      globalTimeoutRef = setTimeout(() => {
+        updateGlobal(() => {
+          globalActiveInstanceId = null;
+        });
       }, 60000);
+      return false;
     } else {
-      hasVisitedProjectsGlobal = true;
-      setShowTooltip(false);
+      updateGlobal(() => {
+        globalHasVisitedProjects = true;
+        globalActiveInstanceId = null;
+      });
       const target = document.getElementById('work');
       if (target) {
         // @ts-ignore
@@ -261,17 +301,19 @@ export const useSmartWorkNavigation = (
           target.scrollIntoView({ behavior: 'smooth' });
         }
       }
+      return true;
     }
   };
+
+  const showTooltip = globalActiveInstanceId === instanceId;
 
   const tooltipElement = (
     <AnimatePresence mode="wait">
       {showTooltip && (
-        <HolographicTooltip clickCount={clickCount} tooltipPositionClass={tooltipPositionClass} arrowPositionClass={arrowPositionClass} t={t} />
+        <HolographicTooltip clickCount={globalClickCount} tooltipPositionClass={tooltipPositionClass} arrowPositionClass={arrowPositionClass} t={t} />
       )}
     </AnimatePresence>
   );
-
 
   return { handleClick, tooltipElement };
 };
