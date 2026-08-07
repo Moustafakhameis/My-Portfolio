@@ -69,7 +69,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
     >
       <motion.div 
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-        className="flex items-start sm:items-center gap-3 sm:gap-4 md:gap-5 mb-3 relative z-10 cursor-default"
+        className="flex items-start sm:items-center gap-2 sm:gap-4 md:gap-5 mb-3 relative z-10 cursor-default"
       >
         {icon && (
           <motion.div
@@ -83,7 +83,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
               animate={{ y: [-2, 2, -2] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
               whileHover={{ scale: 1.1 }}
-              className="text-4xl sm:text-5xl md:text-6xl relative z-10 transition-transform duration-300"
+              className="text-3xl sm:text-5xl md:text-6xl relative z-10 transition-transform duration-300"
             >
               {icon}
             </motion.div>
@@ -92,7 +92,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
         
         <div className="flex flex-col relative z-20" style={{ transform: "translateZ(15px)" }}>
           {/* MAIN TEXT with elegant staggered word reveal */}
-          <h3 className={`relative z-10 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold ${language === 'ar' ? 'tracking-normal' : 'tracking-tight'} flex flex-wrap gap-x-2 sm:gap-x-3`}>
+          <h3 className={`relative z-10 text-[26px] leading-[32px] sm:text-4xl md:text-5xl lg:text-6xl font-bold ${language === 'ar' ? 'tracking-normal' : 'tracking-tight'} flex flex-wrap gap-x-2 sm:gap-x-3`}>
             {title.split(' ').map((word, i) => (
               <motion.span
                 key={i}
