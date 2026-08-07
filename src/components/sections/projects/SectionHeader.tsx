@@ -69,7 +69,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
     >
       <motion.div 
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-        className="flex flex-col sm:flex-row sm:items-center items-start gap-4 md:gap-5 mb-3 relative z-10 cursor-default"
+        className="flex items-center gap-3 sm:gap-4 md:gap-5 mb-3 relative z-10 cursor-default"
       >
         {icon && (
           <motion.div
