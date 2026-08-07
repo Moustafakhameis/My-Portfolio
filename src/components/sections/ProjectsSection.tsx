@@ -84,7 +84,7 @@ export const ProjectsSection = () => {
             return (
               <span 
                 key={`${word}-${i}`} 
-                className={isLast ? "text-transparent bg-clip-text bg-gradient-to-r from-primary via-fuchsia-500 to-pink-500 drop-shadow-[0_0_20px_rgba(217,70,239,0.3)] pr-2 pb-3" : "text-foreground"}
+                className={isLast ? "inline-block text-transparent bg-clip-text bg-gradient-to-r from-primary via-fuchsia-500 to-pink-500 drop-shadow-[0_0_20px_rgba(217,70,239,0.3)] pr-2 pb-3 lg:pb-4" : "inline-block text-foreground pb-3 lg:pb-4"}
               >
                 {word}
               </span>

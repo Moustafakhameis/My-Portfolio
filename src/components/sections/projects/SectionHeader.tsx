@@ -104,7 +104,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
                   damping: 20, 
                   delay: delay + 0.1 + (i * 0.1) 
                 }}
-                className={`inline-block bg-clip-text text-transparent bg-gradient-to-r ${gradientClass} pb-2`}
+                className={`inline-block bg-clip-text text-transparent bg-gradient-to-r ${gradientClass} pb-3 lg:pb-4`}
               >
                 {word}
               </motion.span>

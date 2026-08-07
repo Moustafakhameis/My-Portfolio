@@ -161,13 +161,13 @@ export const SkillsSection = () => {
       </div>
 
       <div className="max-w-7xl mx-auto text-center mb-12 relative z-20 flex flex-col items-center">
-        <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-4 flex flex-wrap justify-center gap-x-2 gap-y-1">
+        <h2 className={`text-3xl md:text-5xl font-bold ${language === 'ar' ? 'tracking-normal' : 'tracking-tighter'} mb-4 flex flex-wrap justify-center gap-x-2 gap-y-1`}>
           {t('skills', 'title').split(' ').map((word: string, i: number, arr: string[]) => {
             const isLast = i === arr.length - 1;
             return (
               <span 
                 key={i} 
-                className={isLast ? "text-transparent bg-clip-text bg-gradient-to-r from-primary via-fuchsia-500 to-pink-500 drop-shadow-[0_0_20px_rgba(217,70,239,0.3)] pr-2 pb-3" : "text-foreground"}
+                className={isLast ? "inline-block text-transparent bg-clip-text bg-gradient-to-r from-primary via-fuchsia-500 to-pink-500 drop-shadow-[0_0_20px_rgba(217,70,239,0.3)] pe-2 pb-3 lg:pb-4" : "inline-block text-foreground pb-3 lg:pb-4"}
               >
                 {word}
               </span>

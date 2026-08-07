@@ -121,7 +121,7 @@ export const ExperienceSection = () => {
             hidden: { opacity: 0, y: 30 },
             visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 20 } }
           }}
-          className="text-3xl sm:text-5xl md:text-7xl font-black tracking-tighter mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-foreground via-foreground to-foreground/50 pr-2 pb-3"
+          className={`text-3xl sm:text-5xl md:text-7xl ${language === 'ar' ? 'font-extrabold tracking-normal' : 'font-black tracking-tighter'} mb-6 text-center inline-block text-transparent bg-clip-text bg-gradient-to-r from-foreground via-foreground to-foreground/50 pe-2 pb-3 lg:pb-4`}
         >
           {t('experience', 'title')}
         </motion.h2>
@@ -179,7 +179,7 @@ export const ExperienceSection = () => {
                 <SpotlightCard className="p-4 sm:p-6 md:p-10">
                   <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-6">
                     <div>
-                      <h3 className="text-2xl md:text-3xl font-bold text-foreground group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-pink-500 transition-all duration-500">
+                      <h3 className={`text-2xl md:text-3xl ${language === 'ar' ? 'font-extrabold leading-relaxed pb-2' : 'font-bold pb-1'} text-foreground group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-pink-500 transition-all duration-500`}>
                         {exp.title}
                       </h3>
                       <p className="text-lg md:text-xl text-primary font-semibold mt-2 opacity-90">{exp.company}</p>

@@ -41,13 +41,13 @@ export const Biography = () => {
   return (
     <>
       <motion.div variants={textReveal} className="relative">
-        <h2 className="text-3xl sm:text-5xl md:text-7xl font-black tracking-tighter mb-6 flex flex-wrap gap-x-3 gap-y-2">
+        <h2 className={`text-3xl sm:text-5xl md:text-7xl ${language === 'ar' ? 'font-extrabold tracking-normal' : 'font-black tracking-tighter'} mb-6 flex flex-wrap gap-x-3 gap-y-2`}>
           {t('about', 'title').split(' ').map((word: string, i: number, arr: string[]) => {
             const isLast = i === arr.length - 1;
             return (
               <span 
                 key={i} 
-                className={isLast ? "text-transparent bg-clip-text bg-gradient-to-r from-primary via-fuchsia-500 to-pink-500 drop-shadow-[0_0_20px_rgba(217,70,239,0.3)] pr-2 pb-3" : "text-foreground"}
+                className={isLast ? "inline-block text-transparent bg-clip-text bg-gradient-to-r from-primary via-fuchsia-500 to-pink-500 drop-shadow-[0_0_20px_rgba(217,70,239,0.3)] pe-2 pb-3 lg:pb-4" : "inline-block text-foreground pb-3 lg:pb-4"}
               >
                 {word}
               </span>
@@ -102,7 +102,7 @@ export const Biography = () => {
             <div className="relative p-6 md:p-8 w-full h-full flex flex-col items-center justify-center text-center group cursor-pointer overflow-hidden rounded-[32px]">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative z-10 flex flex-col items-center w-full transform transition-transform duration-300 group-hover:scale-105">
-                <h3 className="text-6xl md:text-7xl font-black mb-2 text-foreground/90 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-b group-hover:from-foreground group-hover:to-primary transition-all duration-500 drop-shadow-sm group-hover:drop-shadow-[0_0_20px_rgba(var(--primary),0.8)]">
+                <h3 className={`text-6xl md:text-7xl ${language === 'ar' ? 'font-extrabold pb-2' : 'font-black pb-1'} mb-2 text-foreground/90 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-b group-hover:from-foreground group-hover:to-primary transition-all duration-500 drop-shadow-sm group-hover:drop-shadow-[0_0_20px_rgba(var(--primary),0.8)]`}>
                   1+
                 </h3>
                 <p className="text-sm font-bold text-muted-foreground uppercase tracking-wider sm:tracking-[0.25em] group-hover:text-foreground transition-colors duration-500 mt-2">{t('about', 'yearsOfExperience')}</p>
@@ -128,7 +128,7 @@ export const Biography = () => {
             <div className="relative p-6 md:p-8 w-full h-full flex flex-col items-center justify-center text-center group cursor-pointer overflow-hidden rounded-[32px]">
               <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative z-10 flex flex-col items-center w-full transform transition-transform duration-300 group-hover:scale-105">
-                <h3 className="text-6xl md:text-7xl font-black mb-2 text-foreground/90 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-b group-hover:from-foreground group-hover:to-purple-500 transition-all duration-500 drop-shadow-sm group-hover:drop-shadow-[0_0_20px_rgba(168,85,247,0.8)]">
+                <h3 className={`text-6xl md:text-7xl ${language === 'ar' ? 'font-extrabold pb-2' : 'font-black pb-1'} mb-2 text-foreground/90 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-b group-hover:from-foreground group-hover:to-purple-500 transition-all duration-500 drop-shadow-sm group-hover:drop-shadow-[0_0_20px_rgba(168,85,247,0.8)]`}>
                   20+
                 </h3>
                 <p className="text-sm font-bold text-muted-foreground uppercase tracking-wider sm:tracking-[0.25em] group-hover:text-foreground transition-colors duration-500 mt-2">{t('about', 'projectsCompleted')}</p>
@@ -155,7 +155,7 @@ export const Biography = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="absolute right-0 top-0 w-48 h-48 bg-cyan-400/10 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
               <div className="relative z-10 flex flex-col items-center w-full justify-center text-center transform transition-transform duration-300 group-hover:scale-105">
-                <h3 className="text-6xl md:text-7xl font-black mb-2 text-foreground/90 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-b group-hover:from-foreground group-hover:to-cyan-400 transition-all duration-500 drop-shadow-sm group-hover:drop-shadow-[0_0_20px_rgba(34,211,238,0.8)]">
+                <h3 className={`text-6xl md:text-7xl ${language === 'ar' ? 'font-extrabold pb-2' : 'font-black pb-1'} mb-2 text-foreground/90 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-b group-hover:from-foreground group-hover:to-cyan-400 transition-all duration-500 drop-shadow-sm group-hover:drop-shadow-[0_0_20px_rgba(34,211,238,0.8)]`}>
                   10+
                 </h3>
                 <p className="text-sm font-bold text-muted-foreground uppercase tracking-wider sm:tracking-[0.25em] group-hover:text-foreground transition-colors duration-500 mt-2">{t('about', 'happyClients')}</p>

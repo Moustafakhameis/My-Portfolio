@@ -75,7 +75,7 @@ export const FeaturedProjectCard: React.FC<FeaturedProjectCardProps> = ({ projec
                 </div>
               </div>
 
-              <h3 className={`text-2xl sm:text-3xl md:text-5xl lg:text-6xl ${language === 'ar' ? 'font-extrabold' : 'font-black'} text-transparent bg-clip-text bg-gradient-to-r from-foreground via-foreground/90 to-foreground/60 mb-6 group-hover:from-primary group-hover:via-purple-400 group-hover:to-pink-500 transition-all duration-700`}>
+              <h3 className={`text-2xl sm:text-3xl md:text-5xl lg:text-6xl ${language === 'ar' ? 'font-extrabold pb-3' : 'font-black pb-2'} text-transparent bg-clip-text bg-gradient-to-r from-foreground via-foreground/90 to-foreground/60 mb-4 group-hover:from-primary group-hover:via-purple-400 group-hover:to-pink-500 transition-all duration-700`}>
                 {title}
               </h3>
 

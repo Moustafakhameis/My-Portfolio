@@ -74,7 +74,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
               </div>
             </div>
             
-            <h3 className={`${isLearning ? 'text-xl' : 'text-2xl md:text-3xl'} ${language === 'ar' ? 'font-extrabold' : 'font-black'} text-foreground ${isTouchDevice ? '' : 'group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-pink-500'} transition-all duration-300 line-clamp-2 mb-4`}>
+            <h3 className={`${isLearning ? 'text-xl' : 'text-2xl md:text-3xl'} ${language === 'ar' ? 'font-extrabold pb-2 leading-relaxed' : 'font-black pb-1'} text-foreground ${isTouchDevice ? '' : 'group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-pink-500'} transition-all duration-300 line-clamp-2 mb-2`}>
               {title}
             </h3>
             <p className={`text-muted-foreground ${isLearning ? 'text-sm mb-4 line-clamp-3' : 'text-base mb-6 leading-relaxed line-clamp-4'} ${isTouchDevice ? '' : 'group-hover:text-foreground/90'} transition-colors duration-300 flex-1`}>

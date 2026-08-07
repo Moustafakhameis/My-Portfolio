@@ -50,13 +50,13 @@ export const ContactSection = () => {
         className="relative z-10"
       >
         <motion.div variants={itemVariants}>
-          <h2 className="text-3xl sm:text-5xl md:text-7xl font-black tracking-tighter mb-2 pb-8 pt-2 flex flex-wrap justify-center gap-x-3 gap-y-2">
+          <h2 className={`text-3xl sm:text-5xl md:text-7xl ${language === 'ar' ? 'font-extrabold tracking-normal' : 'font-black tracking-tighter'} mb-2 pb-8 pt-2 flex flex-wrap justify-center gap-x-3 gap-y-2`}>
             {t('contact', 'title').split(' ').map((word: string, i: number, arr: string[]) => {
               const isLast = i === arr.length - 1;
               return (
                 <span 
                   key={`contact-title-${i}-${word}`} 
-                  className={isLast ? "text-transparent bg-clip-text bg-gradient-to-r from-primary via-fuchsia-500 to-pink-500 drop-shadow-[0_0_20px_rgba(217,70,239,0.3)] pr-2 pb-3" : "text-foreground"}
+                  className={isLast ? "inline-block text-transparent bg-clip-text bg-gradient-to-r from-primary via-fuchsia-500 to-pink-500 drop-shadow-[0_0_20px_rgba(217,70,239,0.3)] pe-2 pb-3 lg:pb-4" : "inline-block text-foreground pb-3 lg:pb-4"}
                 >
                   {word}
                 </span>
