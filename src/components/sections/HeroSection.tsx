@@ -99,7 +99,7 @@ const TypewriterText = ({ text, delay = 1500, active = true }: { text: string, d
   }, [text, delay, active]);
 
   return (
-    <span ref={containerRef} className="inline-flex items-center min-h-[1.5em] text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-500">
+    <span ref={containerRef} className="inline-flex items-center min-h-[1.5em] text-transparent bg-clip-text bg-gradient-to-r from-gray-700 to-gray-900 dark:from-gray-200 dark:to-gray-500">
       <span>{displayedText}</span>
       <span className="inline-block w-1 md:w-1.5 h-[1.1em] bg-primary ms-1 animate-blink" />
     </span>
