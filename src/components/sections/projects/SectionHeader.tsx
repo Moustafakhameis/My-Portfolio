@@ -69,7 +69,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
     >
       <motion.div 
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-        className="flex items-center gap-4 md:gap-5 mb-3 relative z-10 cursor-default"
+        className="flex flex-col sm:flex-row sm:items-center items-start gap-4 md:gap-5 mb-3 relative z-10 cursor-default"
       >
         {icon && (
           <motion.div
@@ -83,7 +83,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
               animate={{ y: [-2, 2, -2] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
               whileHover={{ scale: 1.1 }}
-              className="text-5xl md:text-6xl relative z-10 transition-transform duration-300"
+              className="text-4xl sm:text-5xl md:text-6xl relative z-10 transition-transform duration-300"
             >
               {icon}
             </motion.div>
@@ -92,7 +92,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
         
         <div className="flex flex-col relative z-20" style={{ transform: "translateZ(15px)" }}>
           {/* MAIN TEXT with elegant staggered word reveal */}
-          <h3 className={`relative z-10 text-4xl md:text-5xl lg:text-6xl font-bold ${language === 'ar' ? 'tracking-normal' : 'tracking-tight'} flex flex-wrap gap-x-3`}>
+          <h3 className={`relative z-10 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold ${language === 'ar' ? 'tracking-normal' : 'tracking-tight'} flex flex-wrap gap-x-2 sm:gap-x-3`}>
             {title.split(' ').map((word, i) => (
               <motion.span
                 key={i}
@@ -104,7 +104,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
                   damping: 20, 
                   delay: delay + 0.1 + (i * 0.1) 
                 }}
-                className={`inline-block bg-clip-text text-transparent bg-gradient-to-r ${gradientClass} pb-3 lg:pb-4`}
+                className={`inline-block bg-clip-text text-transparent bg-gradient-to-r ${gradientClass} pb-2 sm:pb-3 lg:pb-4`}
               >
                 {word}
               </motion.span>
@@ -116,7 +116,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
             initial={{ scaleX: 0, opacity: 0 }}
             animate={isInView ? { scaleX: 1, opacity: 1 } : { scaleX: 0, opacity: 0 }}
             transition={{ type: "spring", stiffness: 80, damping: 20, delay: delay + 0.4 + (title.split(' ').length * 0.1) }}
-            className={`h-[2px] w-20 md:w-32 bg-gradient-to-r ${gradientClass} rounded-full mt-0 ${language === 'ar' ? 'origin-right' : 'origin-left'} opacity-80 group-hover:w-48 transition-all duration-700 ease-out`}
+            className={`h-[2px] w-16 sm:w-20 md:w-32 bg-gradient-to-r ${gradientClass} rounded-full mt-0 ${language === 'ar' ? 'origin-right' : 'origin-left'} opacity-80 group-hover:w-48 transition-all duration-700 ease-out`}
           />
         </div>
       </motion.div>
@@ -125,12 +125,12 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
         initial={{ opacity: 0, x: -20 }}
         animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
         transition={{ duration: 0.8, delay: delay + 0.5 }}
-        className="mt-6 relative z-10 flex items-start max-w-3xl"
+        className="mt-4 sm:mt-6 relative z-10 flex items-start max-w-3xl"
       >
         {/* Accent line using section gradient */}
-        <div className={`w-[3px] shrink-0 self-stretch rounded-full bg-gradient-to-b ${gradientClass} me-5`} />
+        <div className={`w-[3px] shrink-0 self-stretch rounded-full bg-gradient-to-b ${gradientClass} me-4 sm:me-5`} />
         
-        <p className={`text-muted-foreground dark:text-white/70 text-lg md:text-xl font-medium ${language === 'ar' ? 'tracking-normal' : 'tracking-wide'} leading-relaxed`}>
+        <p className={`text-muted-foreground dark:text-white/70 text-base sm:text-lg md:text-xl font-medium ${language === 'ar' ? 'tracking-normal' : 'tracking-wide'} leading-relaxed`}>
           {description}
         </p>
       </motion.div>
