@@ -7,8 +7,8 @@ interface SectionDividerProps {
 }
 
 export const SectionDivider: React.FC<SectionDividerProps> = ({
-  gradientFrom = 'from-white/40',
-  gradientTo = 'to-white/40',
+  gradientFrom = 'from-zinc-900/40 dark:from-white/40',
+  gradientTo = 'to-zinc-500/40 dark:to-white/40',
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.5 });
@@ -35,7 +35,7 @@ export const SectionDivider: React.FC<SectionDividerProps> = ({
         transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
         className="flex-1 relative origin-right"
       >
-        <div className="h-px bg-gradient-to-l from-white/25 via-white/8 to-transparent" />
+        <div className="h-px bg-gradient-to-l from-black/20 dark:from-white/25 via-black/10 dark:via-white/8 to-transparent" />
         {/* Faint colored underglow on the line */}
         <div className={`absolute inset-0 h-px bg-gradient-to-l ${gradientFrom} ${gradientTo} opacity-[0.08] blur-[2px]`} />
       </motion.div>
@@ -65,7 +65,7 @@ export const SectionDivider: React.FC<SectionDividerProps> = ({
             initial={{ x: 0, y: 0, opacity: 0, scale: 0 }}
             animate={{ x: spark.x, y: spark.y, opacity: [0, 0.9, 0], scale: [0, 1, 0] }}
             transition={{ duration: spark.duration, ease: 'easeOut', delay: spark.delay }}
-            className={`absolute top-1/2 left-1/2 rounded-full bg-white pointer-events-none`}
+            className={`absolute top-1/2 left-1/2 rounded-full bg-primary dark:bg-white pointer-events-none`}
             style={{ width: spark.size, height: spark.size }}
           />
         ))}
@@ -78,7 +78,7 @@ export const SectionDivider: React.FC<SectionDividerProps> = ({
             initial={{ scale: 0, opacity: 0 }}
             animate={isInView ? { scale: 1, opacity: 1 } : {}}
             transition={{ delay: 1.0, type: 'spring', stiffness: 500, damping: 18 }}
-            className="w-1 h-1 rounded-full bg-white/20 group-hover:bg-white/60 transition-colors duration-500"
+            className="w-1 h-1 rounded-full bg-primary/20 dark:bg-white/20 group-hover:bg-primary/60 dark:group-hover:bg-white/60 transition-colors duration-500"
           />
 
           {/* Left dot */}
@@ -86,7 +86,7 @@ export const SectionDivider: React.FC<SectionDividerProps> = ({
             initial={{ scale: 0 }}
             animate={isInView ? { scale: 1 } : {}}
             transition={{ delay: 0.8, type: 'spring', stiffness: 450, damping: 16 }}
-            className="w-1.5 h-1.5 rounded-full bg-white/35 group-hover:bg-white/80 group-hover:shadow-[0_0_6px_rgba(255,255,255,0.6)] transition-all duration-500"
+            className="w-1.5 h-1.5 rounded-full bg-primary/30 dark:bg-white/35 group-hover:bg-primary/70 dark:group-hover:bg-white/80 group-hover:shadow-[0_0_6px_rgba(0,0,0,0.2)] dark:group-hover:shadow-[0_0_6px_rgba(255,255,255,0.6)] transition-all duration-500"
           />
 
           {/* ★ Center diamond */}
@@ -104,7 +104,7 @@ export const SectionDivider: React.FC<SectionDividerProps> = ({
               className={`absolute inset-[-5px] rounded-[3px] blur-[5px] bg-gradient-to-br ${gradientFrom} ${gradientTo} group-hover:inset-[-8px] group-hover:blur-[8px] transition-all duration-500`}
             />
             {/* Diamond body — pure white, glowing */}
-            <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-[2px] bg-white relative z-10 shadow-[0_0_10px_rgba(255,255,255,0.9),0_0_20px_rgba(255,255,255,0.3)]" />
+            <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-[2px] bg-primary dark:bg-white relative z-10 shadow-[0_0_10px_rgba(0,0,0,0.1),0_0_20px_rgba(0,0,0,0.05)] dark:shadow-[0_0_10px_rgba(255,255,255,0.9),0_0_20px_rgba(255,255,255,0.3)]" />
           </motion.div>
 
           {/* Right dot */}
@@ -112,7 +112,7 @@ export const SectionDivider: React.FC<SectionDividerProps> = ({
             initial={{ scale: 0 }}
             animate={isInView ? { scale: 1 } : {}}
             transition={{ delay: 0.85, type: 'spring', stiffness: 450, damping: 16 }}
-            className="w-1.5 h-1.5 rounded-full bg-white/35 group-hover:bg-white/80 group-hover:shadow-[0_0_6px_rgba(255,255,255,0.6)] transition-all duration-500"
+            className="w-1.5 h-1.5 rounded-full bg-primary/30 dark:bg-white/35 group-hover:bg-primary/70 dark:group-hover:bg-white/80 group-hover:shadow-[0_0_6px_rgba(0,0,0,0.2)] dark:group-hover:shadow-[0_0_6px_rgba(255,255,255,0.6)] transition-all duration-500"
           />
 
           {/* Right outer micro-dot */}
@@ -120,7 +120,7 @@ export const SectionDivider: React.FC<SectionDividerProps> = ({
             initial={{ scale: 0, opacity: 0 }}
             animate={isInView ? { scale: 1, opacity: 1 } : {}}
             transition={{ delay: 1.05, type: 'spring', stiffness: 500, damping: 18 }}
-            className="w-1 h-1 rounded-full bg-white/20 group-hover:bg-white/60 transition-colors duration-500"
+            className="w-1 h-1 rounded-full bg-primary/20 dark:bg-white/20 group-hover:bg-primary/60 dark:group-hover:bg-white/60 transition-colors duration-500"
           />
         </div>
       </div>
@@ -132,7 +132,7 @@ export const SectionDivider: React.FC<SectionDividerProps> = ({
         transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
         className="flex-1 relative origin-left"
       >
-        <div className="h-px bg-gradient-to-r from-white/25 via-white/8 to-transparent" />
+        <div className="h-px bg-gradient-to-r from-black/20 dark:from-white/25 via-black/10 dark:via-white/8 to-transparent" />
         <div className={`absolute inset-0 h-px bg-gradient-to-r ${gradientFrom} ${gradientTo} opacity-[0.08] blur-[2px]`} />
       </motion.div>
 
@@ -142,7 +142,7 @@ export const SectionDivider: React.FC<SectionDividerProps> = ({
           initial={{ left: '-15%', opacity: 0 }}
           animate={{ left: '115%', opacity: [0, 0.8, 0.8, 0] }}
           transition={{ duration: 3, repeat: Infinity, repeatDelay: 6, ease: [0.22, 1, 0.36, 1], delay: 1.5 }}
-          className={`absolute top-1/2 -translate-y-1/2 w-1/4 max-w-[200px] h-[2px] bg-gradient-to-r ${gradientFrom} via-white/70 ${gradientTo} rounded-full blur-[0.5px] pointer-events-none`}
+          className={`absolute top-1/2 -translate-y-1/2 w-1/4 max-w-[200px] h-[2px] bg-gradient-to-r ${gradientFrom} via-black/40 dark:via-white/70 ${gradientTo} rounded-full blur-[0.5px] pointer-events-none`}
           style={{ position: 'absolute' }}
         />
       )}

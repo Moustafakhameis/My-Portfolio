@@ -15,8 +15,8 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
   description, 
   delay = 0,
   icon,
-  gradientClass = "from-white via-white/90 to-white/50",
-  glowClass = "shadow-white/20"
+  gradientClass = "from-zinc-800 dark:from-white via-zinc-500 dark:via-white/90 to-zinc-400 dark:to-white/50",
+  glowClass = "shadow-black/20 dark:shadow-white/20"
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
@@ -128,7 +128,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
         {/* Accent line using section gradient */}
         <div className={`w-[3px] shrink-0 self-stretch rounded-full bg-gradient-to-b ${gradientClass} mr-5`} />
         
-        <p className="text-white/70 text-lg md:text-xl font-medium tracking-wide leading-relaxed">
+        <p className="text-muted-foreground dark:text-white/70 text-lg md:text-xl font-medium tracking-wide leading-relaxed">
           {description}
         </p>
       </motion.div>
