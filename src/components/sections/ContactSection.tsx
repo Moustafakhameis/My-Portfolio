@@ -13,7 +13,7 @@ export const ContactSection = () => {
   const email = 'moustafakhameis@gmail.com';
   const phone = '+201129482206';
 
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { toast } = useToast();
 
   const handleCopy = (text: string, setCopied: React.Dispatch<React.SetStateAction<boolean>>, message: string) => {

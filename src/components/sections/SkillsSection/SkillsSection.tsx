@@ -22,7 +22,7 @@ export const SkillsSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [resetKey, setResetKey] = useState(0);
   const [isPaused, setIsPaused] = useState(true);
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { theme } = useTheme();
   const [isDark, setIsDark] = useState(true);
   const [isMobile, setIsMobile] = useState(false);

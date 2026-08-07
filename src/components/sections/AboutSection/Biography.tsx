@@ -36,7 +36,7 @@ const containerVariants = {
 };
 
 export const Biography = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   return (
     <>
