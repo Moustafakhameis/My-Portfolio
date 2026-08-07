@@ -111,15 +111,15 @@ export const ProjectsSection = () => {
 
       {/* 3D Circular Gallery */}
       {galleryItems.length > 0 && (
-        <div ref={galleryContainerRef}>
+        <div ref={galleryContainerRef} className="hidden lg:block">
           <motion.div 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1 }}
-            className="w-full h-[500px] md:h-[600px] relative mb-32 rounded-[2.5rem] overflow-hidden border border-primary/20 shadow-[0_0_50px_-12px_rgba(168,85,247,0.15)] bg-slate-950 hidden lg:block"
+            className="w-full h-[500px] md:h-[600px] relative mb-32 rounded-[2.5rem] overflow-hidden border border-primary/20 shadow-[0_0_50px_-12px_rgba(168,85,247,0.15)] bg-slate-950"
           >
-            {shouldLoad3D ? (
+            {shouldLoad3D && typeof window !== 'undefined' && window.innerWidth >= 1024 ? (
               <Suspense fallback={<div className="w-full h-full flex items-center justify-center text-primary">Loading 3D Engine...</div>}>
                 {/* Interactive LightRays Background */}
                 <div className="absolute inset-0 z-0">
