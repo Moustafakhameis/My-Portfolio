@@ -12,7 +12,7 @@ interface ProjectActionsProps {
 }
 
 export const ProjectActions: React.FC<ProjectActionsProps> = ({ link, github, category }) => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const isCompact = category === 'learning';
 
   return (
