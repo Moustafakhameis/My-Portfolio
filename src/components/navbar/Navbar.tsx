@@ -98,11 +98,11 @@ export const Navbar = ({ active = true }: { active?: boolean }) => {
     }
 
     if (isScrollingDown) {
-      setIsHidden(prev => prev !== true ? true : prev);
-      setShowDock(prev => prev !== true ? true : prev);
+      setIsHidden(true); // Hide Navbar
+      setShowDock(true); // Show Dock
     } else if (isScrollingUp) {
-      setIsHidden(prev => prev !== false ? false : prev);
-      setShowDock(prev => prev !== true ? true : prev);
+      setIsHidden(false); // Show Navbar
+      setShowDock(false); // Hide Dock
     }
   });
 
