@@ -1,5 +1,6 @@
 import React, { useRef, useState, useCallback, useEffect } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
+import { useTheme } from '../../context/ThemeContext';
 import { motion, useInView, useMotionValue, useAnimationFrame, useMotionTemplate } from 'framer-motion';
 import {
   Play, Pause, RotateCcw, Zap, Gauge, Sparkles, Grid3x3, Eye, BoxSelect
@@ -42,6 +43,7 @@ const EagleLogo = ({ className }: { className?: string }) => (
 
 export const ThreeShowcaseSection = () => {
   const { t } = useLanguage();
+  const { theme } = useTheme();
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: '-100px' });
   const isVisible = useInView(containerRef, { margin: '0px' });
@@ -145,8 +147,13 @@ export const ThreeShowcaseSection = () => {
         <h2 className="text-5xl md:text-7xl font-bold tracking-tighter text-foreground drop-shadow-md">
           {t('threeShowcase', 'title1')} <br />
           <span 
-            className="text-primary text-gradient drop-shadow-xl"
-            style={{ textShadow: `0 0 40px ${scheme.glow}` }}
+            className={`text-gradient drop-shadow-xl ${theme === 'light' ? 'font-extrabold' : ''}`}
+            style={{ 
+              backgroundImage: `linear-gradient(135deg, ${scheme.primary}, ${scheme.secondary})`,
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              textShadow: theme === 'light' ? 'none' : `0 0 40px ${scheme.glow}` 
+            }}
           >
             {t('threeShowcase', 'title2')}
           </span>
@@ -165,9 +172,11 @@ export const ThreeShowcaseSection = () => {
               title={s.name}
               style={{
                 background: s.primary,
-                boxShadow: activeColor === i ? `0 0 14px ${s.glow}, 0 0 4px ${s.primary}` : 'none',
+                boxShadow: activeColor === i ? (theme === 'light' ? `0 0 14px ${scheme.primary}60` : `0 0 14px ${s.glow}, 0 0 4px ${s.primary}`) : 'none',
                 transform: activeColor === i ? 'scale(1.35)' : 'scale(1)',
-                borderColor: activeColor === i ? 'rgba(255,255,255,0.5)' : 'rgba(255,255,255,0.15)',
+                borderColor: activeColor === i 
+                  ? (theme === 'light' ? 'rgba(0,0,0,0.8)' : 'rgba(255,255,255,0.5)')
+                  : (theme === 'light' ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.15)'),
               }}
               aria-label={`Switch to ${s.name}`}
             />
