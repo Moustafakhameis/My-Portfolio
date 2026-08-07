@@ -69,7 +69,7 @@ export const Footer = () => {
                   animate={{ height: 'auto', opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
                   transition={{ duration: 0.4, ease: "easeInOut" }}
-                  className="w-full overflow-hidden flex justify-center"
+                  className="w-full overflow-hidden flex justify-center lg:hidden"
                 >
                   {/* Padding is on the inner static div so Framer Motion can measure height perfectly */}
                   <div className="w-full flex justify-center pt-6 pb-12 px-2 sm:px-8">
@@ -94,7 +94,7 @@ export const Footer = () => {
             {/* Toggle Card Button */}
             <button
               onClick={() => setShowCard(!showCard)}
-              className={`group relative inline-flex items-center justify-center h-[56px] px-8 rounded-full font-semibold overflow-hidden transition-shadow duration-300 ${
+              className={`lg:hidden group relative inline-flex items-center justify-center h-[56px] px-8 rounded-full font-semibold overflow-hidden transition-shadow duration-300 ${
                 showCard
                   ? 'border border-slate-300 dark:border-white/20 shadow-sm'
                   : 'border border-transparent shadow-[0_0_30px_rgba(124,58,237,0.4)]'
