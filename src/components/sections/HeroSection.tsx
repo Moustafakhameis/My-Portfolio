@@ -110,10 +110,10 @@ const TypewriterText = ({ text, delay = 1500, active = true }: { text: string, d
 const AnimatedText = ({ text, animate = true }: { text: string, animate?: boolean }) => {
   const words = text.split(' ');
   const colors = [
-    "from-blue-400 to-cyan-300",
-    "from-purple-400 to-pink-300",
-    "from-amber-400 to-orange-300",
-    "from-green-400 to-emerald-300"
+    "from-blue-600 to-cyan-500 dark:from-blue-400 dark:to-cyan-300",
+    "from-purple-600 to-pink-500 dark:from-purple-400 dark:to-pink-300",
+    "from-amber-600 to-orange-500 dark:from-amber-400 dark:to-orange-300",
+    "from-green-600 to-emerald-500 dark:from-green-400 dark:to-emerald-300"
   ];
 
   return (

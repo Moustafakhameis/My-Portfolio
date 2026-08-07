@@ -39,7 +39,18 @@ export const SymbolShowcaseSection = () => {
   const isTablet = windowWidth < 1024;
   const isMobile = windowWidth < 768;
 
-  const scheme = COLOR_SCHEMES[colorIdx];
+  const rawScheme = COLOR_SCHEMES[colorIdx];
+  const scheme = theme === 'light'
+    ? {
+        ...rawScheme,
+        front: rawScheme.back,
+        back: rawScheme.front,
+        ring: rawScheme.mid,
+        spark: rawScheme.mid,
+        glow: rawScheme.glow.replace('0.4', '0.15'),
+      }
+    : rawScheme;
+
   const speed = SPEED_LEVELS[speedIdx];
 
   const handleReset = () => {
