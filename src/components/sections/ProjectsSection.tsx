@@ -15,7 +15,7 @@ const LightRays = lazy(() => import('../ui/LightRays'));
 
 
 export const ProjectsSection = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [shouldLoad3D, setShouldLoad3D] = useState(false);
   const galleryContainerRef = useRef<HTMLDivElement>(null);
   
