@@ -123,7 +123,7 @@ function createTextTexture(gl, text, font = 'bold 30px monospace', color = 'blac
   const metrics = context.measureText(text);
   const textWidth = Math.ceil(metrics.width);
   const textHeight = Math.ceil(getFontSize(font) * 1.2);
-  const padding = 60;
+  const padding = 80;
   canvas.width = textWidth + padding;
   canvas.height = textHeight + padding;
   context.font = font;
@@ -132,13 +132,20 @@ function createTextTexture(gl, text, font = 'bold 30px monospace', color = 'blac
   context.textAlign = 'center';
   context.clearRect(0, 0, canvas.width, canvas.height);
   
-  // Add premium drop shadow
-  context.shadowColor = 'rgba(168, 85, 247, 0.8)'; // Purple glow
-  context.shadowBlur = 20;
+  // Layer 1: Subtle warm underglow behind the text
+  context.shadowColor = 'rgba(160, 140, 255, 0.12)';
+  context.shadowBlur = 25;
   context.shadowOffsetX = 0;
-  context.shadowOffsetY = 5;
-  
+  context.shadowOffsetY = 0;
   context.fillText(text, canvas.width / 2, canvas.height / 2);
+  
+  // Layer 2: Crisp white text on top with a tight ambient lift
+  context.shadowColor = 'rgba(255, 255, 255, 0.2)'; 
+  context.shadowBlur = 8;
+  context.shadowOffsetX = 0;
+  context.shadowOffsetY = 2;
+  context.fillText(text, canvas.width / 2, canvas.height / 2);
+  
   const texture = new Texture(gl, { generateMipmaps: false });
   texture.image = canvas;
   return { texture, width: canvas.width, height: canvas.height };
@@ -173,24 +180,34 @@ class Title {
       fragment: `
         precision highp float;
         uniform sampler2D tMap;
+        uniform float uOpacity;
         varying vec2 vUv;
         void main() {
           vec4 color = texture2D(tMap, vUv);
           if (color.a < 0.1) discard;
-          gl_FragColor = color;
+          gl_FragColor = vec4(color.rgb, color.a * uOpacity);
         }
       `,
-      uniforms: { tMap: { value: texture } },
+      uniforms: {
+        tMap: { value: texture },
+        uOpacity: { value: 1.0 }
+      },
       transparent: true
     });
     this.mesh = new Mesh(this.gl, { geometry, program });
     const aspect = width / height;
-    const textHeight = this.plane.scale.y * 0.22; // Scaled up to compensate for extra padding
+    this.baseTextHeight = 0.22;
+    const textHeight = this.plane.scale.y * this.baseTextHeight;
     const textWidth = textHeight * aspect;
     this.mesh.scale.set(textWidth, textHeight, 1);
     this.mesh.position.y = -this.plane.scale.y * 0.5 - textHeight * 0.5 - 0.1;
     this.mesh.rotation.z = 0;
     this.mesh.setParent(this.plane);
+  }
+  setOpacity(value) {
+    if (this.mesh && this.mesh.program) {
+      this.mesh.program.uniforms.uOpacity.value = value;
+    }
   }
 }
 
@@ -250,7 +267,9 @@ class Media {
         void main() {
           vUv = uv;
           vec3 p = position;
-          p.z = (sin(p.x * 4.0 + uTime) * 1.5 + cos(p.y * 2.0 + uTime) * 1.5) * (0.1 + uSpeed * 0.5);
+          // Gentler, more organic surface ripple
+          float wave = sin(p.x * 3.0 + uTime * 0.8) * 0.8 + cos(p.y * 2.5 + uTime * 0.6) * 0.6;
+          p.z = wave * (0.06 + abs(uSpeed) * 0.3);
           gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
         }
       `,
@@ -260,6 +279,7 @@ class Media {
         uniform vec2 uPlaneSizes;
         uniform sampler2D tMap;
         uniform float uBorderRadius;
+        uniform float uBrightness;
         varying vec2 vUv;
         
         float roundedBoxSDF(vec2 p, vec2 b, float r) {
@@ -268,7 +288,7 @@ class Media {
         }
         
         void main() {
-          // Use max to achieve 'object-fit: contain' so photos show up completely
+          // object-fit: contain
           vec2 ratio = vec2(
             max((uPlaneSizes.x / uPlaneSizes.y) / (uImageSizes.x / uImageSizes.y), 1.0),
             max((uPlaneSizes.y / uPlaneSizes.x) / (uImageSizes.y / uImageSizes.x), 1.0)
@@ -279,24 +299,37 @@ class Media {
           );
           vec4 color = texture2D(tMap, uv);
           
-          // Hide pixels outside image bounds (letterboxing)
+          // Letterbox masking
           float isInside = step(0.0, uv.x) * step(uv.x, 1.0) * step(0.0, uv.y) * step(uv.y, 1.0);
           color.rgb *= isInside;
           
+          // Rounded corners
           float d = roundedBoxSDF(vUv - 0.5, vec2(0.5 - uBorderRadius), uBorderRadius);
-          
-          float edgeSmooth = 0.005;
+          float edgeSmooth = 0.004;
           float alpha = 1.0 - smoothstep(-edgeSmooth, edgeSmooth, d);
           
-          // Create a subtle inner glow/border for a premium 3D glass effect
-          float innerD = roundedBoxSDF(vUv - 0.5, vec2(0.5 - uBorderRadius + 0.005), uBorderRadius);
-          float borderGlow = smoothstep(0.015, 0.0, abs(innerD));
+          // ─── Premium Glass Rim ───
+          float innerD = roundedBoxSDF(vUv - 0.5, vec2(0.5 - uBorderRadius + 0.002), uBorderRadius);
+          float rimLight = smoothstep(0.006, 0.0, abs(innerD));
           
-          // Subtle darkening at the bottom of the image for depth
-          float shadow = smoothstep(0.0, 1.0, 1.0 - vUv.y) * 0.2;
+          // ─── Top Specular Edge ─── bright highlight along the top for realism
+          float topSpec = smoothstep(0.15, 0.0, vUv.y) * smoothstep(0.0, 0.05, vUv.x) * smoothstep(0.0, 0.05, 1.0 - vUv.x);
           
-          vec3 finalColor = mix(color.rgb, vec3(0.0), shadow);
-          finalColor += vec3(0.8, 0.4, 1.0) * borderGlow * 0.5; // vibrant purple border
+          // ─── Cinematic Vignette ─── subtle darkening at edges for depth
+          vec2 vigUv = vUv * (1.0 - vUv);
+          float vignette = vigUv.x * vigUv.y * 20.0;
+          vignette = clamp(pow(vignette, 0.3), 0.0, 1.0);
+          
+          // ─── Bottom Shadow ─── stronger gradient for grounding
+          float shadow = smoothstep(0.0, 0.8, 1.0 - vUv.y) * 0.25;
+          
+          // Compose final color
+          vec3 finalColor = color.rgb;
+          finalColor = mix(finalColor, vec3(0.0), shadow);          // bottom shadow
+          finalColor *= mix(0.85, 1.0, vignette);                  // vignette
+          finalColor += vec3(1.0) * rimLight * 0.35;               // glass rim
+          finalColor += vec3(0.95, 0.97, 1.0) * topSpec * 0.15;    // top specular
+          finalColor *= uBrightness;                                // proximity brightness
           
           gl_FragColor = vec4(finalColor, alpha);
         }
@@ -307,7 +340,8 @@ class Media {
         uImageSizes: { value: [0, 0] },
         uSpeed: { value: 0 },
         uTime: { value: 100 * Math.random() },
-        uBorderRadius: { value: this.borderRadius }
+        uBorderRadius: { value: this.borderRadius },
+        uBrightness: { value: 1.0 }
       },
       transparent: true
     });
@@ -364,6 +398,33 @@ class Media {
     this.program.uniforms.uTime.value += 0.04;
     this.program.uniforms.uSpeed.value = this.speed;
 
+    // ─── Proximity effects ───
+    const normalizedDist = Math.min(Math.abs(x) / H, 1.0);
+
+    // Brightness: center = 1.0, edges = 0.55
+    const targetBrightness = 1.0 - normalizedDist * 0.45;
+    this.program.uniforms.uBrightness.value = lerp(
+      this.program.uniforms.uBrightness.value,
+      targetBrightness,
+      0.08
+    );
+
+    // Scale: center card slightly larger (1.08×), side cards shrink to 0.88×
+    const targetScale = 1.08 - normalizedDist * 0.2;
+    this._currentScale = lerp(this._currentScale || 1.0, targetScale, 0.06);
+    this.plane.scale.x = this._baseScaleX * this._currentScale;
+    this.plane.scale.y = this._baseScaleY * this._currentScale;
+
+    // Title opacity: center = fully visible, sides = faded out
+    const titleOpacity = Math.max(0, 1.0 - normalizedDist * 1.5);
+    if (this.title) {
+      this.title.setOpacity(lerp(
+        this.title.mesh?.program?.uniforms?.uOpacity?.value ?? 1.0,
+        titleOpacity,
+        0.08
+      ));
+    }
+
     const planeOffset = this.plane.scale.x / 2;
     const viewportOffset = this.viewport.width / 2;
     this.isBefore = this.plane.position.x + planeOffset < -viewportOffset;
@@ -386,11 +447,13 @@ class Media {
       }
     }
     this.scale = this.screen.height / 1500;
-    this.plane.scale.y = (this.viewport.height * (550 * this.scale)) / this.screen.height;
-    this.plane.scale.x = (this.viewport.width * (900 * this.scale)) / this.screen.width;
+    this._baseScaleY = (this.viewport.height * (550 * this.scale)) / this.screen.height;
+    this._baseScaleX = (this.viewport.width * (900 * this.scale)) / this.screen.width;
+    this.plane.scale.y = this._baseScaleY;
+    this.plane.scale.x = this._baseScaleX;
     this.plane.program.uniforms.uPlaneSizes.value = [this.plane.scale.x, this.plane.scale.y];
     this.padding = 3.5;
-    this.width = this.plane.scale.x + this.padding;
+    this.width = this._baseScaleX + this.padding;
     this.widthTotal = this.width * this.length;
     this.x = this.width * this.index;
   }
@@ -569,12 +632,13 @@ class App {
       return;
     }
 
+    // Smooth continuous drift autoplay instead of jarring jumps
     if (this.autoPlay && !this.isDown && !this.isHovered) {
-      if (Date.now() - this.lastInteractionTime > 3000) {
-        if (this.medias && this.medias[0]) {
-          this.scroll.target += this.medias[0].width;
-        }
-        this.lastInteractionTime = Date.now();
+      const idleTime = Date.now() - this.lastInteractionTime;
+      if (idleTime > 2500) {
+        // Ease into drift speed over 1 second after idle threshold
+        const driftRamp = Math.min((idleTime - 2500) / 1000, 1.0);
+        this.scroll.target += this.autoPlaySpeed * driftRamp;
       }
     }
 

@@ -8,3 +8,4 @@ export * from './ProjectActions';
 export * from './ProjectCard';
 export * from './FeaturedProjectCard';
 export * from './SectionHeader';
+export * from './SectionDivider';

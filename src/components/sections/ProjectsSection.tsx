@@ -6,7 +6,8 @@ import {
   groupProjectsByCategory, 
   FeaturedProjectCard, 
   ProjectCard,
-  SectionHeader
+  SectionHeader,
+  SectionDivider
 } from './projects';
 
 const CircularGallery = lazy(() => import('../ui/CircularGallery'));
@@ -53,7 +54,7 @@ export const ProjectsSection = () => {
   }, []);
 
   return (
-    <section id="work" className="py-24 px-6 md:px-12 max-w-7xl mx-auto overflow-hidden">
+    <section id="work" className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
       {/* Main Header */}
       <motion.div
         initial="hidden"
@@ -160,8 +161,10 @@ export const ProjectsSection = () => {
       {groupedProjects.featured.length > 0 && (
         <div className="mb-32">
           <SectionHeader 
-            title="⭐ Featured Projects" 
+            title="Featured Projects" 
             description="My largest and most technically advanced full-stack applications, featuring complex architectures and production-level UI/UX."
+            icon="⭐"
+            gradientClass="from-white via-amber-300 to-orange-500"
           />
           <div className="flex flex-col gap-16 md:gap-24">
             {groupedProjects.featured.map((project, index) => (
@@ -171,12 +174,19 @@ export const ProjectsSection = () => {
         </div>
       )}
 
+      {/* Divider: Featured → Professional */}
+      {groupedProjects.featured.length > 0 && groupedProjects.professional.length > 0 && (
+        <SectionDivider gradientFrom="from-amber-400/60" gradientTo="to-cyan-400/60" />
+      )}
+
       {/* Professional Projects */}
       {groupedProjects.professional.length > 0 && (
         <div className="mb-24">
           <SectionHeader 
-            title="💼 Professional Projects" 
+            title="Professional Projects" 
             description="Production-quality frontend architecture and reusable development skills."
+            icon="💼"
+            gradientClass="from-white via-cyan-300 to-blue-600"
           />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {groupedProjects.professional.map((project, index) => (
@@ -186,12 +196,19 @@ export const ProjectsSection = () => {
         </div>
       )}
 
+      {/* Divider: Professional → Practice */}
+      {groupedProjects.professional.length > 0 && groupedProjects.practice.length > 0 && (
+        <SectionDivider gradientFrom="from-cyan-400/60" gradientTo="to-emerald-400/60" />
+      )}
+
       {/* Practice Projects */}
       {groupedProjects.practice.length > 0 && (
         <div className="mb-24">
           <SectionHeader 
-            title="🧪 Advanced Practice Projects" 
+            title="Advanced Practice Projects" 
             description="Demonstrating advanced frontend concepts, reusable architecture, animations, and modern UI."
+            icon="🧪"
+            gradientClass="from-white via-emerald-300 to-teal-600"
           />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {groupedProjects.practice.map((project, index) => (
@@ -201,12 +218,19 @@ export const ProjectsSection = () => {
         </div>
       )}
 
+      {/* Divider: Practice → Learning */}
+      {groupedProjects.practice.length > 0 && groupedProjects.learning.length > 0 && (
+        <SectionDivider gradientFrom="from-emerald-400/60" gradientTo="to-pink-400/60" />
+      )}
+
       {/* Learning Projects */}
       {groupedProjects.learning.length > 0 && (
         <div className="mb-12">
           <SectionHeader 
-            title="📚 Learning Projects" 
+            title="Learning Projects" 
             description="Projects that helped build my frontend fundamentals and JavaScript skills."
+            icon="📚"
+            gradientClass="from-white via-pink-300 to-rose-600"
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {groupedProjects.learning.map((project, index) => (
