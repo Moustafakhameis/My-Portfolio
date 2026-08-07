@@ -98,7 +98,7 @@ const OrbitingMiniSymbol = ({ radius, speed, color, tilt, phase = 0, size = 0.4,
 
 export const ExtrudedSymbol = ({ 
   targetRotation, isDragging, setIsDragging, controlsRef, isMobile,
-  colorScheme, symbolSpin, atomSpin, speedValue, glowIntensity, scattered, language,
+  colorScheme, symbolSpin, atomSpin, speedValue, glowIntensity, scattered, language, theme
 }: { 
   targetRotation: React.MutableRefObject<{ x: number, y: number }>,
   isDragging: boolean,
