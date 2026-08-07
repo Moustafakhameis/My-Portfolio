@@ -66,7 +66,7 @@ export const Biography = () => {
         </p>
         <div className="flex flex-wrap gap-4 mt-8">
           <AnimatedButton
-            href="https://drive.google.com/file/d/1Ag3F96cLTrUmhtpmM013niF3Oe4cMalK/view?usp=sharing"
+            href="https://drive.google.com/file/d/1tD4lBslDXHxtzBzIqWvfNXLHBN0lBdUl/view?usp=sharing"
             target="_blank"
             rel="noopener noreferrer"
             variant="primary"
