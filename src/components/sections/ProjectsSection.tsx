@@ -77,7 +77,7 @@ export const ProjectsSection = () => {
             hidden: { opacity: 0, y: 30 },
             visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 20 } }
           }}
-          className="text-3xl sm:text-5xl md:text-7xl font-black tracking-tighter mb-6 flex flex-wrap gap-x-3 gap-y-2"
+          className={`text-3xl sm:text-5xl md:text-7xl ${language === 'ar' ? 'font-extrabold tracking-normal' : 'font-black tracking-tighter'} mb-6 flex flex-wrap gap-x-3 gap-y-2`}
         >
           {t('projects', 'title').split(' ').map((word, i, arr) => {
             const isLast = i === arr.length - 1;

@@ -75,7 +75,7 @@ export const FeaturedProjectCard: React.FC<FeaturedProjectCardProps> = ({ projec
                 </div>
               </div>
 
-              <h3 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-foreground via-foreground/90 to-foreground/60 mb-6 group-hover:from-primary group-hover:via-purple-400 group-hover:to-pink-500 transition-all duration-700">
+              <h3 className={`text-2xl sm:text-3xl md:text-5xl lg:text-6xl ${language === 'ar' ? 'font-extrabold' : 'font-black'} text-transparent bg-clip-text bg-gradient-to-r from-foreground via-foreground/90 to-foreground/60 mb-6 group-hover:from-primary group-hover:via-purple-400 group-hover:to-pink-500 transition-all duration-700`}>
                 {title}
               </h3>
 
@@ -88,14 +88,14 @@ export const FeaturedProjectCard: React.FC<FeaturedProjectCardProps> = ({ projec
                   whileHover={isTouchDevice ? undefined : { y: -5 }}
                   className="p-6 rounded-2xl bg-background/40 border border-border/30 group-hover:border-primary/40 group-hover:bg-primary/5 transition-all duration-300"
                 >
-                  <span className="text-xs uppercase tracking-widest font-black text-primary block mb-2">{challengesLabel}</span>
+                  <span className={`text-xs uppercase tracking-widest ${language === 'ar' ? 'font-bold' : 'font-black'} text-primary block mb-2`}>{challengesLabel}</span>
                   <p className="text-sm md:text-base text-muted-foreground group-hover:text-foreground/80 transition-colors">{challenges}</p>
                 </motion.div>
                 <motion.div 
                   whileHover={isTouchDevice ? undefined : { y: -5 }}
                   className="p-6 rounded-2xl bg-background/40 border border-border/30 group-hover:border-pink-500/40 group-hover:bg-pink-500/5 transition-all duration-300"
                 >
-                  <span className="text-xs uppercase tracking-widest font-black text-pink-500 block mb-2">{resultsLabel}</span>
+                  <span className={`text-xs uppercase tracking-widest ${language === 'ar' ? 'font-bold' : 'font-black'} text-pink-500 block mb-2`}>{resultsLabel}</span>
                   <p className="text-sm md:text-base text-muted-foreground group-hover:text-foreground/80 transition-colors">{results}</p>
                 </motion.div>
               </div>

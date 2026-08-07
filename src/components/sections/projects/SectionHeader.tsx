@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useInView, useMotionValue, useTransform, useSpring } from 'framer-motion';
+import { useLanguage } from '../../../context/LanguageContext';
 
 interface SectionHeaderProps {
   title: string;
@@ -18,6 +19,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
   gradientClass = "from-zinc-800 dark:from-white via-zinc-500 dark:via-white/90 to-zinc-400 dark:to-white/50",
   glowClass = "shadow-black/20 dark:shadow-white/20"
 }) => {
+  const { language } = useLanguage();
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
 
@@ -90,7 +92,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
         
         <div className="flex flex-col relative z-20" style={{ transform: "translateZ(15px)" }}>
           {/* MAIN TEXT with elegant staggered word reveal */}
-          <h3 className={`relative z-10 text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight flex flex-wrap gap-x-3`}>
+          <h3 className={`relative z-10 text-4xl md:text-5xl lg:text-6xl font-bold ${language === 'ar' ? 'tracking-normal' : 'tracking-tight'} flex flex-wrap gap-x-3`}>
             {title.split(' ').map((word, i) => (
               <motion.span
                 key={i}
@@ -114,7 +116,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
             initial={{ scaleX: 0, opacity: 0 }}
             animate={isInView ? { scaleX: 1, opacity: 1 } : { scaleX: 0, opacity: 0 }}
             transition={{ type: "spring", stiffness: 80, damping: 20, delay: delay + 0.4 + (title.split(' ').length * 0.1) }}
-            className={`h-[2px] w-20 md:w-32 bg-gradient-to-r ${gradientClass} rounded-full mt-0 origin-left opacity-80 group-hover:w-48 transition-all duration-700 ease-out`}
+            className={`h-[2px] w-20 md:w-32 bg-gradient-to-r ${gradientClass} rounded-full mt-0 ${language === 'ar' ? 'origin-right' : 'origin-left'} opacity-80 group-hover:w-48 transition-all duration-700 ease-out`}
           />
         </div>
       </motion.div>
@@ -126,9 +128,9 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
         className="mt-6 relative z-10 flex items-start max-w-3xl"
       >
         {/* Accent line using section gradient */}
-        <div className={`w-[3px] shrink-0 self-stretch rounded-full bg-gradient-to-b ${gradientClass} mr-5`} />
+        <div className={`w-[3px] shrink-0 self-stretch rounded-full bg-gradient-to-b ${gradientClass} me-5`} />
         
-        <p className="text-muted-foreground dark:text-white/70 text-lg md:text-xl font-medium tracking-wide leading-relaxed">
+        <p className={`text-muted-foreground dark:text-white/70 text-lg md:text-xl font-medium ${language === 'ar' ? 'tracking-normal' : 'tracking-wide'} leading-relaxed`}>
           {description}
         </p>
       </motion.div>
