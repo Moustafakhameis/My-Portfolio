@@ -5,6 +5,7 @@ import { COLOR_SCHEMES, SPEED_LEVELS } from './types';
 import type { ColorScheme } from './types';
 import { useLanguage } from '../../../context/LanguageContext';
 import { useIsTouchDevice } from '../../../hooks/useIsTouchDevice';
+import { useTheme } from '../../../context/ThemeContext';
 
 interface ShowcaseUIProps {
   scheme: ColorScheme;
@@ -37,6 +38,7 @@ export const ShowcaseUI: React.FC<ShowcaseUIProps> = ({
   showParticles, setShowParticles
 }) => {
   const { t, language } = useLanguage();
+  const { theme } = useTheme();
   const isRTL = language === 'ar';
   const speed = SPEED_LEVELS[speedIdx];
   const isTouchDevice = useIsTouchDevice();
@@ -62,7 +64,9 @@ export const ShowcaseUI: React.FC<ShowcaseUIProps> = ({
               style={{ 
                 background: `linear-gradient(135deg, ${s.mid}, ${s.back})`, 
                 boxShadow: i === colorIdx ? `0 0 20px ${s.glow.replace('0.4', '0.8')}` : 'none', 
-                borderColor: i === colorIdx ? 'rgba(255,255,255,1)' : 'rgba(255,255,255,0.1)' 
+                borderColor: i === colorIdx 
+                  ? (theme === 'light' ? 'rgba(0,0,0,0.8)' : 'rgba(255,255,255,1)')
+                  : (theme === 'light' ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.1)')
               }}
               title={s.name}
             >
@@ -73,7 +77,7 @@ export const ShowcaseUI: React.FC<ShowcaseUIProps> = ({
         </div>
         <div className="flex flex-col items-center lg:items-start justify-center">
           <span className="text-[10px] uppercase tracking-widest text-muted-foreground/60 font-semibold mb-0.5">Active Element</span>
-          <span className="text-sm font-bold tracking-[0.15em] uppercase" style={{ color: scheme.light, textShadow: `0 0 15px ${scheme.glow}` }}>{scheme.name}</span>
+          <span className="text-sm font-bold tracking-[0.15em] uppercase" style={{ color: theme === 'light' ? scheme.mid : scheme.light, textShadow: theme === 'light' ? 'none' : `0 0 15px ${scheme.glow}` }}>{scheme.name}</span>
         </div>
       </div>
       
@@ -109,7 +113,10 @@ export const ShowcaseUI: React.FC<ShowcaseUIProps> = ({
           whileHover={isTouchDevice ? undefined : { scale: 1.05, y: -2 }} 
           whileTap={{ scale: 0.95 }}
           className="px-8 py-3.5 font-bold rounded-full flex items-center gap-2 text-white transition-all duration-300"
-          style={{ background: `linear-gradient(135deg, ${scheme.mid}, ${scheme.back})`, boxShadow: `0 0 25px ${scheme.glow}` }}
+          style={{ 
+            background: `linear-gradient(135deg, ${scheme.mid}, ${theme === 'light' ? scheme.back : scheme.back})`, // Now it always gets the dark color!
+            boxShadow: theme === 'light' ? `0 0 15px ${scheme.mid}40` : `0 0 25px ${scheme.glow}` 
+          }}
         >
           <Compass size={18} /> {t('symbolShowcase', 'exploreWork')}
         </motion.button>

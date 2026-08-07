@@ -111,6 +111,7 @@ export const ExtrudedSymbol = ({
   glowIntensity: number,
   scattered: boolean,
   language: string,
+  theme: string,
 }) => {
   const groupRef = useRef<THREE.Group>(null);
   const atomGroupRef = useRef<THREE.Group>(null);
@@ -213,10 +214,15 @@ export const ExtrudedSymbol = ({
     }
   });
 
+  const isLight = theme === 'light';
+  const frontColor = isLight ? colorScheme.back : colorScheme.front;
+  const backColorStr = isLight ? colorScheme.front : colorScheme.back;
+  
   const layers = 40;
   const depth = 0.01;
   const middleColor = new THREE.Color(colorScheme.mid);
-  const backColor = new THREE.Color(colorScheme.back);
+  const backColor = new THREE.Color(backColorStr);
+  const actualGlowIntensity = isLight ? glowIntensity * 0.35 : glowIntensity;
 
   const miniSymbols = useMemo(() => {
     const items = [];
@@ -240,15 +246,15 @@ export const ExtrudedSymbol = ({
         onPointerDown={(e) => { e.stopPropagation(); setIsDragging(true); document.body.style.cursor = 'grabbing'; }}
       >
         <group ref={atomGroupRef} rotation={[Math.PI / 4, 0, language === 'ar' ? -Math.PI / 6 : Math.PI / 6]}>
-          <AtomicRing radius={4.2} tube={0.05} color={colorScheme.ring} rotation={[0, 0, 0]} intensity={glowIntensity} />
-          <AtomicElectron radius={4.2} speed={1.2} color={colorScheme.ring} rotation={[0, 0, 0]} phase={0} intensity={glowIntensity} atomSpin={atomSpin} />
-          <AtomicRing radius={4.2} tube={0.05} color={colorScheme.mid} rotation={[0, Math.PI / 3, 0]} intensity={glowIntensity} />
-          <AtomicElectron radius={4.2} speed={1.2} color={colorScheme.mid} rotation={[0, Math.PI / 3, 0]} phase={Math.PI / 2} intensity={glowIntensity} atomSpin={atomSpin} />
-          <AtomicRing radius={4.2} tube={0.05} color={colorScheme.light} rotation={[0, 2 * Math.PI / 3, 0]} intensity={glowIntensity} />
-          <AtomicElectron radius={4.2} speed={1.2} color={colorScheme.light} rotation={[0, 2 * Math.PI / 3, 0]} phase={Math.PI} intensity={glowIntensity} atomSpin={atomSpin} />
+          <AtomicRing radius={4.2} tube={0.05} color={colorScheme.ring} rotation={[0, 0, 0]} intensity={actualGlowIntensity} />
+          <AtomicElectron radius={4.2} speed={1.2} color={colorScheme.ring} rotation={[0, 0, 0]} phase={0} intensity={actualGlowIntensity} atomSpin={atomSpin} />
+          <AtomicRing radius={4.2} tube={0.05} color={colorScheme.mid} rotation={[0, Math.PI / 3, 0]} intensity={actualGlowIntensity} />
+          <AtomicElectron radius={4.2} speed={1.2} color={colorScheme.mid} rotation={[0, Math.PI / 3, 0]} phase={Math.PI / 2} intensity={actualGlowIntensity} atomSpin={atomSpin} />
+          <AtomicRing radius={4.2} tube={0.05} color={colorScheme.light} rotation={[0, 2 * Math.PI / 3, 0]} intensity={actualGlowIntensity} />
+          <AtomicElectron radius={4.2} speed={1.2} color={colorScheme.light} rotation={[0, 2 * Math.PI / 3, 0]} phase={Math.PI} intensity={actualGlowIntensity} atomSpin={atomSpin} />
         </group>
 
-        <Text position={[0, 0, 0]} fontSize={4.5} color={colorScheme.front} anchorX="center" anchorY="middle" material-toneMapped={false}>
+        <Text position={[0, 0, 0]} fontSize={4.5} color={frontColor} anchorX="center" anchorY="middle" material-toneMapped={false}>
           𖤍
         </Text>
 
@@ -266,7 +272,7 @@ export const ExtrudedSymbol = ({
           </Text>
         ))}
 
-        <Text position={[0, 0, -(layers + 1) * depth]} rotation={[0, Math.PI, 0]} fontSize={4.5} color={colorScheme.front} anchorX="center" anchorY="middle" material-toneMapped={false}>
+        <Text position={[0, 0, -(layers + 1) * depth]} rotation={[0, Math.PI, 0]} fontSize={4.5} color={frontColor} anchorX="center" anchorY="middle" material-toneMapped={false}>
           𖤍
         </Text>
 
@@ -275,7 +281,7 @@ export const ExtrudedSymbol = ({
             key={`mini-${i}`}
             radius={ms.radius}
             speed={ms.speed}
-            color={i % 3 === 0 ? colorScheme.front : i % 3 === 1 ? colorScheme.ring : colorScheme.mid}
+            color={i % 3 === 0 ? frontColor : i % 3 === 1 ? colorScheme.ring : colorScheme.mid}
             tilt={ms.tilt}
             phase={ms.phase}
             size={ms.size}

@@ -39,18 +39,7 @@ export const SymbolShowcaseSection = () => {
   const isTablet = windowWidth < 1024;
   const isMobile = windowWidth < 768;
 
-  const rawScheme = COLOR_SCHEMES[colorIdx];
-  const scheme = theme === 'light'
-    ? {
-        ...rawScheme,
-        front: rawScheme.back,
-        back: rawScheme.front,
-        ring: rawScheme.mid,
-        spark: rawScheme.mid,
-        glow: rawScheme.glow.replace('0.4', '0.15'),
-      }
-    : rawScheme;
-
+  const scheme = COLOR_SCHEMES[colorIdx];
   const speed = SPEED_LEVELS[speedIdx];
 
   const handleReset = () => {
@@ -105,6 +94,7 @@ export const SymbolShowcaseSection = () => {
               targetRotation={targetRotation} isDragging={isDragging} setIsDragging={setIsDragging}
               isMobileCheck={isMobile} isTabletCheck={isTablet} colorScheme={scheme} language={language}
               symbolSpin={symbolSpin} atomSpin={atomSpin} speedValue={speed.value} glowIntensity={glowIntensity} scattered={scattered}
+              theme={theme}
             />
             
             {showParticles && theme === 'dark' && <Stars radius={50} depth={50} count={isMobile ? 150 : 500} factor={3} saturation={1} fade speed={1.5} />}

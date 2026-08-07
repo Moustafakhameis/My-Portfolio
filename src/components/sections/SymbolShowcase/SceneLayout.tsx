@@ -17,6 +17,7 @@ export const SceneLayout = (props: {
   speedValue: number;
   glowIntensity: number;
   scattered: boolean;
+  theme: string;
 }) => {
   const basePosX = props.isTabletCheck ? 0 : 3.5;
   const isRTL = props.language === 'ar';
@@ -40,6 +41,7 @@ export const SceneLayout = (props: {
         glowIntensity={props.glowIntensity}
         scattered={props.scattered}
         language={props.language}
+        theme={props.theme}
       />
       <ContactShadows position={[0, -3.5, 0]} opacity={0.6} scale={25} blur={2.5} far={10} color={props.colorScheme.back} />
     </group>
