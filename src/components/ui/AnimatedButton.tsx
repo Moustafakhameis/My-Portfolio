@@ -83,7 +83,7 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
       {(variant === 'primary' || variant === 'premium') && (
         <>
           <motion.div
-            className="absolute inset-0 bg-white/20 dark:bg-white/10 rounded-full"
+            className={`absolute inset-0 rounded-full ${variant === 'premium' ? 'bg-white/20 dark:bg-white/10' : 'bg-white/20 dark:bg-black/10'}`}
             initial={{ scale: 0, opacity: 0 }}
             animate={{
               scale: isHovered ? 1.5 : 0,
@@ -95,7 +95,7 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
           {/* Sweeping shine effect */}
           <div className="absolute inset-0 overflow-hidden rounded-full pointer-events-none">
             <motion.div
-              className="absolute top-0 bottom-0 w-[150%] bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-[-20deg]"
+              className={`absolute top-0 bottom-0 w-[150%] bg-gradient-to-r from-transparent ${variant === 'premium' ? 'via-white/30' : 'via-white/30 dark:via-black/10'} to-transparent skew-x-[-20deg]`}
               initial={{ x: "-100%" }}
               animate={{ x: isHovered ? "100%" : "-100%" }}
               transition={{ duration: 0.7, ease: "easeInOut" }}

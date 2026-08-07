@@ -23,9 +23,9 @@ export const ProjectActions: React.FC<ProjectActionsProps> = ({ link, github, ca
           target="_blank"
           rel="noopener noreferrer"
           variant="primary"
-          className={`w-full sm:w-auto flex-1 justify-center whitespace-nowrap !py-2.5 ${isCompact ? '!text-xs !px-3 min-w-[100px]' : '!text-sm !px-5 min-w-[130px]'}`}
+          className={`w-full flex-1 flex items-center justify-center whitespace-nowrap !py-2.5 ${isCompact ? '!text-xs !px-3 min-w-[100px]' : '!text-sm !px-5 min-w-[130px]'}`}
         >
-          <ExternalLink size={isCompact ? 14 : 16} />
+          <ExternalLink size={isCompact ? 14 : 16} className={language === 'ar' ? 'scale-x-[-1]' : ''} />
           {t('projects', 'viewProject')}
         </AnimatedButton>
       )}
@@ -35,7 +35,7 @@ export const ProjectActions: React.FC<ProjectActionsProps> = ({ link, github, ca
           target="_blank"
           rel="noopener noreferrer"
           variant="outline"
-          className={`w-full sm:w-auto flex-1 justify-center whitespace-nowrap !py-2.5 ${isCompact ? '!text-xs !px-3 min-w-[100px]' : '!text-sm !px-5 min-w-[130px]'}`}
+          className={`w-full flex-1 flex items-center justify-center whitespace-nowrap !py-2.5 ${isCompact ? '!text-xs !px-3 min-w-[100px]' : '!text-sm !px-5 min-w-[130px]'}`}
         >
           <GithubIcon size={isCompact ? 14 : 16} />
           {t('projects', 'viewGithub')}
