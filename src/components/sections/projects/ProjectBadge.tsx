@@ -1,17 +1,20 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import type { ProjectCategory } from './types';
+import { useLanguage } from '../../../context/LanguageContext';
 
 interface ProjectBadgeProps {
   category: ProjectCategory;
 }
 
 export const ProjectBadge: React.FC<ProjectBadgeProps> = ({ category }) => {
+  const { language } = useLanguage();
+  
   const getBadgeConfig = () => {
     switch (category) {
       case 'featured':
         return { 
-          label: 'Featured', 
+          label: language === 'ar' ? 'مميز' : 'Featured', 
           dot: 'bg-amber-400',
           dotShadow: 'rgba(251, 191, 36, 0.8)',
           bgClass: 'bg-black/40 border-amber-500/30 shadow-[0_0_15px_rgba(245,158,11,0.15)]',
@@ -19,7 +22,7 @@ export const ProjectBadge: React.FC<ProjectBadgeProps> = ({ category }) => {
         };
       case 'professional':
         return { 
-          label: 'Professional', 
+          label: language === 'ar' ? 'احترافي' : 'Professional', 
           dot: 'bg-blue-400',
           dotShadow: 'rgba(96, 165, 250, 0.8)',
           bgClass: 'bg-black/40 border-blue-500/30 shadow-[0_0_15px_rgba(59,130,246,0.15)]',
@@ -27,7 +30,7 @@ export const ProjectBadge: React.FC<ProjectBadgeProps> = ({ category }) => {
         };
       case 'practice':
         return { 
-          label: 'Practice', 
+          label: language === 'ar' ? 'تدريبي' : 'Practice', 
           dot: 'bg-emerald-400',
           dotShadow: 'rgba(52, 211, 153, 0.8)',
           bgClass: 'bg-black/40 border-emerald-500/30 shadow-[0_0_15px_rgba(16,185,129,0.15)]',
@@ -35,7 +38,7 @@ export const ProjectBadge: React.FC<ProjectBadgeProps> = ({ category }) => {
         };
       case 'learning':
         return { 
-          label: 'Learning', 
+          label: language === 'ar' ? 'تعليمي' : 'Learning', 
           dot: 'bg-slate-300',
           dotShadow: 'rgba(203, 213, 225, 0.8)',
           bgClass: 'bg-black/40 border-slate-500/30 shadow-[0_0_15px_rgba(148,163,184,0.1)]',
@@ -43,7 +46,7 @@ export const ProjectBadge: React.FC<ProjectBadgeProps> = ({ category }) => {
         };
       default:
         return { 
-          label: 'Project', 
+          label: language === 'ar' ? 'مشروع' : 'Project', 
           dot: 'bg-primary',
           dotShadow: 'rgba(168, 85, 247, 0.8)',
           bgClass: 'bg-black/40 border-primary/30 shadow-[0_0_15px_rgba(168,85,247,0.15)]',

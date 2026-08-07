@@ -5,6 +5,7 @@ import { ProjectPreview } from './ProjectPreview';
 import { ProjectBadge } from './ProjectBadge';
 import { TechStack } from './TechStack';
 import { ProjectActions } from './ProjectActions';
+import { useLanguage } from '../../../context/LanguageContext';
 
 interface FeaturedProjectCardProps {
   project: Project;
@@ -13,6 +14,15 @@ interface FeaturedProjectCardProps {
 
 export const FeaturedProjectCard: React.FC<FeaturedProjectCardProps> = ({ project, index }) => {
   const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.innerWidth < 1024);
+  const { language } = useLanguage();
+
+  const title = language === 'ar' && project.titleAr ? project.titleAr : project.title;
+  const description = language === 'ar' && project.descriptionAr ? project.descriptionAr : project.description;
+  const challenges = language === 'ar' && project.challengesAr ? project.challengesAr : project.challenges;
+  const results = language === 'ar' && project.resultsAr ? project.resultsAr : project.results;
+
+  const challengesLabel = language === 'ar' ? 'التحديات' : 'Challenges Solved';
+  const resultsLabel = language === 'ar' ? 'النتائج التقنية' : 'Technical Results';
 
   const cardVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -47,7 +57,7 @@ export const FeaturedProjectCard: React.FC<FeaturedProjectCardProps> = ({ projec
           <div className="flex flex-col h-full relative z-20">
             {/* Image Top */}
             <div className="w-full max-h-[24rem] sm:max-h-[30rem] lg:max-h-[40rem] shrink-0 border-b border-border/20 relative overflow-hidden bg-black/20">
-              <ProjectPreview image={project.image} images={project.images} title={project.title} category={project.category} />
+              <ProjectPreview image={project.image} images={project.images} title={title} category={project.category} />
             </div>
 
             {/* Content Bottom */}
@@ -66,11 +76,11 @@ export const FeaturedProjectCard: React.FC<FeaturedProjectCardProps> = ({ projec
               </div>
 
               <h3 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-foreground via-foreground/90 to-foreground/60 mb-6 group-hover:from-primary group-hover:via-purple-400 group-hover:to-pink-500 transition-all duration-700">
-                {project.title}
+                {title}
               </h3>
 
               <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-10 group-hover:text-foreground/90 transition-colors duration-500 max-w-4xl">
-                {project.description}
+                {description}
               </p>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
@@ -78,15 +88,15 @@ export const FeaturedProjectCard: React.FC<FeaturedProjectCardProps> = ({ projec
                   whileHover={isTouchDevice ? undefined : { y: -5 }}
                   className="p-6 rounded-2xl bg-background/40 border border-border/30 group-hover:border-primary/40 group-hover:bg-primary/5 transition-all duration-300"
                 >
-                  <span className="text-xs uppercase tracking-widest font-black text-primary block mb-2">Challenges Solved</span>
-                  <p className="text-sm md:text-base text-muted-foreground group-hover:text-foreground/80 transition-colors">{project.challenges}</p>
+                  <span className="text-xs uppercase tracking-widest font-black text-primary block mb-2">{challengesLabel}</span>
+                  <p className="text-sm md:text-base text-muted-foreground group-hover:text-foreground/80 transition-colors">{challenges}</p>
                 </motion.div>
                 <motion.div 
                   whileHover={isTouchDevice ? undefined : { y: -5 }}
                   className="p-6 rounded-2xl bg-background/40 border border-border/30 group-hover:border-pink-500/40 group-hover:bg-pink-500/5 transition-all duration-300"
                 >
-                  <span className="text-xs uppercase tracking-widest font-black text-pink-500 block mb-2">Technical Results</span>
-                  <p className="text-sm md:text-base text-muted-foreground group-hover:text-foreground/80 transition-colors">{project.results}</p>
+                  <span className="text-xs uppercase tracking-widest font-black text-pink-500 block mb-2">{resultsLabel}</span>
+                  <p className="text-sm md:text-base text-muted-foreground group-hover:text-foreground/80 transition-colors">{results}</p>
                 </motion.div>
               </div>
 

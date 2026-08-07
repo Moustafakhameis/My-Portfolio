@@ -6,6 +6,7 @@ import { ProjectBadge } from './ProjectBadge';
 import { TechStack } from './TechStack';
 import { ProjectActions } from './ProjectActions';
 import { useIsTouchDevice } from '../../../hooks/useIsTouchDevice';
+import { useLanguage } from '../../../context/LanguageContext';
 
 interface ProjectCardProps {
   project: Project;
@@ -17,6 +18,10 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
   const isPractice = project.category === 'practice';
   const isProfessional = project.category === 'professional';
   const isTouchDevice = useIsTouchDevice();
+  const { language } = useLanguage();
+
+  const title = language === 'ar' && project.titleAr ? project.titleAr : project.title;
+  const description = language === 'ar' && project.descriptionAr ? project.descriptionAr : project.description;
 
   const cardVariants = {
     hidden: { opacity: 0, y: 30, scale: 0.95 },
@@ -46,7 +51,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
           
           {/* Image */}
           <div className="w-full max-h-[16rem] sm:max-h-[20rem] lg:max-h-[24rem] relative overflow-hidden border-b border-border/20">
-            <ProjectPreview image={project.image} images={project.images} title={project.title} category={project.category} />
+            <ProjectPreview image={project.image} images={project.images} title={title} category={project.category} />
           </div>
 
           {/* Content Section */}
@@ -70,10 +75,10 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
             </div>
             
             <h3 className={`${isLearning ? 'text-xl' : 'text-2xl md:text-3xl'} font-black text-foreground ${isTouchDevice ? '' : 'group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-pink-500'} transition-all duration-300 line-clamp-2 mb-4`}>
-              {project.title}
+              {title}
             </h3>
             <p className={`text-muted-foreground ${isLearning ? 'text-sm mb-4 line-clamp-3' : 'text-base mb-6 leading-relaxed line-clamp-4'} ${isTouchDevice ? '' : 'group-hover:text-foreground/90'} transition-colors duration-300 flex-1`}>
-              {project.description}
+              {description}
             </p>
 
             <div className="mt-auto space-y-6">

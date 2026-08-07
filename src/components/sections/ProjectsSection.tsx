@@ -34,15 +34,18 @@ export const ProjectsSection = () => {
     return projects
       .filter(p => p.image)
       .map(p => {
+        const currentTitle = language === 'ar' && p.titleAr ? p.titleAr : p.title;
         // Create a shorter, but distinct title for the 3D gallery
-        const parts = p.title.split(' - ');
+        const parts = currentTitle.split(' - ');
         let shortTitle = parts[0].trim();
         
-        // If it's a Zar3a sub-project, keep the 'Ui' or 'UseCase' part to differentiate them
-        if (shortTitle === 'Zar3a' && parts.length > 1) {
-          const subType = parts[1].trim();
-          if (subType === 'Ui' || subType === 'UseCase') {
-            shortTitle = `Zar3a ${subType}`;
+        // If it's a Zar3a sub-project, keep the sub-type to differentiate them
+        if (shortTitle === 'Zar3a' || shortTitle === 'زرعة') {
+          if (parts.length > 1) {
+            const subType = parts[1].trim();
+            if (subType.includes('Ui') || subType.includes('UseCase') || subType.includes('واجهة المستخدم') || subType.includes('حالات الاستخدام')) {
+              shortTitle = `${shortTitle} - ${subType}`;
+            }
           }
         }
         
@@ -51,7 +54,7 @@ export const ProjectsSection = () => {
           text: shortTitle
         };
       });
-  }, []);
+  }, [language]);
 
   return (
     <section id="work" className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
@@ -161,8 +164,8 @@ export const ProjectsSection = () => {
       {groupedProjects.featured.length > 0 && (
         <div className="mb-32">
           <SectionHeader 
-            title="Featured Projects" 
-            description="My largest and most technically advanced full-stack applications, featuring complex architectures and production-level UI/UX."
+            title={t('projects', 'featuredTitle')} 
+            description={t('projects', 'featuredDesc')}
             icon="⭐"
             gradientClass="from-zinc-800 dark:from-white via-amber-400 dark:via-amber-300 to-orange-500"
           />
@@ -183,8 +186,8 @@ export const ProjectsSection = () => {
       {groupedProjects.professional.length > 0 && (
         <div className="mb-24">
           <SectionHeader 
-            title="Professional Projects" 
-            description="Production-quality frontend architecture and reusable development skills."
+            title={t('projects', 'professionalTitle')} 
+            description={t('projects', 'professionalDesc')}
             icon="💼"
             gradientClass="from-zinc-800 dark:from-white via-cyan-400 dark:via-cyan-300 to-blue-600"
           />
@@ -205,8 +208,8 @@ export const ProjectsSection = () => {
       {groupedProjects.practice.length > 0 && (
         <div className="mb-24">
           <SectionHeader 
-            title="Advanced Practice Projects" 
-            description="Demonstrating advanced frontend concepts, reusable architecture, animations, and modern UI."
+            title={t('projects', 'practiceTitle')} 
+            description={t('projects', 'practiceDesc')}
             icon="🧪"
             gradientClass="from-zinc-800 dark:from-white via-emerald-400 dark:via-emerald-300 to-teal-600"
           />
@@ -227,8 +230,8 @@ export const ProjectsSection = () => {
       {groupedProjects.learning.length > 0 && (
         <div className="mb-12">
           <SectionHeader 
-            title="Learning Projects" 
-            description="Projects that helped build my frontend fundamentals and JavaScript skills."
+            title={t('projects', 'learningTitle')} 
+            description={t('projects', 'learningDesc')}
             icon="📚"
             gradientClass="from-zinc-800 dark:from-white via-pink-400 dark:via-pink-300 to-rose-600"
           />
