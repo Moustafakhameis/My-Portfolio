@@ -69,14 +69,14 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
     >
       <motion.div 
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-        className="flex items-center gap-3 sm:gap-4 md:gap-5 mb-3 relative z-10 cursor-default"
+        className="flex items-start sm:items-center gap-3 sm:gap-4 md:gap-5 mb-3 relative z-10 cursor-default"
       >
         {icon && (
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ type: "spring", stiffness: 200, damping: 20, delay: delay + 0.2 }}
-            className="relative flex items-center justify-center shrink-0"
+            className="relative flex items-center justify-center shrink-0 mt-1 sm:mt-0"
           >
             {/* The Emoji - large, bright, no heavy filters */}
             <motion.div
