@@ -137,7 +137,7 @@ export const ProjectsSection = () => {
                 </div>
 
                 {/* Foreground Circular Gallery */}
-                <div className="relative z-10 w-full h-full">
+                <div className="relative z-10 w-full h-full" dir="ltr">
                   <CircularGallery
                     items={galleryItems}
                     bend={2}
