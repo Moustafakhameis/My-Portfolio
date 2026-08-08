@@ -15,42 +15,42 @@ export const ProjectBadge: React.FC<ProjectBadgeProps> = ({ category }) => {
       case 'featured':
         return { 
           label: language === 'ar' ? 'مميز' : 'Featured', 
-          dot: 'bg-amber-400',
-          dotShadow: 'rgba(251, 191, 36, 0.8)',
-          bgClass: 'bg-black/40 border-amber-500/30 shadow-[0_0_15px_rgba(245,158,11,0.15)]',
-          textClass: 'text-amber-300'
+          dot: 'bg-amber-500 dark:bg-amber-400',
+          dotShadow: 'rgba(245, 158, 11, 0.5)',
+          bgClass: 'bg-amber-500/10 dark:bg-black/40 border-amber-500/20 dark:border-amber-500/30 shadow-[0_0_15px_rgba(245,158,11,0.15)]',
+          textClass: 'text-amber-700 dark:text-amber-300'
         };
       case 'professional':
         return { 
           label: language === 'ar' ? 'احترافي' : 'Professional', 
-          dot: 'bg-blue-400',
-          dotShadow: 'rgba(96, 165, 250, 0.8)',
-          bgClass: 'bg-black/40 border-blue-500/30 shadow-[0_0_15px_rgba(59,130,246,0.15)]',
-          textClass: 'text-blue-300'
+          dot: 'bg-blue-500 dark:bg-blue-400',
+          dotShadow: 'rgba(59, 130, 246, 0.5)',
+          bgClass: 'bg-blue-500/10 dark:bg-black/40 border-blue-500/20 dark:border-blue-500/30 shadow-[0_0_15px_rgba(59,130,246,0.15)]',
+          textClass: 'text-blue-700 dark:text-blue-300'
         };
       case 'practice':
         return { 
           label: language === 'ar' ? 'تدريبي' : 'Practice', 
-          dot: 'bg-emerald-400',
-          dotShadow: 'rgba(52, 211, 153, 0.8)',
-          bgClass: 'bg-black/40 border-emerald-500/30 shadow-[0_0_15px_rgba(16,185,129,0.15)]',
-          textClass: 'text-emerald-300'
+          dot: 'bg-emerald-500 dark:bg-emerald-400',
+          dotShadow: 'rgba(16, 185, 129, 0.5)',
+          bgClass: 'bg-emerald-500/10 dark:bg-black/40 border-emerald-500/20 dark:border-emerald-500/30 shadow-[0_0_15px_rgba(16,185,129,0.15)]',
+          textClass: 'text-emerald-700 dark:text-emerald-300'
         };
       case 'learning':
         return { 
           label: language === 'ar' ? 'تعليمي' : 'Learning', 
-          dot: 'bg-slate-300',
-          dotShadow: 'rgba(203, 213, 225, 0.8)',
-          bgClass: 'bg-black/40 border-slate-500/30 shadow-[0_0_15px_rgba(148,163,184,0.1)]',
-          textClass: 'text-slate-300'
+          dot: 'bg-slate-500 dark:bg-slate-300',
+          dotShadow: 'rgba(100, 116, 139, 0.5)',
+          bgClass: 'bg-slate-500/10 dark:bg-black/40 border-slate-500/20 dark:border-slate-500/30 shadow-[0_0_15px_rgba(148,163,184,0.1)]',
+          textClass: 'text-slate-700 dark:text-slate-300'
         };
       default:
         return { 
           label: language === 'ar' ? 'مشروع' : 'Project', 
           dot: 'bg-primary',
-          dotShadow: 'rgba(168, 85, 247, 0.8)',
-          bgClass: 'bg-black/40 border-primary/30 shadow-[0_0_15px_rgba(168,85,247,0.15)]',
-          textClass: 'text-purple-300'
+          dotShadow: 'rgba(168, 85, 247, 0.5)',
+          bgClass: 'bg-primary/10 dark:bg-black/40 border-primary/20 dark:border-primary/30 shadow-[0_0_15px_rgba(168,85,247,0.15)]',
+          textClass: 'text-purple-700 dark:text-purple-300'
         };
     }
   };
