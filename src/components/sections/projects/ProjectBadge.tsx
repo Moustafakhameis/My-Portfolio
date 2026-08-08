@@ -61,10 +61,8 @@ export const ProjectBadge: React.FC<ProjectBadgeProps> = ({ category }) => {
     <div className={`relative inline-flex items-center gap-2.5 px-3 py-1.5 sm:px-4 sm:py-2 text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.25em] rounded-full border backdrop-blur-2xl overflow-hidden ${bgClass}`}>
       
       {/* Animated Glass Shimmer */}
-      <motion.div 
-        className="absolute top-0 bottom-0 w-[150%] bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 z-0"
-        animate={{ x: ['-100%', '200%'] }}
-        transition={{ duration: 3, repeat: Infinity, ease: "linear", repeatDelay: 2 }}
+      <div 
+        className="absolute top-0 bottom-0 w-[150%] bg-gradient-to-r from-transparent via-white/10 to-transparent z-0 animate-shimmer-slide"
       />
       
       {/* Top inner highlight */}

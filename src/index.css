@@ -109,15 +109,38 @@
 @media (max-width: 767px) {
   .glass {
     background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
     will-change: auto;
   }
   .dark .glass {
-    background: rgba(20, 20, 20, 0.85);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
+    background: rgba(20, 20, 20, 0.95);
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
+  
+  /* Strip heavy filters universally on mobile to prevent scroll lag */
+  * {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+/* GPU-accelerated infinite animations to replace Framer Motion loops */
+@keyframes shimmer-slide {
+  0% { transform: translateX(-100%) skewX(12deg); }
+  100% { transform: translateX(200%) skewX(12deg); }
+}
+.animate-shimmer-slide {
+  animation: shimmer-slide 3s linear infinite;
+}
+
+@keyframes line-flow {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+.animate-line-flow {
+  animation: line-flow 3s linear infinite;
 }
 
 .text-gradient {

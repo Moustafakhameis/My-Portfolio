@@ -67,10 +67,9 @@ export const FeaturedProjectCard: React.FC<FeaturedProjectCardProps> = ({ projec
                 
                 {/* Animated glowing line */}
                 <div className="relative flex-1 h-[1px] bg-gradient-to-r from-border/30 to-transparent overflow-hidden">
-                  <motion.div 
-                    className="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-transparent via-amber-500 to-transparent opacity-50"
-                    animate={{ x: ['-100%', '200%'] }}
-                    transition={{ duration: 3, repeat: Infinity, ease: 'linear', delay: Math.random() * 2 }}
+                  <div 
+                    className="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-transparent via-amber-500 to-transparent opacity-50 animate-line-flow"
+                    style={{ animationDelay: `${Math.random() * 2}s` }}
                   />
                 </div>
               </div>
