@@ -167,7 +167,7 @@ export const ProjectsSection = () => {
             title={t('projects', 'featuredTitle')} 
             description={t('projects', 'featuredDesc')}
             icon="⭐"
-            gradientClass="from-zinc-800 dark:from-white via-amber-400 dark:via-amber-300 to-orange-500"
+            gradientClass="from-amber-600 dark:from-white via-amber-400 dark:via-amber-300 to-orange-500"
           />
           <div className="flex flex-col gap-16 md:gap-24">
             {groupedProjects.featured.map((project, index) => (
@@ -189,7 +189,7 @@ export const ProjectsSection = () => {
             title={t('projects', 'professionalTitle')} 
             description={t('projects', 'professionalDesc')}
             icon="💼"
-            gradientClass="from-zinc-800 dark:from-white via-cyan-400 dark:via-cyan-300 to-blue-600"
+            gradientClass="from-cyan-600 dark:from-white via-cyan-400 dark:via-cyan-300 to-blue-600"
           />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {groupedProjects.professional.map((project, index) => (
@@ -211,7 +211,7 @@ export const ProjectsSection = () => {
             title={t('projects', 'practiceTitle')} 
             description={t('projects', 'practiceDesc')}
             icon="🧪"
-            gradientClass="from-zinc-800 dark:from-white via-emerald-400 dark:via-emerald-300 to-teal-600"
+            gradientClass="from-emerald-600 dark:from-white via-emerald-400 dark:via-emerald-300 to-teal-600"
           />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {groupedProjects.practice.map((project, index) => (
@@ -233,7 +233,7 @@ export const ProjectsSection = () => {
             title={t('projects', 'learningTitle')} 
             description={t('projects', 'learningDesc')}
             icon="📚"
-            gradientClass="from-zinc-800 dark:from-white via-pink-400 dark:via-pink-300 to-rose-600"
+            gradientClass="from-pink-600 dark:from-white via-pink-400 dark:via-pink-300 to-rose-600"
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {groupedProjects.learning.map((project, index) => (

@@ -92,7 +92,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
         
         <div className="flex flex-col relative z-20" style={{ transform: "translateZ(15px)" }}>
           {/* MAIN TEXT with elegant staggered word reveal */}
-          <h3 className={`relative z-10 text-[26px] leading-[32px] sm:text-4xl md:text-5xl lg:text-6xl font-bold ${language === 'ar' ? 'tracking-normal' : 'tracking-tight'} flex flex-wrap gap-x-2 sm:gap-x-3`}>
+          <h3 className={`relative z-10 text-[26px] leading-[32px] sm:text-4xl sm:leading-[1.2] md:text-5xl lg:text-6xl lg:leading-[1.1] font-bold ${language === 'ar' ? 'tracking-normal' : 'tracking-tight'} flex flex-wrap gap-x-2 sm:gap-x-3`}>
             {title.split(' ').map((word, i) => (
               <motion.span
                 key={i}
