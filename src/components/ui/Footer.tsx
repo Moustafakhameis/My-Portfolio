@@ -55,7 +55,7 @@ export const Footer = () => {
           <motion.div variants={itemVariants} className="space-y-8 flex flex-col items-center">
             <h2 className="text-3xl sm:text-5xl md:text-8xl font-black tracking-tighter leading-tight drop-shadow-2xl">
               {t('footer', 'letCreate1')} <br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-fuchsia-500 to-pink-500 inline-block pt-2 pb-3 drop-shadow-[0_0_20px_rgba(217,70,239,0.3)]">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-500 to-cyan-500 inline-block pt-2 pb-3 drop-shadow-[0_0_20px_rgba(6,182,212,0.3)]">
                 {t('footer', 'letCreate2')}
               </span>
             </h2>
@@ -101,7 +101,7 @@ export const Footer = () => {
               }`}
             >
               {/* Smooth Background Transition */}
-              <div className="absolute inset-0 bg-gradient-to-r from-violet-600 to-pink-600 z-0" />
+              <div className="absolute inset-0 bg-gradient-to-r from-violet-600 to-cyan-600 z-0" />
               <div 
                 className={`absolute inset-0 bg-slate-200 dark:bg-white/10 backdrop-blur-md z-0 transition-opacity duration-300 ${
                   showCard ? 'opacity-100' : 'opacity-0'
@@ -185,7 +185,7 @@ export const Footer = () => {
               className="relative p-[2px] rounded-full group"
               aria-label="Scroll to top"
               style={{
-                background: 'linear-gradient(135deg, #7c3aed, #ec4899, #7c3aed)',
+                background: 'linear-gradient(135deg, #7c3aed, #06b6d4, #7c3aed)',
                 backgroundSize: '200% 200%',
               }}
             >

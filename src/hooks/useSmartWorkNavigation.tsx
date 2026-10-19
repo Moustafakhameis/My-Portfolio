@@ -29,7 +29,7 @@ const InteractiveEyes = () => {
   const eyebrowRightRotate = useTransform(smoothX, [-1, 1], [-15, 5]);
 
   return (
-    <div className="relative flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-primary/30 to-pink-500/30 border border-white/20 shadow-[0_0_25px_rgba(217,70,239,0.5)] ring-2 ring-primary/40 backdrop-blur-md pt-2">
+    <div className="relative flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-primary/30 to-cyan-500/30 border border-white/20 shadow-[0_0_25px_rgba(6,182,212,0.5)] ring-2 ring-primary/40 backdrop-blur-md pt-2">
       <div className="flex gap-1.5 relative">
         {/* Floating Eyebrows */}
         <motion.div 
@@ -45,7 +45,7 @@ const InteractiveEyes = () => {
         <div className="w-5 h-[28px] bg-gradient-to-b from-white to-gray-200 rounded-[12px] relative shadow-[inset_0_4px_6px_rgba(0,0,0,0.5),0_2px_4px_rgba(0,0,0,0.3)] overflow-hidden">
           {/* Iris & Pupil */}
           <motion.div 
-            className="absolute top-1.5 left-[3px] w-3.5 h-3.5 rounded-full bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-500 shadow-[inset_0_1px_3px_rgba(0,0,0,0.8)] flex items-center justify-center"
+            className="absolute top-1.5 left-[3px] w-3.5 h-3.5 rounded-full bg-gradient-to-br from-indigo-500 via-purple-600 to-cyan-500 shadow-[inset_0_1px_3px_rgba(0,0,0,0.8)] flex items-center justify-center"
             style={{ x: pupilX, y: pupilY }}
           >
             <div className="w-1.5 h-1.5 bg-black rounded-full relative">
@@ -65,7 +65,7 @@ const InteractiveEyes = () => {
         <div className="w-5 h-[28px] bg-gradient-to-b from-white to-gray-200 rounded-[12px] relative shadow-[inset_0_4px_6px_rgba(0,0,0,0.5),0_2px_4px_rgba(0,0,0,0.3)] overflow-hidden">
           {/* Iris & Pupil */}
           <motion.div 
-            className="absolute top-1.5 left-[3px] w-3.5 h-3.5 rounded-full bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-500 shadow-[inset_0_1px_3px_rgba(0,0,0,0.8)] flex items-center justify-center"
+            className="absolute top-1.5 left-[3px] w-3.5 h-3.5 rounded-full bg-gradient-to-br from-indigo-500 via-purple-600 to-cyan-500 shadow-[inset_0_1px_3px_rgba(0,0,0,0.8)] flex items-center justify-center"
             style={{ x: pupilX, y: pupilY }}
           >
             <div className="w-1.5 h-1.5 bg-black rounded-full relative">
@@ -127,7 +127,7 @@ const HolographicTooltip = ({ clickCount, tooltipPositionClass, arrowPositionCla
         className="relative group"
       >
         {/* Glowing Animated Backdrop */}
-        <div className="absolute -inset-[2px] rounded-2xl bg-gradient-to-r from-primary via-fuchsia-500 to-pink-500 opacity-40 blur-xl group-hover:opacity-60 transition duration-1000 animate-pulse" style={{ transform: "translateZ(-10px)" }} />
+        <div className="absolute -inset-[2px] rounded-2xl bg-gradient-to-r from-primary via-blue-500 to-cyan-500 opacity-40 blur-xl group-hover:opacity-60 transition duration-1000 animate-pulse" style={{ transform: "translateZ(-10px)" }} />
         
         {/* Main Tooltip Container */}
         <div className="relative p-4 md:p-6 rounded-2xl bg-background/90 backdrop-blur-2xl border border-white/20 shadow-[0_20px_60px_-15px_rgba(168,85,247,0.4)] overflow-hidden" style={{ transform: "translateZ(0px)" }}>
@@ -148,7 +148,7 @@ const HolographicTooltip = ({ clickCount, tooltipPositionClass, arrowPositionCla
             <div className="relative flex flex-col gap-3 text-start z-10" style={{ transform: "translateZ(20px)" }}>
               <div className="flex items-center gap-2 md:gap-3">
                 <InteractiveEyes />
-                <span className="text-lg sm:text-xl md:text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-primary via-fuchsia-400 to-pink-500 drop-shadow-sm">
+                <span className="text-lg sm:text-xl md:text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-primary via-blue-400 to-cyan-500 drop-shadow-sm">
                   {t('tooltip', 'holdOn')}
                 </span>
               </div>
@@ -183,7 +183,7 @@ const HolographicTooltip = ({ clickCount, tooltipPositionClass, arrowPositionCla
                   <motion.div className="absolute w-1.5 h-4 bg-white/80 rounded-full right-4" animate={{ y: [-30, 60], opacity: [0, 1, 0] }} transition={{ duration: 0.5, repeat: Infinity, ease: "linear", delay: 0.4 }} />
                   <motion.div className="absolute w-1 h-2 bg-white/40 rounded-full left-7" animate={{ y: [-30, 60], opacity: [0, 1, 0] }} transition={{ duration: 0.6, repeat: Infinity, ease: "linear", delay: 0.7 }} />
                 </div>
-                <span className="text-lg sm:text-xl md:text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-primary via-fuchsia-400 to-pink-500 drop-shadow-sm">
+                <span className="text-lg sm:text-xl md:text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-primary via-blue-400 to-cyan-500 drop-shadow-sm">
                   {t('tooltip', 'lastStop')}
                 </span>
               </div>

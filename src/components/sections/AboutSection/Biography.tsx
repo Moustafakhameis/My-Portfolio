@@ -47,7 +47,7 @@ export const Biography = () => {
             return (
               <span 
                 key={i} 
-                className={isLast ? "inline-block text-transparent bg-clip-text bg-gradient-to-r from-primary via-fuchsia-500 to-pink-500 drop-shadow-[0_0_20px_rgba(217,70,239,0.3)] pe-2 pb-3 lg:pb-4" : "inline-block text-foreground pb-3 lg:pb-4"}
+                className={isLast ? "inline-block text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-500 to-cyan-500 drop-shadow-[0_0_20px_rgba(6,182,212,0.3)] pe-2 pb-3 lg:pb-4" : "inline-block text-foreground pb-3 lg:pb-4"}
               >
                 {word}
               </span>
@@ -59,7 +59,7 @@ export const Biography = () => {
           whileInView={{ opacity: 1, scaleX: 1 }}
           viewport={{ once: true }}
           transition={{ type: "spring", stiffness: 300, damping: 25, delay: 0.2 }}
-          className="h-1.5 w-24 bg-gradient-to-r from-primary to-pink-500 rounded-full mb-6 origin-left"
+          className="h-1.5 w-24 bg-gradient-to-r from-primary to-cyan-500 rounded-full mb-6 origin-left"
         />
         <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8">
           {t('about', 'description')}

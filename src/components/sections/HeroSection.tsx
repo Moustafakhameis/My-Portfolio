@@ -111,7 +111,7 @@ const AnimatedText = ({ text, animate = true }: { text: string, animate?: boolea
   const words = text.split(' ');
   const colors = [
     "from-blue-600 to-cyan-500 dark:from-blue-400 dark:to-cyan-300",
-    "from-purple-600 to-pink-500 dark:from-purple-400 dark:to-pink-300",
+    "from-purple-600 to-cyan-500 dark:from-purple-400 dark:to-cyan-300",
     "from-amber-600 to-orange-500 dark:from-amber-400 dark:to-orange-300",
     "from-green-600 to-emerald-500 dark:from-green-400 dark:to-emerald-300"
   ];
@@ -252,7 +252,7 @@ export const HeroSection = ({ animate = true }: { animate?: boolean }) => {
                 scale: { type: "tween", ease: "easeOut", delay: 1.5 },
                 filter: { duration: 0.8, delay: 1.5 }
               }}
-              className={`text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-500 to-pink-500 inline-block pt-4 pb-3 transform-gpu ${heroReady ? 'drop-shadow-lg animate-bg-pan' : ''}`}
+              className={`text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-500 to-cyan-500 inline-block pt-4 pb-3 transform-gpu ${heroReady ? 'drop-shadow-lg animate-bg-pan' : ''}`}
             >
               {language === 'ar' ? 'مُصْطَفَى' : 'Moustafa'}
             </motion.span>

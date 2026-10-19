@@ -45,7 +45,7 @@ export const NotFound = () => {
       {/* Interactive Mouse Parallax Glow */}
       <motion.div 
         style={{ x: parallaxX, y: parallaxY }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-br from-primary/10 via-purple-500/15 to-pink-500/10 blur-[150px] rounded-full pointer-events-none" 
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-br from-primary/10 via-purple-500/15 to-cyan-500/10 blur-[150px] rounded-full pointer-events-none" 
       />
 
       {/* Floating Space Elements - Positioned relative to screen */}
@@ -64,7 +64,7 @@ export const NotFound = () => {
       <motion.div
         animate={{ y: [0, 40, 0], x: [0, 20, 0], rotate: [0, 45, 0] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        className="absolute bottom-[10%] right-[5%] md:bottom-[20%] md:right-[15%] text-pink-500/50 z-0 pointer-events-none"
+        className="absolute bottom-[10%] right-[5%] md:bottom-[20%] md:right-[15%] text-cyan-500/50 z-0 pointer-events-none"
       >
         <Rocket size={120} className="drop-shadow-2xl" />
       </motion.div>
@@ -86,7 +86,7 @@ export const NotFound = () => {
               key={index}
               variants={textVariants}
               whileHover={isTouchDevice ? undefined : { scale: 1.1, rotate: (Math.random() - 0.5) * 20, color: '#a855f7' }}
-              className="text-[100px] sm:text-[150px] md:text-[250px] font-black leading-none text-transparent bg-clip-text bg-gradient-to-br from-primary via-purple-500 to-pink-500 drop-shadow-[0_0_40px_rgba(168,85,247,0.4)] cursor-default select-none inline-block transition-colors duration-300"
+              className="text-[100px] sm:text-[150px] md:text-[250px] font-black leading-none text-transparent bg-clip-text bg-gradient-to-br from-primary via-purple-500 to-cyan-500 drop-shadow-[0_0_40px_rgba(168,85,247,0.4)] cursor-default select-none inline-block transition-colors duration-300"
             >
               {char}
             </motion.span>
@@ -115,10 +115,10 @@ export const NotFound = () => {
           className="relative z-10"
         >
           <div onClick={goHome} className="group cursor-pointer">
-            <div className="absolute -inset-1 bg-gradient-to-r from-primary via-purple-500 to-pink-500 rounded-full blur opacity-40 group-hover:opacity-75 transition duration-500"></div>
+            <div className="absolute -inset-1 bg-gradient-to-r from-primary via-purple-500 to-cyan-500 rounded-full blur opacity-40 group-hover:opacity-75 transition duration-500"></div>
             <AnimatedButton href={import.meta.env.BASE_URL} className="relative inline-flex items-center justify-center gap-3 !px-8 !py-4 md:!px-10 md:!py-5 text-lg md:text-xl font-bold bg-background rounded-full hover:bg-background/80 overflow-hidden shadow-2xl transition-all w-full sm:w-auto">
               <Home size={20} className="md:w-6 md:h-6 group-hover:text-purple-500 transition-colors" />
-              <span className="group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-pink-500 transition-all duration-300">Return to Earth</span>
+              <span className="group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-cyan-500 transition-all duration-300">Return to Earth</span>
             </AnimatedButton>
           </div>
         </motion.div>

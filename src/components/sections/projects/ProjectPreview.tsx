@@ -34,10 +34,10 @@ export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ image, images, t
   // Fallback CSS gradient placeholder based on category
   const getGradient = () => {
     switch (category) {
-      case 'featured': return 'from-purple-500/20 via-fuchsia-500/20 to-pink-500/20 dark:from-purple-900/40 dark:via-fuchsia-900/40 dark:to-pink-900/40';
+      case 'featured': return 'from-purple-500/20 via-blue-500/20 to-cyan-500/20 dark:from-purple-900/40 dark:via-blue-900/40 dark:to-cyan-900/40';
       case 'professional': return 'from-blue-500/20 via-cyan-500/20 to-teal-500/20 dark:from-blue-900/40 dark:via-cyan-900/40 dark:to-teal-900/40';
       case 'practice': return 'from-emerald-500/20 via-green-500/20 to-lime-500/20 dark:from-emerald-900/40 dark:via-green-900/40 dark:to-lime-900/40';
-      case 'learning': return 'from-orange-500/20 via-red-500/20 to-rose-500/20 dark:from-orange-900/40 dark:via-red-900/40 dark:to-rose-900/40';
+      case 'learning': return 'from-orange-500/20 via-red-500/20 to-teal-500/20 dark:from-orange-900/40 dark:via-red-900/40 dark:to-teal-900/40';
       default: return 'from-primary/20 to-primary/10';
     }
   };

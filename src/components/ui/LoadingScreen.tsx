@@ -77,8 +77,8 @@ export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
             className="absolute top-1/3 left-1/3 w-[60vw] h-[60vw] max-w-[400px] max-h-[400px] rounded-full pointer-events-none"
             style={{
               background: theme === 'light'
-                ? 'radial-gradient(circle, rgba(217, 70, 239, 0.25) 0%, transparent 70%)'
-                : 'radial-gradient(circle, rgba(217, 70, 239, 0.25) 0%, transparent 70%)',
+                ? 'radial-gradient(circle, rgba(6, 182, 212, 0.25) 0%, transparent 70%)'
+                : 'radial-gradient(circle, rgba(6, 182, 212, 0.25) 0%, transparent 70%)',
               mixBlendMode: theme === 'light' ? 'multiply' : 'screen',
             }}
             animate={{ 
@@ -99,7 +99,7 @@ export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
               {language === 'ar' ? (
                 <motion.span 
                   variants={letterVariants}
-                  className={`text-transparent bg-clip-text pb-2 ${theme === 'light' ? 'bg-gradient-to-br from-purple-800 via-fuchsia-600 to-pink-500' : 'bg-gradient-to-br from-white via-fuchsia-300 to-pink-500'}`}
+                  className={`text-transparent bg-clip-text pb-2 ${theme === 'light' ? 'bg-gradient-to-br from-purple-800 via-blue-600 to-cyan-500' : 'bg-gradient-to-br from-white via-blue-300 to-cyan-500'}`}
                 >
                   {text}
                 </motion.span>
@@ -108,7 +108,7 @@ export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
                   <motion.span 
                     key={i} 
                     variants={letterVariants}
-                    className={`text-transparent bg-clip-text pb-2 ${theme === 'light' ? 'bg-gradient-to-br from-purple-800 via-fuchsia-600 to-pink-500' : 'bg-gradient-to-br from-white via-fuchsia-300 to-pink-500'}`}
+                    className={`text-transparent bg-clip-text pb-2 ${theme === 'light' ? 'bg-gradient-to-br from-purple-800 via-blue-600 to-cyan-500' : 'bg-gradient-to-br from-white via-blue-300 to-cyan-500'}`}
                   >
                     {letter}
                   </motion.span>
@@ -125,10 +125,10 @@ export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
             >
               <div className={`w-full h-1 rounded-full overflow-hidden relative ${theme === 'light' ? 'bg-black/10 border border-black/5 shadow-[inset_0_1px_3px_rgba(0,0,0,0.1)]' : 'bg-white/10 border border-white/5 shadow-[inset_0_1px_3px_rgba(0,0,0,0.3)]'}`}>
                 <motion.div
-                  className={`absolute top-0 h-full rounded-full shadow-[0_0_20px_rgba(217,70,239,0.9)] ${
+                  className={`absolute top-0 h-full rounded-full shadow-[0_0_20px_rgba(6,182,212,0.9)] ${
                     language === 'ar' 
-                      ? 'right-0 bg-gradient-to-l from-primary via-fuchsia-400 to-pink-500' 
-                      : 'left-0 bg-gradient-to-r from-primary via-fuchsia-400 to-pink-500'
+                      ? 'right-0 bg-gradient-to-l from-primary via-blue-400 to-cyan-500' 
+                      : 'left-0 bg-gradient-to-r from-primary via-blue-400 to-cyan-500'
                   }`}
                   initial={{ width: '0%' }}
                   animate={{ width: `${progress}%` }}

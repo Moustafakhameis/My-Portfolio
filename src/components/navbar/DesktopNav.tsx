@@ -93,8 +93,8 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
                   className="bg-clip-text text-transparent bg-[length:200%_auto] animate-bg-pan"
                   animate={{ 
                     backgroundImage: theme === 'light' 
-                      ? 'linear-gradient(90deg, #9333ea, #db2777, #9333ea, #db2777, #9333ea)' 
-                      : 'linear-gradient(90deg, #c084fc, #e879f9, #f0abfc, #e879f9, #c084fc)'
+                      ? 'linear-gradient(90deg, #9333ea, #0891b2, #9333ea, #0891b2, #9333ea)' 
+                      : 'linear-gradient(90deg, #c084fc, #818cf8, #a5b4fc, #818cf8, #c084fc)'
                   }}
                   transition={{ 
                     backgroundImage: { duration: 0.5 }

@@ -57,7 +57,7 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
     primary: "bg-primary text-primary-foreground border border-transparent",
     outline: "bg-transparent text-foreground border border-border hover:border-primary/50 hover:bg-muted/50",
     ghost: "bg-transparent text-muted-foreground hover:text-foreground hover:bg-muted/50",
-    premium: "bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 text-white border border-white/20 shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:shadow-[0_0_40px_rgba(236,72,153,0.6)]"
+    premium: "bg-gradient-to-r from-violet-600 via-blue-600 to-cyan-600 text-white border border-white/20 shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:shadow-[0_0_40px_rgba(6,182,212,0.6)]"
   };
 
   const Component = href ? motion.a : motion.button;

@@ -73,7 +73,7 @@ export const Aurora = () => (
     <motion.div
       className="absolute w-[160%] h-[80%] top-[-5%] left-[-30%] rounded-[50%]"
       style={{
-        background: 'linear-gradient(180deg, transparent 0%, rgba(217,70,239,0.15) 40%, rgba(20,184,166,0.3) 70%, rgba(16,185,129,0.6) 100%)',
+        background: 'linear-gradient(180deg, transparent 0%, rgba(6,182,212,0.2) 40%, rgba(20,184,166,0.3) 70%, rgba(16,185,129,0.6) 100%)',
         filter: 'blur(30px)',
         willChange: 'transform',
       }}

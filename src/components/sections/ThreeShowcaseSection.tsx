@@ -10,11 +10,11 @@ import './ThreeShowcase.css';
 const COLOR_SCHEMES = [
   { name: 'Purple',  primary: '#a855f7', secondary: '#7c3aed', glow: 'rgba(168,85,247,0.35)' },
   { name: 'Cyan',    primary: '#22d3ee', secondary: '#0891b2', glow: 'rgba(34,211,238,0.35)' },
-  { name: 'Rose',    primary: '#fb7185', secondary: '#e11d48', glow: 'rgba(251,113,133,0.35)' },
+  { name: 'Teal',    primary: '#2dd4bf', secondary: '#0d9488', glow: 'rgba(45,212,191,0.35)' },
   { name: 'Emerald', primary: '#34d399', secondary: '#059669', glow: 'rgba(52,211,153,0.35)' },
   { name: 'Amber',   primary: '#fbbf24', secondary: '#d97706', glow: 'rgba(251,191,36,0.35)' },
   { name: 'Blue',    primary: '#3b82f6', secondary: '#1d4ed8', glow: 'rgba(59,130,246,0.35)' },
-  { name: 'Pink',    primary: '#ec4899', secondary: '#be185d', glow: 'rgba(236,72,153,0.35)' },
+  { name: 'Cyan',    primary: '#06b6d4', secondary: '#0e7490', glow: 'rgba(6,182,212,0.35)' },
   { name: 'Orange',  primary: '#f97316', secondary: '#c2410c', glow: 'rgba(249,115,22,0.35)' },
 ];
 
