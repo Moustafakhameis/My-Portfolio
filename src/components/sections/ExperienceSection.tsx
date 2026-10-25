@@ -130,7 +130,7 @@ export const ExperienceSection = () => {
             hidden: { opacity: 0, scaleX: 0 },
             visible: { opacity: 1, scaleX: 1, transition: { type: "spring", stiffness: 300, damping: 25 } }
           }}
-          className="h-1.5 w-24 bg-gradient-to-r from-primary to-cyan-500 rounded-full mb-6 origin-center"
+          className="h-1.5 w-24 bg-gradient-to-r from-primary to-emerald-400 rounded-full mb-6 origin-center"
         />
       </motion.div>
 
@@ -141,7 +141,7 @@ export const ExperienceSection = () => {
         {/* Animated glowing progress line */}
         <motion.div 
           style={{ scaleY, transformOrigin: "top" }}
-          className={`absolute top-6 bottom-0 w-[3px] bg-gradient-to-b from-primary via-blue-500 to-cyan-500 shadow-[0_0_20px_rgba(6,182,212,0.8)] z-0 rounded-full ${language === 'ar' ? 'right-0 translate-x-1/2' : 'left-0 -translate-x-1/2'}`} 
+          className={`absolute top-6 bottom-0 w-[3px] bg-gradient-to-b from-primary via-teal-400 to-emerald-400 shadow-[0_0_20px_rgba(45,212,191,0.8)] z-0 rounded-full ${language === 'ar' ? 'right-0 translate-x-1/2' : 'left-0 -translate-x-1/2'}`} 
         />
 
         {experiences.map((exp, index) => (
@@ -179,7 +179,7 @@ export const ExperienceSection = () => {
                 <SpotlightCard className="p-4 sm:p-6 md:p-10">
                   <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-6">
                     <div>
-                      <h3 className={`text-2xl md:text-3xl ${language === 'ar' ? 'font-extrabold leading-relaxed pb-2' : 'font-bold pb-1'} text-foreground group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-cyan-500 transition-all duration-500`}>
+                      <h3 className={`text-2xl md:text-3xl ${language === 'ar' ? 'font-extrabold leading-relaxed pb-2' : 'font-bold pb-1'} text-foreground group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-emerald-400 transition-all duration-500`}>
                         {exp.title}
                       </h3>
                       <p className="text-lg md:text-xl text-primary font-semibold mt-2 opacity-90">{exp.company}</p>

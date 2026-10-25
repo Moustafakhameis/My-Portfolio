@@ -99,7 +99,7 @@ export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
               {language === 'ar' ? (
                 <motion.span 
                   variants={letterVariants}
-                  className={`text-transparent bg-clip-text pb-2 ${theme === 'light' ? 'bg-gradient-to-br from-purple-800 via-blue-600 to-cyan-500' : 'bg-gradient-to-br from-white via-blue-300 to-cyan-500'}`}
+                  className={`text-transparent bg-clip-text pb-2 ${theme === 'light' ? 'bg-gradient-to-br from-teal-800 via-teal-600 to-emerald-400' : 'bg-gradient-to-br from-white via-teal-300 to-emerald-400'}`}
                 >
                   {text}
                 </motion.span>
@@ -108,7 +108,7 @@ export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
                   <motion.span 
                     key={i} 
                     variants={letterVariants}
-                    className={`text-transparent bg-clip-text pb-2 ${theme === 'light' ? 'bg-gradient-to-br from-purple-800 via-blue-600 to-cyan-500' : 'bg-gradient-to-br from-white via-blue-300 to-cyan-500'}`}
+                    className={`text-transparent bg-clip-text pb-2 ${theme === 'light' ? 'bg-gradient-to-br from-teal-800 via-teal-600 to-emerald-400' : 'bg-gradient-to-br from-white via-teal-300 to-emerald-400'}`}
                   >
                     {letter}
                   </motion.span>
@@ -125,10 +125,10 @@ export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
             >
               <div className={`w-full h-1 rounded-full overflow-hidden relative ${theme === 'light' ? 'bg-black/10 border border-black/5 shadow-[inset_0_1px_3px_rgba(0,0,0,0.1)]' : 'bg-white/10 border border-white/5 shadow-[inset_0_1px_3px_rgba(0,0,0,0.3)]'}`}>
                 <motion.div
-                  className={`absolute top-0 h-full rounded-full shadow-[0_0_20px_rgba(6,182,212,0.9)] ${
+                  className={`absolute top-0 h-full rounded-full shadow-[0_0_20px_rgba(45,212,191,0.9)] ${
                     language === 'ar' 
-                      ? 'right-0 bg-gradient-to-l from-primary via-blue-400 to-cyan-500' 
-                      : 'left-0 bg-gradient-to-r from-primary via-blue-400 to-cyan-500'
+                      ? 'right-0 bg-gradient-to-l from-primary via-teal-400 to-emerald-400' 
+                      : 'left-0 bg-gradient-to-r from-primary via-teal-400 to-emerald-400'
                   }`}
                   initial={{ width: '0%' }}
                   animate={{ width: `${progress}%` }}

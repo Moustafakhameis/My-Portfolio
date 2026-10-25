@@ -55,7 +55,7 @@ export const Footer = () => {
           <motion.div variants={itemVariants} className="space-y-8 flex flex-col items-center">
             <h2 className="text-3xl sm:text-5xl md:text-8xl font-black tracking-tighter leading-tight drop-shadow-2xl">
               {t('footer', 'letCreate1')} <br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-500 to-cyan-500 inline-block pt-2 pb-3 drop-shadow-[0_0_20px_rgba(6,182,212,0.3)]">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-400 to-emerald-400 inline-block pt-2 pb-3 drop-shadow-[0_0_20px_rgba(45,212,191,0.3)]">
                 {t('footer', 'letCreate2')}
               </span>
             </h2>

@@ -112,11 +112,11 @@ export const MobileNav: React.FC<MobileNavProps> = ({
                       className="relative z-10 text-4xl font-black tracking-widest uppercase block text-center bg-clip-text text-transparent bg-[length:200%_auto] animate-bg-pan"
                       animate={{ 
                         backgroundImage: theme === 'light' 
-                          ? 'linear-gradient(90deg, #9333ea, #0891b2, #9333ea, #0891b2, #9333ea)' 
-                          : 'linear-gradient(90deg, #38bdf8, #818cf8, #22d3ee, #818cf8, #38bdf8)',
+                          ? 'linear-gradient(90deg, #059669, #0d9488, #10b981, #0d9488, #059669)' 
+                          : 'linear-gradient(90deg, #34d399, #2dd4bf, #6ee7b7, #2dd4bf, #34d399)',
                         filter: theme === 'light'
-                          ? 'drop-shadow(0 0 0px rgba(6,182,212,0))'
-                          : 'drop-shadow(0 0 15px rgba(6,182,212,0.5))'
+                          ? 'drop-shadow(0 0 0px rgba(45,212,191,0))'
+                          : 'drop-shadow(0 0 15px rgba(45,212,191,0.5))'
                       }}
                       transition={{ 
                         backgroundImage: { duration: 0.5 },

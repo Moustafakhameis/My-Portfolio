@@ -110,10 +110,10 @@ const TypewriterText = ({ text, delay = 1500, active = true }: { text: string, d
 const AnimatedText = ({ text, animate = true }: { text: string, animate?: boolean }) => {
   const words = text.split(' ');
   const colors = [
-    "from-blue-600 to-cyan-500 dark:from-blue-400 dark:to-cyan-300",
-    "from-indigo-600 to-cyan-500 dark:from-indigo-400 dark:to-cyan-300",
+    "from-blue-500 to-cyan-400 dark:from-blue-400 dark:to-cyan-300",
+    "from-teal-600 to-emerald-500 dark:from-teal-300 dark:to-emerald-300",
     "from-amber-600 to-orange-500 dark:from-amber-400 dark:to-orange-300",
-    "from-green-600 to-emerald-500 dark:from-green-400 dark:to-emerald-300"
+    "from-emerald-600 to-teal-500 dark:from-emerald-400 dark:to-teal-300"
   ];
 
   return (
@@ -212,7 +212,7 @@ export const HeroSection = ({ animate = true }: { animate?: boolean }) => {
                 rotate: { type: "tween", ease: "easeOut" }
               }}
               className="relative w-40 h-40 md:w-52 md:h-52 lg:w-56 lg:h-56 rounded-full overflow-hidden border-4 border-primary/20 bg-background/80 z-10 transition-all duration-700 group-hover:border-primary/60 animate-float-profile transform-gpu"
-              style={heroReady ? { boxShadow: '0 25px 50px -12px rgba(168,85,247,0.2)' } : undefined}
+              style={heroReady ? { boxShadow: '0 25px 50px -12px rgba(45,212,191,0.25)' } : undefined}
             >
               <img 
                 src={profilePic} 
@@ -252,7 +252,7 @@ export const HeroSection = ({ animate = true }: { animate?: boolean }) => {
                 scale: { type: "tween", ease: "easeOut", delay: 1.5 },
                 filter: { duration: 0.8, delay: 1.5 }
               }}
-              className={`text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-500 to-cyan-500 inline-block pt-4 pb-3 transform-gpu ${heroReady ? 'drop-shadow-lg animate-bg-pan' : ''}`}
+              className={`text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-400 to-emerald-400 inline-block pt-4 pb-3 transform-gpu ${heroReady ? 'drop-shadow-lg animate-bg-pan' : ''}`}
             >
               {language === 'ar' ? 'مُصْطَفَى' : 'Moustafa'}
             </motion.span>

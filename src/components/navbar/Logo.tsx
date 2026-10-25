@@ -40,7 +40,7 @@ export const Logo: React.FC<LogoProps> = ({ language, theme }) => {
         <motion.span 
           className="bg-clip-text text-transparent inline-block bg-[length:200%_auto] animate-bg-pan"
           animate={{ 
-            backgroundImage: `linear-gradient(120deg, ${theme === 'dark' ? '#ffffff' : '#000000'} 40%, rgba(168,85,247,0.5) 50%, ${theme === 'dark' ? '#ffffff' : '#000000'} 60%)`
+            backgroundImage: `linear-gradient(120deg, ${theme === 'dark' ? '#ffffff' : '#000000'} 40%, rgba(45,212,191,0.5) 50%, ${theme === 'dark' ? '#ffffff' : '#000000'} 60%)`
           }}
           transition={{ 
             backgroundImage: { duration: 0.5, ease: "easeInOut" }
@@ -48,7 +48,7 @@ export const Logo: React.FC<LogoProps> = ({ language, theme }) => {
           variants={{
             idle: { backgroundSize: "200% auto" },
             hover: {
-              backgroundImage: "linear-gradient(90deg, #a855f7, #06b6d4, #a855f7)",
+              backgroundImage: "linear-gradient(90deg, #10b981, #2dd4bf, #10b981)",
               backgroundSize: "200% auto",
             }
           }}
@@ -78,8 +78,8 @@ export const Logo: React.FC<LogoProps> = ({ language, theme }) => {
               },
               hover: {
                 scale: 1.15,
-                color: "#06b6d4",
-                filter: "drop-shadow(0px 0px 15px rgba(6,182,212,0.8))",
+                color: "#2dd4bf",
+                filter: "drop-shadow(0px 0px 15px rgba(45,212,191,0.8))",
                 transition: { type: "spring", stiffness: 400, damping: 25 }
               }
             }}
