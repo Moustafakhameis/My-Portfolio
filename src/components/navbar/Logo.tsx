@@ -32,7 +32,9 @@ export const Logo: React.FC<LogoProps> = ({ language, theme }) => {
           },
           hover: {
             y: -2,
-            filter: "drop-shadow(0px 8px 16px rgba(59,130,246,0.4))",
+            filter: theme === 'dark' 
+              ? "drop-shadow(0px 6px 16px rgba(168,85,247,0.5))" 
+              : "drop-shadow(0px 6px 16px rgba(46,16,101,0.35))",
             transition: { type: "spring", stiffness: 400, damping: 25 }
           }
         }}
@@ -40,7 +42,7 @@ export const Logo: React.FC<LogoProps> = ({ language, theme }) => {
         <motion.span 
           className="bg-clip-text text-transparent inline-block bg-[length:200%_auto] animate-bg-pan"
           animate={{ 
-            backgroundImage: `linear-gradient(120deg, ${theme === 'dark' ? '#ffffff' : '#000000'} 40%, rgba(59,130,246,0.5) 50%, ${theme === 'dark' ? '#ffffff' : '#000000'} 60%)`
+            backgroundImage: `linear-gradient(120deg, ${theme === 'dark' ? '#ffffff' : '#000000'} 40%, ${theme === 'dark' ? 'rgba(196,181,253,0.5)' : 'rgba(76,29,149,0.5)'} 50%, ${theme === 'dark' ? '#ffffff' : '#000000'} 60%)`
           }}
           transition={{ 
             backgroundImage: { duration: 0.5, ease: "easeInOut" }
@@ -48,7 +50,9 @@ export const Logo: React.FC<LogoProps> = ({ language, theme }) => {
           variants={{
             idle: { backgroundSize: "200% auto" },
             hover: {
-              backgroundImage: "linear-gradient(90deg, #2563eb, #38bdf8, #2563eb)",
+              backgroundImage: theme === 'dark'
+                ? "linear-gradient(90deg, #60a5fa, #c084fc, #818cf8)"
+                : "linear-gradient(90deg, #1e3a8a, #4c1d95, #2e1065)",
               backgroundSize: "200% auto",
             }
           }}
@@ -78,8 +82,10 @@ export const Logo: React.FC<LogoProps> = ({ language, theme }) => {
               },
               hover: {
                 scale: 1.15,
-                color: "#3b82f6",
-                filter: "drop-shadow(0px 0px 15px rgba(59,130,246,0.8))",
+                color: theme === 'dark' ? "#c084fc" : "#4c1d95",
+                filter: theme === 'dark'
+                  ? "drop-shadow(0px 0px 15px rgba(192,132,252,0.8))"
+                  : "drop-shadow(0px 0px 12px rgba(76,29,149,0.5))",
                 transition: { type: "spring", stiffness: 400, damping: 25 }
               }
             }}
