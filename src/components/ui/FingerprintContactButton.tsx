@@ -192,14 +192,14 @@ END:VCARD`;
             isScanned 
               ? 'text-green-500 dark:text-green-400' 
               : isPressing 
-                ? 'text-purple-500 dark:text-purple-400 scale-110' 
-                : 'text-slate-400 group-hover:text-purple-500 dark:text-white/50 dark:group-hover:text-purple-300'
+                ? 'text-cyan-500 dark:text-cyan-400 scale-110' 
+                : 'text-slate-400 group-hover:text-cyan-500 dark:text-white/50 dark:group-hover:text-cyan-300'
           }`}
           style={{
             filter: isScanned 
               ? 'drop-shadow(0 0 8px rgba(34, 197, 94, 0.8))' 
               : isPressing || progress > 0
-                ? 'drop-shadow(0 0 8px rgba(139, 92, 246, 0.6))'
+                ? 'drop-shadow(0 0 8px rgba(6, 182, 212, 0.6))'
                 : 'none'
           }}
         />

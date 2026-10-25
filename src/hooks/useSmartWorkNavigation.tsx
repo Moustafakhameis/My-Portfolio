@@ -45,7 +45,7 @@ const InteractiveEyes = () => {
         <div className="w-5 h-[28px] bg-gradient-to-b from-white to-gray-200 rounded-[12px] relative shadow-[inset_0_4px_6px_rgba(0,0,0,0.5),0_2px_4px_rgba(0,0,0,0.3)] overflow-hidden">
           {/* Iris & Pupil */}
           <motion.div 
-            className="absolute top-1.5 left-[3px] w-3.5 h-3.5 rounded-full bg-gradient-to-br from-indigo-500 via-purple-600 to-cyan-500 shadow-[inset_0_1px_3px_rgba(0,0,0,0.8)] flex items-center justify-center"
+            className="absolute top-1.5 left-[3px] w-3.5 h-3.5 rounded-full bg-gradient-to-br from-indigo-500 via-blue-600 to-cyan-500 shadow-[inset_0_1px_3px_rgba(0,0,0,0.8)] flex items-center justify-center"
             style={{ x: pupilX, y: pupilY }}
           >
             <div className="w-1.5 h-1.5 bg-black rounded-full relative">
@@ -65,7 +65,7 @@ const InteractiveEyes = () => {
         <div className="w-5 h-[28px] bg-gradient-to-b from-white to-gray-200 rounded-[12px] relative shadow-[inset_0_4px_6px_rgba(0,0,0,0.5),0_2px_4px_rgba(0,0,0,0.3)] overflow-hidden">
           {/* Iris & Pupil */}
           <motion.div 
-            className="absolute top-1.5 left-[3px] w-3.5 h-3.5 rounded-full bg-gradient-to-br from-indigo-500 via-purple-600 to-cyan-500 shadow-[inset_0_1px_3px_rgba(0,0,0,0.8)] flex items-center justify-center"
+            className="absolute top-1.5 left-[3px] w-3.5 h-3.5 rounded-full bg-gradient-to-br from-indigo-500 via-blue-600 to-cyan-500 shadow-[inset_0_1px_3px_rgba(0,0,0,0.8)] flex items-center justify-center"
             style={{ x: pupilX, y: pupilY }}
           >
             <div className="w-1.5 h-1.5 bg-black rounded-full relative">
@@ -164,7 +164,7 @@ const HolographicTooltip = ({ clickCount, tooltipPositionClass, arrowPositionCla
           {clickCount === 2 && (
             <div className="relative flex flex-col gap-3 text-start z-10" style={{ transform: "translateZ(20px)" }}>
               <div className="flex items-center gap-2 md:gap-3">
-                <div className="relative flex items-center justify-center w-12 h-12 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-indigo-500/30 to-purple-500/30 border border-white/20 shadow-[0_0_25px_rgba(168,85,247,0.5)] ring-2 ring-indigo-500/40 backdrop-blur-md overflow-hidden shrink-0">
+                <div className="relative flex items-center justify-center w-12 h-12 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-indigo-500/30 to-cyan-500/30 border border-white/20 shadow-[0_0_25px_rgba(6,182,212,0.5)] ring-2 ring-indigo-500/40 backdrop-blur-md overflow-hidden shrink-0">
                   <motion.div
                     className="relative flex items-center justify-center z-10 w-full h-full"
                     animate={{ y: [0, -3, 0], rotate: [-5, 5, -5] }}

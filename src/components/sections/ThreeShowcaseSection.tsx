@@ -8,8 +8,8 @@ import {
 import './ThreeShowcase.css';
 
 const COLOR_SCHEMES = [
-  { name: 'Purple',  primary: '#a855f7', secondary: '#7c3aed', glow: 'rgba(168,85,247,0.35)' },
-  { name: 'Cyan',    primary: '#22d3ee', secondary: '#0891b2', glow: 'rgba(34,211,238,0.35)' },
+  { name: 'Indigo',  primary: '#6366f1', secondary: '#4338ca', glow: 'rgba(99,102,241,0.35)' },
+  { name: 'Sky',     primary: '#38bdf8', secondary: '#0284c7', glow: 'rgba(56,189,248,0.35)' },
   { name: 'Teal',    primary: '#2dd4bf', secondary: '#0d9488', glow: 'rgba(45,212,191,0.35)' },
   { name: 'Emerald', primary: '#34d399', secondary: '#059669', glow: 'rgba(52,211,153,0.35)' },
   { name: 'Amber',   primary: '#fbbf24', secondary: '#d97706', glow: 'rgba(251,191,36,0.35)' },

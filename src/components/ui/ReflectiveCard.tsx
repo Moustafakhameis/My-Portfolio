@@ -239,7 +239,7 @@ const ReflectiveCard = ({
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '4px', marginBottom: '14px' }}>
               <span className="label">LOCAL TIME</span>
               <span className="text-slate-800 dark:text-white/85" style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', fontWeight: 700, letterSpacing: '0.05em' }}>
-                <Clock size={12} className="opacity-60 text-blue-500 dark:opacity-50 dark:text-purple-400" />
+                <Clock size={12} className="opacity-60 text-blue-500 dark:opacity-50 dark:text-cyan-400" />
                 <span>{timeString}</span>
                 <span style={{ opacity: 0.4, fontSize: '9px', letterSpacing: '0.1em' }}>CAIRO</span>
               </span>

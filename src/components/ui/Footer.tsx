@@ -39,7 +39,7 @@ export const Footer = () => {
     <footer className="relative mt-24 pt-20 pb-10 border-t border-border/10">
       {/* Background animated glows */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[400px] bg-gradient-to-t from-primary/10 via-purple-500/5 to-transparent blur-[100px] -z-10 blob-blur" />
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[400px] bg-gradient-to-t from-primary/10 via-cyan-500/5 to-transparent blur-[100px] -z-10 blob-blur" />
         <div className="absolute -bottom-[250px] -left-[100px] w-[600px] h-[600px] bg-primary/20 blur-[150px] rounded-full -z-10 pointer-events-none blob-blur opacity-40" />
       </div>
       

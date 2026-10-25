@@ -113,10 +113,10 @@ export const Biography = () => {
         
         <motion.div variants={cardReveal}>
           <BorderGlow
-            className="w-full h-full transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(168,85,247,0.2)]"
+            className="w-full h-full transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(6,182,212,0.2)]"
             backgroundColor="rgba(255,255,255,0.02)"
-            glowColor="270 95 65"
-            colors={['#a855f7', '#c084fc', '#d8b4fe']}
+            glowColor="190 95 65"
+            colors={['#06b6d4', '#38bdf8', '#818cf8']}
             borderRadius={32}
             animated={true}
             glowIntensity={1.2}

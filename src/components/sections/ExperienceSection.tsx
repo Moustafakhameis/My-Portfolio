@@ -141,7 +141,7 @@ export const ExperienceSection = () => {
         {/* Animated glowing progress line */}
         <motion.div 
           style={{ scaleY, transformOrigin: "top" }}
-          className={`absolute top-6 bottom-0 w-[3px] bg-gradient-to-b from-primary via-purple-500 to-cyan-500 shadow-[0_0_20px_rgba(168,85,247,0.8)] z-0 rounded-full ${language === 'ar' ? 'right-0 translate-x-1/2' : 'left-0 -translate-x-1/2'}`} 
+          className={`absolute top-6 bottom-0 w-[3px] bg-gradient-to-b from-primary via-blue-500 to-cyan-500 shadow-[0_0_20px_rgba(6,182,212,0.8)] z-0 rounded-full ${language === 'ar' ? 'right-0 translate-x-1/2' : 'left-0 -translate-x-1/2'}`} 
         />
 
         {experiences.map((exp, index) => (

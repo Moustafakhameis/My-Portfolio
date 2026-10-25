@@ -94,7 +94,7 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
                   animate={{ 
                     backgroundImage: theme === 'light' 
                       ? 'linear-gradient(90deg, #9333ea, #0891b2, #9333ea, #0891b2, #9333ea)' 
-                      : 'linear-gradient(90deg, #c084fc, #818cf8, #a5b4fc, #818cf8, #c084fc)'
+                      : 'linear-gradient(90deg, #38bdf8, #818cf8, #22d3ee, #818cf8, #38bdf8)'
                   }}
                   transition={{ 
                     backgroundImage: { duration: 0.5 }

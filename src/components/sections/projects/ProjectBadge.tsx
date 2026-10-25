@@ -48,9 +48,9 @@ export const ProjectBadge: React.FC<ProjectBadgeProps> = ({ category }) => {
         return { 
           label: language === 'ar' ? 'مشروع' : 'Project', 
           dot: 'bg-primary',
-          dotShadow: 'rgba(168, 85, 247, 0.5)',
-          bgClass: 'bg-primary/10 dark:bg-black/40 border-primary/20 dark:border-primary/30 shadow-[0_0_15px_rgba(168,85,247,0.15)]',
-          textClass: 'text-purple-700 dark:text-purple-300'
+          dotShadow: 'rgba(6, 182, 212, 0.5)',
+          bgClass: 'bg-primary/10 dark:bg-black/40 border-primary/20 dark:border-primary/30 shadow-[0_0_15px_rgba(6,182,212,0.15)]',
+          textClass: 'text-cyan-700 dark:text-cyan-300'
         };
     }
   };

@@ -1,5 +1,5 @@
 export const COLOR_SCHEMES = [
-  { name: 'Violet',  front: '#f3e8ff', mid: '#a855f7', back: '#4c1d95', glow: 'rgba(168,85,247,0.4)', ring: '#c084fc', spark: '#e9d5ff', light: '#06b6d4' },
+  { name: 'Indigo',  front: '#e0e7ff', mid: '#6366f1', back: '#312e81', glow: 'rgba(99,102,241,0.4)', ring: '#818cf8', spark: '#c7d2fe', light: '#06b6d4' },
   { name: 'Cyan',    front: '#e0f7fa', mid: '#06b6d4', back: '#0e4f5c', glow: 'rgba(6,182,212,0.4)',   ring: '#22d3ee', spark: '#a5f3fc', light: '#0ea5e9' },
   { name: 'Teal',    front: '#ccfbf1', mid: '#14b8a6', back: '#134e4a', glow: 'rgba(45,212,191,0.4)',    ring: '#2dd4bf', spark: '#99f6e4', light: '#f97316' },
   { name: 'Amber',   front: '#fef3c7', mid: '#f59e0b', back: '#78350f', glow: 'rgba(245,158,11,0.4)',   ring: '#fbbf24', spark: '#fde68a', light: '#ef4444' },
