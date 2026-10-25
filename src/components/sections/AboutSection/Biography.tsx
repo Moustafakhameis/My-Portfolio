@@ -47,7 +47,7 @@ export const Biography = () => {
             return (
               <span 
                 key={i} 
-                className={isLast ? "inline-block text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-400 to-emerald-400 drop-shadow-[0_0_20px_rgba(45,212,191,0.3)] pe-2 pb-3 lg:pb-4" : "inline-block text-foreground pb-3 lg:pb-4"}
+                className={isLast ? "inline-block text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-blue-600 to-purple-900 dark:from-[#ecfdf5] dark:via-[#3b82f6] dark:to-[#4c1d95] drop-shadow-[0_0_25px_rgba(59,130,246,0.3)] pe-2 pb-3 lg:pb-4" : "inline-block text-foreground pb-3 lg:pb-4"}
               >
                 {word}
               </span>
@@ -59,7 +59,7 @@ export const Biography = () => {
           whileInView={{ opacity: 1, scaleX: 1 }}
           viewport={{ once: true }}
           transition={{ type: "spring", stiffness: 300, damping: 25, delay: 0.2 }}
-          className="h-1.5 w-24 bg-gradient-to-r from-primary to-emerald-400 rounded-full mb-6 origin-left"
+          className="h-1.5 w-24 bg-gradient-to-r from-blue-500 to-[#4c1d95] rounded-full mb-6 origin-left"
         />
         <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8">
           {t('about', 'description')}
@@ -113,10 +113,10 @@ export const Biography = () => {
         
         <motion.div variants={cardReveal}>
           <BorderGlow
-            className="w-full h-full transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(6,182,212,0.2)]"
+            className="w-full h-full transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(59,130,246,0.25)]"
             backgroundColor="rgba(255,255,255,0.02)"
-            glowColor="190 95 65"
-            colors={['#06b6d4', '#38bdf8', '#818cf8']}
+            glowColor="225 80 50"
+            colors={['#3b82f6', '#6366f1', '#4c1d95']}
             borderRadius={32}
             animated={true}
             glowIntensity={1.2}

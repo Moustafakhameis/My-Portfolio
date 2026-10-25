@@ -167,7 +167,7 @@ export const SkillsSection = () => {
             return (
               <span 
                 key={i} 
-                className={isLast ? "inline-block text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-400 to-emerald-400 drop-shadow-[0_0_20px_rgba(45,212,191,0.3)] pe-2 pb-3 lg:pb-4" : "inline-block text-foreground pb-3 lg:pb-4"}
+                className={isLast ? "inline-block text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-blue-600 to-purple-900 dark:from-[#ecfdf5] dark:via-[#3b82f6] dark:to-[#4c1d95] drop-shadow-[0_0_25px_rgba(59,130,246,0.3)] pe-2 pb-3 lg:pb-4" : "inline-block text-foreground pb-3 lg:pb-4"}
               >
                 {word}
               </span>

@@ -86,7 +86,7 @@ export const NotFound = () => {
               key={index}
               variants={textVariants}
               whileHover={isTouchDevice ? undefined : { scale: 1.1, rotate: (Math.random() - 0.5) * 20, color: '#a855f7' }}
-              className="text-[100px] sm:text-[150px] md:text-[250px] font-black leading-none text-transparent bg-clip-text bg-gradient-to-br from-primary via-teal-400 to-emerald-400 drop-shadow-[0_0_40px_rgba(45,212,191,0.4)] cursor-default select-none inline-block transition-colors duration-300"
+              className="text-[100px] sm:text-[150px] md:text-[250px] font-black leading-none text-transparent bg-clip-text bg-gradient-to-br from-slate-900 via-blue-600 to-purple-900 dark:from-[#ecfdf5] dark:via-[#3b82f6] dark:to-[#4c1d95] drop-shadow-[0_0_40px_rgba(59,130,246,0.4)] cursor-default select-none inline-block transition-colors duration-300"
             >
               {char}
             </motion.span>
@@ -115,10 +115,10 @@ export const NotFound = () => {
           className="relative z-10"
         >
           <div onClick={goHome} className="group cursor-pointer">
-            <div className="absolute -inset-1 bg-gradient-to-r from-primary via-teal-400 to-emerald-400 rounded-full blur opacity-40 group-hover:opacity-75 transition duration-500"></div>
+            <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-[#4c1d95] rounded-full blur opacity-40 group-hover:opacity-75 transition duration-500"></div>
             <AnimatedButton href={import.meta.env.BASE_URL} className="relative inline-flex items-center justify-center gap-3 !px-8 !py-4 md:!px-10 md:!py-5 text-lg md:text-xl font-bold bg-background rounded-full hover:bg-background/80 overflow-hidden shadow-2xl transition-all w-full sm:w-auto">
-              <Home size={20} className="md:w-6 md:h-6 group-hover:text-emerald-400 transition-colors" />
-              <span className="group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-emerald-400 transition-all duration-300">Return to Earth</span>
+              <Home size={20} className="md:w-6 md:h-6 group-hover:text-blue-500 transition-colors" />
+              <span className="group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-500 group-hover:to-[#4c1d95] transition-all duration-300">Return to Earth</span>
             </AnimatedButton>
           </div>
         </motion.div>

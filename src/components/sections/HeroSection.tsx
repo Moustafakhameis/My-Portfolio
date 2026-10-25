@@ -109,22 +109,16 @@ const TypewriterText = ({ text, delay = 1500, active = true }: { text: string, d
 // Word reveal animation with blur and vibrant colors
 const AnimatedText = ({ text, animate = true }: { text: string, animate?: boolean }) => {
   const words = text.split(' ');
-  const colors = [
-    "from-blue-500 to-cyan-400 dark:from-blue-400 dark:to-cyan-300",
-    "from-teal-600 to-emerald-500 dark:from-teal-300 dark:to-emerald-300",
-    "from-amber-600 to-orange-500 dark:from-amber-400 dark:to-orange-300",
-    "from-emerald-600 to-teal-500 dark:from-emerald-400 dark:to-teal-300"
-  ];
 
   return (
-    <span className="inline-block">
+    <span className="inline-block text-foreground">
       {words.map((word, i) => (
-        <span key={i} className="inline-block overflow-visible me-4 pb-2">
+        <span key={i} className="inline-block overflow-visible me-3 sm:me-4 pb-2">
           <motion.span
             initial={{ y: "50%", opacity: 0 }}
             animate={animate ? { y: 0, opacity: 1 } : { y: "50%", opacity: 0 }}
             transition={{ duration: 0.8, ease: [] as const, delay: 0.8 + i * 0.15 }}
-            className={`text-transparent bg-clip-text bg-gradient-to-r ${colors[i % colors.length]} inline-block drop-shadow-sm pt-4 pb-3 transform-gpu will-change-[transform,opacity]`}
+            className="inline-block pt-4 pb-3 transform-gpu will-change-[transform,opacity] text-foreground"
           >
             {word}
           </motion.span>
@@ -212,7 +206,7 @@ export const HeroSection = ({ animate = true }: { animate?: boolean }) => {
                 rotate: { type: "tween", ease: "easeOut" }
               }}
               className="relative w-40 h-40 md:w-52 md:h-52 lg:w-56 lg:h-56 rounded-full overflow-hidden border-4 border-primary/20 bg-background/80 z-10 transition-all duration-700 group-hover:border-primary/60 animate-float-profile transform-gpu"
-              style={heroReady ? { boxShadow: '0 25px 50px -12px rgba(45,212,191,0.25)' } : undefined}
+              style={heroReady ? { boxShadow: '0 25px 50px -12px rgba(59,130,246,0.3)' } : undefined}
             >
               <img 
                 src={profilePic} 
@@ -252,7 +246,7 @@ export const HeroSection = ({ animate = true }: { animate?: boolean }) => {
                 scale: { type: "tween", ease: "easeOut", delay: 1.5 },
                 filter: { duration: 0.8, delay: 1.5 }
               }}
-              className={`text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-400 to-emerald-400 inline-block pt-4 pb-3 transform-gpu ${heroReady ? 'drop-shadow-lg animate-bg-pan' : ''}`}
+              className={`text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-blue-600 to-purple-900 dark:from-[#ecfdf5] dark:via-[#3b82f6] dark:to-[#4c1d95] inline-block pt-4 pb-3 transform-gpu ${heroReady ? 'drop-shadow-[0_0_35px_rgba(59,130,246,0.35)] animate-bg-pan' : ''}`}
             >
               {language === 'ar' ? 'مُصْطَفَى' : 'Moustafa'}
             </motion.span>

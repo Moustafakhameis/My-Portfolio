@@ -276,7 +276,7 @@
   height: 72px;
   border-radius: 50%;
   padding: 2px;
-  background: linear-gradient(135deg, #10b981, #2dd4bf, #10b981);
+  background: linear-gradient(135deg, #3b82f6, #4c1d95, #3b82f6);
   background-size: 200% 200%;
   animation: avatar-glow 4s ease infinite;
   margin-bottom: 4px;

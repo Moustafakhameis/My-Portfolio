@@ -99,7 +99,7 @@ export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
               {language === 'ar' ? (
                 <motion.span 
                   variants={letterVariants}
-                  className={`text-transparent bg-clip-text pb-2 ${theme === 'light' ? 'bg-gradient-to-br from-teal-800 via-teal-600 to-emerald-400' : 'bg-gradient-to-br from-white via-teal-300 to-emerald-400'}`}
+                  className={`text-transparent bg-clip-text pb-2 ${theme === 'light' ? 'bg-gradient-to-br from-slate-900 via-blue-600 to-purple-900' : 'bg-gradient-to-br from-[#ecfdf5] via-[#3b82f6] to-[#4c1d95]'}`}
                 >
                   {text}
                 </motion.span>
@@ -108,7 +108,7 @@ export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
                   <motion.span 
                     key={i} 
                     variants={letterVariants}
-                    className={`text-transparent bg-clip-text pb-2 ${theme === 'light' ? 'bg-gradient-to-br from-teal-800 via-teal-600 to-emerald-400' : 'bg-gradient-to-br from-white via-teal-300 to-emerald-400'}`}
+                    className={`text-transparent bg-clip-text pb-2 ${theme === 'light' ? 'bg-gradient-to-br from-slate-900 via-blue-600 to-purple-900' : 'bg-gradient-to-br from-[#ecfdf5] via-[#3b82f6] to-[#4c1d95]'}`}
                   >
                     {letter}
                   </motion.span>
@@ -125,10 +125,10 @@ export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
             >
               <div className={`w-full h-1 rounded-full overflow-hidden relative ${theme === 'light' ? 'bg-black/10 border border-black/5 shadow-[inset_0_1px_3px_rgba(0,0,0,0.1)]' : 'bg-white/10 border border-white/5 shadow-[inset_0_1px_3px_rgba(0,0,0,0.3)]'}`}>
                 <motion.div
-                  className={`absolute top-0 h-full rounded-full shadow-[0_0_20px_rgba(45,212,191,0.9)] ${
+                  className={`absolute top-0 h-full rounded-full shadow-[0_0_20px_rgba(59,130,246,0.8)] ${
                     language === 'ar' 
-                      ? 'right-0 bg-gradient-to-l from-primary via-teal-400 to-emerald-400' 
-                      : 'left-0 bg-gradient-to-r from-primary via-teal-400 to-emerald-400'
+                      ? 'right-0 bg-gradient-to-l from-[#ecfdf5] via-[#3b82f6] to-[#4c1d95]' 
+                      : 'left-0 bg-gradient-to-r from-[#ecfdf5] via-[#3b82f6] to-[#4c1d95]'
                   }`}
                   initial={{ width: '0%' }}
                   animate={{ width: `${progress}%` }}

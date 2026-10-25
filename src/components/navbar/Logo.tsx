@@ -48,7 +48,7 @@ export const Logo: React.FC<LogoProps> = ({ language, theme }) => {
           variants={{
             idle: { backgroundSize: "200% auto" },
             hover: {
-              backgroundImage: "linear-gradient(90deg, #10b981, #2dd4bf, #10b981)",
+              backgroundImage: "linear-gradient(90deg, #3b82f6, #4c1d95, #3b82f6)",
               backgroundSize: "200% auto",
             }
           }}
@@ -78,8 +78,8 @@ export const Logo: React.FC<LogoProps> = ({ language, theme }) => {
               },
               hover: {
                 scale: 1.15,
-                color: "#2dd4bf",
-                filter: "drop-shadow(0px 0px 15px rgba(45,212,191,0.8))",
+                color: "#3b82f6",
+                filter: "drop-shadow(0px 0px 15px rgba(59,130,246,0.8))",
                 transition: { type: "spring", stiffness: 400, damping: 25 }
               }
             }}
