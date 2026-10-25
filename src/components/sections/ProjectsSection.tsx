@@ -117,7 +117,7 @@ export const ProjectsSection = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1 }}
-            className="w-full h-[500px] md:h-[600px] relative mb-32 rounded-[2.5rem] overflow-hidden border border-primary/20 shadow-[0_0_50px_-12px_rgba(168,85,247,0.15)] bg-slate-950"
+            className="w-full h-[500px] md:h-[600px] relative mb-32 rounded-[2.5rem] overflow-hidden border border-primary/20 shadow-[0_0_50px_-12px_rgba(59,130,246,0.15)] bg-slate-950"
           >
             {shouldLoad3D && typeof window !== 'undefined' && window.innerWidth >= 1024 ? (
               <Suspense fallback={<div className="w-full h-full flex items-center justify-center text-primary">Loading 3D Engine...</div>}>
@@ -125,7 +125,7 @@ export const ProjectsSection = () => {
                 <div className="absolute inset-0 z-0">
                   <LightRays
                     raysOrigin="top-center"
-                    raysColor="#a855f7" // Primary purple theme
+                    raysColor="#3b82f6" // Royal blue theme
                     raysSpeed={1.5}
                     lightSpread={0.8}
                     rayLength={1.5}

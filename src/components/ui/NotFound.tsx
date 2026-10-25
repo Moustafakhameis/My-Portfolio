@@ -85,7 +85,7 @@ export const NotFound = () => {
             <motion.span 
               key={index}
               variants={textVariants}
-              whileHover={isTouchDevice ? undefined : { scale: 1.1, rotate: (Math.random() - 0.5) * 20, color: '#a855f7' }}
+              whileHover={isTouchDevice ? undefined : { scale: 1.1, rotate: (Math.random() - 0.5) * 20, color: '#3b82f6' }}
               className="text-[100px] sm:text-[150px] md:text-[250px] font-black leading-none text-transparent bg-clip-text bg-gradient-to-br from-slate-900 via-blue-600 to-purple-900 dark:from-[#ecfdf5] dark:via-[#3b82f6] dark:to-[#4c1d95] drop-shadow-[0_0_40px_rgba(59,130,246,0.4)] cursor-default select-none inline-block transition-colors duration-300"
             >
               {char}

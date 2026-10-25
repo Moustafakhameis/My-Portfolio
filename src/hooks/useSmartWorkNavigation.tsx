@@ -130,7 +130,7 @@ const HolographicTooltip = ({ clickCount, tooltipPositionClass, arrowPositionCla
         <div className="absolute -inset-[2px] rounded-2xl bg-gradient-to-r from-primary via-blue-500 to-cyan-500 opacity-40 blur-xl group-hover:opacity-60 transition duration-1000 animate-pulse" style={{ transform: "translateZ(-10px)" }} />
         
         {/* Main Tooltip Container */}
-        <div className="relative p-4 md:p-6 rounded-2xl bg-background/90 backdrop-blur-2xl border border-white/20 shadow-[0_20px_60px_-15px_rgba(168,85,247,0.4)] overflow-hidden" style={{ transform: "translateZ(0px)" }}>
+        <div className="relative p-4 md:p-6 rounded-2xl bg-background/90 backdrop-blur-2xl border border-white/20 shadow-[0_20px_60px_-15px_rgba(59,130,246,0.4)] overflow-hidden" style={{ transform: "translateZ(0px)" }}>
           {/* Holographic Glare Overlay */}
           {!isTouchDevice && (
             <motion.div 

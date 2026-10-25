@@ -114,16 +114,16 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
                   className="absolute inset-0 rounded-full z-0"
                   style={{
                     border: theme === 'light'
-                      ? '1px solid rgba(168,85,247,0.2)'
-                      : '1px solid rgba(168,85,247,0.4)',
+                      ? '1px solid rgba(59,130,246,0.2)'
+                      : '1px solid rgba(59,130,246,0.4)',
                   }}
                   animate={{
                     background: theme === 'light' 
-                      ? 'linear-gradient(135deg, rgba(168,85,247,0.05) 0%, rgba(139,92,246,0.02) 100%)'
-                      : 'linear-gradient(135deg, rgba(168,85,247,0.2) 0%, rgba(139,92,246,0.08) 100%)',
+                      ? 'linear-gradient(135deg, rgba(59,130,246,0.05) 0%, rgba(37,99,235,0.02) 100%)'
+                      : 'linear-gradient(135deg, rgba(59,130,246,0.2) 0%, rgba(37,99,235,0.08) 100%)',
                     boxShadow: theme === 'light'
-                      ? '0 0 10px -4px rgba(168,85,247,0)' 
-                      : '0 0 20px -4px rgba(168,85,247,0.4), inset 0 1px 0 rgba(255,255,255,0.08)',
+                      ? '0 0 10px -4px rgba(59,130,246,0)' 
+                      : '0 0 20px -4px rgba(59,130,246,0.4), inset 0 1px 0 rgba(255,255,255,0.08)',
                   }}
                   transition={{ type: "spring", stiffness: 350, damping: 28 }}
                 />
@@ -138,8 +138,8 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
                   transition={{ type: "tween", ease: "easeOut", duration: 0.3 }}
                   className="absolute inset-0 rounded-full z-0"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(168,85,247,0.1) 0%, rgba(139,92,246,0.04) 100%)',
-                    border: '1px solid rgba(168,85,247,0.12)',
+                    background: 'linear-gradient(135deg, rgba(59,130,246,0.1) 0%, rgba(37,99,235,0.04) 100%)',
+                    border: '1px solid rgba(59,130,246,0.12)',
                   }}
                 />
               )}
@@ -150,8 +150,8 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
                     layoutId="nav-active-bar"
                     className="absolute -bottom-1 left-[15%] right-[15%] h-[2px] rounded-full z-0"
                     style={{
-                      background: 'linear-gradient(90deg, transparent, rgba(168,85,247,0.9), rgba(192,132,252,1), rgba(168,85,247,0.9), transparent)',
-                      boxShadow: '0 0 10px rgba(168,85,247,0.6), 0 0 20px rgba(168,85,247,0.25)',
+                      background: 'linear-gradient(90deg, transparent, rgba(59,130,246,0.9), rgba(96,165,250,1), rgba(59,130,246,0.9), transparent)',
+                      boxShadow: '0 0 10px rgba(59,130,246,0.6), 0 0 20px rgba(59,130,246,0.25)',
                     }}
                     transition={{ type: "spring", stiffness: 350, damping: 28 }}
                   />
@@ -164,10 +164,10 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
                       clipPath: 'polygon(50% 0%, 61% 35%, 100% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 0% 35%, 39% 35%)',
                     }}
                     animate={{
-                      background: theme === 'light' ? '#9333ea' : '#fff',
+                      background: theme === 'light' ? '#2563eb' : '#fff',
                       filter: theme === 'light' 
-                        ? 'drop-shadow(0px 0px 2px #9333ea66) drop-shadow(0px 0px 0px #9333ea00)' 
-                        : 'drop-shadow(0px 0px 4px #a855f7ff) drop-shadow(0px 0px 10px #a855f7b3)',
+                        ? 'drop-shadow(0px 0px 2px #2563eb66) drop-shadow(0px 0px 0px #2563eb00)' 
+                        : 'drop-shadow(0px 0px 4px #3b82f6ff) drop-shadow(0px 0px 10px #3b82f6b3)',
                     }}
                     transition={{ duration: 0.5 }}
                   />
@@ -181,7 +181,7 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
       
       <motion.div variants={itemAnim} className="flex items-center gap-2 border-l border-border/50 pl-4 ml-2">
         <motion.button
-          whileHover={isTouchDevice ? undefined : { scale: 1.1, rotate: 5, backgroundColor: "rgba(168,85,247,0.15)" }}
+          whileHover={isTouchDevice ? undefined : { scale: 1.1, rotate: 5, backgroundColor: "rgba(59,130,246,0.15)" }}
           whileTap={{ scale: 0.9 }}
           onClick={toggleLanguage}
           className="p-2.5 rounded-full transition-colors flex items-center gap-2 group"
@@ -192,7 +192,7 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
         </motion.button>
         
         <motion.button
-          whileHover={isTouchDevice ? undefined : { scale: 1.1, backgroundColor: "rgba(168,85,247,0.15)" }}
+          whileHover={isTouchDevice ? undefined : { scale: 1.1, backgroundColor: "rgba(59,130,246,0.15)" }}
           whileTap={{ scale: 0.9 }}
           onClick={toggleTheme}
           className="p-2.5 rounded-full transition-colors relative flex items-center justify-center w-10 h-10 overflow-hidden"
@@ -221,7 +221,7 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
             transition={{ duration: 0.4, ease: "easeInOut" }}
             className="absolute"
           >
-            <Moon size={20} className="text-primary drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]" />
+            <Moon size={20} className="text-primary drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]" />
           </motion.div>
         </motion.button>
       </motion.div>

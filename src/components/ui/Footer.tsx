@@ -168,7 +168,7 @@ export const Footer = () => {
                   initial={{ y: "100%" }}
                   animate={{ y: isHovered ? "0%" : "100%" }}
                   transition={{ type: "tween", ease: "easeOut", duration: 0.4 }}
-                  className="absolute inset-0 bg-gradient-to-r from-primary to-purple-500 z-0 rounded-lg"
+                  className="absolute inset-0 bg-gradient-to-r from-primary to-blue-600 z-0 rounded-lg"
                 />
               </motion.a>
             </motion.div>

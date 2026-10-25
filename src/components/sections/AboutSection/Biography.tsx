@@ -126,9 +126,9 @@ export const Biography = () => {
             fillOpacity={0.05}
           >
             <div className="relative p-6 md:p-8 w-full h-full flex flex-col items-center justify-center text-center group cursor-pointer overflow-hidden rounded-[32px]">
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative z-10 flex flex-col items-center w-full transform transition-transform duration-300 group-hover:scale-105">
-                <h3 className={`text-6xl md:text-7xl ${language === 'ar' ? 'font-extrabold pb-2' : 'font-black pb-1'} mb-2 text-foreground/90 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-b group-hover:from-foreground group-hover:to-purple-500 transition-all duration-500 drop-shadow-sm group-hover:drop-shadow-[0_0_20px_rgba(168,85,247,0.8)]`}>
+                <h3 className={`text-6xl md:text-7xl ${language === 'ar' ? 'font-extrabold pb-2' : 'font-black pb-1'} mb-2 text-foreground/90 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-b group-hover:from-foreground group-hover:to-blue-500 transition-all duration-500 drop-shadow-sm group-hover:drop-shadow-[0_0_20px_rgba(59,130,246,0.8)]`}>
                   20+
                 </h3>
                 <p className="text-sm font-bold text-muted-foreground uppercase tracking-wider sm:tracking-[0.25em] group-hover:text-foreground transition-colors duration-500 mt-2">{t('about', 'projectsCompleted')}</p>

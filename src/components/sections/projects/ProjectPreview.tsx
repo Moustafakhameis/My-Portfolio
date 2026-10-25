@@ -34,7 +34,7 @@ export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ image, images, t
   // Fallback CSS gradient placeholder based on category
   const getGradient = () => {
     switch (category) {
-      case 'featured': return 'from-purple-500/20 via-blue-500/20 to-cyan-500/20 dark:from-purple-900/40 dark:via-blue-900/40 dark:to-cyan-900/40';
+      case 'featured': return 'from-blue-600/20 via-indigo-600/20 to-cyan-500/20 dark:from-blue-900/40 dark:via-indigo-900/40 dark:to-cyan-900/40';
       case 'professional': return 'from-blue-500/20 via-cyan-500/20 to-teal-500/20 dark:from-blue-900/40 dark:via-cyan-900/40 dark:to-teal-900/40';
       case 'practice': return 'from-emerald-500/20 via-green-500/20 to-lime-500/20 dark:from-emerald-900/40 dark:via-green-900/40 dark:to-lime-900/40';
       case 'learning': return 'from-orange-500/20 via-red-500/20 to-teal-500/20 dark:from-orange-900/40 dark:via-red-900/40 dark:to-teal-900/40';
@@ -105,7 +105,7 @@ export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ image, images, t
                 <button 
                   key={`indicator-${idx}`}
                   onClick={(e) => { e.preventDefault(); e.stopPropagation(); setCurrentIndex(idx); }}
-                  className={`h-1 md:h-1.5 rounded-full transition-all duration-500 ${idx === currentIndex ? 'w-5 md:w-6 bg-primary shadow-[0_0_10px_rgba(168,85,247,0.8)]' : 'w-1.5 md:w-2 bg-white/40'}`}
+                  className={`h-1 md:h-1.5 rounded-full transition-all duration-500 ${idx === currentIndex ? 'w-5 md:w-6 bg-primary shadow-[0_0_10px_rgba(59,130,246,0.8)]' : 'w-1.5 md:w-2 bg-white/40'}`}
                   aria-label={`Go to image ${idx + 1}`}
                 />
               ))}

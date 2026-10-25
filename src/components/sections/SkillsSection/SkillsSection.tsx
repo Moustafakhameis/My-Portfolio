@@ -181,7 +181,7 @@ export const SkillsSection = () => {
         <div className="flex flex-wrap items-center justify-center gap-4">
           <motion.button
             type="button"
-            whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(168, 85, 247, 0.4)" }}
+            whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(59, 130, 246, 0.4)" }}
             whileTap={{ scale: 0.95 }}
             onClick={handleReset}
             className="inline-flex items-center gap-2 px-6 py-3 bg-card/95 border border-border/50 hover:border-primary/50 hover:bg-primary/10 text-foreground font-semibold rounded-full transition-all duration-300 relative overflow-hidden group"
@@ -193,14 +193,14 @@ export const SkillsSection = () => {
           
           <motion.button
             type="button"
-            whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(168, 85, 247, 0.4)" }}
+            whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(59, 130, 246, 0.4)" }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setIsPaused(!isPaused)}
             className="inline-flex items-center gap-2 px-6 py-3 bg-card/95 border border-border/50 hover:border-primary/50 hover:bg-primary/10 text-foreground font-semibold rounded-full transition-all duration-300 relative overflow-hidden group"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
             <motion.div animate={{ scale: isPaused ? [1, 1.2, 1] : 1 }} transition={{ duration: 1.5, repeat: isPaused ? Infinity : 0, ease: "easeInOut" }} className="relative z-10">
-              {isPaused ? <Play size={18} className="text-primary drop-shadow-[0_0_8px_rgba(168,85,247,0.8)]" fill="currentColor" /> : <Pause size={18} className="text-primary" />}
+              {isPaused ? <Play size={18} className="text-primary drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]" fill="currentColor" /> : <Pause size={18} className="text-primary" />}
             </motion.div>
             <span className="relative z-10">{isPaused ? t('skills', 'play') : t('skills', 'pause')}</span>
           </motion.button>

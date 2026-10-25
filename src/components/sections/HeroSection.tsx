@@ -181,7 +181,7 @@ export const HeroSection = ({ animate = true }: { animate?: boolean }) => {
       />
       <motion.div 
         custom={2} variants={floatingBubbleVariants} initial="initial" animate={animate ? "animate" : "initial"}
-        className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 dark:bg-primary/10 rounded-full blur-2xl -z-10 blob-blur"
+        className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-600/10 dark:bg-primary/10 rounded-full blur-2xl -z-10 blob-blur"
       />
 
       <motion.div 

@@ -100,7 +100,7 @@ export const MobileNav: React.FC<MobileNavProps> = ({
                     <motion.div
                       className="absolute inset-0 z-[1] pointer-events-none"
                       style={{
-                        background: 'radial-gradient(ellipse at 50% 50%, rgba(168,85,247,0.2) 0%, transparent 60%)',
+                        background: 'radial-gradient(ellipse at 50% 50%, rgba(59,130,246,0.2) 0%, transparent 60%)',
                       }}
                       animate={{ opacity: [0.6, 1, 0.6] }}
                       transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
@@ -137,8 +137,8 @@ export const MobileNav: React.FC<MobileNavProps> = ({
                         layoutId="mobile-active-bar"
                         className="absolute -bottom-2 left-[10%] right-[10%] h-[3px] rounded-full z-0"
                         style={{
-                          background: 'linear-gradient(90deg, transparent, rgba(168,85,247,0.9), rgba(192,132,252,1), rgba(168,85,247,0.9), transparent)',
-                          boxShadow: '0 0 12px rgba(168,85,247,0.7), 0 0 24px rgba(168,85,247,0.35)',
+                          background: 'linear-gradient(90deg, transparent, rgba(59,130,246,0.9), rgba(96,165,250,1), rgba(59,130,246,0.9), transparent)',
+                          boxShadow: '0 0 12px rgba(59,130,246,0.7), 0 0 24px rgba(59,130,246,0.35)',
                         }}
                       />
                       <motion.div
@@ -150,10 +150,10 @@ export const MobileNav: React.FC<MobileNavProps> = ({
                           clipPath: 'polygon(50% 0%, 61% 35%, 100% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 0% 35%, 39% 35%)',
                         }}
                         animate={{
-                          background: theme === 'light' ? '#9333ea' : '#fff',
+                          background: theme === 'light' ? '#2563eb' : '#fff',
                           filter: theme === 'light'
-                            ? 'drop-shadow(0px 0px 2px #9333ea66) drop-shadow(0px 0px 0px #9333ea00)'
-                            : 'drop-shadow(0px 0px 5px #a855f7ff) drop-shadow(0px 0px 12px #a855f7cc)',
+                            ? 'drop-shadow(0px 0px 2px #2563eb66) drop-shadow(0px 0px 0px #2563eb00)'
+                            : 'drop-shadow(0px 0px 5px #3b82f6ff) drop-shadow(0px 0px 12px #3b82f6cc)',
                         }}
                         transition={{ duration: 0.5 }}
                       />
@@ -211,7 +211,7 @@ export const MobileNav: React.FC<MobileNavProps> = ({
                   transition={{ duration: 0.4, ease: "easeInOut" }}
                   className="absolute"
                 >
-                  <Moon size={28} className="text-primary drop-shadow-[0_0_10px_rgba(168,85,247,0.5)]" />
+                  <Moon size={28} className="text-primary drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
                 </motion.div>
               </motion.button>
             </motion.div>

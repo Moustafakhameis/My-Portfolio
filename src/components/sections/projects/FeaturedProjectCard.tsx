@@ -45,12 +45,12 @@ export const FeaturedProjectCard: React.FC<FeaturedProjectCardProps> = ({ projec
         whileHover={isTouchDevice ? undefined : { y: -10 }} 
         transition={{ type: "tween", ease: "easeOut", duration: 0.4 }}
       >
-        <div className="relative overflow-hidden rounded-[2.5rem] border border-border/40 bg-card/30 md:bg-card/20 shadow-2xl hover:shadow-[0_30px_60px_-15px_rgba(168,85,247,0.4)] transition-all duration-700">
+        <div className="relative overflow-hidden rounded-[2.5rem] border border-border/40 bg-card/30 md:bg-card/20 shadow-2xl hover:shadow-[0_30px_60px_-15px_rgba(59,130,246,0.35)] transition-all duration-700">
           
           {/* Intense glow on hover — desktop only */}
           {!isTouchDevice && (
             <div
-              className="pointer-events-none absolute -inset-px opacity-0 transition duration-500 group-hover:opacity-100 z-10 rounded-[2.5rem] bg-[radial-gradient(800px_circle_at_center,rgba(168,85,247,0.15)_0%,transparent_80%)]"
+              className="pointer-events-none absolute -inset-px opacity-0 transition duration-500 group-hover:opacity-100 z-10 rounded-[2.5rem] bg-[radial-gradient(800px_circle_at_center,rgba(59,130,246,0.15)_0%,transparent_80%)]"
             />
           )}
 

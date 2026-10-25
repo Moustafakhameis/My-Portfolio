@@ -62,7 +62,7 @@ const SpotlightCard = ({ children, className = "" }: { children: React.ReactNode
   const background = useMotionTemplate`
     radial-gradient(
       400px circle at ${mouseX}px ${mouseY}px,
-      rgba(168, 85, 247, 0.15) 0%,
+      rgba(59, 130, 246, 0.15) 0%,
       transparent 80%
     )
   `;
@@ -163,7 +163,7 @@ export const ExperienceSection = () => {
                 visible: { opacity: 1, scale: 1, transition: { type: "tween", ease: "easeOut", duration: 0.8 } }
               }}
               whileHover={isTouchDevice ? undefined : { scale: 1.2, rotate: 360, transition: { type: "tween", ease: "easeOut", duration: 0.8 } }}
-              className={`absolute top-6 p-2.5 bg-background border-2 border-border group-hover:border-primary rounded-full text-muted-foreground group-hover:text-primary shadow-sm group-hover:shadow-[0_0_20px_rgba(168,85,247,0.6)] transition-colors z-10 ring-4 ring-background ${language === 'ar' ? 'right-0 translate-x-1/2' : 'left-0 -translate-x-1/2'}`}
+              className={`absolute top-6 p-2.5 bg-background border-2 border-border group-hover:border-primary rounded-full text-muted-foreground group-hover:text-primary shadow-sm group-hover:shadow-[0_0_20px_rgba(59,130,246,0.6)] transition-colors z-10 ring-4 ring-background ${language === 'ar' ? 'right-0 translate-x-1/2' : 'left-0 -translate-x-1/2'}`}
             >
               <Briefcase size={18} />
             </motion.div>

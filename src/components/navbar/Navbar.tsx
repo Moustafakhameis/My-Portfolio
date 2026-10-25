@@ -258,7 +258,7 @@ export const Navbar = ({ active = true }: { active?: boolean }) => {
               <div 
                 className="absolute -bottom-3 left-[15%] right-[15%] h-[6px] rounded-full pointer-events-none"
                 style={{
-                  background: 'radial-gradient(ellipse at 50% 0%, rgba(168,85,247,0.08) 0%, transparent 70%)',
+                  background: 'radial-gradient(ellipse at 50% 0%, rgba(59,130,246,0.08) 0%, transparent 70%)',
                   filter: 'blur(4px)',
                 }}
               />

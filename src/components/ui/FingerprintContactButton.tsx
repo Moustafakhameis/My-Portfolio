@@ -137,11 +137,11 @@ END:VCARD`;
       whileTap={{ scale: 0.95 }}
     >
       {/* Background container */}
-      <div className="absolute inset-0 rounded-full bg-slate-500/5 group-hover:bg-slate-500/10 dark:bg-white/5 dark:group-hover:bg-white/10 transition-colors duration-300 border border-slate-500/10 dark:border-white/5 group-hover:border-purple-500/30" />
+      <div className="absolute inset-0 rounded-full bg-slate-500/5 group-hover:bg-slate-500/10 dark:bg-white/5 dark:group-hover:bg-white/10 transition-colors duration-300 border border-slate-500/10 dark:border-white/5 group-hover:border-blue-500/30" />
 
       {/* Idle breathing glow */}
       {!isPressing && !isScanned && (
-        <div className="absolute inset-0 rounded-full border border-purple-500/20 animate-breathe-glow" />
+        <div className="absolute inset-0 rounded-full border border-blue-500/20 animate-breathe-glow" />
       )}
 
       {/* Background ring for progress */}
@@ -160,14 +160,14 @@ END:VCARD`;
           cy="32"
           r="28"
           fill="none"
-          stroke={isScanned ? "#22c55e" : "#8b5cf6"}
+          stroke={isScanned ? "#22c55e" : "#3b82f6"}
           strokeWidth="2"
           strokeLinecap="round"
           strokeDasharray="175.93"
           initial={{ strokeDashoffset: 175.93 }}
           animate={{ strokeDashoffset: 175.93 - (175.93 * progress) / 100 }}
           transition={{ ease: "linear", duration: 0.1 }}
-          style={{ filter: 'drop-shadow(0 0 4px rgba(139, 92, 246, 0.6))' }}
+          style={{ filter: 'drop-shadow(0 0 4px rgba(59, 130, 246, 0.6))' }}
         />
       </svg>
 
@@ -179,7 +179,7 @@ END:VCARD`;
             animate={{ scale: 1.5, opacity: 0 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1, repeat: Infinity }}
-            className="absolute inset-0 bg-purple-500/40 blur-sm rounded-full pointer-events-none"
+            className="absolute inset-0 bg-blue-500/40 blur-sm rounded-full pointer-events-none"
           />
         )}
       </AnimatePresence>
